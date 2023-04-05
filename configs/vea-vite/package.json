@@ -1,0 +1,35 @@
+{
+  "name": "@etfm/vea-vite",
+  "version": "0.0.0",
+  "description": "> TODO: description",
+  "author": "liuzhidong <1956252575@qq.com>",
+  "homepage": "https://github.com/etfm/vue-etfm-admin#readme",
+  "license": "ISC",
+  "main": "dist/index.cjs",
+  "types": "dist/index.d.ts",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/etfm/vue-etfm-admin.git"
+  },
+  "scripts": {
+    "test": "node ./__tests__/@etfm/vea-vite.test.js",
+    "prepack": "pnpm unbuild --stub"
+  },
+  "bugs": {
+    "url": "https://github.com/etfm/vue-etfm-admin/issues"
+  },
+  "devDependencies": {
+    "chalk": "^5.2.0",
+    "unbuild": "^1.2.0"
+  }
+}

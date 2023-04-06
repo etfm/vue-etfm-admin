@@ -18,6 +18,8 @@
     "commit": "czg"
   },
   "dependencies": {
+    "@element-plus/icons-vue": "^2.1.0",
+    "element-plus": "^2.3.2",
     "pinia": "^2.0.32",
     "vue": "^3.2.47",
     "vue-router": "^4.1.6"
@@ -47,8 +49,10 @@
     "npm-run-all": "^4.1.5",
     "prettier": "^2.8.4",
     "rimraf": "^4.4.1",
+    "sass": "^1.60.0",
     "start-server-and-test": "^2.0.0",
     "typescript": "~4.8.4",
+    "unbuild": "^1.2.0",
     "vite": "^4.1.4",
     "vitest": "^0.29.1",
     "vue-tsc": "^1.2.0"

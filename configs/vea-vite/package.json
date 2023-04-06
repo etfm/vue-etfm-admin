@@ -30,6 +30,7 @@
   },
   "devDependencies": {
     "chalk": "^5.2.0",
-    "unbuild": "^1.2.0"
+    "unbuild": "^1.2.0",
+    "unplugin-element-plus": "^0.7.0"
   }
 }

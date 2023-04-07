@@ -81,6 +81,7 @@ importers:
 
   apps/element-admin:
     specifiers:
+      '@etfm/vea-styles': ^0.0.0
       '@etfm/vea-vite': ^0.0.0
     dependencies:
       '@etfm/vea-vite': link:../../configs/vea-vite

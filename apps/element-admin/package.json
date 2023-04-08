@@ -10,6 +10,7 @@
     "type-check": "vue-tsc --noEmit"
   },
   "dependencies": {
+    "@etfm/vea-hooks": "^0.0.0",
     "@etfm/vea-styles": "^0.0.0",
     "@etfm/vea-vite": "^0.0.0"
   }

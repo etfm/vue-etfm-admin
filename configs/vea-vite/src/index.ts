@@ -5,7 +5,10 @@ import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import { mergeConfig } from 'vite'
 import { resolve } from 'path'
-import ElementPlus from 'unplugin-element-plus/dist/vite'
+import ElementPlus from 'unplugin-element-plus/vite'
+import UnoCSS from 'unocss/vite'
+import { presetIcons } from 'unocss'
+
 export default function createViteConfig(cwd: string, framework: string) {
   console.log()
   console.log(chalk.bgBlue('当前处于开发测试阶段，还会有大量更新，仅供参考，请勿用于实际项目！\n'))
@@ -16,7 +19,14 @@ export default function createViteConfig(cwd: string, framework: string) {
     const commonConfig: UserConfig = {
       root,
       base: '/',
-      plugins: [vue(), vueJsx(), ElementPlus({})],
+      plugins: [
+        vue(),
+        vueJsx(),
+        ElementPlus({}),
+        UnoCSS({
+          presets: [presetIcons()]
+        })
+      ],
       resolve: {
         alias: {
           '@/': `${resolve(root, 'src')}/`

@@ -1,28 +1,37 @@
 <template>
-  <ElHeader class="header">
-    <div class="header-left">
+  <ElHeader :class="ns.b()">
+    <div :class="[ns.m('left')]">
+      <AppLogo />
       <!-- 收缩组件 -->
       <HeaderTrigger />
       <!-- 面包屑 -->
       <LayoutBreadcrumb />
     </div>
-    <div class="header-right">22</div>
+    <div :class="[ns.m('right')]">
+      <LayoutSetting />
+    </div>
   </ElHeader>
 </template>
 <script lang="ts" setup>
 import { ElHeader } from 'element-plus'
 import HeaderTrigger from '../trigger/header-trigger.vue'
 import LayoutBreadcrumb from '../components/breadcrumb/layout-breadcrumb.vue'
+import { useNamespace } from '@etfm/vea-hooks'
+import AppLogo from '../components/logo/app-logo.vue'
+import LayoutSetting from '../components/setting/layout-setting.vue'
+
+const ns = useNamespace('header')
 </script>
 <style scoped lang="scss">
-.header {
+@use '@etfm/vea-styles' as *;
+@include b(header) {
   width: 100%;
-  background-color: aqua;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 0px;
 
-  &-left {
+  @include m(left) {
     display: flex;
     align-items: center;
   }

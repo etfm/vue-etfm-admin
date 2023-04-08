@@ -1,8 +1,8 @@
 {
-  "name": "@etfm/vea-shared",
+  "name": "@etfm/vea-element",
   "version": "0.0.0",
   "description": "> TODO: description",
-  "author": "liuzhidong <1956252575@qq.com>",
+  "author": "lzdjack <1956252575@qq.com>",
   "homepage": "https://github.com/etfm/vue-etfm-admin#readme",
   "license": "ISC",
   "main": "src/index.ts",
@@ -22,18 +22,14 @@
     "url": "git+https://github.com/etfm/vue-etfm-admin.git"
   },
   "scripts": {
-    "test": "node ./__tests__/@etfm/shared.test.js"
+    "test": "node ./__tests__/@etfm/vea-element.test.js"
   },
   "bugs": {
     "url": "https://github.com/etfm/vue-etfm-admin/issues"
   },
   "dependencies": {
-    "@vueuse/core": "^9.13.0",
-    "@vueuse/shared": "^9.13.0",
-    "dayjs": "^1.11.7",
-    "lodash-es": "^4.17.21"
-  },
-  "devDependencies": {
-    "@types/lodash-es": "^4.17.7"
+    "@etfm/vea-hooks": "^0.0.0",
+    "@etfm/vea-shared": "^0.0.0",
+    "@etfm/vea-styles": "^0.0.0"
   }
 }

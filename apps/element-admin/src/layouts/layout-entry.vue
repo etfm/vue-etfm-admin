@@ -4,12 +4,12 @@
     <LayoutHeader />
     <ElContainer>
       <!-- 左侧菜单 左右菜单布局、上下菜单布局 -->
-      <!-- <LayoutSider /> -->
+      <LayoutSider />
       <ElContainer>
         <!-- tabs  不能与LayoutHeader和LayoutMultipleHeader里的header同时存在 -->
-        <!-- <LayoutMultipleHeader /> -->
+        <LayoutMultipleHeader />
         <!-- 内容区域 -->
-        <!-- <LayoutContent /> -->
+        <LayoutContent />
         <!-- 底部区域 -->
         <!-- <LayoutFooter /> -->
       </ElContainer>

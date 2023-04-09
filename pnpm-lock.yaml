@@ -114,6 +114,10 @@ importers:
   packages/etfm-element:
     specifiers: {}
 
+  packages/router:
+    specifiers:
+      '@etfm/vea-shared': ^0.0.0
+
   packages/shared:
     specifiers:
       '@vueuse/core': ^9.13.0

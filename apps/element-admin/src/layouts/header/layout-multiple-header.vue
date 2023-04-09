@@ -1,5 +1,6 @@
 <template>
-  <!-- 1. 实现头部左右布局
-    2. tabs布局 -->
+  <!-- 左右布局 -->
+  <div></div>
+  <!-- tabs布局 -->
   <div></div>
 </template>

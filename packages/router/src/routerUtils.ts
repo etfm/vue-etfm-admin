@@ -1,43 +1,33 @@
-import { loggerWarning, lodash } from '@etfm/vea-shared'
+import { loggerWarning, eachTree, lodash } from '@etfm/vea-shared'
 import type { AppRouteModule, AppRouteRecordRaw, Recordable } from './types'
+import {
+  createWebHashHistory,
+  type RouteRecordNormalized,
+  type Router,
+  createRouter
+} from 'vue-router'
+import { context } from './register'
 
 let dynamicViewsModules: Record<string, () => Promise<Recordable>>
 
 export function transformObjToRoute<T = AppRouteModule>(routeList: AppRouteModule[]): T[] {
-  routeList.forEach((route) => {
+  dynamicViewsModules =
+    dynamicViewsModules || import.meta.glob('/src/{views,layouts}/**/*.{vue,tsx}')
+
+  eachTree(routeList, (route) => {
     const component = route.component as string
+    if (!route.component && route.meta?.frameSrc) {
+      route.component = 'IFRAME'
+    }
     if (component) {
-      route.children = [lodash.cloneDeep(route)]
-      route.name = `${route.name}Parent`
-      route.path = ''
-      const meta = route.meta || {}
-      meta.single = true
-      meta.affix = false
-      route.meta = meta
+      route.component = dynamicImport(dynamicViewsModules, route.component)
+      route.meta ||= {}
     } else {
       loggerWarning('请正确配置路由：' + route?.name + '的component属性')
     }
-    route.children && asyncImportRoute(route.children)
   })
+
   return routeList as unknown as T[]
-}
-
-function asyncImportRoute(routes: AppRouteRecordRaw[] | undefined) {
-  dynamicViewsModules = dynamicViewsModules || import.meta.glob('../../views/**/*.{vue,tsx}')
-  if (!routes) return
-  routes.forEach((item) => {
-    console.log(item.component)
-
-    if (!item.component && item.meta?.frameSrc) {
-      item.component = 'IFRAME'
-    }
-    const { component, name } = item
-    const { children } = item
-    if (component) {
-      item.component = dynamicImport(dynamicViewsModules, component as string)
-    }
-    children && asyncImportRoute(children)
-  })
 }
 
 function dynamicImport(
@@ -45,16 +35,25 @@ function dynamicImport(
   component: string
 ) {
   const keys = Object.keys(dynamicViewsModules)
+
   const matchKeys = keys.filter((key) => {
-    const k = key.replace('../../views', '')
-    const startFlag = component.startsWith('/')
-    const endFlag = component.endsWith('.vue') || component.endsWith('.tsx')
-    const startIndex = startFlag ? 0 : 1
-    const lastIndex = endFlag ? k.length : k.lastIndexOf('.')
-    return k.substring(startIndex, lastIndex) === component
+    let k
+    if (key.startsWith('/src/views/')) {
+      k = key.replace('/src/views/', '')
+    } else if (key.startsWith('/src/layouts/')) {
+      k = key.replace('/src/layouts/', '')
+    } else {
+      k = key.replace('/src/views/', '')
+    }
+
+    const lastIndex = k.lastIndexOf('.')
+
+    return k.substring(0, lastIndex) === component
   })
+
   if (matchKeys?.length === 1) {
     const matchKey = matchKeys[0]
+
     return dynamicViewsModules[matchKey]
   } else if (matchKeys?.length > 1) {
     loggerWarning(
@@ -67,4 +66,102 @@ function dynamicImport(
     )
     return
   }
+}
+
+/**
+ * Convert multi-level routing to level 2 routing
+ * 将多级路由转换为 2 级路由
+ */
+export function flatMultiLevelRoutes(routeModules: AppRouteModule[]) {
+  const modules: AppRouteModule[] = lodash.cloneDeep(routeModules)
+
+  for (let index = 0; index < modules.length; index++) {
+    const routeModule = modules[index]
+    // 判断级别是否 多级 路由
+    if (!isMultipleRoute(routeModule)) {
+      // 声明终止当前循环， 即跳过此次循环，进行下一轮
+      continue
+    }
+    // 路由等级提升
+    promoteRouteLevel(routeModule)
+  }
+  return modules
+}
+
+// Routing level upgrade
+// 路由等级提升
+function promoteRouteLevel(routeModule: AppRouteModule) {
+  // Use vue-router to splice menus
+  // 使用vue-router拼接菜单
+  // createRouter 创建一个可以被 Vue 应用程序使用的路由实例
+  let router: Router | null = createRouter({
+    routes: [routeModule as unknown as RouteRecordNormalized],
+    history: createWebHashHistory()
+  })
+  // getRoutes： 获取所有 路由记录的完整列表。
+  const routes = router.getRoutes()
+  // 将所有子路由添加到二级路由
+  addToChildren(routes, routeModule.children || [], routeModule)
+  router = null
+
+  // omit lodash的函数 对传入的item对象的children进行删除
+  routeModule.children = routeModule.children?.map((item) => lodash.omit(item, 'children')) as any
+}
+
+// Add all sub-routes to the secondary route
+// 将所有子路由添加到二级路由
+function addToChildren(
+  routes: RouteRecordNormalized[],
+  children: AppRouteRecordRaw[],
+  routeModule: AppRouteModule
+) {
+  for (let index = 0; index < children.length; index++) {
+    const child = children[index]
+    const route = routes.find((item) => item.name === child.name)
+    if (!route) {
+      continue
+    }
+    routeModule.children = routeModule.children || []
+    if (!routeModule.children.find((item) => item.name === route.name)) {
+      routeModule.children?.push(route as unknown as AppRouteModule)
+    }
+    if (child.children?.length) {
+      addToChildren(routes, child.children, routeModule)
+    }
+  }
+}
+
+// Determine whether the level exceeds 2 levels
+// 判断级别是否超过2级
+function isMultipleRoute(routeModule: AppRouteModule) {
+  // Reflect.has 与 in 操作符 相同, 用于检查一个对象(包括它原型链上)是否拥有某个属性
+  if (!routeModule || !Reflect.has(routeModule, 'children') || !routeModule.children?.length) {
+    return false
+  }
+
+  const children = routeModule.children
+
+  let flag = false
+  for (let index = 0; index < children.length; index++) {
+    const child = children[index]
+    if (child.children?.length) {
+      flag = true
+      break
+    }
+  }
+  return flag
+}
+
+export const routeRemoveFilter = (route: AppRouteRecordRaw) => {
+  const { meta } = route
+  // ignoreRoute 为true 则路由仅用于菜单生成，不会在实际的路由表中出现
+  const { ignoreRoute, roles } = meta || {}
+  // arr.filter 返回 true 表示该元素通过测试
+
+  if (!ignoreRoute && !roles) {
+    return true
+  }
+  const hasRoles = context.roles?.some((role) => (roles as string[]).includes(role)) ?? true
+
+  return hasRoles
 }

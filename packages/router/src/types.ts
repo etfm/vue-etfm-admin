@@ -7,7 +7,6 @@ export type Component<T = any> =
   | (() => Promise<T>)
 
 export type Recordable<T = any> = Record<string, T>
-
 export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'meta'> {
   name: string
   meta: RouteMeta

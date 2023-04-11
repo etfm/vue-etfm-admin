@@ -1,2 +1,3 @@
-export { register } from './register'
 export { addRoutes, getRoutes } from './routesConvention'
+
+export { defineRouter } from './defineRouter'

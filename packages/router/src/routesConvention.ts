@@ -1,9 +1,9 @@
 import { flatMultiLevelRoutes, routeRemoveFilter, transformObjToRoute } from './routerUtils'
 import { filter, lodash, loggerWarning } from '@etfm/vea-shared'
 import type { AppRouteRecordRaw } from './types'
-import { context } from './register'
 import { router } from './defineRouter'
 import type { RouteRecordRaw } from 'vue-router'
+import { ApplyPluginsType, getPluginManager } from '@etfm/vea-plugin'
 
 let treeRouteList: AppRouteRecordRaw[] = []
 // 打平后的route，最后结果route
@@ -14,13 +14,34 @@ export function getConventionRoutes(routes: AppRouteRecordRaw[]) {
   treeRouteList = lodash.cloneDeep(routes)
   transformObjToRoute(routes as any)
 
-  const filterRoutes = filter(routes, routeRemoveFilter)
+  const routerConfig = getPluginManager().applyPlugins({
+    key: 'router',
+    type: ApplyPluginsType.modify,
+    initialValue: {}
+  })
+
+  const rouls = routerConfig.rouls
+
+  const filterRoutes = filter(routes, (route) => routeRemoveFilter(route, rouls))
 
   // 打平之前钩子
-  context.beforePatchRoutes && context.beforePatchRoutes(filterRoutes)
+  getPluginManager().applyPlugins({
+    type: ApplyPluginsType.event,
+    key: 'onBeforePatchRoutes',
+    args: {
+      routes: filterRoutes
+    }
+  })
+
   const patchRoutes = flatMultiLevelRoutes(filterRoutes)
   // 打平的路由表
-  context.patchRoutes && context.patchRoutes(patchRoutes)
+  getPluginManager().applyPlugins({
+    type: ApplyPluginsType.event,
+    key: 'onPatchRoutes',
+    args: {
+      routes: patchRoutes
+    }
+  })
   return patchRoutes
 }
 
@@ -30,15 +51,6 @@ export function registerRouter(routes: AppRouteRecordRaw[]) {
     return routeList
   } else {
     return []
-  }
-}
-
-// 重置路由
-export function resetRoutes(routes: AppRouteRecordRaw[]) {
-  if (routes && !lodash.isEmpty(routes)) {
-    return getConventionRoutes(routes)
-  } else {
-    loggerWarning('请添加路由')
   }
 }
 

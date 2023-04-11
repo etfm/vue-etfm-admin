@@ -1,37 +1,41 @@
-import type { App } from 'vue'
-import { createRouter, createWebHashHistory, type Router, type RouteRecordRaw } from 'vue-router'
-import type { IContext } from './register'
+import { createRouter, type Router, type RouteRecordRaw } from 'vue-router'
 import { registerRouter } from './routesConvention'
-import { lodash } from '@etfm/vea-shared'
+import { ApplyPluginsType, getPluginManager } from '@etfm/vea-plugin'
+import { createHistory } from './history'
+import type { AppRouteRecordRaw } from './types'
 
 export let router: Router
 
-export function defineRouter(app: App, opts: IContext) {
+export interface IContext {
+  routes: AppRouteRecordRaw[]
+}
+
+export function defineRouter(opts: IContext) {
+  const routerConfig = getPluginManager().applyPlugins({
+    key: 'router',
+    type: ApplyPluginsType.modify,
+    initialValue: {}
+  })
+
   // 路由转换
   // @view/login/login.vue ==> import('@view/login/login.vue')
-  const routeList = registerRouter(opts.routers)
+  const routeList = registerRouter(opts.routes)
+
+  const history = createHistory({
+    type: routerConfig.historyType || 'hash',
+    basename: routerConfig.basename || '/'
+  })
 
   // 创建一个可以被 Vue 应用程序使用的路由实例
   router = createRouter({
-    ...opts,
+    ...routerConfig,
     // 创建一个 hash 历史记录。
-    history: createWebHashHistory(import.meta.env.VITE_PUBLIC_PATH),
+    history: history,
     // 应该添加到路由的初始路由列表。
     routes: routeList as unknown as RouteRecordRaw[],
     // 是否应该禁止尾部斜杠。默认为假
-    strict: true,
-    scrollBehavior: () => ({ left: 0, top: 0 })
+    strict: true
   })
 
-  // 注册router
-  app.use(router)
-
-  // 进行一些操作
-  if (opts.onMounted && lodash.isFunction(opts.onMounted)) {
-    opts.onMounted({
-      app,
-      router,
-      routes: routeList || []
-    })
-  }
+  return router
 }

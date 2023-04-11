@@ -1,168 +1,49 @@
-import { assert, compose, isPromiseLike } from './utils';
+import { PluginManager } from '@etfm/vea-core'
+import { __defaultExport } from './utils'
+import { loggerWarning, lodash } from '@etfm/vea-shared'
 
-export enum ApplyPluginsType {
-  compose = 'compose',
-  modify = 'modify',
-  event = 'event',
+export async function getPlugins() {
+  const AppPlugins = import.meta.glob('/src/runtime.{ts,tsx}')
+  if (lodash.isEmpty(AppPlugins)) {
+    loggerWarning('请在src目录下创建runtime.{ts,tsx}文件')
+  }
+  const AsyncAppPlugin = Object.values(AppPlugins)[0]
+  const AppPlugin = await AsyncAppPlugin()
+  return __defaultExport(AppPlugin)
 }
 
-interface IPlugin {
-  path?: string;
-  apply: Record<string, any>;
+function getValidKeys() {
+  return [
+    'patchRoutes',
+    'patchClientRoutes',
+    'modifyContextOpts',
+    'modifyClientRenderOpts',
+    'rootContainer',
+    'innerProvider',
+    'i18nProvider',
+    'accessProvider',
+    'dataflowProvider',
+    'outerProvider',
+    'render',
+    'onRouteChange',
+    'router',
+    'onRouterCreated',
+    'onAppCreated',
+    'onMounted'
+  ]
 }
 
-export class PluginManager {
-  opts: { validKeys: string[] };
-  hooks: {
-    [key: string]: any;
-  } = {};
-  constructor(opts: { validKeys: string[] }) {
-    this.opts = opts;
-  }
+let pluginManager: PluginManager
 
-  register(plugin: IPlugin) {
-    assert(plugin.apply, `plugin register failed, apply must supplied`);
-    Object.keys(plugin.apply).forEach((key) => {
-      assert(
-        this.opts.validKeys.indexOf(key) > -1,
-        `register failed, invalid key ${key} ${
-          plugin.path ? `from plugin ${plugin.path}` : ''
-        }.`,
-      );
-      this.hooks[key] = (this.hooks[key] || []).concat(plugin.apply[key]);
-    });
-  }
+export async function createPluginManager() {
+  pluginManager = PluginManager.create({
+    plugin: await getPlugins(),
+    validKeys: getValidKeys()
+  })
 
-  getHooks(keyWithDot: string) {
-    const [key, ...memberKeys] = keyWithDot.split('.');
-    let hooks = this.hooks[key] || [];
-    if (memberKeys.length) {
-      hooks = hooks
-        .map((hook: any) => {
-          try {
-            let ret = hook;
-            for (const memberKey of memberKeys) {
-              ret = ret[memberKey];
-            }
-            return ret;
-          } catch (e) {
-            return null;
-          }
-        })
-        .filter(Boolean);
-    }
-    return hooks;
-  }
-
-  applyPlugins({
-    key,
-    type,
-    initialValue,
-    args,
-    async,
-  }: {
-    key: string;
-    type: ApplyPluginsType;
-    initialValue?: any;
-    args?: object;
-    async?: boolean;
-  }) {
-    const hooks = this.getHooks(key) || [];
-
-    if (args) {
-      assert(
-        typeof args === 'object',
-        `applyPlugins failed, args must be plain object.`,
-      );
-    }
-    if (async) {
-      assert(
-        type === ApplyPluginsType.modify || type === ApplyPluginsType.event,
-        `async only works with modify and event type.`,
-      );
-    }
-
-    switch (type) {
-      case ApplyPluginsType.modify:
-        if (async) {
-          return hooks.reduce(
-            async (memo: any, hook: Function | Promise<any> | object) => {
-              assert(
-                typeof hook === 'function' ||
-                  typeof hook === 'object' ||
-                  isPromiseLike(hook),
-                `applyPlugins failed, all hooks for key ${key} must be function, plain object or Promise.`,
-              );
-              if (isPromiseLike(memo)) {
-                memo = await memo;
-              }
-              if (typeof hook === 'function') {
-                const ret = hook(memo, args);
-                if (isPromiseLike(ret)) {
-                  return await ret;
-                } else {
-                  return ret;
-                }
-              } else {
-                if (isPromiseLike(hook)) {
-                  hook = await hook;
-                }
-                return { ...memo, ...hook };
-              }
-            },
-            isPromiseLike(initialValue)
-              ? initialValue
-              : Promise.resolve(initialValue),
-          );
-        } else {
-          return hooks.reduce((memo: any, hook: Function | object) => {
-            assert(
-              typeof hook === 'function' || typeof hook === 'object',
-              `applyPlugins failed, all hooks for key ${key} must be function or plain object.`,
-            );
-            if (typeof hook === 'function') {
-              return hook(memo, args);
-            } else {
-              // TODO: deepmerge?
-              return { ...memo, ...hook };
-            }
-          }, initialValue);
-        }
-
-      case ApplyPluginsType.event:
-        return (async () => {
-          for (const hook of hooks) {
-            assert(
-              typeof hook === 'function',
-              `applyPlugins failed, all hooks for key ${key} must be function.`,
-            );
-            const ret = hook(args);
-            if (async && isPromiseLike(ret)) {
-              await ret;
-            }
-          }
-        })();
-
-      case ApplyPluginsType.compose:
-        return () => {
-          return compose({
-            fns: hooks.concat(initialValue),
-            args,
-          })();
-        };
-    }
-  }
-
-  static create(opts: { validKeys: string[]; plugins: IPlugin[] }) {
-    const pluginManager = new PluginManager({
-      validKeys: opts.validKeys,
-    });
-    opts.plugins.forEach((plugin) => {
-      pluginManager.register(plugin);
-    });
-    return pluginManager;
-  }
+  return pluginManager
 }
 
-// plugins meta info (in tmp file)
-// hooks api: usePlugin
+export function getPluginManager() {
+  return pluginManager
+}

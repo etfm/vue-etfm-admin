@@ -1,6 +1,14 @@
 {
   "extends": "@vue/tsconfig/tsconfig.web.json",
-  "include": ["env.d.ts", "apps/**/*", "apps/**/*.vue", "packages/**/*", "packages/**/*.vue"],
+  "include": [
+    "env.d.ts",
+    "apps/**/*",
+    "apps/**/*.vue",
+    "packages/**/*",
+    "packages/**/*.vue",
+    "apps/element-admin/.etfmirc.ts",
+    "apps/element-admin/.etfmirc.ts"
+  ],
   "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {
     "ignoreDeprecations": "5.0",

@@ -90,11 +90,13 @@ importers:
   apps/element-admin:
     specifiers:
       '@etfm/vea-hooks': ^0.0.0
+      '@etfm/vea-render': ^0.0.0
       '@etfm/vea-router': ^0.0.0
       '@etfm/vea-styles': ^0.0.0
       '@etfm/vea-vite': ^0.0.0
     dependencies:
       '@etfm/vea-hooks': link:../../packages/hooks
+      '@etfm/vea-router': link:../../packages/router
       '@etfm/vea-styles': link:../../packages/styles
       '@etfm/vea-vite': link:../../configs/vea-vite
 
@@ -107,6 +109,9 @@ importers:
       chalk: 5.2.0
       unbuild: 1.2.0
       unplugin-element-plus: 0.7.0
+
+  packages/core:
+    specifiers: {}
 
   packages/element:
     specifiers:
@@ -121,8 +126,20 @@ importers:
   packages/hooks:
     specifiers: {}
 
+  packages/plugin:
+    specifiers:
+      '@etfm/vea-core': ^0.0.0
+      '@etfm/vea-shared': ^0.0.0
+
+  packages/render:
+    specifiers:
+      '@etfm/vea-core': ^0.0.0
+      '@etfm/vea-plugin': ^0.0.0
+      '@etfm/vea-router': ^0.0.0
+
   packages/router:
     specifiers:
+      '@etfm/vea-plugin': ^0.0.0
       '@etfm/vea-shared': ^0.0.0
     dependencies:
       '@etfm/vea-shared': link:../shared

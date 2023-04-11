@@ -6,7 +6,6 @@ import {
   type Router,
   createRouter
 } from 'vue-router'
-import { context } from './register'
 
 let dynamicViewsModules: Record<string, () => Promise<Recordable>>
 
@@ -152,7 +151,7 @@ function isMultipleRoute(routeModule: AppRouteModule) {
   return flag
 }
 
-export const routeRemoveFilter = (route: AppRouteRecordRaw) => {
+export const routeRemoveFilter = (route: AppRouteRecordRaw, roleList: string[]) => {
   const { meta } = route
   // ignoreRoute 为true 则路由仅用于菜单生成，不会在实际的路由表中出现
   const { ignoreRoute, roles } = meta || {}
@@ -161,7 +160,7 @@ export const routeRemoveFilter = (route: AppRouteRecordRaw) => {
   if (!ignoreRoute && !roles) {
     return true
   }
-  const hasRoles = context.roles?.some((role) => (roles as string[]).includes(role)) ?? true
+  const hasRoles = roleList?.some((role) => (roles as string[]).includes(role)) ?? true
 
   return hasRoles
 }

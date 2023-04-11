@@ -1,8 +1,8 @@
 {
-  "name": "@etfm/vea-plugin",
+  "name": "@etfm/vea-render",
   "version": "0.0.0",
   "description": "> TODO: description",
-  "author": "lzdjack <1956252575@qq.com>",
+  "author": "liuzhidong <1956252575@qq.com>",
   "homepage": "https://github.com/etfm/vue-etfm-admin#readme",
   "license": "ISC",
   "main": "src/index.ts",
@@ -12,7 +12,7 @@
     "test": "__tests__"
   },
   "files": [
-    "lib"
+    "src"
   ],
   "publishConfig": {
     "access": "public"
@@ -22,13 +22,14 @@
     "url": "git+https://github.com/etfm/vue-etfm-admin.git"
   },
   "scripts": {
-    "test": "node ./__tests__/@etfm/plugin.test.js"
+    "test": "node ./__tests__/@etfm/render.test.js"
   },
   "bugs": {
     "url": "https://github.com/etfm/vue-etfm-admin/issues"
   },
   "dependencies": {
     "@etfm/vea-core": "^0.0.0",
-    "@etfm/vea-shared": "^0.0.0"
+    "@etfm/vea-plugin": "^0.0.0",
+    "@etfm/vea-router": "^0.0.0"
   }
 }

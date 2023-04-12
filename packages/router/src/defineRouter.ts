@@ -1,21 +1,13 @@
 import { createRouter, type Router, type RouteRecordRaw } from 'vue-router'
 import { registerRouter } from './routesConvention'
-import { ApplyPluginsType, getPluginManager } from '@etfm/vea-plugin'
+import { getConfigManager } from '@etfm/vea-plugin'
 import { createHistory } from './history'
-import type { AppRouteRecordRaw } from './types'
+import type { IContext } from './types'
 
 export let router: Router
 
-export interface IContext {
-  routes: AppRouteRecordRaw[]
-}
-
 export function defineRouter(opts: IContext) {
-  const routerConfig = getPluginManager().applyPlugins({
-    key: 'router',
-    type: ApplyPluginsType.modify,
-    initialValue: {}
-  })
+  const routerConfig = getConfigManager().getKeyConfig('router')
 
   // 路由转换
   // @view/login/login.vue ==> import('@view/login/login.vue')

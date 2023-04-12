@@ -19,10 +19,10 @@ export function transformObjToRoute<T = AppRouteModule>(routeList: AppRouteModul
       route.component = 'IFRAME'
     }
     if (component) {
-      route.component = dynamicImport(dynamicViewsModules, route.component)
+      route.component = dynamicImport(dynamicViewsModules, component)
       route.meta ||= {}
     } else {
-      loggerWarning('请正确配置路由：' + route?.name + '的component属性')
+      loggerWarning(`您没有配置${route?.name}的component属性，如果是有意为之，可以忽略此条警告`)
     }
   })
 
@@ -37,12 +37,12 @@ function dynamicImport(
 
   const matchKeys = keys.filter((key) => {
     let k
-    if (key.startsWith('/src/views/')) {
-      k = key.replace('/src/views/', '')
-    } else if (key.startsWith('/src/layouts/')) {
-      k = key.replace('/src/layouts/', '')
+    if (key.startsWith('/src/views')) {
+      k = key.replace('/src/views', '')
+    } else if (key.startsWith('/src/layouts')) {
+      k = key.replace('/src/layouts', '')
     } else {
-      k = key.replace('/src/views/', '')
+      k = key.replace('/src/views', '')
     }
 
     const lastIndex = k.lastIndexOf('.')

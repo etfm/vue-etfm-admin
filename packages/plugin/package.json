@@ -29,6 +29,7 @@
   },
   "dependencies": {
     "@etfm/vea-core": "^0.0.0",
+    "@etfm/vea-router": "^0.0.0",
     "@etfm/vea-shared": "^0.0.0"
   }
 }

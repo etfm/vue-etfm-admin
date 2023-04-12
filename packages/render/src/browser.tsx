@@ -65,7 +65,8 @@ export async function renderClient(opts: {
     type: 'event',
     key: 'onMounted',
     args: {
-      app
+      app,
+      router
     }
   })
 

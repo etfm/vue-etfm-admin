@@ -1,24 +1,12 @@
+import { basicRoutes } from './src/router'
+
+/**
+ * 配置项
+ * 1. 静态的、不可变的配置项
+ */
+
 export default {
   router: {
-    routes: [
-      {
-        path: '/',
-        name: 'layout',
-        component: 'layout-entry',
-        meta: {
-          title: '登录'
-        },
-        children: [
-          {
-            path: 'layout-out',
-            name: 'layout-out',
-            component: 'layout-entry',
-            meta: {
-              title: '登录'
-            }
-          }
-        ]
-      }
-    ]
+    routes: basicRoutes
   }
 }

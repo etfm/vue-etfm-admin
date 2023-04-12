@@ -6,7 +6,7 @@ import type { IContext } from './types'
 
 export let router: Router
 
-export function defineRouter(opts: IContext) {
+export function register(opts: IContext) {
   const routerConfig = getConfigManager().getKeyConfig('router')
 
   // 路由转换

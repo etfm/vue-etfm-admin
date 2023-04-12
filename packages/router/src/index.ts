@@ -1,5 +1,5 @@
 export { addDynamicRoute } from './routesConvention'
 
-export { defineRouter } from './defineRouter'
+export { register } from './register'
 
 export * from './types'

@@ -90,6 +90,7 @@ importers:
   apps/element-admin:
     specifiers:
       '@etfm/vea-hooks': ^0.0.0
+      '@etfm/vea-plugin': ^0.0.0
       '@etfm/vea-render': ^0.0.0
       '@etfm/vea-router': ^0.0.0
       '@etfm/vea-styles': ^0.0.0
@@ -125,6 +126,14 @@ importers:
 
   packages/hooks:
     specifiers: {}
+
+  packages/pinia:
+    specifiers:
+      pinia: ^2.0.32
+      pinia-plugin-persistedstate: ^3.1.0
+    dependencies:
+      pinia: 2.0.33
+      pinia-plugin-persistedstate: 3.1.0_pinia@2.0.33
 
   packages/plugin:
     specifiers:
@@ -5031,6 +5040,30 @@ packages:
     resolution: {integrity: sha512-C3FsVNH1udSEX48gGX1xfvwTWfsYWj5U+8/uK15BGzIGrKoUpghX8hWZwa/OFnakBiiVNmBvemTJR5mcy7iPcg==}
     engines: {node: '>=4'}
     dev: true
+
+  /pinia-plugin-persistedstate/3.1.0_pinia@2.0.33:
+    resolution: {integrity: sha512-8UN+vYMEPBdgNLwceY08mi5olI0wkYaEb8b6hD6xW7SnBRuPydWHlEhZvUWgNb/ibuf4PvufpvtS+dmhYjJQOw==}
+    peerDependencies:
+      pinia: ^2.0.0
+    dependencies:
+      pinia: 2.0.33
+    dev: false
+
+  /pinia/2.0.33:
+    resolution: {integrity: sha512-HOj1yVV2itw6rNIrR2f7+MirGNxhORjrULL8GWgRwXsGSvEqIQ+SE0MYt6cwtpegzCda3i+rVTZM+AM7CG+kRg==}
+    peerDependencies:
+      '@vue/composition-api': ^1.4.0
+      typescript: '>=4.4.4'
+      vue: ^2.6.14 || ^3.2.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+      typescript:
+        optional: true
+    dependencies:
+      '@vue/devtools-api': 6.5.0
+      vue-demi: 0.13.11
+    dev: false
 
   /pinia/2.0.33_7h6e7cvei2rsgyre2mq4fyhehq:
     resolution: {integrity: sha512-HOj1yVV2itw6rNIrR2f7+MirGNxhORjrULL8GWgRwXsGSvEqIQ+SE0MYt6cwtpegzCda3i+rVTZM+AM7CG+kRg==}

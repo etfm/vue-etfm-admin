@@ -1,6 +1,6 @@
 import App from './App.vue'
 import { createApp } from 'vue'
-import { defineRouter } from '@etfm/vea-router'
+import { register as registerRouter } from '@etfm/vea-router'
 
 export const AppContextKey = Symbol('AppContextKey')
 
@@ -15,7 +15,7 @@ export async function renderClient(opts: {
 
   const routes = opts.config?.router?.routes ?? []
 
-  const router = defineRouter({ routes })
+  const router = registerRouter({ routes })
 
   for (const key of [
     'innerProvider',
@@ -71,6 +71,7 @@ export async function renderClient(opts: {
   })
 
   return {
-    app
+    app,
+    router
   }
 }

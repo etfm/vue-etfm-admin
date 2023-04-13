@@ -1,7 +1,7 @@
 import { flatMultiLevelRoutes, routeRemoveFilter, transformObjToRoute } from './routerUtils'
 import { filter, lodash } from '@etfm/vea-shared'
 import type { AppRouteRecordRaw } from './types'
-import { router } from './defineRouter'
+import { router } from './register'
 import type { RouteRecordRaw } from 'vue-router'
 import { ApplyPluginsType, getPluginManager } from '@etfm/vea-plugin'
 

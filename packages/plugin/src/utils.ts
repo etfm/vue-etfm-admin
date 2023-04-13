@@ -8,3 +8,7 @@ export function __defaultExport(obj: any) {
   }
   return obj
 }
+
+export function isPromiseLike(obj: any) {
+  return !!obj && typeof obj === 'object' && typeof obj.then === 'function'
+}

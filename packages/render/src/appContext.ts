@@ -1,5 +1,5 @@
 import { inject } from 'vue'
-import { AppContextKey } from './browser'
+import { AppContextKey } from './renderer'
 
 export function useAppData() {
   const state = inject(AppContextKey)

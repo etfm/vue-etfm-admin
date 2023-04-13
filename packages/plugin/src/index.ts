@@ -1,5 +1,2 @@
 export * from './plugin'
-export * from './config'
 export * from './defineApp'
-export * from './defineConfig'
-export { ApplyPluginsType } from '@etfm/vea-core'

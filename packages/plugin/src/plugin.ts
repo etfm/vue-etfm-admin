@@ -1,4 +1,4 @@
-import { PluginManager } from '@etfm/vea-core'
+import { PluginManager } from './pluginManager'
 import { __defaultExport } from './utils'
 import { loggerWarning, lodash } from '@etfm/vea-shared'
 
@@ -26,6 +26,7 @@ function getValidKeys() {
     'router',
     'onInitTransformRoute',
     'onRouterCreated',
+    'onPiniaCreated',
     'onAppCreated',
     'onMounted'
   ]

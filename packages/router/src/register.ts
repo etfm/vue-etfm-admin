@@ -1,13 +1,16 @@
 import { createRouter, type Router, type RouteRecordRaw } from 'vue-router'
 import { registerRouter } from './routesConvention'
-import { getConfigManager } from '@etfm/vea-plugin'
+import { getPluginManager } from '@etfm/vea-plugin'
 import { createHistory } from './history'
 import type { IContext } from './types'
 
 export let router: Router
 
-export function register(opts: IContext) {
-  const routerConfig = getConfigManager().getKeyConfig('router')
+export function register() {
+  // 收集配置信息
+  const router = getPluginManager().applyPlugins({
+    key: 'router'
+  })
 
   // 路由转换
   // @view/login/login.vue ==> import('@view/login/login.vue')

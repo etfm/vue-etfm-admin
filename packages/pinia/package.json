@@ -5,7 +5,8 @@
   "author": "lzdjack <1956252575@qq.com>",
   "homepage": "https://github.com/etfm/vue-etfm-admin#readme",
   "license": "ISC",
-  "main": "lib/pinia.js",
+  "main": "src/index.ts",
+  "module": "src/index.ts",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
@@ -27,6 +28,7 @@
     "url": "https://github.com/etfm/vue-etfm-admin/issues"
   },
   "dependencies": {
+    "@etfm/vea-shared": "^0.0.0",
     "pinia": "^2.0.32",
     "pinia-plugin-persistedstate": "^3.1.0"
   }

@@ -1,19 +1,19 @@
 {
   "extends": "@vue/tsconfig/tsconfig.web.json",
   "include": [
+    "**/package.json",
     "env.d.ts",
     "apps/**/*",
     "apps/**/*.vue",
     "packages/**/*",
-    "packages/**/*.vue",
-    "apps/element-admin/.etfmirc.ts",
-    "apps/element-admin/.etfmirc.ts"
+    "packages/**/*.vue"
   ],
   "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {
     "ignoreDeprecations": "5.0",
     "composite": true,
     "baseUrl": ".",
+    "types": ["vite/client", "unplugin-vue-define-options/macros-global"],
     "paths": {
       "@/*": ["./src/*"]
     }

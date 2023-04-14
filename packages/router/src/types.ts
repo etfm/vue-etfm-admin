@@ -18,7 +18,3 @@ export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'children'> {
 }
 
 export type AppRouteModule = AppRouteRecordRaw
-
-export interface IContext {
-  routes: AppRouteRecordRaw[]
-}

@@ -1,12 +1,23 @@
-import { createPinia } from 'pinia'
-import { createPersistedState } from 'pinia-plugin-persistedstate'
-import { persistGlobalConfig } from './persist'
-import { getStorageShortName } from '@etfm/vea-shared'
+import { getPluginManager } from '@etfm/vea-plugin'
+import { lodash } from '@etfm/vea-shared'
+import { initPinia } from './pinia'
+export interface IContext {
+  isCache?: boolean
+  key?: string | (() => string)
+}
 
-export function register() {
-  const pinia = createPinia()
+export let context = {
+  isCache: true,
+  key: 'pinia'
+}
 
-  pinia.use(createPersistedState(persistGlobalConfig(getStorageShortName())))
+export function register(opts?: IContext) {
+  // 收集配置信息
+  const pinia = getPluginManager().applyPlugins({
+    key: 'pinia'
+  })
 
-  return pinia
+  context = lodash.merge(context, opts, pinia)
+
+  return initPinia()
 }

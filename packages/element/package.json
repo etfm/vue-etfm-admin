@@ -28,7 +28,9 @@
     "url": "https://github.com/etfm/vue-etfm-admin/issues"
   },
   "dependencies": {
+    "@etfm/vea-element": "^0.0.0",
     "@etfm/vea-hooks": "^0.0.0",
+    "@etfm/vea-plugin": "^0.0.0",
     "@etfm/vea-shared": "^0.0.0",
     "@etfm/vea-styles": "^0.0.0"
   }

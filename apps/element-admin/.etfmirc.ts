@@ -1,12 +1,11 @@
+import { defineApp } from '@etfm/vea-plugin'
 import { basicRoutes } from './src/router'
 
 /**
- * 配置项
- * 1. 静态的、不可变的配置项
+ * 运行时配置
  */
-
-export default {
+export default defineApp({
   router: {
     routes: basicRoutes
   }
-}
+})

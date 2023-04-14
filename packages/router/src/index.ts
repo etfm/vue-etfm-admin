@@ -1,5 +1,7 @@
-export { addDynamicRoute } from './routesConvention'
+export { addDynamicRoute } from './convention'
 
-export { register } from './register'
+export { register, type IContext } from './register'
 
 export * from './types'
+
+export * from 'vue-router'

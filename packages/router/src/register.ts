@@ -1,36 +1,30 @@
-import { createRouter, type Router, type RouteRecordRaw } from 'vue-router'
-import { registerRouter } from './routesConvention'
 import { getPluginManager } from '@etfm/vea-plugin'
-import { createHistory } from './history'
-import type { IContext } from './types'
+import type { AppRouteRecordRaw } from './types'
+import { initRouter } from './router'
+import { lodash } from '@etfm/vea-shared'
 
-export let router: Router
+export interface IContext {
+  routes: AppRouteRecordRaw[]
+  historyType?: string
+  basename?: string
+  rouls?: string[] | (() => string[])
+  onInitTransformRoute?: Function
+}
 
-export function register() {
+export let context: IContext = {
+  historyType: 'hash',
+  basename: '/',
+  routes: []
+}
+
+export function register(opts?: IContext) {
   // 收集配置信息
   const router = getPluginManager().applyPlugins({
     key: 'router'
   })
 
-  // 路由转换
-  // @view/login/login.vue ==> import('@view/login/login.vue')
-  const routeList = registerRouter(opts.routes)
+  context = lodash.merge(context, opts, router)
 
-  const history = createHistory({
-    type: routerConfig.historyType || 'hash',
-    basename: routerConfig.basename || '/'
-  })
-
-  // 创建一个可以被 Vue 应用程序使用的路由实例
-  router = createRouter({
-    ...routerConfig,
-    // 创建一个 hash 历史记录。
-    history: history,
-    // 应该添加到路由的初始路由列表。
-    routes: routeList as unknown as RouteRecordRaw[],
-    // 是否应该禁止尾部斜杠。默认为假
-    strict: true
-  })
-
-  return router
+  // 初始化路由
+  return initRouter()
 }

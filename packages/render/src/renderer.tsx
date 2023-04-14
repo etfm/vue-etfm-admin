@@ -1,66 +1,41 @@
-import App from './App.vue'
 import { createApp } from 'vue'
 import { register as registerRouter } from '@etfm/vea-router'
 import { register as registerPinia } from '@etfm/vea-pinia'
-import { createPluginManager } from '@etfm/vea-plugin'
+import { lodash } from '@etfm/vea-shared'
+import { context } from './register'
+import type { PluginManager } from '@etfm/vea-plugin'
 
 export const AppContextKey = Symbol('AppContextKey')
 
-export async function render() {
-  const pluginManager = await createPluginManager()
-  const rootElement = document.getElementById('app')
+export async function initRender(opts: { pluginManager: PluginManager }) {
+  const rootElement = lodash.isFunction(context.rootElement)
+    ? await context.rootElement()
+    : context.rootElement
 
-  let rootContainer = App
-
-  rootContainer = await pluginManager.applyPlugins({
-    key: 'render',
-    args: {}
-  })
+  const rootContainer = lodash.isFunction(context.rootContainer)
+    ? await context.rootContainer()
+    : context.rootContainer
 
   const router = registerRouter()
-  await pluginManager.applyPlugins({
-    key: 'onRouterCreated',
-    args: {
-      router
-    }
-  })
+  context.onRouterCreated && (await context.onRouterCreated({ router }))
 
   const pinia = registerPinia()
-  await pluginManager.applyPlugins({
-    key: 'onPiniaCreated',
-    args: {
-      pinia
-    }
-  })
+  context.onPiniaCreated && (await context.onPiniaCreated({ pinia }))
 
   const app = createApp(rootContainer)
-  await pluginManager.applyPlugins({
-    key: 'onAppCreated',
-    args: {
-      app,
-      router,
-      pinia
-    }
-  })
+  context.onAppCreated && (await context.onAppCreated({ app, router, pinia }))
 
   app.use(pinia)
   app.use(router)
-  app.mount('#app')
+  app.mount(rootElement as Element)
 
   // 注入appData 数据
   app.provide(AppContextKey, {
-    pluginManager: pluginManager,
+    pluginManager: opts.pluginManager,
     rootElement: rootElement
   })
 
-  await pluginManager.applyPlugins({
-    key: 'onMounted',
-    args: {
-      app,
-      router,
-      pinia
-    }
-  })
+  context.onMounted && (await context.onMounted({ app, router, pinia }))
 
   return {
     app,
@@ -68,5 +43,3 @@ export async function render() {
     pinia
   }
 }
-
-render()

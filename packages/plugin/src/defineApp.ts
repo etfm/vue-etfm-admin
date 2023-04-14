@@ -1,25 +1,15 @@
-import type { Pinia } from 'pinia'
-import type { App } from 'vue'
-import type { Router, RouterOptions } from 'vue-router'
-
-interface IAppRouter extends Omit<RouterOptions, 'history' | 'routes' | 'strict'> {
-  rules?: string[] | Function
-}
+import type { IContext as IRouterContext } from '@etfm/vea-router'
+import type { IContext as IPiniaContext } from '@etfm/vea-pinia'
+import type { IContext as IRenderContext } from '@etfm/vea-render'
 
 interface IDefaultRuntimeConfig {
-  render?: (oldRender: () => void) => void
-  rootContainer?: (lastRootContainer: JSX.Element, args?: any) => void
-  onInitTransformRoute?: (props: { router: Router }) => void
-  onRouterCreated?: (props: { router: Router }) => void
-  onPiniaCreated?: (props: { pinia: Pinia }) => void
-  onAppCreated?: (props: { app: App; router?: Router; pinia: Pinia }) => void
-  onMounted?: (props: { app: App; router?: Router; pinia: Pinia }) => void
+  router?: IRouterContext
+  pinia?: IPiniaContext
+  render?: IRenderContext
   [key: string]: any
 }
 
-export type RuntimeConfig = IDefaultRuntimeConfig & {
-  router?: IAppRouter
-}
+export type RuntimeConfig = IDefaultRuntimeConfig & {}
 
 export function defineApp(config: RuntimeConfig): RuntimeConfig {
   return config

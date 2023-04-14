@@ -150,7 +150,9 @@ importers:
 
   packages/element:
     specifiers:
+      '@etfm/vea-element': ^0.0.0
       '@etfm/vea-hooks': ^0.0.0
+      '@etfm/vea-plugin': ^0.0.0
       '@etfm/vea-shared': ^0.0.0
       '@etfm/vea-styles': ^0.0.0
     dependencies:
@@ -163,6 +165,7 @@ importers:
 
   packages/pinia:
     specifiers:
+      '@etfm/vea-plugin': ^0.0.0
       '@etfm/vea-shared': ^0.0.0
       pinia: ^2.0.32
       pinia-plugin-persistedstate: ^3.1.0
@@ -173,6 +176,8 @@ importers:
   packages/plugin:
     specifiers:
       '@etfm/vea-core': ^0.0.0
+      '@etfm/vea-pinia': ^0.0.0
+      '@etfm/vea-render': ^0.0.0
       '@etfm/vea-router': ^0.0.0
       '@etfm/vea-shared': ^0.0.0
     dependencies:

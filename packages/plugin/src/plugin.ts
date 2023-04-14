@@ -13,23 +13,7 @@ export async function getPlugins() {
 }
 
 function getValidKeys() {
-  return [
-    'modifyContextOpts',
-    'modifyClientRenderOpts',
-    'rootContainer',
-    'innerProvider',
-    'i18nProvider',
-    'accessProvider',
-    'dataflowProvider',
-    'outerProvider',
-    'render',
-    'router',
-    'onInitTransformRoute',
-    'onRouterCreated',
-    'onPiniaCreated',
-    'onAppCreated',
-    'onMounted'
-  ]
+  return ['render', 'router', 'pinia']
 }
 
 let pluginManager: PluginManager

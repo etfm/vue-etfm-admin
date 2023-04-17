@@ -46,3 +46,22 @@ export function formatRequestDate(params: Recordable) {
     }
   }
 }
+
+/**
+ * Add the object as a parameter to the URL
+ * @param baseUrl url
+ * @param obj
+ * @returns {string}
+ * eg:
+ *  let obj = {a: '3', b: '4'}
+ *  appendUrlParams('www.google.com', obj)
+ *  ==>www.google.com?a=3&b=4
+ */
+export function appendUrlParams(baseUrl: string, obj: any): string {
+  let parameters = ''
+  for (const key in obj) {
+    parameters += key + '=' + encodeURIComponent(obj[key]) + '&'
+  }
+  parameters = parameters.replace(/&$/, '')
+  return /\?$/.test(baseUrl) ? baseUrl + parameters : baseUrl.replace(/\/?$/, '?') + parameters
+}

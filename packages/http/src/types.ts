@@ -1,43 +1,7 @@
 import type { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
-import type { AxiosTransform } from './axiosTransform'
 
 export type ErrorMessageMode = 'none' | 'modal' | 'message' | undefined
 export type SuccessMessageMode = ErrorMessageMode
-
-export interface RequestOptions<T = any> {
-  // Splicing request parameters to url
-  joinParamsToUrl?: boolean
-  // Format request parameter time
-  formatDate?: boolean
-  // Whether to process the request result
-  isTransformResponse?: boolean
-  // Whether to return native response headers
-  // For example: use this attribute when you need to get the response headers
-  isReturnNativeResponse?: boolean
-  // Whether to join url
-  joinPrefix?: boolean
-  // Interface address, use the default apiUrl if you leave it blank
-  apiUrl?: string
-  // 请求拼接路径
-  urlPrefix?: string
-  // Error message prompt type
-  errorMessageMode?: ErrorMessageMode
-  // Success message prompt type
-  successMessageMode?: SuccessMessageMode
-  // Whether to add a timestamp
-  joinTime?: boolean
-  ignoreCancelToken?: boolean
-  // Whether to send token in header
-  withToken?: boolean
-  // 请求重试机制
-  retryRequest?: RetryRequest
-  errorConfig?: {
-    errorHandler?: IErrorHandler
-    errorThrower?: (res: T) => void
-  }
-  requestInterceptors?: IRequestInterceptorTuple[]
-  responseInterceptors?: IResponseInterceptorTuple[]
-}
 
 export interface RetryRequest {
   isOpenRetry: boolean
@@ -64,13 +28,7 @@ export interface UploadFileParams {
   [key: string]: any
 }
 
-interface IRequestOptions extends AxiosRequestConfig {
-  skipErrorHandler?: boolean
-  requestInterceptors?: IRequestInterceptorTuple[]
-  responseInterceptors?: IResponseInterceptorTuple[]
-}
-
-type IRequestInterceptorAxios = (config: IRequestOptions) => IRequestOptions
+type IRequestInterceptorAxios = (config: RequestConfig) => RequestConfig
 
 type IRequestInterceptor = IRequestInterceptorAxios
 type IErrorInterceptor = (error: Error) => Promise<Error>
@@ -84,30 +42,45 @@ export type IResponseInterceptorTuple =
   | [IResponseInterceptor]
   | IResponseInterceptor
 
-interface IRequestOptions extends AxiosRequestConfig {
-  skipErrorHandler?: boolean
-  requestInterceptors?: IRequestInterceptorTuple[]
-  responseInterceptors?: IResponseInterceptorTuple[]
-  [key: string]: any
-}
-
 type RequestError = AxiosError | Error
 
 interface IErrorHandler {
-  (error: RequestError, opts: IRequestOptions): void
+  (error: RequestError, opts: RequestConfig): void
 }
 
 export interface RequestConfig<T = any> extends AxiosRequestConfig {
+  // Splicing request parameters to url
+  joinParamsToUrl?: boolean
+  // Format request parameter time
+  formatDate?: boolean
+  // Whether to process the request result
+  isTransformResponse?: boolean
+  // Whether to return native response headers
+  // For example: use this attribute when you need to get the response headers
+  isReturnNativeResponse?: boolean
+  // Whether to join url
+  joinPrefix?: boolean
+  // Interface address, use the default apiUrl if you leave it blank
+  apiUrl?: string
+  // 请求拼接路径
+  urlPrefix?: string
+  // Error message prompt type
+  errorMessageMode?: ErrorMessageMode
+  // Success message prompt type
+  successMessageMode?: SuccessMessageMode
+  // Whether to add a timestamp
+  joinTime?: boolean
+  ignoreCancelToken?: boolean
+  // Whether to send token in header
+  withToken?: boolean
+  // 请求重试机制
+  retryRequest?: RetryRequest
+  skipErrorHandler?: boolean
   errorConfig?: {
     errorHandler?: IErrorHandler
     errorThrower?: (res: T) => void
   }
   requestInterceptors?: IRequestInterceptorTuple[]
   responseInterceptors?: IResponseInterceptorTuple[]
-}
-
-export interface CreateAxiosOptions extends AxiosRequestConfig {
-  authenticationScheme?: string
-  transform?: AxiosTransform
-  requestOptions?: RequestOptions
+  [key: string]: any
 }

@@ -154,9 +154,6 @@ importers:
       vite-plugin-mock: 2.9.6_mockjs@1.1.0
       vite-plugin-svg-icons: 2.0.1
 
-  packages/core:
-    specifiers: {}
-
   packages/element:
     specifiers:
       '@etfm/vea-element': ^0.0.0
@@ -165,7 +162,9 @@ importers:
       '@etfm/vea-shared': ^0.0.0
       '@etfm/vea-styles': ^0.0.0
     dependencies:
+      '@etfm/vea-element': 'link:'
       '@etfm/vea-hooks': link:../hooks
+      '@etfm/vea-plugin': link:../plugin
       '@etfm/vea-shared': link:../shared
       '@etfm/vea-styles': link:../styles
 
@@ -180,6 +179,7 @@ importers:
       axios: ^1.3.5
       qs: ^6.11.1
     dependencies:
+      '@etfm/vea-plugin': link:../plugin
       '@etfm/vea-shared': link:../shared
       axios: 1.3.5
       qs: 6.11.1
@@ -193,32 +193,34 @@ importers:
       pinia: ^2.0.32
       pinia-plugin-persistedstate: ^3.1.0
     dependencies:
+      '@etfm/vea-plugin': link:../plugin
+      '@etfm/vea-shared': link:../shared
       pinia: 2.0.33
       pinia-plugin-persistedstate: 3.1.0_pinia@2.0.33
 
   packages/plugin:
     specifiers:
-      '@etfm/vea-core': ^0.0.0
       '@etfm/vea-pinia': ^0.0.0
       '@etfm/vea-render': ^0.0.0
       '@etfm/vea-router': ^0.0.0
       '@etfm/vea-shared': ^0.0.0
     dependencies:
-      '@etfm/vea-core': link:../core
+      '@etfm/vea-pinia': link:../pinia
+      '@etfm/vea-render': link:../render
       '@etfm/vea-router': link:../router
       '@etfm/vea-shared': link:../shared
 
   packages/render:
     specifiers:
-      '@etfm/vea-core': ^0.0.0
       '@etfm/vea-pinia': ^0.0.0
       '@etfm/vea-plugin': ^0.0.0
       '@etfm/vea-router': ^0.0.0
       '@etfm/vea-shared': ^0.0.0
     dependencies:
-      '@etfm/vea-core': link:../core
+      '@etfm/vea-pinia': link:../pinia
       '@etfm/vea-plugin': link:../plugin
       '@etfm/vea-router': link:../router
+      '@etfm/vea-shared': link:../shared
 
   packages/router:
     specifiers:
@@ -2598,7 +2600,7 @@ packages:
   /axios/0.27.2_debug@4.3.4:
     resolution: {integrity: sha512-t+yRIyySRTp/wua5xEr+z1q60QmLq8ABsS5O9Me1AsE5dfKqgnCFzwiCZZ/cGNd1lq4/7akDWMxdhVlucjmnOQ==}
     dependencies:
-      follow-redirects: 1.15.2_debug@4.3.4
+      follow-redirects: 1.15.2
       form-data: 4.0.0
     transitivePeerDependencies:
       - debug
@@ -4234,19 +4236,6 @@ packages:
     peerDependenciesMeta:
       debug:
         optional: true
-    dev: false
-
-  /follow-redirects/1.15.2_debug@4.3.4:
-    resolution: {integrity: sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==}
-    engines: {node: '>=4.0'}
-    peerDependencies:
-      debug: '*'
-    peerDependenciesMeta:
-      debug:
-        optional: true
-    dependencies:
-      debug: 4.3.4
-    dev: true
 
   /for-each/0.3.3:
     resolution: {integrity: sha512-jqYfLp7mo9vIyQf8ykW2v7A+2N4QjeCeI5+Dz9XraiO1ign81wjiH7Fb9vSOWvQfNtmSa4H2RoQTrrXivdUZmw==}

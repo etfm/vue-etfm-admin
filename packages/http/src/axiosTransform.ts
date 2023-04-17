@@ -1,51 +1,92 @@
-/**
- * Data processing class, can be configured according to the project
- */
-import type {
-  AxiosInstance,
-  AxiosRequestConfig,
-  AxiosResponse,
-  InternalAxiosRequestConfig
-} from 'axios'
-import type { CreateAxiosOptions, RequestOptions, Result } from './types'
+import type { AxiosResponse } from 'axios'
+import { AxiosCanceler } from './axiosCancel'
+import type { IRequestInterceptorTuple, IResponseInterceptorTuple, RequestConfig } from './types'
+import { lodash } from '@etfm/vea-shared'
+import { appendUrlParams, formatRequestDate, joinTimestamp } from './helper'
+import { RequestEnum } from './enum'
 
-export abstract class AxiosTransform {
-  /**
-   * A function that is called before a request is sent. It can modify the request configuration as needed.
-   * 在发送请求之前调用的函数。它可以根据需要修改请求配置。
-   */
-  beforeRequestHook?: (config: AxiosRequestConfig, options: RequestOptions) => AxiosRequestConfig
+// 设置默认拦截器
+export function defaultInterceptor(opts: RequestConfig) {
+  const axiosCanceler = new AxiosCanceler()
+  const requestInterceptors: IRequestInterceptorTuple[] = [
+    [
+      (config: RequestConfig) => {
+        // @ts-ignore
+        const { ignoreCancelToken } = config.requestOptions
+        const ignoreCancel =
+          ignoreCancelToken !== undefined
+            ? ignoreCancelToken
+            : opts.requestOptions?.ignoreCancelToken
 
-  /**
-   * @description: 处理响应数据
-   */
-  transformResponseHook?: (res: AxiosResponse<Result>, options: RequestOptions) => any
+        !ignoreCancel && axiosCanceler.addPending(config)
 
-  /**
-   * @description: 请求失败处理
-   */
-  requestCatchHook?: (e: Error, options: RequestOptions) => Promise<any>
+        return config
+      }
+    ],
+    [
+      // 处理请求前的数据
+      (config: RequestConfig) => {
+        const { apiUrl, joinParamsToUrl, formatDate, joinTime = true } = config
+        if (apiUrl) {
+          const _apuUrl = lodash.isString(apiUrl)
+            ? apiUrl
+            : lodash.isFunction(apiUrl)
+            ? (apiUrl as any)?.()
+            : ''
+          config.url = `${_apuUrl}${config.url}`
+        }
 
-  /**
-   * @description: 请求之前的拦截器
-   */
-  requestInterceptors?: (
-    config: InternalAxiosRequestConfig,
-    options: CreateAxiosOptions
-  ) => InternalAxiosRequestConfig
+        const params = config.params || {}
+        const data = config.data || false
+        formatDate && data && !lodash.isString(data) && formatRequestDate(data)
+        if (config.method?.toUpperCase() === RequestEnum.GET) {
+          if (!lodash.isString(params)) {
+            // 给 get 请求加上时间戳参数，避免从缓存中拿数据。
+            config.params = Object.assign(params || {}, joinTimestamp(joinTime, false))
+          } else {
+            // 兼容restful风格
+            config.url = config.url + params + `${joinTimestamp(joinTime, true)}`
+            config.params = undefined
+          }
+        } else {
+          if (!lodash.isString(params)) {
+            formatDate && formatRequestDate(params)
+            if (Reflect.has(config, 'data') && config.data && Object.keys(config.data).length > 0) {
+              config.data = data
+              config.params = params
+            } else {
+              // 非GET请求如果没有提供data，则将params视为data
+              config.data = params
+              config.params = undefined
+            }
+            if (joinParamsToUrl) {
+              config.url = appendUrlParams(
+                config.url as string,
+                Object.assign({}, config.params, config.data)
+              )
+            }
+          } else {
+            // 兼容restful风格
+            config.url = config.url + params
+            config.params = undefined
+          }
+        }
+        return config
+      }
+    ]
+  ]
 
-  /**
-   * @description: 请求之后的拦截器
-   */
-  responseInterceptors?: (res: AxiosResponse<any>) => AxiosResponse<any>
+  const responseInterceptors: IResponseInterceptorTuple[] = [
+    [
+      (res: AxiosResponse<any>) => {
+        res && axiosCanceler.removePending(res.config)
+        return res
+      }
+    ]
+  ]
 
-  /**
-   * @description: 请求之前的拦截器错误处理
-   */
-  requestInterceptorsCatch?: (error: Error) => void
-
-  /**
-   * @description: 请求之后的拦截器错误处理
-   */
-  responseInterceptorsCatch?: (axiosInstance: AxiosInstance, error: Error) => void
+  return {
+    requestInterceptors,
+    responseInterceptors
+  }
 }

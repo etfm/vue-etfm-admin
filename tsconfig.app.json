@@ -7,7 +7,8 @@
     "apps/**/*.ts",
     "packages/**/*",
     "packages/**/*.vue",
-    "packages/**/*.ts"
+    "packages/**/*.ts",
+    "typings/**/*.d.ts"
   ],
   "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {

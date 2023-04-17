@@ -1,6 +1,7 @@
 import { getPluginManager } from '@etfm/vea-plugin'
 import { lodash } from '@etfm/vea-shared'
 import { initPinia } from './pinia'
+import type { Pinia } from 'pinia'
 export interface IContext {
   isCache?: boolean
   key?: string | (() => string)
@@ -11,6 +12,8 @@ export let context = {
   key: 'pinia'
 }
 
+export let store: Pinia
+
 export function register(opts?: IContext) {
   // 收集配置信息
   const pinia = getPluginManager().applyPlugins({
@@ -19,5 +22,7 @@ export function register(opts?: IContext) {
 
   context = lodash.merge(context, opts, pinia)
 
-  return initPinia()
+  store = initPinia()
+
+  return store
 }

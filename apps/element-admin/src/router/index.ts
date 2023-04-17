@@ -1,5 +1,4 @@
 import type { AppRouteModule, AppRouteRecordRaw } from '@etfm/vea-router'
-
 import { mainOutRoutes } from './mainOut'
 import { PAGE_NOT_FOUND_ROUTE, REDIRECT_ROUTE } from './basic'
 import { BASE_HOME } from './constant'

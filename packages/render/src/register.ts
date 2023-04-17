@@ -18,7 +18,7 @@ export interface IContext {
     router: Router
     pinia: Pinia
   }) => void | ((opts?: { app: App; router: Router; pinia: Pinia }) => Promise<void>)
-  onMounted?: (opts?: {
+  onMounted?: (opts: {
     app: App
     router: Router
     pinia: Pinia

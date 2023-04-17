@@ -11,11 +11,16 @@
   },
   "dependencies": {
     "@etfm/vea-hooks": "^0.0.0",
+    "@etfm/vea-pinia": "^0.0.0",
     "@etfm/vea-plugin": "^0.0.0",
     "@etfm/vea-render": "^0.0.0",
     "@etfm/vea-router": "^0.0.0",
     "@etfm/vea-shared": "^0.0.0",
     "@etfm/vea-styles": "^0.0.0",
-    "@etfm/vea-vite": "^0.0.0"
+    "@etfm/vea-vite": "^0.0.0",
+    "nprogress": "^0.2.0"
+  },
+  "devDependencies": {
+    "@types/nprogress": "^0.2.0"
   }
 }

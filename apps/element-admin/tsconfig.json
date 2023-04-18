@@ -1,10 +1,24 @@
 {
-  "extends":["../../tsconfig.app.json", "../../tsconfig.vitest.json"],
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@etfm/vea-ts/web.json",
   "compilerOptions": {
     "baseUrl": ".",
+    "types": ["vite/client", "unplugin-vue-define-options/macros-global"],
     "paths": {
       "@/*": ["src/*"],
       "#/*": ["types/*"]
     }
-  }
+  },
+  "include": [
+    "tests/**/*.ts",
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "mock/**/*.ts",
+    "vite.config.ts",
+    ".etfmirc.ts",
+    ".etfm.ts"
+  ],
+  "exclude": ["node_modules", "tests/server/**/*.ts", "dist", "**/*.js"]
 }

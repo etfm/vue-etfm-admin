@@ -240,28 +240,31 @@ export default [
     timeout: 1000,
     method: 'get',
     response: (request: any) => {
-      const token = getRequestToken(request)
-      if (!token) {
-        return resultError('Invalid token!')
-      }
-      const checkUser = createFakeUserList().find((item) => item.token === token)
-      if (!checkUser) {
-        return resultError('Invalid user token!')
-      }
-      const id = checkUser.userId
-      let menu: Object[]
-      switch (id) {
-        case '1':
-          dashboardRoute.redirect = dashboardRoute.path + '/' + dashboardRoute.children[0].path
-          menu = [dashboardRoute, authRoute, levelRoute, sysRoute, linkRoute]
-          break
-        case '2':
-          dashboardRoute.redirect = dashboardRoute.path + '/' + dashboardRoute.children[1].path
-          menu = [dashboardRoute, authRoute, levelRoute, linkRoute]
-          break
-        default:
-          menu = []
-      }
+      // const token = getRequestToken(request)
+      // if (!token) {
+      //   return resultError('Invalid token!')
+      // }
+      // const checkUser = createFakeUserList().find((item) => item.token === token)
+      // if (!checkUser) {
+      //   return resultError('Invalid user token!')
+      // }
+      // const id = checkUser.userId
+      let menu: any[] = []
+      // switch (id) {
+      //   case '1':
+      //     dashboardRoute.redirect = dashboardRoute.path + '/' + dashboardRoute.children[0].path
+      //     menu = [dashboardRoute, authRoute, levelRoute, sysRoute, linkRoute]
+      //     break
+      //   case '2':
+      //     dashboardRoute.redirect = dashboardRoute.path + '/' + dashboardRoute.children[1].path
+      //     menu = [dashboardRoute, authRoute, levelRoute, linkRoute]
+      //     break
+      //   default:
+      //     menu = []
+      // }
+
+      dashboardRoute.redirect = dashboardRoute.path + '/' + dashboardRoute.children[0].path
+      menu = [dashboardRoute, authRoute, levelRoute, sysRoute, linkRoute]
 
       return resultSuccess(menu)
     }

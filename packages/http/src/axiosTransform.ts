@@ -11,8 +11,7 @@ export function defaultInterceptor(opts: RequestConfig) {
   const requestInterceptors: IRequestInterceptorTuple[] = [
     [
       (config: RequestConfig) => {
-        // @ts-ignore
-        const { ignoreCancelToken } = config.requestOptions
+        const { ignoreCancelToken } = config
         const ignoreCancel =
           ignoreCancelToken !== undefined
             ? ignoreCancelToken
@@ -26,14 +25,20 @@ export function defaultInterceptor(opts: RequestConfig) {
     [
       // 处理请求前的数据
       (config: RequestConfig) => {
-        const { apiUrl, joinParamsToUrl, formatDate, joinTime = true } = config
-        if (apiUrl) {
-          const _apuUrl = lodash.isString(apiUrl)
-            ? apiUrl
-            : lodash.isFunction(apiUrl)
-            ? (apiUrl as any)?.()
-            : ''
-          config.url = `${_apuUrl}${config.url}`
+        const {
+          apiUrl,
+          joinPrefix,
+          joinParamsToUrl,
+          formatDate,
+          joinTime = true,
+          urlPrefix
+        } = config
+        if (joinPrefix) {
+          config.url = `${urlPrefix}${config.url}`
+        }
+
+        if (apiUrl && lodash.isString(apiUrl)) {
+          config.url = `${apiUrl}${config.url}`
         }
 
         const params = config.params || {}
@@ -80,6 +85,7 @@ export function defaultInterceptor(opts: RequestConfig) {
     [
       (res: AxiosResponse<any>) => {
         res && axiosCanceler.removePending(res.config)
+
         return res
       }
     ]

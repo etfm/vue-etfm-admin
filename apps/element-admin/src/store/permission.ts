@@ -2,12 +2,8 @@ import type { AppRouteRecordRaw } from '@etfm/vea-router'
 
 import { defineStore, store } from '@etfm/vea-pinia'
 
-import { PageEnum } from '@/router/enum'
-
-import { asyncRoutes } from '@/router'
-
-import { getMenuList } from '/@/api/sys/menu'
-import { getPermCode } from '/@/api/sys/user'
+import { getMenuList } from '@/api/sys/menu'
+import { getPermCode } from '@/api/sys/user'
 import type { Menu } from '@/router/types'
 
 // import { useMessage } from '/@/hooks/web/useMessage'

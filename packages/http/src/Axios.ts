@@ -9,6 +9,8 @@ import type {
 import axios from 'axios'
 import qs from 'qs'
 import { ContentTypeEnum, RequestEnum } from './enum'
+import { defaultInterceptor } from './axiosTransform'
+import { context } from './register'
 
 export * from './axiosTransform'
 
@@ -69,9 +71,11 @@ export class VAxios {
     })
 
     const responseInterceptorsToEject = responseInterceptors?.map((interceptor) => {
-      return interceptor instanceof Array
-        ? this.axiosInstance.interceptors.response.use(interceptor[0], interceptor[1])
-        : this.axiosInstance.interceptors.response.use(interceptor)
+      if (interceptor instanceof Array) {
+        return this.axiosInstance.interceptors.response.use(interceptor[0], interceptor[1])
+      } else {
+        return this.axiosInstance.interceptors.response.use(interceptor)
+      }
     })
 
     return {
@@ -84,14 +88,18 @@ export class VAxios {
    * @description: Interceptor configuration 拦截器配置
    */
   private setupInterceptors() {
-    const config: RequestConfig = {}
-    this.getRequestInstance(config.requestInterceptors ?? [], config.responseInterceptors ?? [])
+    const { requestInterceptors, responseInterceptors } = defaultInterceptor(this.options)
+
+    this.getRequestInstance(requestInterceptors, responseInterceptors)
+
+    this.getRequestInstance(context.requestInterceptors || [], context.responseInterceptors || [])
 
     // 当响应的数据 success 是 false 的时候，抛出 error 以供 errorHandler 处理。
     this.axiosInstance.interceptors.response.use((response) => {
       const { data } = response
-      if (data?.success === false && config?.errorConfig?.errorThrower) {
-        config.errorConfig.errorThrower(data)
+
+      if (data?.success === false && context?.errorConfig?.errorThrower) {
+        context.errorConfig.errorThrower(data)
       }
       return response
     })
@@ -172,8 +180,6 @@ export class VAxios {
   }
 
   request<T = any>(config: RequestConfig): Promise<T> {
-    const configApp: RequestConfig = {}
-
     const opt: RequestConfig = Object.assign({}, this.options, config)
     const { requestInterceptorsToEject, responseInterceptorsToEject } = this.getRequestInstance(
       config?.requestInterceptors ?? [],
@@ -201,7 +207,7 @@ export class VAxios {
           })
 
           try {
-            const handler = config?.errorConfig?.errorHandler ?? configApp.errorConfig?.errorHandler
+            const handler = config?.errorConfig?.errorHandler ?? context.errorConfig?.errorHandler
             if (handler) handler(e, opt)
           } catch (e) {
             reject(e)

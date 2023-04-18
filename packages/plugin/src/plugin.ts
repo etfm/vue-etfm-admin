@@ -13,7 +13,7 @@ export async function getPlugins() {
 }
 
 function getValidKeys() {
-  return ['render', 'router', 'pinia']
+  return ['render', 'router', 'pinia', 'http']
 }
 
 let pluginManager: PluginManager

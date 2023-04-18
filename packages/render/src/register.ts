@@ -9,20 +9,10 @@ import type { Pinia } from 'pinia'
 export interface IContext {
   rootElement?: App | Element | Function | Promise<Function>
   rootContainer?: App | Function | Promise<Function>
-  onRouterCreated?: (opts?: {
-    router: Router
-  }) => void | ((opts?: { router: Router }) => Promise<void>)
-  onPiniaCreated?: (opts?: { pinia: Pinia }) => void | ((opts?: { pinia: Pinia }) => Promise<void>)
-  onAppCreated?: (opts?: {
-    app: App
-    router: Router
-    pinia: Pinia
-  }) => void | ((opts?: { app: App; router: Router; pinia: Pinia }) => Promise<void>)
-  onMounted?: (opts: {
-    app: App
-    router: Router
-    pinia: Pinia
-  }) => void | ((opts?: { app: App; router: Router; pinia: Pinia }) => Promise<void>)
+  onRouterCreated?: (opts?: { router: Router }) => void | Promise<void>
+  onPiniaCreated?: (opts?: { pinia: Pinia }) => void | Promise<void>
+  onAppCreated?: (opts?: { app: App; router: Router; pinia: Pinia }) => void | Promise<void>
+  onMounted?: (opts: { app: App; router: Router; pinia: Pinia }) => Promise<void> | void
 }
 
 export let context: IContext = {

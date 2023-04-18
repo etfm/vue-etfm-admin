@@ -13,10 +13,7 @@ export let context: IContext = {
   timeout: 10 * 1000,
   // 基础接口地址
   // baseURL: globSetting.apiUrl,
-
   headers: { 'Content-Type': ContentTypeEnum.JSON },
-  // 如果是form-data格式
-  // headers: { 'Content-Type': ContentTypeEnum.FORM_URLENCODED },
   // 默认将prefix 添加到url
   joinPrefix: true,
   // 是否返回原生响应头 比如：需要获取响应头时使用该属性
@@ -55,6 +52,8 @@ export function register(opts?: IContext) {
   })
 
   context = lodash.merge(context, opts, httpConfig)
+
+  console.log(context)
 
   http = new VAxios(context)
 

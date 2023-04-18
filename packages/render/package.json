@@ -28,6 +28,7 @@
     "url": "https://github.com/etfm/vue-etfm-admin/issues"
   },
   "dependencies": {
+    "@etfm/vea-http": "^0.0.0",
     "@etfm/vea-pinia": "^0.0.0",
     "@etfm/vea-plugin": "^0.0.0",
     "@etfm/vea-router": "^0.0.0",

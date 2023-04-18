@@ -72,13 +72,28 @@ export default [
     url: '/basic-api/getUserInfo',
     method: 'get',
     response: (request: requestParams) => {
-      const token = getRequestToken(request)
-      if (!token) return resultError('Invalid token')
-      const checkUser = createFakeUserList().find((item) => item.token === token)
-      if (!checkUser) {
-        return resultError('The corresponding user information was not obtained!')
-      }
-      return resultSuccess(checkUser)
+      // const token = getRequestToken(request)
+      // if (!token) return resultError('Invalid token')
+      // const checkUser = createFakeUserList().find((item) => item.token === token)
+      // if (!checkUser) {
+      //   return resultError('The corresponding user information was not obtained!')
+      // }
+      return resultSuccess({
+        userId: '1',
+        username: 'vben',
+        realName: 'Vben Admin',
+        avatar: '',
+        desc: 'manager',
+        password: '123456',
+        token: 'fakeToken1',
+        homePath: '/dashboard/analysis',
+        roles: [
+          {
+            roleName: 'Super Admin',
+            value: 'super'
+          }
+        ]
+      })
     }
   },
   {
@@ -86,15 +101,15 @@ export default [
     timeout: 200,
     method: 'get',
     response: (request: requestParams) => {
-      const token = getRequestToken(request)
-      if (!token) return resultError('Invalid token')
-      const checkUser = createFakeUserList().find((item) => item.token === token)
-      if (!checkUser) {
-        return resultError('Invalid token!')
-      }
-      const codeList = fakeCodeList[checkUser.userId]
+      // const token = getRequestToken(request)
+      // if (!token) return resultError('Invalid token')
+      // const checkUser = createFakeUserList().find((item) => item.token === token)
+      // if (!checkUser) {
+      //   return resultError('Invalid token!')
+      // }
+      // const codeList = fakeCodeList[checkUser.userId]
 
-      return resultSuccess(codeList)
+      return resultSuccess(['1000', '3000', '5000'])
     }
   },
   {

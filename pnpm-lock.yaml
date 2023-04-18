@@ -6,6 +6,7 @@ importers:
     specifiers:
       '@commitlint/cli': ^17.5.1
       '@element-plus/icons-vue': ^2.1.0
+      '@etfm/vea-ts': ^0.0.0
       '@iconify-json/mdi': ^1.1.50
       '@iconify/json': ^2.2.47
       '@rushstack/eslint-patch': ^1.2.0
@@ -48,6 +49,7 @@ importers:
       vue-tsc: ^1.2.0
     dependencies:
       '@element-plus/icons-vue': 2.1.0_vue@3.2.47
+      '@etfm/vea-ts': link:configs/vea-ts
       element-plus: 2.3.2_vue@3.2.47
       pinia: 2.0.33_7h6e7cvei2rsgyre2mq4fyhehq
       vue: 3.2.47
@@ -94,27 +96,40 @@ importers:
   apps/element-admin:
     specifiers:
       '@etfm/vea-hooks': ^0.0.0
+      '@etfm/vea-http': ^0.0.0
       '@etfm/vea-pinia': ^0.0.0
       '@etfm/vea-plugin': ^0.0.0
       '@etfm/vea-render': ^0.0.0
       '@etfm/vea-router': ^0.0.0
       '@etfm/vea-shared': ^0.0.0
       '@etfm/vea-styles': ^0.0.0
+      '@etfm/vea-ts': ^0.0.0
       '@etfm/vea-vite': ^0.0.0
       '@types/nprogress': ^0.2.0
+      mockjs: ^1.1.0
       nprogress: ^0.2.0
+      path-to-regexp: ^6.2.1
+      vite-plugin-mock: 2.9.6
     dependencies:
       '@etfm/vea-hooks': link:../../packages/hooks
+      '@etfm/vea-http': link:../../packages/http
       '@etfm/vea-pinia': link:../../packages/pinia
       '@etfm/vea-plugin': link:../../packages/plugin
       '@etfm/vea-render': link:../../packages/render
       '@etfm/vea-router': link:../../packages/router
       '@etfm/vea-shared': link:../../packages/shared
       '@etfm/vea-styles': link:../../packages/styles
+      '@etfm/vea-ts': link:../../configs/vea-ts
       '@etfm/vea-vite': link:../../configs/vea-vite
+      mockjs: 1.1.0
       nprogress: 0.2.0
+      path-to-regexp: 6.2.1
     devDependencies:
       '@types/nprogress': 0.2.0
+      vite-plugin-mock: 2.9.6_mockjs@1.1.0
+
+  configs/vea-ts:
+    specifiers: {}
 
   configs/vea-vite:
     specifiers:
@@ -200,11 +215,13 @@ importers:
 
   packages/plugin:
     specifiers:
+      '@etfm/vea-http': ^0.0.0
       '@etfm/vea-pinia': ^0.0.0
       '@etfm/vea-render': ^0.0.0
       '@etfm/vea-router': ^0.0.0
       '@etfm/vea-shared': ^0.0.0
     dependencies:
+      '@etfm/vea-http': link:../http
       '@etfm/vea-pinia': link:../pinia
       '@etfm/vea-render': link:../render
       '@etfm/vea-router': link:../router
@@ -212,11 +229,13 @@ importers:
 
   packages/render:
     specifiers:
+      '@etfm/vea-http': ^0.0.0
       '@etfm/vea-pinia': ^0.0.0
       '@etfm/vea-plugin': ^0.0.0
       '@etfm/vea-router': ^0.0.0
       '@etfm/vea-shared': ^0.0.0
     dependencies:
+      '@etfm/vea-http': link:../http
       '@etfm/vea-pinia': link:../pinia
       '@etfm/vea-plugin': link:../plugin
       '@etfm/vea-router': link:../router
@@ -2600,7 +2619,7 @@ packages:
   /axios/0.27.2_debug@4.3.4:
     resolution: {integrity: sha512-t+yRIyySRTp/wua5xEr+z1q60QmLq8ABsS5O9Me1AsE5dfKqgnCFzwiCZZ/cGNd1lq4/7akDWMxdhVlucjmnOQ==}
     dependencies:
-      follow-redirects: 1.15.2
+      follow-redirects: 1.15.2_debug@4.3.4
       form-data: 4.0.0
     transitivePeerDependencies:
       - debug
@@ -2997,7 +3016,6 @@ packages:
   /commander/10.0.0:
     resolution: {integrity: sha512-zS5PnTI22FIRM6ylNW8G4Ap0IEOyk62fhLSD0+uHRT9McRCLGpkVNvao4bjimpK/GShynyQkFFxHhwMcETmduA==}
     engines: {node: '>=14'}
-    dev: true
 
   /commander/2.20.3:
     resolution: {integrity: sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==}
@@ -4236,6 +4254,19 @@ packages:
     peerDependenciesMeta:
       debug:
         optional: true
+    dev: false
+
+  /follow-redirects/1.15.2_debug@4.3.4:
+    resolution: {integrity: sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==}
+    engines: {node: '>=4.0'}
+    peerDependencies:
+      debug: '*'
+    peerDependenciesMeta:
+      debug:
+        optional: true
+    dependencies:
+      debug: 4.3.4
+    dev: true
 
   /for-each/0.3.3:
     resolution: {integrity: sha512-jqYfLp7mo9vIyQf8ykW2v7A+2N4QjeCeI5+Dz9XraiO1ign81wjiH7Fb9vSOWvQfNtmSa4H2RoQTrrXivdUZmw==}
@@ -5901,7 +5932,6 @@ packages:
     hasBin: true
     dependencies:
       commander: 10.0.0
-    dev: true
 
   /mri/1.2.0:
     resolution: {integrity: sha512-tzzskb3bG8LvYGFF/mDTpq3jpI6Q9wc3LEmBaghu+DdCssd1FakN7Bc0hVNmEyGq1bq3RgfkCb3cmQLpNPOroA==}
@@ -6330,7 +6360,6 @@ packages:
 
   /path-to-regexp/6.2.1:
     resolution: {integrity: sha512-JLyh7xT1kizaEvcaXOQwOc2/Yhw6KZOvPf1S8401UyLk86CU79LN3vl7ztXGm/pZ+YjoyAJ4rxmHwbkBXJX+yw==}
-    dev: true
 
   /path-type/3.0.0:
     resolution: {integrity: sha512-T2ZUsdZFHgA3u4e5PfPbjd7HDDpxPnQb5jN0SrDsjNSuVXHJqtwTnWqG0B1jZrgmJ/7lj1EmVIByWt1gxGkWvg==}

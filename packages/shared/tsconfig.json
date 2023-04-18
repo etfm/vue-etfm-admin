@@ -1,11 +1,5 @@
 {
-  "files": [],
-  "references": [
-    {
-      "path": "../../tsconfig.app.json"
-    },
-    {
-      "path": "../../tsconfig.vitest.json"
-    }
-  ]
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "@etfm/vea-ts/web.json",
+  "include": ["src"]
 }

@@ -1,9 +1,9 @@
 // Interface data format used to return a unified format
-import { ResultEnum } from '/@/enums/httpEnum'
+// import { ResultEnum } from '@etfm/vea-http'
 
-export function resultSuccess<T = Recordable>(result: T, { message = 'ok' } = {}) {
+export function resultSuccess<T = any>(result: T, { message = 'ok' } = {}) {
   return {
-    code: ResultEnum.SUCCESS,
+    code: 0,
     result,
     message,
     type: 'success'
@@ -27,10 +27,7 @@ export function resultPageSuccess<T = any>(
   }
 }
 
-export function resultError(
-  message = 'Request failed',
-  { code = ResultEnum.ERROR, result = null } = {}
-) {
+export function resultError(message = 'Request failed', { code = -1, result = null } = {}) {
   return {
     code,
     result,

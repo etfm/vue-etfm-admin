@@ -4,6 +4,7 @@ import { register as registerPinia } from '@etfm/vea-pinia'
 import { lodash } from '@etfm/vea-shared'
 import { context } from './register'
 import type { PluginManager } from '@etfm/vea-plugin'
+import { register as registerHttp } from '@etfm/vea-http'
 
 export const AppContextKey = Symbol('AppContextKey')
 
@@ -15,6 +16,9 @@ export async function initRender(opts: { pluginManager: PluginManager }) {
   const rootContainer = lodash.isFunction(context.rootContainer)
     ? await context.rootContainer()
     : context.rootContainer
+
+  // 注册http
+  registerHttp()
 
   const router = registerRouter()
   context.onRouterCreated && (await context.onRouterCreated({ router }))

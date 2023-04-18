@@ -18,7 +18,6 @@ async function createAppConfigPlugin({
   let publicPath: string
   let source: string
   if (!isBuild) {
-    console.log('===============================================')
     return {
       name: PLUGIN_NAME
     }

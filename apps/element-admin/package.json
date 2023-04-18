@@ -11,16 +11,21 @@
   },
   "dependencies": {
     "@etfm/vea-hooks": "^0.0.0",
+    "@etfm/vea-http": "^0.0.0",
     "@etfm/vea-pinia": "^0.0.0",
     "@etfm/vea-plugin": "^0.0.0",
     "@etfm/vea-render": "^0.0.0",
     "@etfm/vea-router": "^0.0.0",
     "@etfm/vea-shared": "^0.0.0",
     "@etfm/vea-styles": "^0.0.0",
+    "@etfm/vea-ts": "^0.0.0",
     "@etfm/vea-vite": "^0.0.0",
-    "nprogress": "^0.2.0"
+    "mockjs": "^1.1.0",
+    "nprogress": "^0.2.0",
+    "path-to-regexp": "^6.2.1"
   },
   "devDependencies": {
-    "@types/nprogress": "^0.2.0"
+    "@types/nprogress": "^0.2.0",
+    "vite-plugin-mock": "2.9.6"
   }
 }

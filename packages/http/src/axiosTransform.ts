@@ -4,6 +4,7 @@ import type { IRequestInterceptorTuple, IResponseInterceptorTuple, RequestConfig
 import { lodash } from '@etfm/vea-shared'
 import { appendUrlParams, formatRequestDate, joinTimestamp } from './helper'
 import { RequestEnum } from './enum'
+import { ErrorThrow } from './ErrorThrow'
 
 // 设置默认拦截器
 export function defaultInterceptor(opts: RequestConfig) {
@@ -83,10 +84,43 @@ export function defaultInterceptor(opts: RequestConfig) {
 
   const responseInterceptors: IResponseInterceptorTuple[] = [
     [
+      (response) => {
+        if (response.isReturnNativeResponse) {
+          return response
+        }
+
+        if (response.isTransformResponse) {
+          return response.data
+        }
+
+        const { data } = response
+
+        if (!data) {
+          throw new ErrorThrow({
+            name: 'BizError',
+            code: response.status,
+            message: 'data 数据为空',
+            type: 'RESPONSE',
+            result: data
+          })
+        }
+      }
+    ],
+    [
       (res: AxiosResponse<any>) => {
         res && axiosCanceler.removePending(res.config)
 
         return res
+      },
+      (error: any) => {
+        return Promise.reject(
+          new ErrorThrow({
+            name: error.name,
+            message: error.message,
+            code: error.response.status,
+            type: 'RESPONSE'
+          })
+        )
       }
     ]
   ]

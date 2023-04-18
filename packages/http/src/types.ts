@@ -48,7 +48,15 @@ interface IErrorHandler {
   (error: RequestError, opts: RequestConfig): void
 }
 
+export interface IResultField {
+  code: string
+  message: string
+  data: string
+}
+
 export interface RequestConfig<T = any> extends AxiosRequestConfig {
+  resultField: IResultField
+  successCode: number
   // Splicing request parameters to url
   joinParamsToUrl?: boolean
   // Format request parameter time

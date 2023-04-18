@@ -7,6 +7,12 @@ import type { RequestConfig } from './types'
 export type IContext = RequestConfig
 
 export let context: IContext = {
+  resultField: {
+    code: 'code',
+    message: 'message',
+    data: 'data'
+  },
+  successCode: 0,
   // See https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#authentication_schemes
   // authentication schemes，e.g: Bearer
   // authenticationScheme: 'Bearer',

@@ -34,7 +34,7 @@ export default defineApp({
       [
         (config) => {
           const { data } = config
-
+          // throw new Error('请求失败')
           if (!data) {
             // return '[HTTP] Request has no return value';
             throw new Error('请求失败')
@@ -43,18 +43,10 @@ export default defineApp({
           const { code, result, message } = data as any
 
           const hasSuccess = data && Reflect.has(data, 'code') && code === 0
-          return {
-            ...config,
-            data: {
-              success: false
-            }
-          }
+          return config
           if (hasSuccess) {
             return result
           }
-        },
-        (e) => {
-          return Promise.reject(e)
         }
       ]
     ],
@@ -62,8 +54,8 @@ export default defineApp({
       errorThrower() {
         console.log('------------------')
       },
-      errorHandler() {
-        console.log('================')
+      errorHandler(e) {
+        console.log('================111', e, e.info, e.message)
       }
     }
   }

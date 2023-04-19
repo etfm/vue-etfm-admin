@@ -1,7 +1,7 @@
 import { http } from '@etfm/vea-http'
 
 enum Api {
-  GetMenuList = '/getMenuList1'
+  GetMenuList = '/getMenuList'
 }
 
 /**

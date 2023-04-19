@@ -7,18 +7,17 @@ import type { RequestConfig } from './types'
 export type IContext = RequestConfig
 
 export let context: IContext = {
+  // 自定义后端返回的字段
   resultField: {
     code: 'code',
     message: 'message',
     data: 'data'
   },
+  // 后端返回数据格式，请求成功的依据
   successCode: 0,
-  // See https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication#authentication_schemes
-  // authentication schemes，e.g: Bearer
-  // authenticationScheme: 'Bearer',
+  // 响应的过期时间
   timeout: 10 * 1000,
   // 基础接口地址
-  // baseURL: globSetting.apiUrl,
   headers: { 'Content-Type': ContentTypeEnum.JSON },
   // 默认将prefix 添加到url
   joinPrefix: true,
@@ -30,8 +29,6 @@ export let context: IContext = {
   joinParamsToUrl: false,
   // 格式化提交参数时间
   formatDate: true,
-  // 消息提示类型
-  errorMessageMode: 'message',
   // 接口地址
   apiUrl: '',
   // 接口拼接地址
@@ -41,12 +38,7 @@ export let context: IContext = {
   // 忽略重复请求
   ignoreCancelToken: true,
   // 是否携带token
-  withToken: true,
-  retryRequest: {
-    isOpenRetry: true,
-    count: 5,
-    waitTime: 100
-  }
+  withToken: true
 }
 
 export let http: VAxios
@@ -58,8 +50,6 @@ export function register(opts?: IContext) {
   })
 
   context = lodash.merge(context, opts, httpConfig)
-
-  console.log(context)
 
   http = new VAxios(context)
 

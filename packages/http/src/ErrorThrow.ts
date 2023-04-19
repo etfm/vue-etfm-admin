@@ -1,9 +1,10 @@
 export interface IErrorThrow {
   message: string
   name: string
-  code: string
+  code: string | number
   type: string
-  result?: string
+  result?: any
+  info?: any
 }
 
 export class ErrorThrow {
@@ -11,7 +12,8 @@ export class ErrorThrow {
   public name: string
   public code: string | number
   public type: string
-  public result: any
+  public result?: any
+  public info?: any
 
   constructor(opts: IErrorThrow) {
     this.message = opts.message
@@ -19,5 +21,6 @@ export class ErrorThrow {
     this.code = opts.code
     this.type = opts.type
     this.result = opts.result
+    this.info = opts.info
   }
 }

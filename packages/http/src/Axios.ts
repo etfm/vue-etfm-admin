@@ -11,6 +11,7 @@ import qs from 'qs'
 import { ContentTypeEnum, RequestEnum } from './enum'
 import { defaultInterceptor } from './axiosTransform'
 import { context } from './register'
+import { ErrorThrow } from './ErrorThrow'
 
 export * from './axiosTransform'
 
@@ -93,16 +94,6 @@ export class VAxios {
     this.getRequestInstance(requestInterceptors, responseInterceptors)
 
     this.getRequestInstance(context.requestInterceptors || [], context.responseInterceptors || [])
-
-    // 当响应的数据 success 是 false 的时候，抛出 error 以供 errorHandler 处理。
-    this.axiosInstance.interceptors.response.use((response) => {
-      const { data } = response
-
-      if (data?.success === false && context?.errorConfig?.errorThrower) {
-        context.errorConfig.errorThrower(data)
-      }
-      return response
-    })
   }
 
   /**
@@ -186,6 +177,33 @@ export class VAxios {
       config?.responseInterceptors ?? []
     )
 
+    this.axiosInstance.interceptors.request.use(undefined, (error) => {
+      if (error instanceof ErrorThrow) return Promise.reject(error)
+
+      return Promise.reject(
+        new ErrorThrow({
+          name: error?.name,
+          message: error?.message,
+          code: error?.request?.status,
+          type: error?.code,
+          info: error
+        })
+      )
+    })
+
+    this.axiosInstance.interceptors.response.use(undefined, (error) => {
+      if (error instanceof ErrorThrow) return Promise.reject(error)
+      return Promise.reject(
+        new ErrorThrow({
+          name: error?.name,
+          message: error?.message,
+          code: error?.response?.status,
+          type: error?.code,
+          info: error
+        })
+      )
+    })
+
     return new Promise((resolve, reject) => {
       this.axiosInstance
         .request<any, AxiosResponse<Result>>(config)
@@ -198,7 +216,7 @@ export class VAxios {
           })
           resolve(res as unknown as Promise<T>)
         })
-        .catch((e: Error | AxiosError) => {
+        .catch((e: any) => {
           requestInterceptorsToEject?.forEach((interceptor) => {
             this.axiosInstance.interceptors.request.eject(interceptor)
           })
@@ -207,7 +225,7 @@ export class VAxios {
           })
 
           try {
-            const handler = config?.errorConfig?.errorHandler ?? context.errorConfig?.errorHandler
+            const handler = config?.onError ?? context.onError
             if (handler) handler(e, opt)
           } catch (e) {
             reject(e)

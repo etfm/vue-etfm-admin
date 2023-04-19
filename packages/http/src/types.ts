@@ -1,13 +1,5 @@
 import type { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
-
-export type ErrorMessageMode = 'none' | 'modal' | 'message' | undefined
-export type SuccessMessageMode = ErrorMessageMode
-
-export interface RetryRequest {
-  isOpenRetry: boolean
-  count: number
-  waitTime: number
-}
+import { IErrorThrow } from './ErrorThrow'
 export interface Result<T = any> {
   code: number
   type: 'success' | 'error' | 'warning'
@@ -42,7 +34,7 @@ export type IResponseInterceptorTuple =
   | [IResponseInterceptor]
   | IResponseInterceptor
 
-type RequestError = AxiosError | Error
+type RequestError = AxiosError & Error & IErrorThrow
 
 interface IErrorHandler {
   (error: RequestError, opts: RequestConfig): void
@@ -55,8 +47,8 @@ export interface IResultField {
 }
 
 export interface RequestConfig<T = any> extends AxiosRequestConfig {
-  resultField: IResultField
-  successCode: number
+  resultField?: IResultField
+  successCode?: number
   // Splicing request parameters to url
   joinParamsToUrl?: boolean
   // Format request parameter time
@@ -72,22 +64,13 @@ export interface RequestConfig<T = any> extends AxiosRequestConfig {
   apiUrl?: string
   // 请求拼接路径
   urlPrefix?: string
-  // Error message prompt type
-  errorMessageMode?: ErrorMessageMode
-  // Success message prompt type
-  successMessageMode?: SuccessMessageMode
   // Whether to add a timestamp
   joinTime?: boolean
   ignoreCancelToken?: boolean
   // Whether to send token in header
   withToken?: boolean
-  // 请求重试机制
-  retryRequest?: RetryRequest
   skipErrorHandler?: boolean
-  errorConfig?: {
-    errorHandler?: IErrorHandler
-    errorThrower?: (res: T) => void
-  }
+  onError?: IErrorHandler
   requestInterceptors?: IRequestInterceptorTuple[]
   responseInterceptors?: IResponseInterceptorTuple[]
   [key: string]: any

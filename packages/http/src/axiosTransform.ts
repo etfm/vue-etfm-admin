@@ -5,24 +5,12 @@ import { lodash } from '@etfm/vea-shared'
 import { appendUrlParams, formatRequestDate, joinTimestamp } from './helper'
 import { RequestEnum } from './enum'
 import { ErrorThrow } from './ErrorThrow'
+import { context } from './register'
 
 // 设置默认拦截器
 export function defaultInterceptor(opts: RequestConfig) {
   const axiosCanceler = new AxiosCanceler()
   const requestInterceptors: IRequestInterceptorTuple[] = [
-    [
-      (config: RequestConfig) => {
-        const { ignoreCancelToken } = config
-        const ignoreCancel =
-          ignoreCancelToken !== undefined
-            ? ignoreCancelToken
-            : opts.requestOptions?.ignoreCancelToken
-
-        !ignoreCancel && axiosCanceler.addPending(config)
-
-        return config
-      }
-    ],
     [
       // 处理请求前的数据
       (config: RequestConfig) => {
@@ -79,17 +67,35 @@ export function defaultInterceptor(opts: RequestConfig) {
         }
         return config
       }
+    ],
+    [
+      (config: RequestConfig) => {
+        const { ignoreCancelToken } = config
+        const ignoreCancel =
+          ignoreCancelToken !== undefined ? ignoreCancelToken : opts?.ignoreCancelToken
+
+        !ignoreCancel && axiosCanceler.addPending(config)
+
+        return config
+      }
     ]
   ]
 
   const responseInterceptors: IResponseInterceptorTuple[] = [
     [
-      (response) => {
-        if (response.isReturnNativeResponse) {
+      (res: AxiosResponse<any>) => {
+        res && axiosCanceler.removePending(res.config)
+
+        return res
+      }
+    ],
+    [
+      (response: any) => {
+        if (response.config?.isReturnNativeResponse) {
           return response
         }
 
-        if (response.isTransformResponse) {
+        if (!response.config?.isTransformResponse) {
           return response.data
         }
 
@@ -100,27 +106,31 @@ export function defaultInterceptor(opts: RequestConfig) {
             name: 'BizError',
             code: response.status,
             message: 'data 数据为空',
-            type: 'RESPONSE',
-            result: data
+            type: 'LINK_OK_DATA_ERROR',
+            result: data,
+            info: response
           })
         }
-      }
-    ],
-    [
-      (res: AxiosResponse<any>) => {
-        res && axiosCanceler.removePending(res.config)
 
-        return res
-      },
-      (error: any) => {
-        return Promise.reject(
-          new ErrorThrow({
-            name: error.name,
-            message: error.message,
-            code: error.response.status,
-            type: 'RESPONSE'
-          })
-        )
+        const codeField = context.resultField?.code as string
+        const dataField = context.resultField?.data as any
+        const successCode = context.successCode as string | number
+
+        const hasSuccess =
+          data && Reflect.has(data, codeField) && Reflect.get(data, codeField) === successCode
+
+        if (hasSuccess) {
+          return Reflect.get(data, dataField)
+        }
+
+        throw new ErrorThrow({
+          name: 'BizError',
+          code: response.status,
+          message: 'CODE ERROR',
+          result: data,
+          info: response,
+          type: 'LINK_OK_CODE_ERROR'
+        })
       }
     ]
   ]

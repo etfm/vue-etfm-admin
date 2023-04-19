@@ -8,6 +8,6 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "noImplicitAny": false,
     "moduleResolution": "bundler",
-    "types": ["vite/client"]
+    "types": ["vite/client", "../../typings/global"]
   }
 }

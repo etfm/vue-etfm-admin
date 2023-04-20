@@ -1,7 +1,7 @@
-export { addDynamicRoute } from './convention'
+export { addDynamicRoute } from './convention';
 
-export { register, type IContext } from './register'
+export { register } from './register';
 
-export * from './types'
+export type { IRouterContext, AppRouteRecordRaw, AppRouteModule } from '@etfm/vea-types';
 
-export * from 'vue-router'
+export * from 'vue-router';

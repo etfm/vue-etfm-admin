@@ -3,22 +3,20 @@
   "extends": "@etfm/vea-ts/web.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "types": ["vite/client", "unplugin-vue-define-options/macros-global"],
+    "types": [
+      "element-plus/global",
+      "../../typings/global",
+      "../../typings/env",
+      "unplugin-vue-define-options/macros-global"
+    ],
     "paths": {
       "@/*": ["src/*"],
       "#/*": ["types/*"]
     }
   },
-  "include": [
-    "tests/**/*.ts",
-    "src/**/*.ts",
-    "src/**/*.d.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue",
-    "mock/**/*.ts",
-    "vite.config.ts",
-    ".etfmirc.ts",
-    ".etfm.ts"
-  ],
-  "exclude": ["node_modules", "tests/server/**/*.ts", "dist", "**/*.js"]
+  "vueCompilerOptions": {
+    "target": 3,
+    "plugins": ["@vue-macros/volar/define-options"]
+  },
+  "include": ["mock", "src", ".etfmirc.ts", ".etfm.ts", "vite.config.ts", "vitest.config.ts"]
 }

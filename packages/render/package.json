@@ -2,36 +2,43 @@
   "name": "@etfm/vea-render",
   "version": "0.0.0",
   "description": "> TODO: description",
-  "author": "liuzhidong <1956252575@qq.com>",
   "homepage": "https://github.com/etfm/vue-etfm-admin#readme",
-  "license": "ISC",
-  "main": "src/index.ts",
-  "module": "src/index.ts",
-  "directories": {
-    "lib": "lib",
-    "test": "__tests__"
-  },
-  "files": [
-    "src"
-  ],
-  "publishConfig": {
-    "access": "public"
+  "bugs": {
+    "url": "https://github.com/etfm/vue-etfm-admin/issues"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/etfm/vue-etfm-admin.git"
   },
+  "license": "ISC",
+  "author": "lzdjack <1956252575@qq.com>",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "default": "./src/index.ts"
+    }
+  },
+  "main": "src/index.ts",
+  "module": "src/index.ts",
+  "types": "src/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
+    "build": "pnpm unbuild",
+    "clean": "pnpm rimraf .turbo node_modules dist",
+    "lint": "pnpm eslint .",
+    "stub": "pnpm unbuild --stub",
     "test": "node ./__tests__/@etfm/render.test.js"
   },
-  "bugs": {
-    "url": "https://github.com/etfm/vue-etfm-admin/issues"
-  },
   "dependencies": {
-    "@etfm/vea-http": "^0.0.0",
-    "@etfm/vea-pinia": "^0.0.0",
-    "@etfm/vea-plugin": "^0.0.0",
-    "@etfm/vea-router": "^0.0.0",
-    "@etfm/vea-shared": "^0.0.0"
+    "@etfm/vea-http": "workspace:*",
+    "@etfm/vea-pinia": "workspace:*",
+    "@etfm/vea-plugin": "workspace:*",
+    "@etfm/vea-router": "workspace:*",
+    "@etfm/vea-shared": "workspace:*"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

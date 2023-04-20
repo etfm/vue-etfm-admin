@@ -1,7 +1,6 @@
 import { defineApp } from '@etfm/vea-plugin'
 import { basicRoutes } from './src/router'
 import { getAppEnvConfig, getStorageShortName } from '@etfm/vea-shared'
-import { getMenuList } from '@/api/sys/menu'
 import { handleHttpError } from '@/http/error'
 
 const AppConfig = getAppEnvConfig()
@@ -12,9 +11,6 @@ const AppConfig = getAppEnvConfig()
 export default defineApp({
   render: {
     onMounted: async ({ router }) => {
-      const aaa = await getMenuList()
-      console.log(aaa)
-
       // 路由拦截
       router.beforeEach((to, from, next) => {
         console.log(to, from)

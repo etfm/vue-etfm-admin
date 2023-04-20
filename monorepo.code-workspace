@@ -1,0 +1,64 @@
+{
+  "folders": [
+    {
+      "name": "@etfm/element-admin",
+      "path": "apps/element-admin"
+    },
+    {
+      "name": "@etfm/eslint",
+      "path": "configs/eslint"
+    },
+    {
+      "name": "@etfm/prettier",
+      "path": "configs/prettier"
+    },
+    {
+      "name": "@etfm/ts",
+      "path": "configs/ts"
+    },
+    {
+      "name": "@etfm/vite",
+      "path": "configs/vite"
+    },
+    {
+      "name": "@etfm/element",
+      "path": "packages/element"
+    },
+    {
+      "name": "@etfm/hooks",
+      "path": "packages/hooks"
+    },
+    {
+      "name": "@etfm/http",
+      "path": "packages/http"
+    },
+    {
+      "name": "@etfm/pinia",
+      "path": "packages/pinia"
+    },
+    {
+      "name": "@etfm/plugin",
+      "path": "packages/plugin"
+    },
+    {
+      "name": "@etfm/render",
+      "path": "packages/render"
+    },
+    {
+      "name": "@etfm/router",
+      "path": "packages/router"
+    },
+    {
+      "name": "@etfm/shared",
+      "path": "packages/shared"
+    },
+    {
+      "name": "@etfm/styles",
+      "path": "packages/styles"
+    },
+    {
+      "name": "root",
+      "path": "."
+    }
+  ]
+}

@@ -1,69 +1,69 @@
-import { loggerWarning, eachTree, lodash } from '@etfm/vea-shared'
-import type { AppRouteModule, AppRouteRecordRaw, Recordable } from './types'
+import { loggerWarning, eachTree, lodash } from '@etfm/vea-shared';
+import type { AppRouteModule, AppRouteRecordRaw } from '@etfm/vea-types';
 import {
   createWebHashHistory,
   type RouteRecordNormalized,
   type Router,
-  createRouter
-} from 'vue-router'
+  createRouter,
+} from 'vue-router';
 
-let dynamicViewsModules: Record<string, () => Promise<Recordable>>
+let dynamicViewsModules: Record<string, () => Promise<Recordable>>;
 
 export function transformObjToRoute<T = AppRouteModule>(routeList: AppRouteModule[]): T[] {
   dynamicViewsModules =
-    dynamicViewsModules || import.meta.glob('/src/{views,layouts}/**/*.{vue,tsx}')
+    dynamicViewsModules || import.meta.glob('/src/{views,layouts}/**/*.{vue,tsx}');
 
   eachTree(routeList, (route) => {
-    const component = route.component as string
+    const component = route.component as string;
     if (!route.component && route.meta?.frameSrc) {
-      route.component = 'IFRAME'
+      route.component = 'IFRAME';
     }
     if (component) {
-      route.component = dynamicImport(dynamicViewsModules, component)
-      route.meta ||= {}
+      route.component = dynamicImport(dynamicViewsModules, component);
+      route.meta ||= {};
     } else {
-      loggerWarning(`您没有配置${route?.name}的component属性，如果是有意为之，可以忽略此条警告`)
+      loggerWarning(`您没有配置${route?.name}的component属性，如果是有意为之，可以忽略此条警告`);
     }
-  })
+  });
 
-  return routeList as unknown as T[]
+  return routeList as unknown as T[];
 }
 
 function dynamicImport(
   dynamicViewsModules: Record<string, () => Promise<Recordable>>,
-  component: string
+  component: string,
 ) {
-  const keys = Object.keys(dynamicViewsModules)
+  const keys = Object.keys(dynamicViewsModules);
 
   const matchKeys = keys.filter((key) => {
-    let k
+    let k;
     if (key.startsWith('/src/views')) {
-      k = key.replace('/src/views', '')
+      k = key.replace('/src/views', '');
     } else if (key.startsWith('/src/layouts')) {
-      k = key.replace('/src/layouts', '')
+      k = key.replace('/src/layouts', '');
     } else {
-      k = key.replace('/src/views', '')
+      k = key.replace('/src/views', '');
     }
 
-    const lastIndex = k.lastIndexOf('.')
+    const lastIndex = k.lastIndexOf('.');
 
-    return k.substring(0, lastIndex) === component
-  })
+    return k.substring(0, lastIndex) === component;
+  });
 
   if (matchKeys?.length === 1) {
-    const matchKey = matchKeys[0]
+    const matchKey = matchKeys[0];
 
-    return dynamicViewsModules[matchKey]
+    return dynamicViewsModules[matchKey];
   } else if (matchKeys?.length > 1) {
     loggerWarning(
-      'Please do not create `.vue` and `.TSX` files with the same file name in the same hierarchical directory under the views folder. This will cause dynamic introduction failure'
-    )
-    return
+      'Please do not create `.vue` and `.TSX` files with the same file name in the same hierarchical directory under the views folder. This will cause dynamic introduction failure',
+    );
+    return;
   } else {
     loggerWarning(
-      '在src/views/下找不到`' + component + '.vue` 或 `' + component + '.tsx`, 请自行创建!'
-    )
-    return
+      '在src/views/下找不到`' + component + '.vue` 或 `' + component + '.tsx`, 请自行创建!',
+    );
+    return;
   }
 }
 
@@ -72,19 +72,19 @@ function dynamicImport(
  * 将多级路由转换为 2 级路由
  */
 export function flatMultiLevelRoutes(routeModules: AppRouteModule[]) {
-  const modules: AppRouteModule[] = lodash.cloneDeep(routeModules)
+  const modules: AppRouteModule[] = lodash.cloneDeep(routeModules);
 
   for (let index = 0; index < modules.length; index++) {
-    const routeModule = modules[index]
+    const routeModule = modules[index];
     // 判断级别是否 多级 路由
     if (!isMultipleRoute(routeModule)) {
       // 声明终止当前循环， 即跳过此次循环，进行下一轮
-      continue
+      continue;
     }
     // 路由等级提升
-    promoteRouteLevel(routeModule)
+    promoteRouteLevel(routeModule);
   }
-  return modules
+  return modules;
 }
 
 // Routing level upgrade
@@ -95,16 +95,16 @@ function promoteRouteLevel(routeModule: AppRouteModule) {
   // createRouter 创建一个可以被 Vue 应用程序使用的路由实例
   let router: Router | null = createRouter({
     routes: [routeModule as unknown as RouteRecordNormalized],
-    history: createWebHashHistory()
-  })
+    history: createWebHashHistory(),
+  });
   // getRoutes： 获取所有 路由记录的完整列表。
-  const routes = router.getRoutes()
+  const routes = router.getRoutes();
   // 将所有子路由添加到二级路由
-  addToChildren(routes, routeModule.children || [], routeModule)
-  router = null
+  addToChildren(routes, routeModule.children || [], routeModule);
+  router = null;
 
   // omit lodash的函数 对传入的item对象的children进行删除
-  routeModule.children = routeModule.children?.map((item) => lodash.omit(item, 'children')) as any
+  routeModule.children = routeModule.children?.map((item) => lodash.omit(item, 'children')) as any;
 }
 
 // Add all sub-routes to the secondary route
@@ -112,20 +112,20 @@ function promoteRouteLevel(routeModule: AppRouteModule) {
 function addToChildren(
   routes: RouteRecordNormalized[],
   children: AppRouteRecordRaw[],
-  routeModule: AppRouteModule
+  routeModule: AppRouteModule,
 ) {
   for (let index = 0; index < children.length; index++) {
-    const child = children[index]
-    const route = routes.find((item) => item.name === child.name)
+    const child = children[index];
+    const route = routes.find((item) => item.name === child.name);
     if (!route) {
-      continue
+      continue;
     }
-    routeModule.children = routeModule.children || []
+    routeModule.children = routeModule.children || [];
     if (!routeModule.children.find((item) => item.name === route.name)) {
-      routeModule.children?.push(route as unknown as AppRouteModule)
+      routeModule.children?.push(route as unknown as AppRouteModule);
     }
     if (child.children?.length) {
-      addToChildren(routes, child.children, routeModule)
+      addToChildren(routes, child.children, routeModule);
     }
   }
 }
@@ -135,32 +135,32 @@ function addToChildren(
 function isMultipleRoute(routeModule: AppRouteModule) {
   // Reflect.has 与 in 操作符 相同, 用于检查一个对象(包括它原型链上)是否拥有某个属性
   if (!routeModule || !Reflect.has(routeModule, 'children') || !routeModule.children?.length) {
-    return false
+    return false;
   }
 
-  const children = routeModule.children
+  const children = routeModule.children;
 
-  let flag = false
+  let flag = false;
   for (let index = 0; index < children.length; index++) {
-    const child = children[index]
+    const child = children[index];
     if (child.children?.length) {
-      flag = true
-      break
+      flag = true;
+      break;
     }
   }
-  return flag
+  return flag;
 }
 
 export const routeRemoveFilter = (route: AppRouteRecordRaw, roleList: string[]) => {
-  const { meta } = route
+  const { meta } = route;
   // ignoreRoute 为true 则路由仅用于菜单生成，不会在实际的路由表中出现
-  const { ignoreRoute, roles } = meta || {}
+  const { ignoreRoute, roles } = meta || {};
   // arr.filter 返回 true 表示该元素通过测试
 
   if (!ignoreRoute && !roles) {
-    return true
+    return true;
   }
-  const hasRoles = roleList?.some((role) => (roles as string[]).includes(role)) ?? true
+  const hasRoles = roleList?.some((role) => (roles as string[]).includes(role)) ?? true;
 
-  return hasRoles
-}
+  return hasRoles;
+};

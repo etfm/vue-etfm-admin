@@ -2,19 +2,19 @@ import {
   createMemoryHistory,
   createWebHashHistory,
   createWebHistory,
-  type RouterHistory
-} from 'vue-router'
+  type RouterHistory,
+} from 'vue-router';
 
-let history: RouterHistory
+let history: RouterHistory;
 export function createHistory(opts: any) {
   if (opts.type === 'hash') {
-    history = createWebHashHistory(opts.basename)
+    history = createWebHashHistory(opts.basename);
   } else if (opts.type === 'memory') {
-    history = createMemoryHistory(opts.basename)
+    history = createMemoryHistory(opts.basename);
   } else {
-    history = createWebHistory(opts.basename)
+    history = createWebHistory(opts.basename);
   }
-  return history
+  return history;
 }
 
-export { history }
+export { history };

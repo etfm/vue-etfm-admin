@@ -18,10 +18,10 @@
 </template>
 
 <script lang="ts" setup>
-import { ElContainer } from 'element-plus'
-import LayoutHeader from './header/layout-header.vue'
-import LayoutSider from './sider/setting-sider.vue'
-import LayoutMultipleHeader from './header/layout-multiple-header.vue'
-import LayoutContent from './content/layout-content.vue'
-import LayoutFooter from './footer/layout-footer.vue'
+  import { ElContainer } from 'element-plus';
+  import LayoutHeader from './header/layout-header.vue';
+  import LayoutSider from './sider/setting-sider.vue';
+  import LayoutMultipleHeader from './header/layout-multiple-header.vue';
+  import LayoutContent from './content/layout-content.vue';
+  // import LayoutFooter from './footer/layout-footer.vue'
 </script>

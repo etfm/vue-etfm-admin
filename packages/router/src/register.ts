@@ -1,30 +1,22 @@
-import { getPluginManager } from '@etfm/vea-plugin'
-import type { AppRouteRecordRaw } from './types'
-import { initRouter } from './router'
-import { lodash } from '@etfm/vea-shared'
+import { getPluginManager } from '@etfm/vea-plugin';
+import type { IRouterContext } from '@etfm/vea-types';
+import { initRouter } from './router';
+import { lodash } from '@etfm/vea-shared';
 
-export interface IContext {
-  routes: AppRouteRecordRaw[]
-  historyType?: string
-  basename?: string
-  rouls?: string[] | (() => string[])
-  onInitTransformRoute?: Function
-}
-
-export let context: IContext = {
+export let context: IRouterContext = {
   historyType: 'hash',
   basename: '/',
-  routes: []
-}
+  routes: [],
+};
 
-export function register(opts?: IContext) {
+export function register(opts?: IRouterContext) {
   // 收集配置信息
   const router = getPluginManager().applyPlugins({
-    key: 'router'
-  })
+    key: 'router',
+  });
 
-  context = lodash.merge(context, opts, router)
+  context = lodash.merge(context, opts, router);
 
   // 初始化路由
-  return initRouter()
+  return initRouter();
 }

@@ -1,0 +1,23 @@
+{
+  "name": "@etfm/vea-ts",
+  "version": "0.0.0",
+  "description": "> TODO: description",
+  "homepage": "https://github.com/etfm/vue-etfm-admin#readme",
+  "bugs": {
+    "url": "https://github.com/etfm/vue-etfm-admin/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/etfm/vue-etfm-admin.git"
+  },
+  "license": "ISC",
+  "author": "lzdjack <1956252575@qq.com>",
+  "files": [
+    "base.json",
+    "web.json",
+    "node.json"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}

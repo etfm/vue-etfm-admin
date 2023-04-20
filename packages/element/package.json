@@ -2,36 +2,34 @@
   "name": "@etfm/vea-element",
   "version": "0.0.0",
   "description": "> TODO: description",
-  "author": "lzdjack <1956252575@qq.com>",
   "homepage": "https://github.com/etfm/vue-etfm-admin#readme",
-  "license": "ISC",
-  "main": "src/index.ts",
-  "module": "src/index.ts",
-  "directories": {
-    "lib": "lib",
-    "test": "__tests__"
-  },
-  "files": [
-    "lib"
-  ],
-  "publishConfig": {
-    "access": "public"
+  "bugs": {
+    "url": "https://github.com/etfm/vue-etfm-admin/issues"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/etfm/vue-etfm-admin.git"
   },
-  "scripts": {
-    "test": "node ./__tests__/@etfm/vea-element.test.js"
+  "license": "ISC",
+  "author": "lzdjack <1956252575@qq.com>",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "default": "./src/index.ts"
+    }
   },
-  "bugs": {
-    "url": "https://github.com/etfm/vue-etfm-admin/issues"
-  },
+  "main": "src/index.ts",
+  "module": "src/index.ts",
+  "files": [
+    "lib"
+  ],
   "dependencies": {
-    "@etfm/vea-element": "^0.0.0",
-    "@etfm/vea-hooks": "^0.0.0",
-    "@etfm/vea-plugin": "^0.0.0",
-    "@etfm/vea-shared": "^0.0.0",
-    "@etfm/vea-styles": "^0.0.0"
+    "@etfm/vea-hooks": "workspace:*",
+    "@etfm/vea-plugin": "workspace:*",
+    "@etfm/vea-shared": "workspace:*",
+    "@etfm/vea-styles": "workspace:*"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

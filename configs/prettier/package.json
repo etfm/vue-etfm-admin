@@ -1,0 +1,40 @@
+{
+  "name": "@etfm/vea-prettier",
+  "version": "0.0.0",
+  "description": "> TODO: description",
+  "homepage": "https://github.com/etfm/vue-etfm-admin#readme",
+  "bugs": {
+    "url": "https://github.com/etfm/vue-etfm-admin/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/etfm/vue-etfm-admin.git"
+  },
+  "license": "ISC",
+  "author": "lzdjack <1956252575@qq.com>",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "clean": "pnpm rimraf .turbo node_modules dist",
+    "lint": "pnpm eslint .",
+    "stub": "pnpm unbuild --stub"
+  },
+  "devDependencies": {
+    "prettier": "^2.8.7",
+    "prettier-plugin-packagejson": "^2.4.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

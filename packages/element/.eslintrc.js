@@ -1,3 +1,3 @@
 module.exports = {
-  extends: ['@etfm/vea-eslint'],
+  extends: ['@etfm/vea-eslint/strict'],
 };

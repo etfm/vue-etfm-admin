@@ -9,6 +9,7 @@
       "../../typings/env",
       "unplugin-vue-define-options/macros-global"
     ],
+    "moduleResolution": "node",
     "paths": {
       "@/*": ["src/*"],
       "#/*": ["types/*"]

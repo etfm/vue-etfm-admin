@@ -13,27 +13,27 @@
   </ElHeader>
 </template>
 <script lang="ts" setup>
-import { ElHeader } from 'element-plus'
-import HeaderTrigger from '../trigger/header-trigger.vue'
-import LayoutBreadcrumb from '../components/breadcrumb/layout-breadcrumb.vue'
-import { useNamespace } from '@etfm/vea-hooks'
-import AppLogo from '../components/logo/app-logo.vue'
-import LayoutSetting from '../components/setting/layout-setting.vue'
+  import { ElHeader } from 'element-plus';
+  import HeaderTrigger from '../trigger/header-trigger.vue';
+  import LayoutBreadcrumb from '../components/breadcrumb/layout-breadcrumb.vue';
+  import { useNamespace } from '@etfm/vea-hooks';
+  import AppLogo from '../components/logo/app-logo.vue';
+  import LayoutSetting from '../components/setting/layout-setting.vue';
 
-const ns = useNamespace('header')
+  const ns = useNamespace('header');
 </script>
 <style scoped lang="scss">
-@use '@etfm/vea-styles' as *;
-@include b(header) {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0px;
-
-  @include m(left) {
+  @use '@etfm/vea-styles' as *;
+  @include b(header) {
+    width: 100%;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    padding: 0px;
+
+    @include m(left) {
+      display: flex;
+      align-items: center;
+    }
   }
-}
 </style>

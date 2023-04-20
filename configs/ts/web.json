@@ -7,7 +7,6 @@
     "jsx": "preserve",
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "noImplicitAny": false,
-    "moduleResolution": "bundler",
     "types": ["../../typings/global", "../../typings/env"]
   }
 }

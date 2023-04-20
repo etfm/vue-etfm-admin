@@ -19,9 +19,9 @@
   },
   "main": "src/index.ts",
   "module": "src/index.ts",
-  "types": "src/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
   "scripts": {
     "bootstrap": "pnpm install",

@@ -21,7 +21,8 @@
   "main": "src/index.ts",
   "module": "src/index.ts",
   "files": [
-    "lib"
+    "dist",
+    "src"
   ],
   "dependencies": {
     "@etfm/vea-hooks": "workspace:*",

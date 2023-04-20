@@ -9,7 +9,6 @@
       "../../typings/env",
       "unplugin-vue-define-options/macros-global"
     ],
-    "moduleResolution": "node",
     "paths": {
       "@/*": ["src/*"],
       "#/*": ["types/*"]
@@ -19,5 +18,5 @@
     "target": 3,
     "plugins": ["@vue-macros/volar/define-options"]
   },
-  "include": ["mock", "src", ".etfmirc.ts", ".etfm.ts", "vite.config.ts", "vitest.config.ts"]
+  "include": ["src"]
 }

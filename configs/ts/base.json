@@ -20,8 +20,6 @@
     "experimentalDecorators": true,
     "resolveJsonModule": true,
     "removeComments": true,
-    "allowImportingTsExtensions": true,
-    "noEmit": true,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": false,
     "strictNullChecks": true

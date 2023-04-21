@@ -33,10 +33,6 @@
     "test": "node ./__tests__/@etfm/plugin.test.js"
   },
   "dependencies": {
-    "@etfm/vea-http": "workspace:*",
-    "@etfm/vea-pinia": "workspace:*",
-    "@etfm/vea-render": "workspace:*",
-    "@etfm/vea-router": "workspace:*",
     "@etfm/vea-shared": "workspace:*"
   },
   "devDependencies": {

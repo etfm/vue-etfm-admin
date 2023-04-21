@@ -29,7 +29,8 @@
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
   "scripts": {
     "clean": "pnpm rimraf .turbo node_modules dist",

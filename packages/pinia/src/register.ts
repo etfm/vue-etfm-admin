@@ -1,28 +1,25 @@
-import { getPluginManager } from '@etfm/vea-plugin'
-import { lodash } from '@etfm/vea-shared'
-import { initPinia } from './pinia'
-import type { Pinia } from 'pinia'
-export interface IContext {
-  isCache?: boolean
-  key?: string | (() => string)
-}
+import { getPluginManager } from '@etfm/vea-plugin';
+import { lodash } from '@etfm/vea-shared';
+import { initPinia } from './pinia';
+import type { Pinia } from 'pinia';
+import type { IPiniaContext } from '@etfm/vea-types';
 
-export let context = {
+export let context: IPiniaContext = {
   isCache: true,
-  key: 'pinia'
-}
+  key: 'pinia',
+};
 
-export let store: Pinia
+export let store: Pinia;
 
-export function register(opts?: IContext) {
+export function register(opts?: IPiniaContext) {
   // 收集配置信息
   const pinia = getPluginManager().applyPlugins({
-    key: 'pinia'
-  })
+    key: 'pinia',
+  });
 
-  context = lodash.merge(context, opts, pinia)
+  context = lodash.merge(context, opts, pinia);
 
-  store = initPinia()
+  store = initPinia();
 
-  return store
+  return store;
 }

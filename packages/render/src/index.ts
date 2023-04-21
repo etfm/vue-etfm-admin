@@ -1,1 +1,2 @@
-export { register, type IContext } from './register'
+export { register } from './register';
+export type { IRenderContext } from '@etfm/vea-types';

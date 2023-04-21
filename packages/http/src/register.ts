@@ -1,17 +1,15 @@
-import { getPluginManager } from '@etfm/vea-plugin'
-import { lodash } from '@etfm/vea-shared'
-import { VAxios } from './Axios'
-import { ContentTypeEnum } from './enum'
-import type { RequestConfig } from './types'
+import { getPluginManager } from '@etfm/vea-plugin';
+import { lodash } from '@etfm/vea-shared';
+import { VAxios } from './Axios';
+import { ContentTypeEnum } from './enum';
+import type { IHttpContext } from '@etfm/vea-types';
 
-export type IContext = RequestConfig
-
-export let context: IContext = {
+export let context: IHttpContext = {
   // 自定义后端返回的字段
   resultField: {
     code: 'code',
     message: 'message',
-    data: 'data'
+    data: 'data',
   },
   // 后端返回数据格式，请求成功的依据
   successCode: 0,
@@ -38,20 +36,20 @@ export let context: IContext = {
   // 忽略重复请求
   ignoreCancelToken: true,
   // 是否携带token
-  withToken: true
-}
+  withToken: true,
+};
 
-export let http: VAxios
+export let http: VAxios;
 
-export function register(opts?: IContext) {
+export function register(opts?: IHttpContext) {
   // 收集配置信息
   const httpConfig = getPluginManager().applyPlugins({
-    key: 'http'
-  })
+    key: 'http',
+  });
 
-  context = lodash.merge(context, opts, httpConfig)
+  context = lodash.merge(context, opts, httpConfig);
 
-  http = new VAxios(context)
+  http = new VAxios(context);
 
-  return http
+  return http;
 }

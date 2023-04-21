@@ -1,11 +1,11 @@
-import type { AxiosRequestConfig, AxiosInstance, AxiosResponse, AxiosError } from 'axios';
+import type { AxiosRequestConfig, AxiosInstance, AxiosResponse } from 'axios';
 import type {
   IRequestInterceptorTuple,
   IResponseInterceptorTuple,
   RequestConfig,
   Result,
   UploadFileParams,
-} from './types';
+} from '@etfm/vea-types';
 import axios from 'axios';
 import qs from 'qs';
 import { ContentTypeEnum, RequestEnum } from './enum';

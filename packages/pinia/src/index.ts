@@ -1,2 +1,3 @@
-export { register, store, type IContext } from './register'
-export * from 'pinia'
+export { register, store } from './register';
+export type { IPiniaContext } from '@etfm/vea-types';
+export * from 'pinia';

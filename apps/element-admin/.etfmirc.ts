@@ -1,9 +1,9 @@
-import { defineApp } from '@etfm/vea-plugin'
-import { basicRoutes } from './src/router'
-import { getAppEnvConfig, getStorageShortName } from '@etfm/vea-shared'
-import { handleHttpError } from '@/http/error'
+import { defineApp } from '@etfm/vea-plugin';
+import { basicRoutes } from './src/router';
+import { getAppEnvConfig, getStorageShortName } from '@etfm/vea-shared';
+import { handleHttpError } from '@/http/error';
 
-const AppConfig = getAppEnvConfig()
+const AppConfig = getAppEnvConfig();
 
 /**
  * 运行时配置
@@ -12,21 +12,21 @@ export default defineApp({
   render: {
     onMounted: async ({ router }) => {
       // 路由拦截
-      router.beforeEach((to, from, next) => {
-        console.log(to, from)
-      })
-    }
+      router.beforeEach((to, from) => {
+        console.log(to, from);
+      });
+    },
   },
   router: {
-    routes: basicRoutes
+    routes: basicRoutes,
   },
   pinia: {
-    key: getStorageShortName()
+    key: getStorageShortName(),
   },
   http: {
     apiUrl: AppConfig.VITE_GLOB_API_URL,
     urlPrefix: AppConfig.VITE_GLOB_API_URL_PREFIX,
     // 自定义请求错误
-    onError: handleHttpError
-  }
-})
+    onError: handleHttpError,
+  },
+});

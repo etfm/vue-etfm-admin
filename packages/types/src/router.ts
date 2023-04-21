@@ -1,4 +1,6 @@
-import { RouteMeta, RouteRecordRaw } from 'vue-router';
+import type { Component, DefineComponent } from 'vue';
+import type { RouteMeta, RouteRecordRaw } from 'vue-router';
+import type { Recordable } from './tools';
 
 export interface IRouterContext {
   routes: AppRouteRecordRaw[];
@@ -8,13 +10,12 @@ export interface IRouterContext {
   onInitTransformRoute?: Function;
 }
 
-export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'children'> {
+export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'children' | 'component'> {
   name: string;
   meta: RouteMeta;
-  component?: Component | string;
-  components?: Component;
+  component?: DefineComponent | Component | string;
   children?: AppRouteRecordRaw[];
-  props?: Recordable;
+  props?: Recordable<any>;
   fullPath?: string;
 }
 

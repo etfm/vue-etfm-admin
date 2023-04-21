@@ -95,6 +95,9 @@ importers:
 
   apps/element-admin:
     dependencies:
+      '@etfm/vea-eslint':
+        specifier: workspace:^0.0.0
+        version: link:../../configs/eslint
       '@etfm/vea-hooks':
         specifier: workspace:*
         version: link:../../packages/hooks
@@ -119,6 +122,9 @@ importers:
       '@etfm/vea-styles':
         specifier: workspace:*
         version: link:../../packages/styles
+      element-plus:
+        specifier: ^2.3.2
+        version: 2.3.2
       nprogress:
         specifier: ^0.2.0
         version: 0.2.0
@@ -881,6 +887,12 @@ packages:
   /@ctrl/tinycolor@3.6.0:
     resolution: {integrity: sha512-/Z3l6pXthq0JvMYdUFyX9j0MaCltlIn6mfh9jLyQwg5aPKxkyNa0PTHtU1AlFXLNk55ZuAeJRcpvq+tmLfKmaQ==}
     engines: {node: '>=10'}
+    dev: false
+
+  /@element-plus/icons-vue@2.1.0:
+    resolution: {integrity: sha512-PSBn3elNoanENc1vnCfh+3WA9fimRC7n+fWkf3rE5jvv+aBohNHABC/KAR5KWPecxWxDTVT1ERpRbOMRcOV/vA==}
+    peerDependencies:
+      vue: ^3.2.0
     dev: false
 
   /@element-plus/icons-vue@2.1.0(vue@3.2.47):
@@ -3486,6 +3498,30 @@ packages:
   /electron-to-chromium@1.4.352:
     resolution: {integrity: sha512-ikFUEyu5/q+wJpMOxWxTaEVk2M1qKqTGKKyfJmod1CPZxKfYnxVS41/GCBQg21ItBpZybyN8sNpRqCUGm+Zc4Q==}
     dev: true
+
+  /element-plus@2.3.2:
+    resolution: {integrity: sha512-NIK0QckKKagdlMm3eLoVoD4Lkfj5ECzpZAxwrRLdm1Yi5qiTU9Guor33+IbIa52z4gHMuhMxgSVS2xAGmjLHsw==}
+    peerDependencies:
+      vue: ^3.2.0
+    dependencies:
+      '@ctrl/tinycolor': 3.6.0
+      '@element-plus/icons-vue': 2.1.0
+      '@floating-ui/dom': 1.2.5
+      '@popperjs/core': /@sxzz/popperjs-es@2.11.7
+      '@types/lodash': 4.14.192
+      '@types/lodash-es': 4.17.7
+      '@vueuse/core': 9.13.0
+      async-validator: 4.2.5
+      dayjs: 1.11.7
+      escape-html: 1.0.3
+      lodash: 4.17.21
+      lodash-es: 4.17.21
+      lodash-unified: 1.0.3(@types/lodash-es@4.17.7)(lodash-es@4.17.21)(lodash@4.17.21)
+      memoize-one: 6.0.0
+      normalize-wheel-es: 1.2.0
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+    dev: false
 
   /element-plus@2.3.2(vue@3.2.47):
     resolution: {integrity: sha512-NIK0QckKKagdlMm3eLoVoD4Lkfj5ECzpZAxwrRLdm1Yi5qiTU9Guor33+IbIa52z4gHMuhMxgSVS2xAGmjLHsw==}

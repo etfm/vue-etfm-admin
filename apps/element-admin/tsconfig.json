@@ -3,12 +3,8 @@
   "extends": "@etfm/vea-ts/web.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "types": [
-      "element-plus/global",
-      "../../typings/global",
-      "../../typings/env",
-      "unplugin-vue-define-options/macros-global"
-    ],
+    "moduleResolution": "node",
+    "types": ["element-plus/global", "unplugin-vue-define-options/macros-global"],
     "paths": {
       "@/*": ["src/*"],
       "#/*": ["types/*"]
@@ -18,5 +14,5 @@
     "target": 3,
     "plugins": ["@vue-macros/volar/define-options"]
   },
-  "include": ["src"]
+  "include": ["src", "mock", "vite.config.ts", "vitest.config", ".etfmirc.ts", ".etfm.ts"]
 }

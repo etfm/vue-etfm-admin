@@ -1,4 +1,5 @@
 import type { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
+import type { Recordable } from './tools';
 
 export type IHttpContext = RequestConfig;
 
@@ -12,7 +13,7 @@ export interface Result<T = any> {
 // multipart/form-data: upload file
 export interface UploadFileParams {
   // Other parameters
-  data?: Recordable;
+  data?: Recordable<any>;
   // File parameter interface field name
   name?: string;
   // file name
@@ -47,7 +48,7 @@ export interface IResultField {
   data: string;
 }
 
-export interface RequestConfig<T = any> extends AxiosRequestConfig {
+export interface RequestConfig extends AxiosRequestConfig {
   resultField?: IResultField;
   successCode?: number;
   // Splicing request parameters to url

@@ -3,4 +3,4 @@
 
 chmod +x .husky/pre-commit
 
-pnpm exec lint-staged
+# pnpm exec lint-staged

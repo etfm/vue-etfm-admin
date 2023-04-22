@@ -2,6 +2,7 @@ import { defineApp } from '@etfm/vea-plugin';
 import { basicRoutes } from './src/router';
 import { getAppEnvConfig, getStorageShortName } from '@etfm/vea-shared';
 import { handleHttpError } from '@/http/error';
+import { setupRouterGuard } from '@/router/guard';
 
 const AppConfig = getAppEnvConfig();
 
@@ -12,9 +13,7 @@ export default defineApp({
   render: {
     onMounted: async ({ router }) => {
       // 路由拦截
-      router.beforeEach((to, from) => {
-        console.log(to, from);
-      });
+      // setupRouterGuard(router);
     },
   },
   router: {

@@ -25,6 +25,7 @@
     "src"
   ],
   "scripts": {
+    "bootstrap": "pnpm install",
     "build": "pnpm unbuild",
     "clean": "pnpm rimraf .turbo node_modules dist",
     "lint": "pnpm eslint .",
@@ -37,10 +38,10 @@
     "pinia": "^2.0.32",
     "pinia-plugin-persistedstate": "^3.1.0"
   },
-  "publishConfig": {
-    "access": "public"
-  },
   "devDependencies": {
     "@etfm/vea-types": "workspace:^0.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

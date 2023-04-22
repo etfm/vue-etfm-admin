@@ -24,6 +24,7 @@
     "src"
   ],
   "scripts": {
+    "bootstrap": "pnpm install",
     "build": "pnpm unbuild",
     "clean": "pnpm rimraf .turbo node_modules dist",
     "lint": "pnpm eslint .",

@@ -1,5 +1,7 @@
-import { resultSuccess, resultError, getRequestToken } from '../_util'
-import { createFakeUserList } from './user'
+import { MockMethod } from 'vite-plugin-mock';
+
+import { getRequestToken, requestParams, resultError, resultSuccess } from '../_util';
+import { createFakeUserList } from './user';
 
 // single
 const dashboardRoute = {
@@ -10,7 +12,7 @@ const dashboardRoute = {
   meta: {
     title: 'routes.dashboard.dashboard',
     hideChildrenInMenu: true,
-    icon: 'bx:bx-home'
+    icon: 'bx:bx-home',
   },
   children: [
     {
@@ -22,8 +24,8 @@ const dashboardRoute = {
         hideBreadcrumb: true,
         title: 'routes.dashboard.analysis',
         currentActiveMenu: '/dashboard',
-        icon: 'bx:bx-home'
-      }
+        icon: 'bx:bx-home',
+      },
     },
     {
       path: 'workbench',
@@ -34,17 +36,17 @@ const dashboardRoute = {
         hideBreadcrumb: true,
         title: 'routes.dashboard.workbench',
         currentActiveMenu: '/dashboard',
-        icon: 'bx:bx-home'
-      }
-    }
-  ]
-}
+        icon: 'bx:bx-home',
+      },
+    },
+  ],
+};
 
 const backRoute = {
   path: 'back',
   name: 'PermissionBackDemo',
   meta: {
-    title: 'routes.demo.permission.back'
+    title: 'routes.demo.permission.back',
   },
 
   children: [
@@ -53,19 +55,19 @@ const backRoute = {
       name: 'BackAuthPage',
       component: '/demo/permission/back/index',
       meta: {
-        title: 'routes.demo.permission.backPage'
-      }
+        title: 'routes.demo.permission.backPage',
+      },
     },
     {
       path: 'btn',
       name: 'BackAuthBtn',
       component: '/demo/permission/back/Btn',
       meta: {
-        title: 'routes.demo.permission.backBtn'
-      }
-    }
-  ]
-}
+        title: 'routes.demo.permission.backBtn',
+      },
+    },
+  ],
+};
 
 const authRoute = {
   path: '/permission',
@@ -74,10 +76,10 @@ const authRoute = {
   redirect: '/permission/front/page',
   meta: {
     icon: 'carbon:user-role',
-    title: 'routes.demo.permission.permission'
+    title: 'routes.demo.permission.permission',
   },
-  children: [backRoute]
-}
+  children: [backRoute],
+};
 
 const levelRoute = {
   path: '/level',
@@ -86,7 +88,7 @@ const levelRoute = {
   redirect: '/level/menu1/menu1-1',
   meta: {
     icon: 'carbon:user-role',
-    title: 'routes.demo.level.level'
+    title: 'routes.demo.level.level',
   },
 
   children: [
@@ -94,14 +96,14 @@ const levelRoute = {
       path: 'menu1',
       name: 'Menu1Demo',
       meta: {
-        title: 'Menu1'
+        title: 'Menu1',
       },
       children: [
         {
           path: 'menu1-1',
           name: 'Menu11Demo',
           meta: {
-            title: 'Menu1-1'
+            title: 'Menu1-1',
           },
           children: [
             {
@@ -109,31 +111,31 @@ const levelRoute = {
               name: 'Menu111Demo',
               component: '/demo/level/Menu111',
               meta: {
-                title: 'Menu111'
-              }
-            }
-          ]
+                title: 'Menu111',
+              },
+            },
+          ],
         },
         {
           path: 'menu1-2',
           name: 'Menu12Demo',
           component: '/demo/level/Menu12',
           meta: {
-            title: 'Menu1-2'
-          }
-        }
-      ]
+            title: 'Menu1-2',
+          },
+        },
+      ],
     },
     {
       path: 'menu2',
       name: 'Menu2Demo',
       component: '/demo/level/Menu2',
       meta: {
-        title: 'Menu2'
-      }
-    }
-  ]
-}
+        title: 'Menu2',
+      },
+    },
+  ],
+};
 
 const sysRoute = {
   path: '/system',
@@ -142,7 +144,7 @@ const sysRoute = {
   redirect: '/system/account',
   meta: {
     icon: 'ion:settings-outline',
-    title: 'routes.demo.system.moduleName'
+    title: 'routes.demo.system.moduleName',
   },
   children: [
     {
@@ -150,9 +152,9 @@ const sysRoute = {
       name: 'AccountManagement',
       meta: {
         title: 'routes.demo.system.account',
-        ignoreKeepAlive: true
+        ignoreKeepAlive: true,
       },
-      component: '/demo/system/account/index'
+      component: '/demo/system/account/index',
     },
     {
       path: 'account_detail/:id',
@@ -162,18 +164,18 @@ const sysRoute = {
         title: 'routes.demo.system.account_detail',
         ignoreKeepAlive: true,
         showMenu: false,
-        currentActiveMenu: '/system/account'
+        currentActiveMenu: '/system/account',
       },
-      component: '/demo/system/account/AccountDetail'
+      component: '/demo/system/account/AccountDetail',
     },
     {
       path: 'role',
       name: 'RoleManagement',
       meta: {
         title: 'routes.demo.system.role',
-        ignoreKeepAlive: true
+        ignoreKeepAlive: true,
       },
-      component: '/demo/system/role/index'
+      component: '/demo/system/role/index',
     },
 
     {
@@ -181,30 +183,30 @@ const sysRoute = {
       name: 'MenuManagement',
       meta: {
         title: 'routes.demo.system.menu',
-        ignoreKeepAlive: true
+        ignoreKeepAlive: true,
       },
-      component: '/demo/system/menu/index'
+      component: '/demo/system/menu/index',
     },
     {
       path: 'dept',
       name: 'DeptManagement',
       meta: {
         title: 'routes.demo.system.dept',
-        ignoreKeepAlive: true
+        ignoreKeepAlive: true,
       },
-      component: '/demo/system/dept/index'
+      component: '/demo/system/dept/index',
     },
     {
       path: 'changePassword',
       name: 'ChangePassword',
       meta: {
         title: 'routes.demo.system.password',
-        ignoreKeepAlive: true
+        ignoreKeepAlive: true,
       },
-      component: '/demo/system/password/index'
-    }
-  ]
-}
+      component: '/demo/system/password/index',
+    },
+  ],
+};
 
 const linkRoute = {
   path: '/link',
@@ -212,7 +214,7 @@ const linkRoute = {
   component: 'LAYOUT',
   meta: {
     icon: 'ion:tv-outline',
-    title: 'routes.demo.iframe.frame'
+    title: 'routes.demo.iframe.frame',
   },
   children: [
     {
@@ -220,53 +222,50 @@ const linkRoute = {
       name: 'Doc',
       meta: {
         title: 'routes.demo.iframe.doc',
-        frameSrc: 'https://doc.vvbin.cn/'
-      }
+        frameSrc: 'https://doc.vvbin.cn/',
+      },
     },
     {
       path: 'https://doc.vvbin.cn/',
       name: 'DocExternal',
       component: 'LAYOUT',
       meta: {
-        title: 'routes.demo.iframe.docExternal'
-      }
-    }
-  ]
-}
+        title: 'routes.demo.iframe.docExternal',
+      },
+    },
+  ],
+};
 
 export default [
   {
     url: '/basic-api/getMenuList',
     timeout: 1000,
     method: 'get',
-    response: (request: any) => {
-      // const token = getRequestToken(request)
-      // if (!token) {
-      //   return resultError('Invalid token!')
-      // }
-      // const checkUser = createFakeUserList().find((item) => item.token === token)
-      // if (!checkUser) {
-      //   return resultError('Invalid user token!')
-      // }
-      // const id = checkUser.userId
-      let menu: any[] = []
-      // switch (id) {
-      //   case '1':
-      //     dashboardRoute.redirect = dashboardRoute.path + '/' + dashboardRoute.children[0].path
-      //     menu = [dashboardRoute, authRoute, levelRoute, sysRoute, linkRoute]
-      //     break
-      //   case '2':
-      //     dashboardRoute.redirect = dashboardRoute.path + '/' + dashboardRoute.children[1].path
-      //     menu = [dashboardRoute, authRoute, levelRoute, linkRoute]
-      //     break
-      //   default:
-      //     menu = []
-      // }
+    response: (request: requestParams) => {
+      const token = getRequestToken(request);
+      if (!token) {
+        return resultError('Invalid token!');
+      }
+      const checkUser = createFakeUserList().find((item) => item.token === token);
+      if (!checkUser) {
+        return resultError('Invalid user token!');
+      }
+      const id = checkUser.userId;
+      let menu: Object[];
+      switch (id) {
+        case '1':
+          dashboardRoute.redirect = dashboardRoute.path + '/' + dashboardRoute.children[0].path;
+          menu = [dashboardRoute, authRoute, levelRoute, sysRoute, linkRoute];
+          break;
+        case '2':
+          dashboardRoute.redirect = dashboardRoute.path + '/' + dashboardRoute.children[1].path;
+          menu = [dashboardRoute, authRoute, levelRoute, linkRoute];
+          break;
+        default:
+          menu = [];
+      }
 
-      dashboardRoute.redirect = dashboardRoute.path + '/' + dashboardRoute.children[0].path
-      menu = [dashboardRoute, authRoute, levelRoute, sysRoute, linkRoute]
-
-      return resultSuccess(menu)
-    }
-  }
-]
+      return resultSuccess(menu);
+    },
+  },
+] as MockMethod[];

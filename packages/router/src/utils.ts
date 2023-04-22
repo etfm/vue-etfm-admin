@@ -1,17 +1,17 @@
 import { loggerWarning, eachTree, lodash } from '@etfm/vea-shared';
-import type { AppRouteModule, AppRouteRecordRaw } from '@etfm/vea-types';
+import type { AppRouteModule, AppRouteRecordRaw, Recordable } from '@etfm/vea-types';
 import {
   createWebHashHistory,
   type RouteRecordNormalized,
   type Router,
   createRouter,
 } from 'vue-router';
+import { context } from './register';
 
-let dynamicViewsModules: Record<string, () => Promise<Recordable>>;
+let dynamicViewsModules: Record<string, () => Promise<Recordable<any>>>;
 
 export function transformObjToRoute<T = AppRouteModule>(routeList: AppRouteModule[]): T[] {
-  dynamicViewsModules =
-    dynamicViewsModules || import.meta.glob('/src/{views,layouts}/**/*.{vue,tsx}');
+  dynamicViewsModules = dynamicViewsModules || import.meta.glob('/src/views/**/*.{vue,tsx}');
 
   eachTree(routeList, (route) => {
     const component = route.component as string;
@@ -19,7 +19,14 @@ export function transformObjToRoute<T = AppRouteModule>(routeList: AppRouteModul
       route.component = 'IFRAME';
     }
     if (component) {
-      route.component = dynamicImport(dynamicViewsModules, component);
+      if (component.toUpperCase() == 'LAYOUT') {
+        route.component = context.layoutView && context.layoutView();
+      } else if (component.toUpperCase() == 'IFRAME') {
+        route.component = context.iframeView && context.iframeView();
+      } else {
+        route.component = dynamicImport(dynamicViewsModules, component);
+      }
+
       route.meta ||= {};
     } else {
       loggerWarning(`您没有配置${route?.name}的component属性，如果是有意为之，可以忽略此条警告`);
@@ -30,24 +37,18 @@ export function transformObjToRoute<T = AppRouteModule>(routeList: AppRouteModul
 }
 
 function dynamicImport(
-  dynamicViewsModules: Record<string, () => Promise<Recordable>>,
+  dynamicViewsModules: Record<string, () => Promise<Recordable<any>>>,
   component: string,
+  folder: string = 'views',
 ) {
   const keys = Object.keys(dynamicViewsModules);
 
   const matchKeys = keys.filter((key) => {
-    let k;
-    if (key.startsWith('/src/views')) {
-      k = key.replace('/src/views', '');
-    } else if (key.startsWith('/src/layouts')) {
-      k = key.replace('/src/layouts', '');
-    } else {
-      k = key.replace('/src/views', '');
-    }
+    const k = key.replace(`/src/${folder}`, '');
 
-    const lastIndex = k.lastIndexOf('.');
+    const lastIndex = k?.lastIndexOf('.');
 
-    return k.substring(0, lastIndex) === component;
+    return k?.substring(0, lastIndex) === component;
   });
 
   if (matchKeys?.length === 1) {

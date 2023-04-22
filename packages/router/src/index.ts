@@ -1,6 +1,6 @@
 export { addDynamicRoute } from './convention';
 
-export { register } from './register';
+export { register, router } from './register';
 
 export type { IRouterContext, AppRouteRecordRaw, AppRouteModule } from '@etfm/vea-types';
 

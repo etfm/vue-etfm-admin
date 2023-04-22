@@ -23,6 +23,7 @@
     "path-to-regexp": "^6.2.1"
   },
   "devDependencies": {
+    "@etfm/vea-types": "workspace:^0.0.0",
     "@types/nprogress": "^0.2.0",
     "vite-plugin-mock": "2.9.6"
   }

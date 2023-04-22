@@ -4,7 +4,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "moduleResolution": "node",
-    "types": ["element-plus/global", "unplugin-vue-define-options/macros-global"],
+    "types": ["vite/client", "element-plus/global", "unplugin-vue-define-options/macros-global"],
     "paths": {
       "@/*": ["src/*"],
       "#/*": ["types/*"]

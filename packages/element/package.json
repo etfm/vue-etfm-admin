@@ -24,6 +24,14 @@
     "dist",
     "src"
   ],
+  "scripts": {
+    "bootstrap": "pnpm install",
+    "build": "pnpm unbuild",
+    "clean": "pnpm rimraf .turbo node_modules dist",
+    "lint": "pnpm eslint .",
+    "stub": "pnpm unbuild --stub",
+    "test": "node ./__tests__/@etfm/http.test.js"
+  },
   "dependencies": {
     "@etfm/vea-hooks": "workspace:*",
     "@etfm/vea-plugin": "workspace:*",

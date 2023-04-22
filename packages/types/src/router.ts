@@ -3,6 +3,8 @@ import type { RouteMeta, RouteRecordRaw } from 'vue-router';
 import type { Recordable } from './tools';
 
 export interface IRouterContext {
+  iframeView?: () => Promise<typeof import('*.vue')>;
+  layoutView?: () => Promise<typeof import('*.vue')>;
   routes: AppRouteRecordRaw[];
   historyType?: string;
   basename?: string;

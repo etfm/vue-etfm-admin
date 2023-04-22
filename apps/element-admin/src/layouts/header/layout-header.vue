@@ -23,7 +23,6 @@
   const ns = useNamespace('header');
 </script>
 <style scoped lang="scss">
-  @use '@etfm/vea-styles' as *;
   @include b(header) {
     width: 100%;
     display: flex;

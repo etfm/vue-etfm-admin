@@ -18,6 +18,7 @@
     }
   },
   "scripts": {
+    "bootstrap": "pnpm install",
     "test": "node ./__tests__/@etfm/styles.test.js"
   },
   "publishConfig": {

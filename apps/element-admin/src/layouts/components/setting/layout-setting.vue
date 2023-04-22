@@ -5,6 +5,6 @@
   </div>
 </template>
 
-<script setup lang="ts">
-const openDrawer = () => {}
+<script setup lang="ts" module>
+  const openDrawer = () => {};
 </script>

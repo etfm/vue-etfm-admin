@@ -8,10 +8,10 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ElBreadcrumb, ElBreadcrumbItem } from 'element-plus'
+  import { ElBreadcrumb, ElBreadcrumbItem } from 'element-plus';
 </script>
-<style scoped lang="scss">
-.layout-breadcrumd {
-  padding: 0 8px;
-}
+<style scoped lang="scss" module>
+  .layout-breadcrumd {
+    padding: 0 8px;
+  }
 </style>

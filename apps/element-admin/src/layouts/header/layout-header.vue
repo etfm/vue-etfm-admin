@@ -22,8 +22,8 @@
 
   const ns = useNamespace('header');
 </script>
-<style scoped lang="scss">
-  @include b(header) {
+<style scoped lang="scss" module>
+  @include b('header') {
     width: 100%;
     display: flex;
     align-items: center;

@@ -12,14 +12,14 @@
   </ElMenu>
 </template>
 <script setup lang="ts">
-import { ElMenu } from 'element-plus'
-const handleOpen = (index: string, indexPath: string[]) => {
-  console.log(index, indexPath)
-}
+  import { ElMenu } from 'element-plus';
+  const handleOpen = (index: string, indexPath: string[]) => {
+    console.log(index, indexPath);
+  };
 
-const handleClose = (index: string, indexPath: string[]) => {
-  console.log(index, indexPath)
-}
+  const handleClose = (index: string, indexPath: string[]) => {
+    console.log(index, indexPath);
+  };
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss" module></style>

@@ -14,12 +14,24 @@
   "author": "lzdjack <1956252575@qq.com>",
   "exports": {
     ".": {
-      "default": "./src/index.scss"
+      "default": "./src/index.ts"
+    },
+    "./shared": {
+      "default": "./src/_shared.scss"
     }
   },
+  "main": "./src/index.ts",
+  "module": "./src/index.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
     "bootstrap": "pnpm install",
     "test": "node ./__tests__/@etfm/styles.test.js"
+  },
+  "dependencies": {
+    "modern-normalize": "^1.1.0"
   },
   "publishConfig": {
     "access": "public"

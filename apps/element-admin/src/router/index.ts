@@ -36,7 +36,7 @@ export const RootRoute: AppRouteRecordRaw = {
 export const LoginRoute: AppRouteRecordRaw = {
   path: '/login',
   name: 'Login',
-  component: '/sys/login/login',
+  component: '/sys/login/index',
   meta: {
     title: '登录',
   },

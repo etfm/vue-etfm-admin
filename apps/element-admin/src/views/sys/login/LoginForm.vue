@@ -1,159 +1,104 @@
 <template>
-  <LoginFormTitle v-show="getShow" class="enter-x" />
-  <Form
-    class="p-4 enter-x"
-    :model="formData"
-    :rules="getFormRules"
-    ref="formRef"
-    v-show="getShow"
-    @keypress.enter="handleLogin"
-  >
-    <FormItem name="account" class="enter-x">
-      <Input
-        size="large"
-        v-model:value="formData.account"
-        :placeholder="t('sys.login.userName')"
-        class="fix-auto-fill"
-      />
-    </FormItem>
-    <FormItem name="password" class="enter-x">
-      <InputPassword
-        size="large"
-        visibilityToggle
-        v-model:value="formData.password"
-        :placeholder="t('sys.login.password')"
-      />
-    </FormItem>
-
-    <ARow class="enter-x">
-      <ACol :span="12">
-        <FormItem>
-          <!-- No logic, you need to deal with it yourself -->
-          <Checkbox v-model:checked="rememberMe" size="small">
-            {{ t('sys.login.rememberMe') }}
-          </Checkbox>
-        </FormItem>
-      </ACol>
-      <ACol :span="12">
-        <FormItem :style="{ 'text-align': 'right' }">
-          <!-- No logic, you need to deal with it yourself -->
-          <Button type="link" size="small" @click="setLoginState(LoginStateEnum.RESET_PASSWORD)">
-            {{ t('sys.login.forgetPassword') }}
-          </Button>
-        </FormItem>
-      </ACol>
-    </ARow>
-
-    <FormItem class="enter-x">
-      <Button type="primary" size="large" block @click="handleLogin" :loading="loading">
-        {{ t('sys.login.loginButton') }}
-      </Button>
-      <!-- <Button size="large" class="mt-4 enter-x" block @click="handleRegister">
-        {{ t('sys.login.registerButton') }}
-      </Button> -->
-    </FormItem>
-    <ARow class="enter-x">
-      <ACol :md="8" :xs="24">
-        <Button block @click="setLoginState(LoginStateEnum.MOBILE)">
-          {{ t('sys.login.mobileSignInFormTitle') }}
-        </Button>
-      </ACol>
-      <ACol :md="8" :xs="24" class="!my-2 !md:my-0 xs:mx-0 md:mx-2">
-        <Button block @click="setLoginState(LoginStateEnum.QR_CODE)">
-          {{ t('sys.login.qrSignInFormTitle') }}
-        </Button>
-      </ACol>
-      <ACol :md="6" :xs="24">
-        <Button block @click="setLoginState(LoginStateEnum.REGISTER)">
-          {{ t('sys.login.registerButton') }}
-        </Button>
-      </ACol>
-    </ARow>
-
-    <Divider class="enter-x">{{ t('sys.login.otherSignIn') }}</Divider>
-
-    <div class="flex justify-evenly enter-x" :class="`${prefixCls}-sign-in-way`">
-      <GithubFilled />
-      <WechatFilled />
-      <AlipayCircleFilled />
-      <GoogleCircleFilled />
-      <TwitterCircleFilled />
+  <ElForm ref="formRef" class="enter-x" :model="formModel" :rules="formRules">
+    <ElFormItem prop="username" class="enter-x">
+      <ElInput v-model:value="formModel.username" size="large" placeholder="用户名" />
+    </ElFormItem>
+    <ElFormItem prop="username" class="enter-x">
+      <ElInput v-model:value="formModel.password" size="large" placeholder="密码" type="password" />
+    </ElFormItem>
+    <div class="enter-x flex">
+      <ElFormItem prop="rememberMe" class="flex-1">
+        <ElCheckbox v-model:checked="formModel.rememberMe">记住我</ElCheckbox>
+      </ElFormItem>
+      <ElFormItem class="flex-1 text-right">
+        <ElButton link type="primary">忘记密码</ElButton>
+      </ElFormItem>
     </div>
-  </Form>
+    <ElFormItem class="enter-x">
+      <ElButton type="primary" size="large" :loading="isLoading" @click="handleLogin">
+        登录
+      </ElButton>
+    </ElFormItem>
+  </ElForm>
 </template>
-<script lang="ts" setup>
-  import { reactive, ref, unref, computed } from 'vue';
 
-  import { Checkbox, Form, Input, Row, Col, Button, Divider } from 'ant-design-vue';
+<script setup lang="ts">
+  import { useAsyncState } from '@etfm/vea-hooks';
   import {
-    GithubFilled,
-    WechatFilled,
-    AlipayCircleFilled,
-    GoogleCircleFilled,
-    TwitterCircleFilled,
-  } from '@ant-design/icons-vue';
-  import LoginFormTitle from './LoginFormTitle.vue';
+    ElButton,
+    ElCheckbox,
+    ElForm,
+    ElFormItem,
+    ElInput,
+    type FormInstance,
+    type FormRules,
+  } from 'element-plus';
+  import { reactive, ref, unref } from 'vue';
 
-  import { useI18n } from '/@/hooks/web/useI18n';
-  import { useMessage } from '/@/hooks/web/useMessage';
-
-  import { useUserStore } from '/@/store/modules/user';
-  import { LoginStateEnum, useLoginState, useFormRules, useFormValid } from './useLogin';
-  import { useDesign } from '/@/hooks/web/useDesign';
-  //import { onKeyStroke } from '@vueuse/core';
-
-  const ACol = Col;
-  const ARow = Row;
-  const FormItem = Form.Item;
-  const InputPassword = Input.Password;
-  const { t } = useI18n();
-  const { notification, createErrorModal } = useMessage();
-  const { prefixCls } = useDesign('login');
-  const userStore = useUserStore();
-
-  const { setLoginState, getLoginState } = useLoginState();
-  const { getFormRules } = useFormRules();
-
-  const formRef = ref();
-  const loading = ref(false);
-  const rememberMe = ref(false);
-
-  const formData = reactive({
-    account: 'vben',
-    password: '123456',
+  defineOptions({
+    name: 'LoginForm',
   });
 
-  const { validForm } = useFormValid(formRef);
+  interface LoginFormState {
+    // 用户名
+    username: string;
+    // 密码
+    password: string;
+    // 记住我
+    rememberMe?: boolean;
+  }
 
-  //onKeyStroke('Enter', handleLogin);
+  interface Props {
+    /**
+     * @description 登录函数
+     */
+    loginFunc: (form: LoginFormState) => Promise<void>;
+  }
 
-  const getShow = computed(() => unref(getLoginState) === LoginStateEnum.LOGIN);
+  const props = withDefaults(defineProps<Props>(), {});
 
-  async function handleLogin() {
-    const data = await validForm();
-    if (!data) return;
-    try {
-      loading.value = true;
-      const userInfo = await userStore.login({
-        password: data.password,
-        username: data.account,
-        mode: 'none', //不要默认的错误提示
-      });
-      if (userInfo) {
-        notification.success({
-          message: t('sys.login.loginSuccessTitle'),
-          description: `${t('sys.login.loginSuccessDesc')}: ${userInfo.realName}`,
-          duration: 3,
-        });
-      }
-    } catch (error) {
-      createErrorModal({
-        title: t('sys.api.errorTip'),
-        content: (error as unknown as Error).message || t('sys.api.networkExceptionMsg'),
-        getContainer: () => document.body.querySelector(`.${prefixCls}`) || document.body,
-      });
-    } finally {
-      loading.value = false;
+  const formRef = ref<FormInstance>();
+
+  const formModel = reactive<LoginFormState>({
+    username: '',
+    password: '',
+    rememberMe: false,
+  });
+
+  const formRules = reactive<FormRules>({
+    username: [
+      {
+        required: true,
+        message: '请输入用户名',
+      },
+    ],
+    password: [
+      {
+        required: true,
+        message: '请输入密码',
+      },
+    ],
+  });
+
+  const { isLoading, execute } = useAsyncState(
+    async () => {
+      await props?.loginFunc?.(formModel);
+    },
+    null,
+    { immediate: false },
+  );
+
+  async function handleLogin(e: MouseEvent) {
+    if (!unref(formRef)) return;
+    e?.preventDefault();
+
+    const values = await unref(formRef)?.validate();
+
+    console.log(values, '-----------');
+
+    if (!values) {
+      return;
     }
+    await execute();
   }
 </script>

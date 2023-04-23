@@ -13,7 +13,7 @@ const commonConfig: UserConfig = {
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@import "@etfm/vea-styles";`,
+        additionalData: `@import "@etfm/vea-styles/shared";`,
       },
     },
   },

@@ -33,6 +33,7 @@
     "test": "node ./__tests__/@etfm/hooks.test.js"
   },
   "dependencies": {
+    "@vueuse/core": "^9.13.0",
     "vue": "^3.2.47"
   },
   "publishConfig": {

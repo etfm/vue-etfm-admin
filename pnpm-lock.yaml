@@ -266,6 +266,9 @@ importers:
 
   packages/hooks:
     dependencies:
+      '@vueuse/core':
+        specifier: ^9.13.0
+        version: 9.13.0(vue@3.2.47)
       vue:
         specifier: ^3.2.47
         version: 3.2.47
@@ -380,7 +383,11 @@ importers:
         specifier: ^4.17.7
         version: 4.17.7
 
-  packages/styles: {}
+  packages/styles:
+    dependencies:
+      modern-normalize:
+        specifier: ^1.1.0
+        version: 1.1.0
 
   packages/types:
     dependencies:
@@ -5717,6 +5724,11 @@ packages:
     dependencies:
       commander: 10.0.0
     dev: true
+
+  /modern-normalize@1.1.0:
+    resolution: {integrity: sha512-2lMlY1Yc1+CUy0gw4H95uNN7vjbpoED7NNRSBHE25nWfLBdmMzFCsPshlzbxHz+gYMcBEUN8V4pU16prcdPSgA==}
+    engines: {node: '>=6'}
+    dev: false
 
   /mri@1.2.0:
     resolution: {integrity: sha512-tzzskb3bG8LvYGFF/mDTpq3jpI6Q9wc3LEmBaghu+DdCssd1FakN7Bc0hVNmEyGq1bq3RgfkCb3cmQLpNPOroA==}

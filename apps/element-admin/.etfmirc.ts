@@ -1,5 +1,5 @@
 import { defineApp } from '@etfm/vea-plugin';
-import { basicRoutes } from './src/router';
+import { staticRoutes } from './src/router';
 import { getAppEnvConfig, getStorageShortName } from '@etfm/vea-shared';
 import { handleHttpError } from '@/http/error';
 import { setupRouterGuard } from '@/router/guard';
@@ -13,11 +13,11 @@ export default defineApp({
   render: {
     onMounted: async ({ router }) => {
       // 路由拦截
-      // setupRouterGuard(router);
+      setupRouterGuard(router);
     },
   },
   router: {
-    routes: basicRoutes,
+    routes: staticRoutes,
   },
   pinia: {
     key: getStorageShortName(),

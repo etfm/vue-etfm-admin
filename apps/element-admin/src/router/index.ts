@@ -1,7 +1,14 @@
-import type { AppRouteModule, AppRouteRecordRaw } from '@etfm/vea-router';
+import type {
+  AppRouteModule,
+  AppRouteRecordRaw,
+  RouteRecordRaw,
+  RouteRecordName,
+} from '@etfm/vea-router';
+import { router } from '@etfm/vea-router';
 import { mainOutRoutes } from './mainOut';
 import { PAGE_NOT_FOUND_ROUTE, REDIRECT_ROUTE } from './basic';
 import { BASE_HOME } from './constant';
+import { loggerWarning, traverseTree } from '@etfm/vea-shared';
 
 // import.meta.globEager() 直接引入所有的模块 Vite 独有的功能
 const modules = import.meta.glob('./modules/**/*.ts');
@@ -14,7 +21,7 @@ Object.keys(modules).forEach((key) => {
   routeModuleList.push(...modList);
 });
 
-export const asyncRoutes = [...routeModuleList];
+const dynamicRoutes = [...routeModuleList];
 
 // 根路由
 export const RootRoute: AppRouteRecordRaw = {
@@ -37,10 +44,43 @@ export const LoginRoute: AppRouteRecordRaw = {
 
 // Basic routing without permission
 // 未经许可的基本路由
-export const basicRoutes = [
+const staticRoutes = [
   LoginRoute,
   RootRoute,
   ...mainOutRoutes,
   REDIRECT_ROUTE,
   PAGE_NOT_FOUND_ROUTE,
 ];
+
+/** 排查在主框架外的路由，这些路由没有菜单和顶部及其他框架内容 */
+const externalRoutes: RouteRecordRaw[] = [];
+
+/**
+ * @description 获取静态路由所有节点包含子节点的 name，并排除不存在 name 字段的路由
+ */
+const staticRouteNames = traverseTree<AppRouteRecordRaw, RouteRecordName | undefined>(
+  staticRoutes,
+  (route) => route.children,
+  (route) => {
+    // 提示这些路由需要指定 name，防止在路由重置时，不能删除没有指定 name 的路由
+    if (!route.name) {
+      loggerWarning(`The route with the path ${route.path} needs to specify the field name`);
+    }
+    return route.name;
+  },
+);
+/**
+ * @description 重置路由
+ */
+function resetRoutes() {
+  const routes = router.getRoutes();
+  const { hasRoute, removeRoute } = router;
+  routes.forEach(({ name }) => {
+    // 存在于路由表且非白名单才需要删除
+    if (name && !staticRouteNames.includes(name) && hasRoute(name)) {
+      removeRoute(name);
+    }
+  });
+}
+
+export { dynamicRoutes, externalRoutes, staticRouteNames, staticRoutes, resetRoutes };

@@ -4,7 +4,7 @@ import { PageEnum } from '../enum';
 import { useUserStoreWithOut } from '@/store/user';
 import { PAGE_NOT_FOUND_ROUTE } from '@/router/basic';
 import { RootRoute } from '../';
-import type { Recordable } from '@etfm/vea-types';
+import { Recordable } from '@etfm/vea-types';
 
 const LOGIN_PATH = PageEnum.BASE_LOGIN;
 

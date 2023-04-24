@@ -28,7 +28,9 @@
   ],
   "scripts": {
     "bootstrap": "pnpm install",
-    "test": "node ./__tests__/@etfm/styles.test.js"
+    "test": "node ./__tests__/@etfm/styles.test.js",
+    "//build": "pnpm unbuild",
+    "//stub": "pnpm unbuild --stub"
   },
   "dependencies": {
     "modern-normalize": "^1.1.0"

@@ -52,6 +52,7 @@ export const useUserStore = defineStore({
   actions: {
     setToken(info: string | undefined) {
       this.token = info ? info : ''; // for null or undefined value
+      console.log(this.token, '----+++-----');
       setAuthCache(TOKEN_KEY, info);
     },
     setRoleList(roleList: string[]) {
@@ -84,6 +85,7 @@ export const useUserStore = defineStore({
       try {
         const { goHome = true, mode, ...loginParams } = params;
         const data = await loginApi(loginParams);
+
         const { token } = data;
 
         // save token

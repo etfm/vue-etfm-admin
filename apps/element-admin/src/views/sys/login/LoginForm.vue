@@ -1,21 +1,27 @@
 <template>
   <ElForm ref="formRef" class="enter-x" :model="formModel" :rules="formRules">
     <ElFormItem prop="username" class="enter-x">
-      <ElInput v-model:value="formModel.username" size="large" placeholder="用户名" />
+      <ElInput v-model="formModel.username" size="large" placeholder="用户名" />
     </ElFormItem>
     <ElFormItem prop="username" class="enter-x">
-      <ElInput v-model:value="formModel.password" size="large" placeholder="密码" type="password" />
+      <ElInput v-model="formModel.password" size="large" placeholder="密码" type="password" />
     </ElFormItem>
-    <div class="enter-x flex">
-      <ElFormItem prop="rememberMe" class="flex-1">
-        <ElCheckbox v-model:checked="formModel.rememberMe">记住我</ElCheckbox>
+    <div class="enter-x flex justify-between">
+      <ElFormItem prop="rememberMe">
+        <ElCheckbox v-model="formModel.rememberMe">记住我</ElCheckbox>
       </ElFormItem>
-      <ElFormItem class="flex-1 text-right">
+      <ElFormItem>
         <ElButton link type="primary">忘记密码</ElButton>
       </ElFormItem>
     </div>
     <ElFormItem class="enter-x">
-      <ElButton type="primary" size="large" :loading="isLoading" @click="handleLogin">
+      <ElButton
+        class="flex-1"
+        type="primary"
+        size="large"
+        :loading="isLoading"
+        @click="handleLogin"
+      >
         登录
       </ElButton>
     </ElFormItem>
@@ -93,8 +99,6 @@
     e?.preventDefault();
 
     const values = await unref(formRef)?.validate();
-
-    console.log(values, '-----------');
 
     if (!values) {
       return;

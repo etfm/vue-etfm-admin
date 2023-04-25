@@ -19,13 +19,14 @@
       </div>
     </div>
     <div :class="e('form')">
-      <LoginForm class="w-1/2" :login-func="loginFunc" />
+      <LoginForm class="w-1/2" :login-func="handleLogin" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
   import { loginBgSvg, loginSloganSvg, logoImage } from '@/assets';
+  import { useUserStore } from '@/store/user';
   import { useNamespace } from '@etfm/vea-hooks';
   import { computed } from 'vue';
   import LoginForm from './LoginForm.vue';
@@ -38,30 +39,56 @@
     /**
      * @description 应用名
      */
-    appName: string;
+    appName?: string;
     /**
      * @description 介绍标题
      */
-    title: string;
+    title?: string;
     /**
      * @description 描述
      */
-    description: string;
+    description?: string;
     /**
      * @description logo图片
      */
     logo?: string;
-    /**
-     * @description 登录函数
-     */
-    loginFunc: (form: any) => Promise<void>;
   }
 
   withDefaults(defineProps<Props>(), {
     logo: logoImage,
+    appName: 'vue-etfm-admin',
+    title: '开箱即用的中后台管理系统',
+    description: '输入您的个人详细信息开始使用！',
   });
 
   const { b, e } = useNamespace('login');
+  const userStore = useUserStore();
+
+  async function handleLogin(data) {
+    if (!data) return;
+    try {
+      const userInfo = await userStore.login({
+        password: data.password,
+        username: data.username,
+      });
+      console.log(userInfo);
+
+      // if (userInfo) {
+      //   notification.success({
+      //     message: t('sys.login.loginSuccessTitle'),
+      //     description: `${t('sys.login.loginSuccessDesc')}: ${userInfo.realName}`,
+      //     duration: 3,
+      //   });
+      // }
+    } catch (error) {
+      // createErrorModal({
+      //   title: t('sys.api.errorTip'),
+      //   content: (error as unknown as Error).message || t('sys.api.networkExceptionMsg'),
+      //   getContainer: () => document.body.querySelector(`.${prefixCls}`) || document.body,
+      // });
+    } finally {
+    }
+  }
 
   // TODO: 黑暗模式
   const loginBackagroundImage = computed(() => {

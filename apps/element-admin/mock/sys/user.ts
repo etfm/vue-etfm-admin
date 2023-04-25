@@ -6,8 +6,8 @@ export function createFakeUserList() {
   return [
     {
       userId: '1',
-      username: 'vben',
-      realName: 'Vben Admin',
+      username: 'etfm',
+      realName: 'Etfm Admin',
       avatar: '',
       desc: 'manager',
       password: '123456',

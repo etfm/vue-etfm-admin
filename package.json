@@ -15,6 +15,7 @@
     "dev": "turbo dev --filter=./apps/element-admin --no-daemon --include-dependencies"
   },
   "dependencies": {
+    "@etfm/vea-design": "workspace:^0.0.0",
     "element-plus": "^2.3.2",
     "vue": "^3.2.47"
   },

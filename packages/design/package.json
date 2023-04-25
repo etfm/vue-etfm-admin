@@ -1,5 +1,5 @@
 {
-  "name": "@etfm/vea-styles",
+  "name": "@etfm/vea-design",
   "version": "0.0.0",
   "description": "> TODO: description",
   "homepage": "https://github.com/etfm/vue-etfm-admin#readme",
@@ -27,10 +27,10 @@
     "src"
   ],
   "scripts": {
-    "bootstrap": "pnpm install",
-    "test": "node ./__tests__/@etfm/styles.test.js",
     "//build": "pnpm unbuild",
-    "//stub": "pnpm unbuild --stub"
+    "//stub": "pnpm unbuild --stub",
+    "bootstrap": "pnpm install",
+    "test": "node ./__tests__/@etfm/styles.test.js"
   },
   "dependencies": {
     "modern-normalize": "^1.1.0"

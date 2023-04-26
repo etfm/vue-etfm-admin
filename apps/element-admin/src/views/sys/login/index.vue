@@ -30,6 +30,7 @@
   import { useNamespace } from '@etfm/vea-hooks';
   import { computed } from 'vue';
   import LoginForm from './LoginForm.vue';
+  import { useMessage } from '@etfm/vea-element';
 
   defineOptions({
     name: 'LoginPage',
@@ -63,6 +64,7 @@
 
   const { b, e } = useNamespace('login');
   const userStore = useUserStore();
+  const { notification, createErrorModal } = useMessage();
 
   async function handleLogin(data) {
     if (!data) return;
@@ -71,21 +73,18 @@
         password: data.password,
         username: data.username,
       });
-      console.log(userInfo);
 
-      // if (userInfo) {
-      //   notification.success({
-      //     message: t('sys.login.loginSuccessTitle'),
-      //     description: `${t('sys.login.loginSuccessDesc')}: ${userInfo.realName}`,
-      //     duration: 3,
-      //   });
-      // }
+      if (userInfo) {
+        notification.success({
+          title: '登陆成功',
+          message: `欢迎回来：${userInfo.realName}`,
+        });
+      }
     } catch (error) {
-      // createErrorModal({
-      //   title: t('sys.api.errorTip'),
-      //   content: (error as unknown as Error).message || t('sys.api.networkExceptionMsg'),
-      //   getContainer: () => document.body.querySelector(`.${prefixCls}`) || document.body,
-      // });
+      createErrorModal({
+        title: '错误提示',
+        message: (error as unknown as Error).message || '网络异常，请检查您的网络连接是否正常!',
+      });
     } finally {
     }
   }

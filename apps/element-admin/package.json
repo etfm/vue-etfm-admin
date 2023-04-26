@@ -11,6 +11,8 @@
     "type-check": "vue-tsc --noEmit"
   },
   "dependencies": {
+    "@etfm/vea-design": "workspace:*",
+    "@etfm/vea-element": "workspace:^0.0.0",
     "@etfm/vea-hooks": "workspace:*",
     "@etfm/vea-http": "workspace:*",
     "@etfm/vea-pinia": "workspace:*",
@@ -18,7 +20,6 @@
     "@etfm/vea-render": "workspace:*",
     "@etfm/vea-router": "workspace:*",
     "@etfm/vea-shared": "workspace:*",
-    "@etfm/vea-design": "workspace:*",
     "nprogress": "^0.2.0",
     "path-to-regexp": "^6.2.1"
   },

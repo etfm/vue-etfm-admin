@@ -104,6 +104,9 @@ importers:
       '@etfm/vea-design':
         specifier: workspace:*
         version: link:../../packages/design
+      '@etfm/vea-element':
+        specifier: workspace:^0.0.0
+        version: link:../../packages/element
       '@etfm/vea-hooks':
         specifier: workspace:*
         version: link:../../packages/hooks

@@ -1,0 +1,42 @@
+{
+  "name": "@etfm/icons",
+  "version": "0.0.0",
+  "description": "> TODO: description",
+  "homepage": "https://github.com/etfm/vue-etfm-admin#readme",
+  "bugs": {
+    "url": "https://github.com/etfm/vue-etfm-admin/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/etfm/vue-etfm-admin.git"
+  },
+  "license": "ISC",
+  "author": "lzdjack <1956252575@qq.com>",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "default": "./src/index.ts"
+    }
+  },
+  "main": "src/index.ts",
+  "module": "src/index.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "bootstrap": "pnpm install",
+    "build": "pnpm unbuild",
+    "clean": "pnpm rimraf .turbo node_modules dist",
+    "lint": "pnpm eslint .",
+    "stub": "pnpm unbuild --stub",
+    "test": "node ./__tests__/@etfm/http.test.js"
+  },
+  "dependencies": {
+    "@iconify/iconify": "^3.1.0",
+    "@purge-icons/generated": "^0.9.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

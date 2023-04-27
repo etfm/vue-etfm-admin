@@ -8,11 +8,14 @@
     @open="handleOpen"
     @close="handleClose"
   >
-    <template> </template>
+    <template v-for="item in items" :key="item.path">
+      <BasicSubMenuItem :item="item" :theme="theme" :isHorizontal="isHorizontal" />
+    </template>
   </ElMenu>
 </template>
 <script setup lang="ts">
   import { ElMenu } from 'element-plus';
+  import BasicSubMenuItem from './basic-sub-menu-item.vue';
   const handleOpen = (index: string, indexPath: string[]) => {
     console.log(index, indexPath);
   };

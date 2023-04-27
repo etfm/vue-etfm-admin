@@ -1,0 +1,63 @@
+<script setup lang="ts">
+  import { computed, type CSSProperties, useCssModule } from 'vue';
+
+  defineOptions({
+    name: 'VbenSvgIcon',
+    inheritAttrs: false,
+  });
+
+  interface Props {
+    /**
+     * @description 图标名
+     */
+    icon: string;
+
+    /**
+     * @description 图标大小
+     * @default 16
+     */
+    size?: number;
+
+    /**
+     * @description 图标集空间名
+     * @default 'icon'
+     */
+    namespace?: string;
+  }
+
+  const props = withDefaults(defineProps<Props>(), {
+    size: 16,
+    namespace: 'icon',
+  });
+
+  const $style = useCssModule();
+
+  const symbolId = computed(() => {
+    const { namespace, icon } = props;
+    return `#${namespace}-${icon}`;
+  });
+
+  const svgIconStyles = computed((): CSSProperties => {
+    const { size } = props;
+    const wh = `${size}px`;
+    return {
+      width: wh,
+      height: wh,
+    };
+  });
+</script>
+
+<template>
+  <svg v-bind="$attrs" :class="$style['svg-icon']" :style="svgIconStyles" aria-hidden="true">
+    <use :xlink:href="symbolId" />
+  </svg>
+</template>
+
+<style module scoped lang="scss">
+  .svg-icon {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: -0.15em;
+    fill: currentcolor;
+  }
+</style>

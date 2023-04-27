@@ -1,58 +1,52 @@
-import { resolve } from 'path'
-import { readPackageJSON } from 'pkg-types'
-import { defineConfig, loadEnv, mergeConfig, type UserConfig } from 'vite'
-import dayjs from 'dayjs'
-import { createPlugins } from '../plugins'
-import { commonConfig } from './common'
-import colors from 'picocolors'
+import { resolve } from 'path';
+import { readPackageJSON } from 'pkg-types';
+import { defineConfig, loadEnv, mergeConfig, type UserConfig } from 'vite';
+import dayjs from 'dayjs';
+import { createPlugins } from '../plugins';
+import { commonConfig } from './common';
+import colors from 'picocolors';
 
 interface DefineOptions {
-  overrides?: UserConfig
-  options?: {}
+  overrides?: UserConfig;
+  options?: {};
 }
 
 export function defineApplicationConfig(defineOptions: DefineOptions = {}) {
-  console.log()
-  console.log(colors.bgBlue('当前处于开发测试阶段，还会有大量更新，仅供参考，请勿用于实际项目！\n'))
-  console.log()
-  const { overrides = {} } = defineOptions
+  console.log();
+  console.log(
+    colors.bgBlue('当前处于开发测试阶段，还会有大量更新，仅供参考，请勿用于实际项目！\n'),
+  );
+  console.log();
+  const { overrides = {} } = defineOptions;
 
   return defineConfig(async ({ command, mode }) => {
-    const root = process.cwd()
-    const isBuild = command === 'build'
-    const { VITE_USE_MOCK, VITE_BUILD_COMPRESS, VITE_ENABLE_ANALYZE } = loadEnv(mode, root)
+    const root = process.cwd();
+    const isBuild = command === 'build';
+    const { VITE_USE_MOCK, VITE_BUILD_COMPRESS, VITE_ENABLE_ANALYZE } = loadEnv(mode, root);
 
-    const defineData = await createDefineData(root)
+    const defineData = await createDefineData(root);
     const plugins = await createPlugins({
       isBuild,
       root,
       enableAnalyze: VITE_ENABLE_ANALYZE === 'true',
       enableMock: VITE_USE_MOCK === 'true',
-      compress: VITE_BUILD_COMPRESS
-    })
+      compress: VITE_BUILD_COMPRESS,
+    });
 
-    const pathResolve = (pathname: string) => resolve(root, '.', pathname)
+    const pathResolve = (pathname: string) => resolve(root, '.', pathname);
     const applicationConfig: UserConfig = {
       resolve: {
         alias: [
           {
-            find: 'lodash',
-            replacement: 'lodash-es'
-          },
-          {
-            find: 'vue',
-            replacement: 'vue/dist/vue.runtime.esm-bundler.js'
-          },
-          {
             find: /@\//,
-            replacement: pathResolve('src') + '/'
+            replacement: pathResolve('src') + '/',
           },
           // #/xxxx => types/xxxx
           {
             find: /#\//,
-            replacement: pathResolve('types') + '/'
-          }
-        ]
+            replacement: pathResolve('types') + '/',
+          },
+        ],
       },
       define: defineData,
       build: {
@@ -61,36 +55,36 @@ export function defineApplicationConfig(defineOptions: DefineOptions = {}) {
         rollupOptions: {
           output: {
             manualChunks: {
-              vue: ['vue', 'pinia', 'vue-router']
-            }
-          }
-        }
+              vue: ['vue', 'pinia', 'vue-router'],
+            },
+          },
+        },
       },
       css: {
-        preprocessorOptions: {}
+        preprocessorOptions: {},
       },
-      plugins
-    }
+      plugins,
+    };
 
-    const mergedConfig = mergeConfig(commonConfig, applicationConfig)
+    const mergedConfig = mergeConfig(commonConfig, applicationConfig);
 
-    return mergeConfig(mergedConfig, overrides)
-  })
+    return mergeConfig(mergedConfig, overrides);
+  });
 }
 
 async function createDefineData(root: string) {
   try {
-    const pkgJson = await readPackageJSON(root)
-    const { dependencies, devDependencies, name, version } = pkgJson
+    const pkgJson = await readPackageJSON(root);
+    const { dependencies, devDependencies, name, version } = pkgJson;
 
     const __APP_INFO__ = {
       pkg: { dependencies, devDependencies, name, version },
-      lastBuildTime: dayjs().format('YYYY-MM-DD HH:mm:ss')
-    }
+      lastBuildTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+    };
     return {
-      __APP_INFO__: JSON.stringify(__APP_INFO__)
-    }
+      __APP_INFO__: JSON.stringify(__APP_INFO__),
+    };
   } catch (error) {
-    return {}
+    return {};
   }
 }

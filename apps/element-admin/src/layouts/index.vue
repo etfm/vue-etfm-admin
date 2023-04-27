@@ -1,27 +1,57 @@
-<template>
-  <ElContainer>
-    <!-- 顶部头 包含头部菜单，实现头部上下布局。 不能与LayoutMultipleHeader里的 header同时存在 -->
-    <LayoutHeader />
-    <ElContainer>
-      <!-- 左侧菜单 左右菜单布局、上下菜单布局 -->
-      <LayoutSider />
-      <ElContainer>
-        <!-- tabs  不能与LayoutHeader和LayoutMultipleHeader里的header同时存在 -->
-        <LayoutMultipleHeader />
-        <!-- 内容区域 -->
-        <LayoutContent />
-        <!-- 底部区域 -->
-        <!-- <LayoutFooter /> -->
-      </ElContainer>
-    </ElContainer>
-  </ElContainer>
-</template>
+<script lang="ts" setup>
+  import { EtfmAdminLayout } from '@etfm/layout';
+  import { ElCheckbox, ElInputNumber, ElRadioGroup, ElRadioButton } from 'element-plus';
+  import { reactive } from 'vue';
 
-<script lang="ts" setup module>
-  import { ElContainer } from 'element-plus';
-  import LayoutHeader from './header/layout-header.vue';
-  import LayoutSider from './sider/setting-sider.vue';
-  import LayoutMultipleHeader from './header/layout-multiple-header.vue';
-  import LayoutContent from './content/layout-content.vue';
-  // import LayoutFooter from './footer/layout-footer.vue'
+  defineOptions({
+    name: 'Dashboard',
+  });
+
+  const model = reactive({
+    sideWidth: 200,
+    siderCollapse: false,
+    layout: 'side-nav',
+    sideMixedExtraVisible: false,
+    fixedMixedExtra: false,
+    isMobile: false,
+  });
 </script>
+
+<template>
+  <EtfmAdminLayout
+    :sideWidth="model.sideWidth"
+    :layout="model.layout"
+    :fixedMixedExtra="model.fixedMixedExtra"
+    :isMobile="model.isMobile"
+    v-model:side-collapse="model.siderCollapse"
+    v-model:mixed-extra-visible="model.sideMixedExtraVisible"
+  >
+    <template #side>
+      <div>side</div>
+    </template>
+    <template #side-extra>side-extra</template>
+    <template #header>header</template>
+    <template #footer>footer</template>
+    <template #content>
+      <div>
+        <div>左侧菜单宽度</div>
+        <ElInputNumber v-model="model.sideWidth" />
+        <ElCheckbox v-model="model.siderCollapse" class="mx-5">折叠菜单</ElCheckbox>
+
+        <ElCheckbox v-model="model.sideMixedExtraVisible" class="mx-5">打开扩展菜单</ElCheckbox>
+        <ElCheckbox v-model="model.fixedMixedExtra" class="mx-5">固定扩展菜单</ElCheckbox>
+        <ElCheckbox v-model="model.isMobile" class="mx-5">isMobile</ElCheckbox>
+        <hr />
+        <div>切换布局</div>
+        <ElRadioGroup v-model="model.layout">
+          <ElRadioButton label="side-nav">side-nav</ElRadioButton>
+          <ElRadioButton label="header-nav">header-nav</ElRadioButton>
+          <ElRadioButton label="mixed-nav">mixed-nav</ElRadioButton>
+          <ElRadioButton label="side-mixed-nav">side-mixed-nav</ElRadioButton>
+          <ElRadioButton label="full-content">full-content</ElRadioButton>
+        </ElRadioGroup>
+        <hr />
+      </div>
+    </template>
+  </EtfmAdminLayout>
+</template>

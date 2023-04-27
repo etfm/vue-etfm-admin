@@ -1,12 +1,12 @@
 import { createPluginManager, getPluginManager } from '@etfm/vea-plugin';
 import { lodash } from '@etfm/vea-shared';
 import { initRender } from './renderer';
-import RootApp from './App.vue';
+import RootApp from './App';
 import { IRenderContext } from '@etfm/vea-types';
 
 export let context: IRenderContext = {
   rootElement: document.getElementById('app') as Element,
-  rootContainer: RootApp,
+  rootContainer: () => RootApp,
   onRouterCreated: () => {},
   onPiniaCreated: () => {},
   onAppCreated: () => {},

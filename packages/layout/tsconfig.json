@@ -3,7 +3,8 @@
   "extends": "@etfm/vea-ts/web.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "types": ["unplugin-vue-define-options/macros-global", "vite/client"]
+    "types": ["unplugin-vue-define-options/macros-global", "vite/client"],
+    "moduleResolution": "bundler"
   },
   "vueCompilerOptions": {
     "target": 3,

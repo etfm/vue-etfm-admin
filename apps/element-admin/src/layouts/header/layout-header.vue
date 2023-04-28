@@ -17,7 +17,7 @@
   import HeaderTrigger from '../trigger/header-trigger.vue';
   import LayoutBreadcrumb from '../components/breadcrumb/layout-breadcrumb.vue';
   import { useNamespace } from '@etfm/vea-hooks';
-  import AppLogo from '../components/logo/app-logo.vue';
+  import AppLogo from '../components/logo/AppLogo.vue';
   import LayoutSetting from '../components/setting/layout-setting.vue';
 
   const ns = useNamespace('header');

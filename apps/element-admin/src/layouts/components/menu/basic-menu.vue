@@ -1,3 +1,20 @@
+<script setup lang="ts">
+  import { ElMenu } from 'element-plus';
+  import BasicSubMenuItem from './basic-sub-menu-item.vue';
+
+  defineOptions({
+    name: 'BasicMenu',
+  });
+
+  const handleOpen = (index: string, indexPath: string[]) => {
+    console.log(index, indexPath);
+  };
+
+  const handleClose = (index: string, indexPath: string[]) => {
+    console.log(index, indexPath);
+  };
+</script>
+
 <template>
   <ElMenu
     active-text-color="#ffd04b"
@@ -13,16 +30,5 @@
     </template>
   </ElMenu>
 </template>
-<script setup lang="ts">
-  import { ElMenu } from 'element-plus';
-  import BasicSubMenuItem from './basic-sub-menu-item.vue';
-  const handleOpen = (index: string, indexPath: string[]) => {
-    console.log(index, indexPath);
-  };
-
-  const handleClose = (index: string, indexPath: string[]) => {
-    console.log(index, indexPath);
-  };
-</script>
 
 <style scoped lang="scss" module></style>

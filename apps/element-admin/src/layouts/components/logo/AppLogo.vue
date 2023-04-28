@@ -1,3 +1,17 @@
+<script setup lang="ts">
+  import { ref } from 'vue';
+  import { useNamespace } from '@etfm/vea-hooks';
+
+  defineOptions({
+    name: 'AppLogo',
+  });
+
+  const ns = useNamespace('app-logo');
+
+  const title = ref('Etfm Admin');
+
+  const handleGoHome = () => {};
+</script>
 <template>
   <div :class="[ns.b()]" @click="handleGoHome">
     <img style="height: 60px" src="@/assets/images/logo.png" />
@@ -7,22 +21,12 @@
     </div>
   </div>
 </template>
-<script setup lang="ts">
-  import { ref } from 'vue';
-  import { useNamespace } from '@etfm/vea-hooks';
 
-  const ns = useNamespace('app-logo');
-
-  const title = ref('Etfm Admin');
-
-  const handleGoHome = () => {};
-</script>
 <style scoped lang="scss" module>
   @include b(app-logo) {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 210px;
 
     @include e(title) {
       color: #0960bd;

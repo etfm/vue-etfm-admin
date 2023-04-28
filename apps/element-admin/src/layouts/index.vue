@@ -2,6 +2,7 @@
   import { EtfmAdminLayout } from '@etfm/layout';
   import { ElCheckbox, ElInputNumber, ElRadioGroup, ElRadioButton } from 'element-plus';
   import { reactive } from 'vue';
+  import AppLogo from './components/logo/AppLogo.vue';
 
   defineOptions({
     name: 'Dashboard',
@@ -27,7 +28,9 @@
     v-model:mixed-extra-visible="model.sideMixedExtraVisible"
   >
     <template #side>
-      <div>side</div>
+      <div>
+        <AppLogo />
+      </div>
     </template>
     <template #side-extra>side-extra</template>
     <template #header>header</template>

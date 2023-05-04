@@ -19,11 +19,8 @@ interface PermissionState {
   // To trigger a menu update
   // 触发菜单更新
   lastBuildMenuTime: number;
-  // Backstage menu list
-  // 后台菜单列表
-  backMenuList: Menu[];
   // 菜单列表
-  frontMenuList: Menu[];
+  menuList: Menu[];
 }
 
 export const usePermissionStore = defineStore({
@@ -38,21 +35,15 @@ export const usePermissionStore = defineStore({
     // 触发菜单更新
     lastBuildMenuTime: 0,
     // Backstage menu list
-    // 后台菜单列表
-    backMenuList: [],
-    // menu List
     // 菜单列表
-    frontMenuList: [],
+    menuList: [],
   }),
   getters: {
     getPermCodeList(state): string[] | number[] {
       return state.permCodeList;
     },
-    getBackMenuList(state): Menu[] {
-      return state.backMenuList;
-    },
-    getFrontMenuList(state): Menu[] {
-      return state.frontMenuList;
+    getMenuList(state): Menu[] {
+      return state.menuList;
     },
     getLastBuildMenuTime(state): number {
       return state.lastBuildMenuTime;
@@ -67,12 +58,8 @@ export const usePermissionStore = defineStore({
     },
 
     setBackMenuList(list: Menu[]) {
-      this.backMenuList = list;
+      this.menuList = list;
       list?.length > 0 && this.setLastBuildMenuTime();
-    },
-
-    setFrontMenuList(list: Menu[]) {
-      this.frontMenuList = list;
     },
 
     setLastBuildMenuTime() {
@@ -85,7 +72,7 @@ export const usePermissionStore = defineStore({
     resetState(): void {
       this.isDynamicAddedRoute = false;
       this.permCodeList = [];
-      this.backMenuList = [];
+      this.menuList = [];
       this.lastBuildMenuTime = 0;
     },
     async changePermissionCode() {

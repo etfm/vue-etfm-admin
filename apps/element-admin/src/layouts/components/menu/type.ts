@@ -1,5 +1,5 @@
 export interface IBasiMenuItemContent {
-  showTitle: boolean
-  level: number
-  isHorizontal: boolean
+  showTitle: boolean;
+  level: number;
+  isHorizontal: boolean;
 }

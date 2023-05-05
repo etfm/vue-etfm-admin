@@ -6,6 +6,7 @@
   import { MenuModeEnum, MenuTypeEnum, Mode } from './enum';
   import { listenerRouteChange } from '@/logics/mitt/routeChange';
   import { REDIRECT_NAME } from '@/router/constant';
+  import type { RouteLocationNormalized } from '@etfm/vea-router';
 
   defineOptions({
     name: 'BasicMenu',
@@ -82,6 +83,14 @@
       setOpenKeys(unref(currentActiveMenu));
     }
   });
+
+  const setOpenKeys = (current: string) => {
+    console.log(current);
+  };
+
+  const handleMenuChange = (route: RouteLocationNormalized) => {
+    console.log(route);
+  };
 
   const handleOpen = (index: string, indexPath: string[]) => {
     console.log(index, indexPath);

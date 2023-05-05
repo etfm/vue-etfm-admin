@@ -1,8 +1,8 @@
 <script setup lang="ts">
   import { ElScrollbar } from 'element-plus';
-  import { computed, CSSProperties, watch } from 'vue';
+  import { computed, CSSProperties } from 'vue';
   import BasicMenu from '../components/menu/basic-menu.vue';
-  import { usePermissionStore } from '@/store/permission';
+  import { useLayoutMenu } from './useLayoutMenu';
 
   defineOptions({
     name: 'LayoutMenu',
@@ -20,21 +20,7 @@
     isHorizontal: false,
   });
 
-  const permissionStore = usePermissionStore();
-
-  watch(
-    [() => permissionStore.getMenuList],
-    () => {
-      console.log('============================');
-
-      genMenus();
-    },
-    {
-      immediate: true,
-    },
-  );
-
-  function genMenus() {}
+  const { menuRef } = useLayoutMenu();
 
   const getWrapperStyle = computed((): CSSProperties => {
     return {
@@ -45,6 +31,6 @@
 
 <template>
   <ElScrollbar :style="{ getWrapperStyle }">
-    <BasicMenu></BasicMenu>
+    <!-- <BasicMenu :items="menuRef" :is-horizontal="isHorizontal"></BasicMenu> -->
   </ElScrollbar>
 </template>

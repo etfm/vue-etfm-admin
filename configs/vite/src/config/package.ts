@@ -1,40 +1,42 @@
-import { readPackageJSON } from 'pkg-types'
-import { defineConfig, mergeConfig, type UserConfig } from 'vite'
-import dts from 'vite-plugin-dts'
+import { readPackageJSON } from 'pkg-types';
+import { defineConfig, mergeConfig, type UserConfig } from 'vite';
+import dts from 'vite-plugin-dts';
 
-import { commonConfig } from './common'
+import { commonConfig } from './common';
 
 interface DefineOptions {
-  overrides?: UserConfig
-  options?: {}
+  overrides?: UserConfig;
+  options?: {};
 }
 
 function definePackageConfig(defineOptions: DefineOptions = {}) {
-  const { overrides = {} } = defineOptions
-  const root = process.cwd()
+  const { overrides = {} } = defineOptions;
+  const root = process.cwd();
   return defineConfig(async () => {
-    const { dependencies = {}, peerDependencies = {} } = await readPackageJSON(root)
+    const { dependencies = {}, peerDependencies = {} } = await readPackageJSON(root);
+
     const packageConfig: UserConfig = {
       build: {
         lib: {
           entry: 'src/index.ts',
           formats: ['es'],
-          fileName: () => 'index.mjs'
+          fileName: () => 'index.mjs',
         },
         rollupOptions: {
-          external: [...Object.keys(dependencies), ...Object.keys(peerDependencies)]
-        }
+          external: [...Object.keys(dependencies), ...Object.keys(peerDependencies)],
+        },
       },
       plugins: [
         dts({
-          logLevel: 'error'
-        })
-      ]
-    }
-    const mergedConfig = mergeConfig(commonConfig, packageConfig)
+          entryRoot: 'src',
+          logLevel: 'error',
+        }),
+      ],
+    };
+    const mergedConfig = mergeConfig(commonConfig, packageConfig);
 
-    return mergeConfig(mergedConfig, overrides)
-  })
+    return mergeConfig(mergedConfig, overrides);
+  });
 }
 
-export { definePackageConfig }
+export { definePackageConfig };

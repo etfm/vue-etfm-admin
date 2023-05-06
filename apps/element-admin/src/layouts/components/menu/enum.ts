@@ -22,14 +22,12 @@ export enum TriggerEnum {
   HEADER = 'HEADER',
 }
 
-export type Mode = 'vertical' | 'vertical-right' | 'horizontal' | 'inline';
+export type Mode = 'vertical' | 'horizontal';
 
 // menu mode
 export enum MenuModeEnum {
   VERTICAL = 'vertical',
   HORIZONTAL = 'horizontal',
-  VERTICAL_RIGHT = 'vertical-right',
-  INLINE = 'inline',
 }
 
 export enum MenuSplitTyeEnum {

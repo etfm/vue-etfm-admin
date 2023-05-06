@@ -31,6 +31,6 @@
 
 <template>
   <ElScrollbar :style="{ getWrapperStyle }">
-    <!-- <BasicMenu :items="menuRef" :is-horizontal="isHorizontal"></BasicMenu> -->
+    <BasicMenu :items="menuRef" :is-horizontal="isHorizontal"></BasicMenu>
   </ElScrollbar>
 </template>

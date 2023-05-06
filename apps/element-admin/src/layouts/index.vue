@@ -3,6 +3,7 @@
   import { ElCheckbox, ElInputNumber, ElRadioGroup, ElRadioButton } from 'element-plus';
   import { reactive } from 'vue';
   import AppLogo from './components/logo/AppLogo.vue';
+  import LayoutMenu from './menu/index.vue';
 
   defineOptions({
     name: 'Dashboard',
@@ -30,6 +31,7 @@
     <template #side>
       <div>
         <AppLogo />
+        <LayoutMenu />
       </div>
     </template>
     <template #side-extra>side-extra</template>

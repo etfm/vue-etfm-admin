@@ -2,7 +2,6 @@
   <div :class="[ns.b(), 'flex items-center']">{{}}</div>
 </template>
 <script setup lang="ts">
-  import type { IBasiMenuItemContent } from './type';
   import { useNamespace } from '@etfm/vea-hooks';
 
   const ns = useNamespace('basic-menu-item-content');
@@ -11,7 +10,13 @@
     name: 'BasicMenuItemContent',
   });
 
-  const props = withDefaults(defineProps<IBasiMenuItemContent>(), {
+  interface Props {
+    showTitle: boolean;
+    level: number;
+    isHorizontal: boolean;
+  }
+
+  const props = withDefaults(defineProps<Props>(), {
     showTitle: true,
     level: 0,
     isHorizontal: true,

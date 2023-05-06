@@ -19,11 +19,6 @@
      */
     items: Menu[];
     /**
-     * 是否显示最小菜单
-     * @default false
-     */
-    mixSider?: boolean;
-    /**
      * 是否横向菜单
      * @default false
      */
@@ -56,7 +51,6 @@
   }
 
   const props = withDefaults(defineProps<Props>(), {
-    mixSider: false,
     isHorizontal: false,
     mode: MenuModeEnum.VERTICAL,
     type: MenuTypeEnum.MIX,

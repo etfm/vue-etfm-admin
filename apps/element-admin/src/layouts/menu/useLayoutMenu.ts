@@ -11,8 +11,6 @@ export function useLayoutMenu() {
     () => permissionStore.getMenuList,
     () => {
       menuRef.value = getMenu();
-
-      console.log(menuRef.value, '============================>>>useLayoutMenu');
     },
     {
       immediate: true,
@@ -20,7 +18,16 @@ export function useLayoutMenu() {
   );
 
   function getMenu() {
-    return permissionStore.getMenuList.filter((item) => !item.hideMenu && !item.meta?.hideMenu);
+    const menuFilter = (items) => {
+      return items.filter((item) => {
+        const show = !item.meta?.hideMenu && !item.hideMenu;
+        if (show && item.children) {
+          item.children = menuFilter(item.children);
+        }
+        return show;
+      });
+    };
+    return menuFilter(permissionStore.getMenuList);
   }
 
   return {

@@ -68,6 +68,8 @@
   const currentActiveMenu = ref('');
 
   listenerRouteChange((route) => {
+    console.log(route, '============');
+
     if (route.name === REDIRECT_NAME) return;
     handleMenuChange(route);
     currentActiveMenu.value = route.meta?.currentActiveMenu as string;
@@ -78,13 +80,13 @@
     }
   });
 
-  const setOpenKeys = (current: string) => {
+  function setOpenKeys(current: string) {
     console.log(current);
-  };
+  }
 
-  const handleMenuChange = (route: RouteLocationNormalized) => {
+  function handleMenuChange(route: RouteLocationNormalized) {
     console.log(route);
-  };
+  }
 
   const handleOpen = (index: string, indexPath: string[]) => {
     console.log(index, indexPath);
@@ -104,7 +106,7 @@
     @close="handleClose"
   >
     <template v-for="item in items" :key="item.path">
-      <BasicSubMenuItem :item="item" :theme="theme" :isHorizontal="isHorizontal" />
+      <BasicSubMenuItem :item="item" :isHorizontal="isHorizontal" />
     </template>
   </ElMenu>
 </template>

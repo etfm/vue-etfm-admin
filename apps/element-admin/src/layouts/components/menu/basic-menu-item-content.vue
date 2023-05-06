@@ -1,7 +1,8 @@
 <template>
-  <div :class="[ns.b(), 'flex items-center']">{{}}</div>
+  <div :class="[ns.b(), 'flex items-center']">{{ menu.name }}</div>
 </template>
 <script setup lang="ts">
+  import { Menu } from '@/router/types';
   import { useNamespace } from '@etfm/vea-hooks';
 
   const ns = useNamespace('basic-menu-item-content');
@@ -11,6 +12,7 @@
   });
 
   interface Props {
+    menu: Menu;
     showTitle: boolean;
     level: number;
     isHorizontal: boolean;

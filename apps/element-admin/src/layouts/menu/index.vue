@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { ElScrollbar } from 'element-plus';
   import { computed, CSSProperties } from 'vue';
-  import BasicMenu from '../components/menu/basic-menu.vue';
+  import BasicMenu from '../components/menu/BasicMenu.vue.js';
   import { useLayoutMenu } from './useLayoutMenu';
 
   defineOptions({

@@ -13,7 +13,7 @@
   "dependencies": {
     "@etfm/layout": "workspace:^0.0.0",
     "@etfm/vea-design": "workspace:*",
-    "@etfm/vea-element": "workspace:^0.0.0",
+    "@etfm/element-ui": "workspace:^0.0.0",
     "@etfm/vea-hooks": "workspace:*",
     "@etfm/vea-http": "workspace:*",
     "@etfm/vea-pinia": "workspace:*",

@@ -1,9 +1,9 @@
 <script setup lang="ts">
   import { ElMenu } from 'element-plus';
-  import BasicSubMenuItem from './basic-sub-menu-item.vue';
+  import BasicSubMenu from './BasicSubMenu.vue';
   import { Menu } from '@/router/types';
   import { reactive, ref, unref } from 'vue';
-  import { MenuModeEnum, MenuTypeEnum, Mode } from './enum';
+  import { MenuModeEnum, MenuTypeEnum, Mode } from './enum.js';
   import { listenerRouteChange } from '@/logics/mitt/routeChange';
   import { REDIRECT_NAME } from '@/router/constant';
   import type { RouteLocationNormalized } from '@etfm/vea-router';
@@ -106,7 +106,7 @@
     @close="handleClose"
   >
     <template v-for="item in items" :key="item.path">
-      <BasicSubMenuItem :item="item" :isHorizontal="isHorizontal" />
+      <BasicSubMenu :item="item" :isHorizontal="isHorizontal" />
     </template>
   </ElMenu>
 </template>

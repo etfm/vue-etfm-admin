@@ -2,7 +2,7 @@
   <BasicMenuItem />
 </template>
 <script lang="ts" setup>
-  import BasicMenuItem from './basic-menu-item.vue';
+  import BasicMenuItem from './BasicMenuItem.vue.js';
 
   defineOptions({
     name: 'BasicSubMenuItem',

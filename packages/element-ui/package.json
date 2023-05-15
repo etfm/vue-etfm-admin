@@ -38,6 +38,9 @@
     "@etfm/vea-shared": "workspace:*",
     "@etfm/vea-design": "workspace:*"
   },
+  "devDependencies": {
+    "@etfm/vea-types": "workspace:*"
+  },
   "publishConfig": {
     "access": "public"
   }

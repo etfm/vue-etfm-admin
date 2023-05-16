@@ -59,8 +59,6 @@
     ellipsis: true,
   });
 
-  const emits = defineEmits<{}>();
-
   const menuState = reactive({
     defaultActive: '',
     defaultOpened: [],
@@ -68,8 +66,6 @@
   const currentActiveMenu = ref('');
 
   listenerRouteChange((route) => {
-    console.log(route, '============');
-
     if (route.name === REDIRECT_NAME) return;
     handleMenuChange(route);
     currentActiveMenu.value = route.meta?.currentActiveMenu as string;
@@ -100,13 +96,13 @@
 <template>
   <ElMenu
     default-active="2"
-    mode="vertical"
+    :mode="props.mode"
     :default-openeds="[]"
     @open="handleOpen"
     @close="handleClose"
   >
     <template v-for="item in items" :key="item.path">
-      <BasicSubMenu :item="item" :isHorizontal="isHorizontal" />
+      <BasicSubMenu :menu="item" :isHorizontal="isHorizontal" />
     </template>
   </ElMenu>
 </template>

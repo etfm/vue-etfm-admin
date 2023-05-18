@@ -1,33 +1,23 @@
 <script setup lang="ts">
   import { ElMenuItem } from 'element-plus';
-  import { computed } from 'vue';
-  import BasicMenuItemContent from './BasicMenuItemContent.vue.js';
-import { Menu } from '@/router/types';
+  import BasicMenuItemContent from './BasicMenuItemContent.vue';
+  import { MenuRecordRaw } from '@etfm/vea-types';
 
   interface Props {
     /**
      * 菜单项
      */
-    menuItem: Menu;
+    menu: MenuRecordRaw;
   }
 
+  const props = withDefaults(defineProps<Props>(), {});
 
-const props = withDefaults(defineProps<Props>(), {})
-
-  /**
-   * 判断是否有子节点，动态渲染 menu-item/sub-menu-item
-   */
-  const hasChildren = computed(() => {
-    return !menuTreeItem.meta?.hideChildrenInMenu &&
-      Reflect.has(menuTreeItem, 'children') &&
-      !!menuTreeItem.children &&
-      menuTreeItem.children.length > 0
-  })
+  console.log(props);
 </script>
 
 <template>
   <ElMenuItem>
-    <BasicMenuItemContent />
+    <BasicMenuItemContent :menu="menu" />
   </ElMenuItem>
 </template>
 

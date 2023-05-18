@@ -1,8 +1,5 @@
-<template>
-  <div :class="[ns.b(), 'flex items-center']">{{ menu.name }}</div>
-</template>
 <script setup lang="ts">
-  import { Menu } from '@/router/types';
+  import { MenuRecordRaw } from '@etfm/vea-types';
   import { useNamespace } from '@etfm/vea-hooks';
 
   const ns = useNamespace('basic-menu-item-content');
@@ -12,7 +9,7 @@
   });
 
   interface Props {
-    menu: Menu;
+    menu: MenuRecordRaw;
     showTitle: boolean;
     level: number;
     isHorizontal: boolean;
@@ -23,4 +20,15 @@
     level: 0,
     isHorizontal: true,
   });
+
+  console.log(props);
 </script>
+
+<template>
+  <div :class="[ns.b(), 'flex items-center']">{{ menu.name }}</div>
+</template>
+
+<style lang="scss" scoped module>
+  @include b('basic-menu-item-content') {
+  }
+</style>

@@ -1,8 +1,8 @@
 <script setup lang="ts">
   import { ElScrollbar } from 'element-plus';
   import { computed, CSSProperties } from 'vue';
-  import BasicMenu from '../components/menu/BasicMenu.vue.js';
   import { useLayoutMenu } from './useLayoutMenu';
+  import { BasicMenu } from '@etfm/element-ui';
 
   defineOptions({
     name: 'LayoutMenu',
@@ -31,6 +31,6 @@
 
 <template>
   <ElScrollbar :style="{ getWrapperStyle }">
-    <BasicMenu :items="menuRef" :is-horizontal="isHorizontal"></BasicMenu>
+    <BasicMenu :menus="menuRef" :is-horizontal="isHorizontal"></BasicMenu>
   </ElScrollbar>
 </template>

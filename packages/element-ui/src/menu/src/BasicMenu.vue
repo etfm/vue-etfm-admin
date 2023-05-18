@@ -1,12 +1,10 @@
 <script setup lang="ts">
   import { ElMenu } from 'element-plus';
   import BasicSubMenu from './BasicSubMenu.vue';
-  import { Menu } from '@/router/types';
-  import { reactive, ref, unref } from 'vue';
-  import { MenuModeEnum, MenuTypeEnum, Mode } from './enum.js';
-  import { listenerRouteChange } from '@/logics/mitt/routeChange';
-  import { REDIRECT_NAME } from '@/router/constant';
-  import type { RouteLocationNormalized } from '@etfm/vea-router';
+  import type { MenuRecordRaw } from '@etfm/vea-types';
+  import { MenuModeEnum, MenuTypeEnum, Mode } from './enum';
+  // import { listenerRouteChange } from '@/logics/mitt/routeChange';
+  // import { REDIRECT_NAME } from '@/router/constant';
 
   defineOptions({
     name: 'BasicMenu',
@@ -15,9 +13,9 @@
   interface Props {
     /**
      * 菜单列表
-     * @default Menu[]
+     * @default MenuRecordRaw[]
      */
-    items: Menu[];
+    menus: MenuRecordRaw[];
     /**
      * 是否横向菜单
      * @default false
@@ -59,34 +57,30 @@
     ellipsis: true,
   });
 
-  const emits = defineEmits<{}>();
+  // const menuState = reactive({
+  //   defaultActive: '',
+  //   defaultOpened: [],
+  // });
+  // const currentActiveMenu = ref('');
 
-  const menuState = reactive({
-    defaultActive: '',
-    defaultOpened: [],
-  });
-  const currentActiveMenu = ref('');
+  // listenerRouteChange((route) => {
+  //   if (route.name === REDIRECT_NAME) return;
+  //   handleMenuChange(route);
+  //   currentActiveMenu.value = route.meta?.currentActiveMenu as string;
 
-  listenerRouteChange((route) => {
-    console.log(route, '============');
+  //   if (unref(currentActiveMenu)) {
+  //     menuState.defaultActive = unref(currentActiveMenu);
+  //     setOpenKeys(unref(currentActiveMenu));
+  //   }
+  // });
 
-    if (route.name === REDIRECT_NAME) return;
-    handleMenuChange(route);
-    currentActiveMenu.value = route.meta?.currentActiveMenu as string;
+  // function setOpenKeys(current: string) {
+  //   console.log(current);
+  // }
 
-    if (unref(currentActiveMenu)) {
-      menuState.defaultActive = unref(currentActiveMenu);
-      setOpenKeys(unref(currentActiveMenu));
-    }
-  });
-
-  function setOpenKeys(current: string) {
-    console.log(current);
-  }
-
-  function handleMenuChange(route: RouteLocationNormalized) {
-    console.log(route);
-  }
+  // function handleMenuChange(route: RouteLocationNormalized) {
+  //   console.log(route);
+  // }
 
   const handleOpen = (index: string, indexPath: string[]) => {
     console.log(index, indexPath);
@@ -100,13 +94,13 @@
 <template>
   <ElMenu
     default-active="2"
-    mode="vertical"
+    :mode="props.mode"
     :default-openeds="[]"
     @open="handleOpen"
     @close="handleClose"
   >
-    <template v-for="item in items" :key="item.path">
-      <BasicSubMenu :item="item" :isHorizontal="isHorizontal" />
+    <template v-for="item in menus" :key="item.path">
+      <BasicSubMenu :menu="item" :isHorizontal="isHorizontal" />
     </template>
   </ElMenu>
 </template>

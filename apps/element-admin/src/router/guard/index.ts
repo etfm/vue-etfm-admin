@@ -1,4 +1,4 @@
-import type { Router, RouteLocationNormalized } from '@etfm/vea-router';
+import type { Router, RouteLocationNormalized } from '@etfma/router';
 // import { useAppStoreWithOut } from '/@/store/modules/app'
 // import { useUserStoreWithOut } from '/@/store/modules/user'
 // import { useTransitionSetting } from '/@/hooks/setting/useTransitionSetting'

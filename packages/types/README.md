@@ -1,11 +1,11 @@
-# `@etfm/shared`
+# `@etfma/shared`
 
 > TODO: description
 
 ## Usage
 
 ```
-const shared = require('@etfm/shared');
+const shared = require('@etfma/shared');
 
 // TODO: DEMONSTRATE API
 ```

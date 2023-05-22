@@ -1,10 +1,10 @@
 import { createApp } from 'vue';
-import { register as registerRouter } from '@etfm/vea-router';
-import { register as registerPinia } from '@etfm/vea-pinia';
-import { lodash } from '@etfm/vea-shared';
+import { register as registerRouter } from '@etfma/router';
+import { register as registerPinia } from '@etfma/pinia';
+import { lodash } from '@etfma/shared';
 import { context } from './register';
-import type { PluginManager } from '@etfm/vea-plugin';
-import { register as registerHttp } from '@etfm/vea-http';
+import type { PluginManager } from '@etfma/plugin';
+import { register as registerHttp } from '@etfma/http';
 
 export const AppContextKey = Symbol('AppContextKey');
 

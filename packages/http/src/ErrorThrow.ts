@@ -1,4 +1,4 @@
-import { IErrorThrow } from '@etfm/vea-types';
+import { IErrorThrow } from '@etfma/types';
 
 export class ErrorThrow {
   public message: string;

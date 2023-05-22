@@ -1,5 +1,5 @@
-import { loggerWarning, eachTree, lodash } from '@etfm/vea-shared';
-import type { AppRouteModule, AppRouteRecordRaw, Recordable } from '@etfm/vea-types';
+import { loggerWarning, eachTree, lodash } from '@etfma/shared';
+import type { AppRouteModule, AppRouteRecordRaw, Recordable } from '@etfma/types';
 import {
   createWebHashHistory,
   type RouteRecordNormalized,

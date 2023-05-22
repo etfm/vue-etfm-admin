@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { ElMenu } from 'element-plus';
   import BasicSubMenu from './BasicSubMenu.vue';
-  import type { MenuRecordRaw } from '@etfm/vea-types';
+  import type { MenuRecordRaw } from '@etfma/types';
   import { MenuModeEnum, MenuTypeEnum, Mode } from './enum';
   // import { listenerRouteChange } from '@/logics/mitt/routeChange';
   // import { REDIRECT_NAME } from '@/router/constant';

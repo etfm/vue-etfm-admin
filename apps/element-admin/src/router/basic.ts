@@ -1,4 +1,4 @@
-import type { AppRouteRecordRaw } from '@etfm/vea-router'
+import type { AppRouteRecordRaw } from '@etfma/router'
 import { EXCEPTION_COMPONENT, LAYOUT, PAGE_NOT_FOUND_NAME, REDIRECT_NAME } from './constant'
 
 // 404 on a page

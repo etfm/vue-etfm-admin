@@ -2,7 +2,7 @@
   import { computed, type CSSProperties, useCssModule } from 'vue';
 
   defineOptions({
-    name: 'VbenSvgIcon',
+    name: 'SvgIcon',
     inheritAttrs: false,
   });
 

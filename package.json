@@ -15,16 +15,16 @@
     "dev": "turbo dev --filter=./apps/element-admin --no-daemon --include-dependencies"
   },
   "dependencies": {
-    "@etfm/vea-design": "workspace:^0.0.0",
+    "@etfma/design": "workspace:^0.0.0",
     "element-plus": "^2.3.2",
     "vue": "^3.2.47"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.5.1",
-    "@etfm/vea-eslint": "workspace:*",
-    "@etfm/vea-prettier": "workspace:*",
-    "@etfm/vea-ts": "workspace:*",
-    "@etfm/vea-vite": "workspace:*",
+    "@etfma/eslint": "workspace:*",
+    "@etfma/prettier": "workspace:*",
+    "@etfma/ts": "workspace:*",
+    "@etfma/vite": "workspace:*",
     "@types/jsdom": "^21.1.0",
     "@types/node": "^18.14.2",
     "@vue-macros/volar": "^0.9.5",

@@ -1,11 +1,11 @@
-# `@etfm/hooks`
+# `@etfma/hooks`
 
 > TODO: description
 
 ## Usage
 
 ```
-const hooks = require('@etfm/hooks');
+const hooks = require('@etfma/hooks');
 
 // TODO: DEMONSTRATE API
 ```

@@ -1,5 +1,5 @@
 {
-  "name": "@etfm/element-ui",
+  "name": "@etfma/element-ui",
   "version": "0.0.0",
   "description": "> TODO: description",
   "homepage": "https://github.com/etfm/vue-etfm-admin#readme",
@@ -26,20 +26,19 @@
   ],
   "scripts": {
     "bootstrap": "pnpm install",
-    "build": "pnpm unbuild",
+    "build": "pnpm vite build",
     "clean": "pnpm rimraf .turbo node_modules dist",
     "lint": "pnpm eslint .",
-    "stub": "pnpm unbuild --stub",
-    "test": "node ./__tests__/@etfm/http.test.js"
+    "test": "node ./__tests__/@etfma/http.test.js"
   },
   "dependencies": {
-    "@etfm/vea-hooks": "workspace:*",
-    "@etfm/vea-plugin": "workspace:*",
-    "@etfm/vea-shared": "workspace:*",
-    "@etfm/vea-design": "workspace:*"
+    "@etfma/hooks": "workspace:*",
+    "@etfma/plugin": "workspace:*",
+    "@etfma/shared": "workspace:*",
+    "@etfma/design": "workspace:*"
   },
   "devDependencies": {
-    "@etfm/vea-types": "workspace:*"
+    "@etfma/types": "workspace:*"
   },
   "publishConfig": {
     "access": "public"

@@ -1,0 +1,56 @@
+{
+  "name": "@etfma/stylelint",
+  "version": "0.0.0",
+  "description": "> TODO: description",
+  "homepage": "https://github.com/etfm/vue-etfm-admin#readme",
+  "bugs": {
+    "url": "https://github.com/etfm/vue-etfm-admin/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/etfm/vue-etfm-admin.git"
+  },
+  "license": "ISC",
+  "author": "lzdjack <1956252575@qq.com>",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "bootstrap": "pnpm install",
+    "clean": "pnpm rimraf .turbo node_modules dist",
+    "lint": "pnpm eslint .",
+    "stub": "pnpm unbuild --stub"
+  },
+  "dependencies": {
+    "stylelint-config-recess-order": "^4.0.0",
+    "stylelint-scss": "^5.0.0"
+  },
+  "devDependencies": {
+    "postcss": "^8.4.23",
+    "postcss-html": "^1.5.0",
+    "postcss-less": "^6.0.0",
+    "postcss-scss": "^4.0.6",
+    "prettier": "^2.8.8",
+    "stylelint": "^15.6.1",
+    "stylelint-config-recommended": "^12.0.0",
+    "stylelint-config-recommended-scss": "^11.0.0",
+    "stylelint-config-recommended-vue": "^1.4.0",
+    "stylelint-config-standard": "^33.0.0",
+    "stylelint-config-standard-scss": "^9.0.0",
+    "stylelint-order": "^6.0.3",
+    "stylelint-prettier": "^3.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

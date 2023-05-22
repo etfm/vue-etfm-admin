@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-  import { useNamespace } from '@etfm/vea-hooks';
+  import { useNamespace } from '@etfma/hooks';
   import { ArrowRight } from '@element-plus/icons-vue';
   import { ElIcon } from 'element-plus';
   import { computed, useAttrs } from 'vue';

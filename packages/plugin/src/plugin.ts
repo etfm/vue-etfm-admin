@@ -1,6 +1,6 @@
 import { PluginManager } from './pluginManager'
 import { __defaultExport } from './utils'
-import { loggerWarning, lodash } from '@etfm/vea-shared'
+import { loggerWarning, lodash } from '@etfma/shared'
 
 export async function getPlugins() {
   const AppPlugins = import.meta.glob('/{.etfm,.etfmirc}.{ts,tsx}')

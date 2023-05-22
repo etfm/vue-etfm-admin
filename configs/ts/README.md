@@ -1,11 +1,11 @@
-# `@etfm/vea-ts`
+# `@etfma/ts`
 
 > TODO: description
 
 ## Usage
 
 ```
-const veaTs = require('@etfm/vea-ts');
+const veaTs = require('@etfma/ts');
 
 // TODO: DEMONSTRATE API
 ```

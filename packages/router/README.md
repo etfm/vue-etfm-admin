@@ -1,11 +1,11 @@
-# `@etfm/vea-router`
+# `@etfma/router`
 
 > TODO: description
 
 ## Usage
 
 ```
-const veaRouter = require('@etfm/vea-router');
+const veaRouter = require('@etfma/router');
 
 // TODO: DEMONSTRATE API
 ```

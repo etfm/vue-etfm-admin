@@ -1,5 +1,5 @@
 {
-  "name": "@etfm/vea-render",
+  "name": "@etfma/render",
   "version": "0.0.0",
   "description": "> TODO: description",
   "homepage": "https://github.com/etfm/vue-etfm-admin#readme",
@@ -26,19 +26,18 @@
   ],
   "scripts": {
     "bootstrap": "pnpm install",
-    "build": "pnpm unbuild",
+    "build": "pnpm vite build",
     "clean": "pnpm rimraf .turbo node_modules dist",
     "lint": "pnpm eslint .",
-    "stub": "pnpm unbuild --stub",
-    "test": "node ./__tests__/@etfm/render.test.js"
+    "test": "node ./__tests__/@etfma/render.test.js"
   },
   "dependencies": {
-    "@etfm/vea-http": "workspace:*",
-    "@etfm/vea-pinia": "workspace:*",
-    "@etfm/vea-plugin": "workspace:*",
-    "@etfm/vea-router": "workspace:*",
-    "@etfm/vea-shared": "workspace:*",
-    "@etfm/vea-types": "workspace:^0.0.0"
+    "@etfma/http": "workspace:*",
+    "@etfma/pinia": "workspace:*",
+    "@etfma/plugin": "workspace:*",
+    "@etfma/router": "workspace:*",
+    "@etfma/shared": "workspace:*",
+    "@etfma/types": "workspace:^0.0.0"
   },
   "publishConfig": {
     "access": "public"

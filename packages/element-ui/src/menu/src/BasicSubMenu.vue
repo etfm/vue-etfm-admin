@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-  import type { MenuRecordRaw } from '@etfm/vea-types';
+  import type { MenuRecordRaw } from '@etfma/types';
   import BasicMenuItem from './BasicMenuItem.vue';
   import { computed } from 'vue';
   import { ElSubMenu } from 'element-plus';

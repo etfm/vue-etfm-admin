@@ -1,12 +1,14 @@
-import { getPluginManager } from '@etfm/vea-plugin';
-import { lodash } from '@etfm/vea-shared';
+import { getPluginManager } from '@etfma/plugin';
+import { lodash } from '@etfma/shared';
 import { initPinia } from './pinia';
 import type { Pinia } from 'pinia';
-import type { IPiniaContext } from '@etfm/vea-types';
+import type { IPiniaContext } from '@etfma/types';
+
+export const DEFAULT_CACHE_KEY = 'pinia';
 
 export let context: IPiniaContext = {
   isCache: true,
-  key: 'pinia',
+  key: DEFAULT_CACHE_KEY,
 };
 
 export let store: Pinia;

@@ -1,3 +1,3 @@
 module.exports = {
-  ...require('@etfm/vea-prettier'),
+  ...require('@etfma/prettier'),
 };

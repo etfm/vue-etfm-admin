@@ -1,11 +1,10 @@
-import { defineApp } from '@etfm/vea-plugin';
+import { defineApp } from '@etfma/plugin';
 import { staticRoutes } from './src/router';
-import { getAppEnvConfig, getStorageShortName } from '@etfm/vea-shared';
+import { getAppEnvConfig, getStorageShortName } from '@etfma/shared';
 import { handleHttpError } from '@/http/error';
 import { setupRouterGuard } from '@/router/guard';
-import { RequestConfig } from '@etfm/vea-http';
 import { getToken } from '@/cache/auth';
-import { Recordable } from '@etfm/vea-types';
+import { Recordable } from '@etfma/types';
 
 const AppConfig = getAppEnvConfig();
 

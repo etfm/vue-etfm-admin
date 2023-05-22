@@ -1,4 +1,4 @@
-import { withInstall } from '@etfm/vea-shared'
+import { withInstall } from '@etfma/shared'
 import basicArrow from './src/basic-arrow.vue'
 
 export const BasicArrow = withInstall(basicArrow)

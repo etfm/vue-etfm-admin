@@ -1,4 +1,4 @@
-import { withInstall } from '@etfm/vea-shared'
+import { withInstall } from '@etfma/shared'
 
 import basicTitle from './src/basic-title.vue'
 

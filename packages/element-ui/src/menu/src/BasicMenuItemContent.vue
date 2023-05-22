@@ -1,6 +1,6 @@
 <script setup lang="ts">
-  import { MenuRecordRaw } from '@etfm/vea-types';
-  import { useNamespace } from '@etfm/vea-hooks';
+  import { MenuRecordRaw } from '@etfma/types';
+  import { useNamespace } from '@etfma/hooks';
 
   const ns = useNamespace('basic-menu-item-content');
 

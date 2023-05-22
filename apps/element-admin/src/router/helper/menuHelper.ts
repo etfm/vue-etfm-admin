@@ -1,7 +1,7 @@
-import { lodash, treeMap, findPath, isHttpUrl } from '@etfm/vea-shared';
+import { lodash, treeMap, findPath, isHttpUrl } from '@etfma/shared';
 import { toRaw } from 'vue';
-import type { RouteParams, AppRouteRecordRaw, AppRouteModule } from '@etfm/vea-router';
-import type { Recordable } from '@etfm/vea-types';
+import type { RouteParams, AppRouteRecordRaw, AppRouteModule } from '@etfma/router';
+import type { Recordable } from '@etfma/types';
 
 import type { Menu, MenuModule } from '@/router/types';
 import { usePermissionStore } from '@/store/permission';

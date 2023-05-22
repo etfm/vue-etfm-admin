@@ -1,11 +1,11 @@
-# `@etfm/plugin`
+# `@etfma/plugin`
 
 > TODO: description
 
 ## Usage
 
 ```
-const plugin = require('@etfm/plugin');
+const plugin = require('@etfma/plugin');
 
 // TODO: DEMONSTRATE API
 ```

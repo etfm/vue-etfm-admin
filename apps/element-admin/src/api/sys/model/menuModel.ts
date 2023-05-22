@@ -1,4 +1,4 @@
-import type { RouteMeta } from '@etfm/vea-router';
+import type { RouteMeta } from '@etfma/router';
 
 export interface RouteItem {
   path: string;

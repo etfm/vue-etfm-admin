@@ -2,7 +2,7 @@
   import { ElScrollbar } from 'element-plus';
   import { computed, CSSProperties } from 'vue';
   import { useLayoutMenu } from './useLayoutMenu';
-  import { BasicMenu } from '@etfm/element-ui';
+  import { BasicMenu } from '@etfma/element-ui';
 
   defineOptions({
     name: 'LayoutMenu',

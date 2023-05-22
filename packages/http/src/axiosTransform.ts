@@ -4,8 +4,8 @@ import type {
   IRequestInterceptorTuple,
   IResponseInterceptorTuple,
   RequestConfig,
-} from '@etfm/vea-types';
-import { lodash } from '@etfm/vea-shared';
+} from '@etfma/types';
+import { lodash } from '@etfma/shared';
 import { appendUrlParams, formatRequestDate, joinTimestamp } from './helper';
 import { RequestEnum } from './enum';
 import { ErrorThrow } from './ErrorThrow';

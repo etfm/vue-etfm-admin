@@ -5,7 +5,7 @@
  */
 
 import { useUserStoreWithOut } from '@/store/user';
-import { useMessage } from '@etfm/vea-element';
+import { useMessage } from '@etfma/element-ui';
 
 const { createMessage } = useMessage();
 

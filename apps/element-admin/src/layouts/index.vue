@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-  import { EtfmAdminLayout } from '@etfm/layout';
+  import { EtfmAdminLayout } from '@etfma/layout';
   import { ElCheckbox, ElInputNumber, ElRadioGroup, ElRadioButton } from 'element-plus';
   import { reactive } from 'vue';
   import AppLogo from './components/logo/AppLogo.vue';

@@ -12,7 +12,7 @@
   } from 'vue';
 
   defineOptions({
-    name: 'VbenIcon',
+    name: 'Icon',
     inheritAttrs: false,
   });
 

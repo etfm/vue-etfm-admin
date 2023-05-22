@@ -1,7 +1,7 @@
-import { getPluginManager } from '@etfm/vea-plugin';
-import type { IRouterContext } from '@etfm/vea-types';
+import { getPluginManager } from '@etfma/plugin';
+import type { IRouterContext } from '@etfma/types';
 import { initRouter } from './router';
-import { lodash } from '@etfm/vea-shared';
+import { lodash } from '@etfma/shared';
 import type { Router } from 'vue-router';
 
 export let context: IRouterContext = {

@@ -1,8 +1,8 @@
-import { getPluginManager } from '@etfm/vea-plugin';
-import { lodash } from '@etfm/vea-shared';
+import { getPluginManager } from '@etfma/plugin';
+import { lodash } from '@etfma/shared';
 import { VAxios } from './Axios';
 import { ContentTypeEnum } from './enum';
-import type { IHttpContext } from '@etfm/vea-types';
+import type { IHttpContext } from '@etfma/types';
 
 export let context: IHttpContext = {
   // 自定义后端返回的字段

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { useNamespace } from '@etfm/vea-hooks';
+  import { useNamespace } from '@etfma/hooks';
   import type { CSSProperties } from 'vue';
   import { computed } from 'vue';
 

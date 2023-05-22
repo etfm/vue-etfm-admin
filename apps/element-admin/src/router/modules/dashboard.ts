@@ -1,4 +1,4 @@
-import type { AppRouteModule } from '@etfm/vea-router'
+import type { AppRouteModule } from '@etfma/router'
 import { LAYOUT } from '../constant'
 
 const dashboard: AppRouteModule = {

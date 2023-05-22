@@ -1,6 +1,6 @@
 import { flatMultiLevelRoutes, routeRemoveFilter, transformObjToRoute } from './utils';
-import { filter, lodash } from '@etfm/vea-shared';
-import type { AppRouteRecordRaw } from '@etfm/vea-types';
+import { filter, lodash } from '@etfma/shared';
+import type { AppRouteRecordRaw } from '@etfma/types';
 import { context } from './register';
 import type { RouteRecordRaw } from 'vue-router';
 import { router } from './router';

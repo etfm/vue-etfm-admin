@@ -1,5 +1,5 @@
 {
-  "name": "@etfm/icons",
+  "name": "@etfma/icons",
   "version": "0.0.0",
   "description": "> TODO: description",
   "homepage": "https://github.com/etfm/vue-etfm-admin#readme",
@@ -26,11 +26,10 @@
   ],
   "scripts": {
     "bootstrap": "pnpm install",
-    "build": "pnpm unbuild",
+    "build": "pnpm vite build",
     "clean": "pnpm rimraf .turbo node_modules dist",
     "lint": "pnpm eslint .",
-    "stub": "pnpm unbuild --stub",
-    "test": "node ./__tests__/@etfm/http.test.js"
+    "test": "node ./__tests__/@etfma/http.test.js"
   },
   "dependencies": {
     "@iconify/iconify": "^3.1.0",

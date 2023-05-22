@@ -1,11 +1,11 @@
-# `@etfm/render`
+# `@etfma/render`
 
 > TODO: description
 
 ## Usage
 
 ```
-const render = require('@etfm/render');
+const render = require('@etfma/render');
 
 // TODO: DEMONSTRATE API
 ```

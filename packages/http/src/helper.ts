@@ -1,4 +1,4 @@
-import { lodash } from '@etfm/vea-shared'
+import { lodash } from '@etfma/shared'
 
 const DATE_TIME_FORMAT = 'YYYY-MM-DD HH:mm:ss'
 

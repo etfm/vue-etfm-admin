@@ -2,7 +2,7 @@ import {
   createStorage as create,
   CreateStorageParams,
   getStorageShortName,
-} from '@etfm/vea-shared';
+} from '@etfma/shared';
 
 export type Options = Partial<CreateStorageParams>;
 export const DEFAULT_CACHE_TIME = 60 * 60 * 24 * 7;

@@ -16,7 +16,7 @@
   import { ElHeader } from 'element-plus';
   import HeaderTrigger from '../trigger/header-trigger.vue';
   import LayoutBreadcrumb from '../components/breadcrumb/layout-breadcrumb.vue';
-  import { useNamespace } from '@etfm/vea-hooks';
+  import { useNamespace } from '@etfma/hooks';
   import AppLogo from '../components/logo/AppLogo.vue';
   import LayoutSetting from '../components/setting/layout-setting.vue';
 

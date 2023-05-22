@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { ref } from 'vue';
-  import { useNamespace } from '@etfm/vea-hooks';
+  import { useNamespace } from '@etfma/hooks';
 
   defineOptions({
     name: 'AppLogo',

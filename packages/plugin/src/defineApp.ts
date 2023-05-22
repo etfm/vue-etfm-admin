@@ -1,4 +1,4 @@
-import type { IRouterContext, IPiniaContext, IRenderContext, IHttpContext } from '@etfm/vea-types';
+import type { IRouterContext, IPiniaContext, IRenderContext, IHttpContext } from '@etfma/types';
 
 export interface IRuntimeConfig {
   router?: IRouterContext;

@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { ElMenuItem } from 'element-plus';
   import BasicMenuItemContent from './BasicMenuItemContent.vue';
-  import { MenuRecordRaw } from '@etfm/vea-types';
+  import { MenuRecordRaw } from '@etfma/types';
 
   interface Props {
     /**

@@ -5,7 +5,7 @@ import type {
   RequestConfig,
   Result,
   UploadFileParams,
-} from '@etfm/vea-types';
+} from '@etfma/types';
 import axios from 'axios';
 import qs from 'qs';
 import { ContentTypeEnum, RequestEnum } from './enum';

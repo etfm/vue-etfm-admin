@@ -10,9 +10,9 @@
 <script setup lang="ts">
 import { ElTooltip } from 'element-plus'
 import type { IBasicHelp } from '..'
-import { useNamespace } from '@etfm/vea-hooks'
+import { useNamespace } from '@etfma/hooks'
 import { useSlots, computed } from 'vue'
-import { lodash } from '@etfm/vea-shared'
+import { lodash } from '@etfma/shared'
 import { Warning } from '@element-plus/icons-vue'
 
 const slots = useSlots()

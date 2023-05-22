@@ -1,14 +1,14 @@
-import { store, defineStore } from '@etfm/vea-pinia';
+import { store, defineStore } from '@etfma/pinia';
 import { ROLES_KEY, TOKEN_KEY, USER_INFO_KEY } from '@/enums/cacheEnum';
 import { getAuthCache, setAuthCache } from '@/cache/auth';
 import type { GetUserInfoModel, LoginParams } from '@/api/sys/model/userModel';
 import { doLogout, getUserInfo, loginApi } from '@/api/sys/user';
 // import { useI18n } from '@/hooks/web/useI18n';
-import { router } from '@etfm/vea-router';
+import { router } from '@etfma/router';
 import { usePermissionStore } from '@/store/permission';
-import type { Nullable, Recordable } from '@etfm/vea-types';
+import type { Nullable, Recordable } from '@etfma/types';
 import { PageEnum } from '@/enums/pageEnum';
-import { lodash } from '@etfm/vea-shared';
+import { lodash } from '@etfma/shared';
 
 interface UserState {
   userInfo: Nullable<any>;

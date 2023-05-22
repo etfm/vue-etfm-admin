@@ -3,12 +3,12 @@ import type {
   AppRouteRecordRaw,
   RouteRecordRaw,
   RouteRecordName,
-} from '@etfm/vea-router';
-import { router } from '@etfm/vea-router';
+} from '@etfma/router';
+import { router } from '@etfma/router';
 import { mainOutRoutes } from './mainOut';
 import { PAGE_NOT_FOUND_ROUTE, REDIRECT_ROUTE } from './basic';
 import { BASE_HOME } from './constant';
-import { loggerWarning, traverseTree } from '@etfm/vea-shared';
+import { loggerWarning, traverseTree } from '@etfma/shared';
 
 // import.meta.globEager() 直接引入所有的模块 Vite 独有的功能
 const modules = import.meta.glob('./modules/**/*.ts');

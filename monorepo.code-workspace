@@ -1,59 +1,59 @@
 {
   "folders": [
     {
-      "name": "@etfm/element-admin",
+      "name": "@etfma/element-admin",
       "path": "apps/element-admin"
     },
     {
-      "name": "@etfm/eslint",
+      "name": "@etfma/eslint",
       "path": "configs/eslint"
     },
     {
-      "name": "@etfm/prettier",
+      "name": "@etfma/prettier",
       "path": "configs/prettier"
     },
     {
-      "name": "@etfm/ts",
+      "name": "@etfma/ts",
       "path": "configs/ts"
     },
     {
-      "name": "@etfm/vite",
+      "name": "@etfma/vite",
       "path": "configs/vite"
     },
     {
-      "name": "@etfm/element",
+      "name": "@etfma/element",
       "path": "packages/element"
     },
     {
-      "name": "@etfm/hooks",
+      "name": "@etfma/hooks",
       "path": "packages/hooks"
     },
     {
-      "name": "@etfm/http",
+      "name": "@etfma/http",
       "path": "packages/http"
     },
     {
-      "name": "@etfm/pinia",
+      "name": "@etfma/pinia",
       "path": "packages/pinia"
     },
     {
-      "name": "@etfm/plugin",
+      "name": "@etfma/plugin",
       "path": "packages/plugin"
     },
     {
-      "name": "@etfm/render",
+      "name": "@etfma/render",
       "path": "packages/render"
     },
     {
-      "name": "@etfm/router",
+      "name": "@etfma/router",
       "path": "packages/router"
     },
     {
-      "name": "@etfm/shared",
+      "name": "@etfma/shared",
       "path": "packages/shared"
     },
     {
-      "name": "@etfm/styles",
+      "name": "@etfma/styles",
       "path": "packages/styles"
     },
     {

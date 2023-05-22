@@ -11,21 +11,21 @@
     "type-check": "vue-tsc --noEmit"
   },
   "dependencies": {
-    "@etfm/layout": "workspace:^0.0.0",
-    "@etfm/vea-design": "workspace:*",
-    "@etfm/element-ui": "workspace:^0.0.0",
-    "@etfm/vea-hooks": "workspace:*",
-    "@etfm/vea-http": "workspace:*",
-    "@etfm/vea-pinia": "workspace:*",
-    "@etfm/vea-plugin": "workspace:*",
-    "@etfm/vea-render": "workspace:*",
-    "@etfm/vea-router": "workspace:*",
-    "@etfm/vea-shared": "workspace:*",
+    "@etfma/layout": "workspace:^0.0.0",
+    "@etfma/design": "workspace:*",
+    "@etfma/element-ui": "workspace:^0.0.0",
+    "@etfma/hooks": "workspace:*",
+    "@etfma/http": "workspace:*",
+    "@etfma/pinia": "workspace:*",
+    "@etfma/plugin": "workspace:*",
+    "@etfma/render": "workspace:*",
+    "@etfma/router": "workspace:*",
+    "@etfma/shared": "workspace:*",
     "nprogress": "^0.2.0",
     "path-to-regexp": "^6.2.1"
   },
   "devDependencies": {
-    "@etfm/vea-types": "workspace:*",
+    "@etfma/types": "workspace:*",
     "@types/nprogress": "^0.2.0",
     "vite-plugin-mock": "2.9.6"
   }

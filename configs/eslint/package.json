@@ -1,5 +1,5 @@
 {
-  "name": "@etfm/vea-eslint",
+  "name": "@etfma/eslint",
   "version": "0.0.0",
   "private": true,
   "description": "> TODO: description",
@@ -18,11 +18,6 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
-    },
-    "./strict": {
-      "types": "./dist/strict.d.ts",
-      "import": "./dist/strict.mjs",
-      "require": "./dist/strict.cjs"
     }
   },
   "main": "./dist/index.cjs",
@@ -46,7 +41,9 @@
     "eslint-define-config": "^1.18.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-jsonc": "^2.7.0",
+    "eslint-plugin-n": "^15.7.0",
     "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-regexp": "^1.14.0",
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "eslint-plugin-vue": "^9.11.0",
     "jsonc-eslint-parser": "^2.2.0",

@@ -5,6 +5,7 @@ import dayjs from 'dayjs';
 import { createPlugins } from '../plugins';
 import { commonConfig } from './common';
 import colors from 'picocolors';
+import { warmup } from 'vite-plugin-warmup';
 
 interface DefineOptions {
   overrides?: UserConfig;
@@ -50,20 +51,23 @@ export function defineApplicationConfig(defineOptions: DefineOptions = {}) {
       },
       define: defineData,
       build: {
-        target: 'es2015',
-        cssTarget: 'chrome80',
         rollupOptions: {
           output: {
+            chunkFileNames: 'js/[name]-[hash].js',
+            entryFileNames: 'js/_entry-[name]-[hash].js',
+            assetFileNames: '[ext]/[name]-[hash].[ext]',
             manualChunks: {
               vue: ['vue', 'pinia', 'vue-router'],
             },
           },
         },
       },
-      css: {
-        preprocessorOptions: {},
-      },
-      plugins,
+      plugins: [
+        ...plugins,
+        warmup({
+          clientFiles: ['./*.html'],
+        }),
+      ],
     };
 
     const mergedConfig = mergeConfig(commonConfig, applicationConfig);

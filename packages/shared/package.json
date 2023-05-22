@@ -1,5 +1,5 @@
 {
-  "name": "@etfm/vea-shared",
+  "name": "@etfma/shared",
   "version": "0.0.0",
   "description": "> TODO: description",
   "homepage": "https://github.com/etfm/vue-etfm-admin#readme",
@@ -25,11 +25,10 @@
   ],
   "scripts": {
     "bootstrap": "pnpm install",
-    "build": "pnpm unbuild",
+    "build": "pnpm vite build",
     "clean": "pnpm rimraf .turbo node_modules dist",
     "lint": "pnpm eslint .",
-    "stub": "pnpm unbuild --stub",
-    "test": "node ./__tests__/@etfm/shared.test.js"
+    "test": "node ./__tests__/@etfma/shared.test.js"
   },
   "dependencies": {
     "@vueuse/core": "^9.13.0",
@@ -38,7 +37,7 @@
     "lodash-es": "^4.17.21"
   },
   "devDependencies": {
-    "@etfm/vea-types": "workspace:^0.0.0",
+    "@etfma/types": "workspace:^0.0.0",
     "@types/lodash-es": "^4.17.7"
   },
   "publishConfig": {

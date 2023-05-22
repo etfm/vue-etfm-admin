@@ -1,3 +1,3 @@
-import { default as VbenIcon } from './Icon.vue';
-import { default as VbenSvgIcon } from './SvgIcon.vue';
-export { VbenIcon, VbenSvgIcon };
+import { default as Icon } from './Icon.vue';
+import { default as SvgIcon } from './SvgIcon.vue';
+export { Icon, SvgIcon };

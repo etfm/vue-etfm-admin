@@ -1,6 +1,6 @@
-import { lodash, Memory } from '@etfm/vea-shared';
+import { lodash, Memory } from '@etfma/shared';
 import { toRaw } from 'vue';
-import type { RouteLocationNormalized } from '@etfm/vea-router';
+import type { RouteLocationNormalized } from '@etfma/router';
 
 import {
   APP_LOCAL_CACHE_KEY,
@@ -13,7 +13,7 @@ import {
   USER_INFO_KEY,
 } from '@/enums/cacheEnum';
 import { createLocalStorage, createSessionStorage } from './';
-import type { Nullable, Recordable } from '@etfm/vea-types';
+import type { Nullable, Recordable } from '@etfma/types';
 
 export const DEFAULT_CACHE_TIME = 60 * 60 * 24 * 7;
 

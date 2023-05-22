@@ -7,14 +7,14 @@
 // } from '/#/config'
 // import type { BeforeMiniState } from '/#/store'
 
-import { store, defineStore } from '@etfm/vea-pinia';
+import { store, defineStore } from '@etfma/pinia';
 
 // import { ThemeEnum } from '/@/enums/appEnum'
 // import { APP_DARK_MODE_KEY_, PROJ_CFG_KEY } from '/@/enums/cacheEnum'
 import { Persistent } from '@/cache/persistent';
 // import { darkMode } from '/@/settings/designSetting'
 import { resetRoutes } from '@/router';
-// import { TimeoutHandle } from '@etfm/vea-types';
+// import { TimeoutHandle } from '@etfma/types';
 // import { deepMerge } from '/@/utils'
 
 interface AppState {

@@ -14,4 +14,4 @@ export type {
   IResponseInterceptorTuple,
   IResultField,
   RequestConfig,
-} from '@etfm/vea-types';
+} from '@etfma/types';

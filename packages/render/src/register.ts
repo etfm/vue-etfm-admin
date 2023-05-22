@@ -1,8 +1,8 @@
-import { createPluginManager, getPluginManager } from '@etfm/vea-plugin';
-import { lodash } from '@etfm/vea-shared';
+import { createPluginManager, getPluginManager } from '@etfma/plugin';
+import { lodash } from '@etfma/shared';
 import { initRender } from './renderer';
 import RootApp from './App';
-import { IRenderContext } from '@etfm/vea-types';
+import { IRenderContext } from '@etfma/types';
 
 export let context: IRenderContext = {
   rootElement: document.getElementById('app') as Element,

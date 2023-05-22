@@ -1,5 +1,5 @@
 {
-  "name": "@etfm/vea-pinia",
+  "name": "@etfma/pinia",
   "version": "0.0.0",
   "description": "> TODO: description",
   "homepage": "https://github.com/etfm/vue-etfm-admin#readme",
@@ -26,20 +26,19 @@
   ],
   "scripts": {
     "bootstrap": "pnpm install",
-    "build": "pnpm unbuild",
+    "build": "pnpm vite build",
     "clean": "pnpm rimraf .turbo node_modules dist",
     "lint": "pnpm eslint .",
-    "stub": "pnpm unbuild --stub",
-    "test": "node ./__tests__/@etfm/pinia.test.js"
+    "test": "node ./__tests__/@etfma/pinia.test.js"
   },
   "dependencies": {
-    "@etfm/vea-plugin": "workspace:*",
-    "@etfm/vea-shared": "workspace:*",
+    "@etfma/plugin": "workspace:*",
+    "@etfma/shared": "workspace:*",
     "pinia": "^2.0.32",
     "pinia-plugin-persistedstate": "^3.1.0"
   },
   "devDependencies": {
-    "@etfm/vea-types": "workspace:^0.0.0"
+    "@etfma/types": "workspace:^0.0.0"
   },
   "publishConfig": {
     "access": "public"

@@ -1,5 +1,5 @@
-import { getPluginManager } from '@etfm/vea-plugin'
-import { lodash } from '@etfm/vea-shared'
+import { getPluginManager } from '@etfma/plugin'
+import { lodash } from '@etfma/shared'
 export interface IContext {}
 
 export let context = {}

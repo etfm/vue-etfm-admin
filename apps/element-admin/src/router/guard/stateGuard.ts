@@ -1,4 +1,4 @@
-import type { Router } from '@etfm/vea-router';
+import type { Router } from '@etfma/router';
 import { useAppStore } from '@/store/app';
 // import { useMultipleTabStore } from '@/store/multipleTab'
 import { useUserStore } from '@/store/user';

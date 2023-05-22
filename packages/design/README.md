@@ -1,11 +1,11 @@
-# `@etfm/styles`
+# `@etfma/styles`
 
 > TODO: description
 
 ## Usage
 
 ```
-const styles = require('@etfm/styles');
+const styles = require('@etfma/styles');
 
 // TODO: DEMONSTRATE API
 ```

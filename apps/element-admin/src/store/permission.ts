@@ -1,6 +1,6 @@
-import { addDynamicRoute, AppRouteModule, AppRouteRecordRaw } from '@etfm/vea-router';
+import { addDynamicRoute, AppRouteModule, AppRouteRecordRaw } from '@etfma/router';
 
-import { defineStore, store } from '@etfm/vea-pinia';
+import { defineStore, store } from '@etfma/pinia';
 
 import { getMenuList } from '@/api/sys/menu';
 import { getPermCode } from '@/api/sys/user';

@@ -1,5 +1,5 @@
 {
-  "name": "@etfm/vea-plugin",
+  "name": "@etfma/plugin",
   "version": "0.0.0",
   "description": "> TODO: description",
   "homepage": "https://github.com/etfm/vue-etfm-admin#readme",
@@ -26,17 +26,16 @@
   ],
   "scripts": {
     "bootstrap": "pnpm install",
-    "build": "pnpm unbuild",
+    "build": "pnpm vite build",
     "clean": "pnpm rimraf .turbo node_modules dist",
     "lint": "pnpm eslint .",
-    "stub": "pnpm unbuild --stub",
-    "test": "node ./__tests__/@etfm/plugin.test.js"
+    "test": "node ./__tests__/@etfma/plugin.test.js"
   },
   "dependencies": {
-    "@etfm/vea-shared": "workspace:*"
+    "@etfma/shared": "workspace:*"
   },
   "devDependencies": {
-    "@etfm/vea-types": "workspace:*"
+    "@etfma/types": "workspace:*"
   },
   "publishConfig": {
     "access": "public"

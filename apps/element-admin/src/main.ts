@@ -1,4 +1,4 @@
-import '@etfm/vea-design';
+import '@etfma/design';
 import 'uno.css';
 
-import '@etfm/vea-render';
+import '@etfma/render';

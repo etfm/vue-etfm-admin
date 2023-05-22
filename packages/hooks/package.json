@@ -1,5 +1,5 @@
 {
-  "name": "@etfm/vea-hooks",
+  "name": "@etfma/hooks",
   "version": "0.0.0",
   "description": "> TODO: description",
   "homepage": "https://github.com/etfm/vue-etfm-admin#readme",
@@ -26,11 +26,10 @@
   ],
   "scripts": {
     "bootstrap": "pnpm install",
-    "build": "pnpm unbuild",
+    "build": "pnpm vite build",
     "clean": "pnpm rimraf .turbo node_modules dist",
     "lint": "pnpm eslint .",
-    "stub": "pnpm unbuild --stub",
-    "test": "node ./__tests__/@etfm/hooks.test.js"
+    "test": "node ./__tests__/@etfma/hooks.test.js"
   },
   "dependencies": {
     "@vueuse/core": "^9.13.0",

@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "extends": "@etfm/vea-ts/web.json",
+  "extends": "@etfma/ts/web.json",
   "compilerOptions": {
     "baseUrl": ".",
     "moduleResolution": "node",

@@ -1,4 +1,4 @@
-import { http } from '@etfm/vea-http'
+import { http } from '@etfma/http'
 
 enum Api {
   GetMenuList = '/getMenuList'

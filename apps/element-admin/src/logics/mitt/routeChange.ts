@@ -2,8 +2,8 @@
  * Used to monitor routing changes to change the status of menus and tabs. There is no need to monitor the route, because the route status change is affected by the page rendering time, which will be slow
  */
 
-import { mitt } from '@etfm/vea-shared'
-import type { RouteLocationNormalized } from '@etfm/vea-router'
+import { mitt } from '@etfma/shared'
+import type { RouteLocationNormalized } from '@etfma/router'
 
 const emitter = mitt()
 

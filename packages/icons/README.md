@@ -1,11 +1,11 @@
-# `@etfm/vea-element`
+# `@etfma/icon`
 
 > TODO: description
 
 ## Usage
 
 ```
-const veaElement = require('@etfm/vea-element');
+const veaElement = require('@etfma/icon');
 
 // TODO: DEMONSTRATE API
 ```

@@ -3,7 +3,18 @@ import { lodash } from '@etfma/shared';
 import type { ILocalContext, I18n } from '@etfma/types';
 import { initLocal } from './local';
 
-export let context: ILocalContext = {};
+export const loadLocalePool: string[] = [];
+
+export const LOCALE = {
+  ZH_CN: 'zh_CN',
+  EN_US: 'en',
+};
+
+export let context: ILocalContext = {
+  locale: LOCALE.ZH_CN,
+  fallback: LOCALE.ZH_CN,
+  availableLocales: [LOCALE.ZH_CN, LOCALE.EN_US],
+};
 
 export let local: I18n;
 

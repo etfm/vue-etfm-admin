@@ -41,7 +41,7 @@ export let context: IHttpContext = {
 
 export let http: VAxios;
 
-export function register(opts?: IHttpContext) {
+export async function register(opts?: IHttpContext) {
   // 收集配置信息
   const httpConfig = getPluginManager().applyPlugins({
     key: 'http',

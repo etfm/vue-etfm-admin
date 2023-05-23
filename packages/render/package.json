@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "@etfma/http": "workspace:*",
+    "@etfma/locale": "workspace:^0.0.0",
     "@etfma/pinia": "workspace:*",
     "@etfma/plugin": "workspace:*",
     "@etfma/router": "workspace:*",

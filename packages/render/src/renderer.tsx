@@ -24,6 +24,12 @@ export async function initRender(opts: { pluginManager: PluginManager }) {
   await registerHttp();
 
   /**
+   * 创建app实例
+   */
+  const app = createApp(rootContainer as unknown as CreateAppFunction<Element>);
+  context.onAppCreated && (await context.onAppCreated({ app }));
+
+  /**
    * 注册路由
    */
   const router = registerRouter();
@@ -38,18 +44,11 @@ export async function initRender(opts: { pluginManager: PluginManager }) {
   /**
    * 注册多语言
    */
-  const locale = await registerLocale();
+  const locale = await registerLocale(app);
   context.onLocaleCreated && (await context.onLocaleCreated({ locale }));
-
-  /**
-   * 创建app实例
-   */
-  const app = createApp(rootContainer as unknown as CreateAppFunction<Element>);
-  context.onAppCreated && (await context.onAppCreated({ app, router, pinia, locale }));
 
   app.use(pinia);
   app.use(router);
-  app.use(locale);
   app.mount(rootElement as Element);
 
   /**

@@ -1,9 +1,8 @@
 import { getPluginManager } from '@etfma/plugin';
-import { lodash } from '@etfma/shared';
+import { lodash, loggerWarning } from '@etfma/shared';
 import type { ILocalContext, I18n } from '@etfma/types';
-import { initLocal } from './local';
-
-export const loadLocalePool: string[] = [];
+import { initLocale } from './locale';
+import type { App } from 'vue';
 
 export const LOCALE = {
   ZH_CN: 'zh_CN',
@@ -12,13 +11,22 @@ export const LOCALE = {
 
 export let context: ILocalContext = {
   locale: LOCALE.ZH_CN,
-  fallback: LOCALE.ZH_CN,
+  fallbackLocale: LOCALE.ZH_CN,
   availableLocales: [LOCALE.ZH_CN, LOCALE.EN_US],
+  legacy: false,
+  sync: true,
+  silentTranslationWarn: true,
+  missingWarn: false,
+  silentFallbackWarn: true,
 };
 
-export let local: I18n;
+export let i18n: I18n;
 
-export async function register(opts?: ILocalContext) {
+export async function register(app: App, opts?: ILocalContext) {
+  if ((app as App & { __VUE_I18N__: any }).__VUE_I18N__) {
+    loggerWarning('VUE_I18N已注册，插件默认执行覆盖');
+  }
+
   // 收集配置信息
   const localConfig = getPluginManager().applyPlugins({
     key: 'local',
@@ -26,9 +34,9 @@ export async function register(opts?: ILocalContext) {
 
   context = lodash.merge(context, opts, localConfig);
 
-  //储存到本地多语言配置
+  i18n = await initLocale();
 
-  local = await initLocal();
+  app.use(i18n);
 
-  return local;
+  return i18n;
 }

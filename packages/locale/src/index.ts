@@ -1,3 +1,6 @@
 export { register } from './register';
-export type { ILocalContext } from '@etfma/types';
+export { changeLocale, getLocale, setHtmlPageLang, setI18nLanguage } from './helper';
+export { useI18n } from './useI18n';
 export * from 'vue-i18n';
+
+export type { ILocalContext } from '@etfma/types';

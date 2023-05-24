@@ -3,6 +3,7 @@
   import BasicMenuItem from './BasicMenuItem.vue';
   import { computed } from 'vue';
   import { ElSubMenu } from 'element-plus';
+  import BasicMenuItemContent from './BasicMenuItemContent.vue';
 
   defineOptions({
     name: 'BasicSubMenu',
@@ -34,7 +35,10 @@
 
 <template>
   <BasicMenuItem v-if="!hasChildren" :menu="menu" />
-  <ElSubMenu :index="`submenu-${menu.path}`">
+  <ElSubMenu v-else :index="`submenu-${menu.path}`">
+    <template #title>
+      <BasicMenuItemContent :menu="menu"></BasicMenuItemContent>
+    </template>
     <template v-for="item in menu.children || []" :key="item.path">
       <BasicSubMenu :menu="item"></BasicSubMenu>
     </template>

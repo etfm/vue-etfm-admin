@@ -1,7 +1,7 @@
 export type * from 'vue-i18n';
 
-export interface ILocalContext {
+import type { I18nOptions } from 'vue-i18n';
+
+export type ILocalContext = I18nOptions & {
   locale: string;
-  fallback: string;
-  availableLocales: string[];
-}
+};

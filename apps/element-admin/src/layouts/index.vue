@@ -29,10 +29,8 @@
     v-model:mixed-extra-visible="model.sideMixedExtraVisible"
   >
     <template #side>
-      <div>
-        <AppLogo />
-        <LayoutMenu />
-      </div>
+      <AppLogo />
+      <LayoutMenu />
     </template>
     <template #side-extra>side-extra</template>
     <template #header>header</template>

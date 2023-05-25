@@ -69,7 +69,7 @@
     domVisible: true,
   });
 
-  const { b, e } = useNamespace('layout-side');
+  const { b, e } = useNamespace('side');
 
   const emit = defineEmits(['extraVisible']);
 
@@ -136,7 +136,7 @@
 </template>
 
 <style scoped module lang="scss">
-  @include b('layout-side') {
+  @include b('side') {
     position: fixed;
     top: 0;
     left: 0;

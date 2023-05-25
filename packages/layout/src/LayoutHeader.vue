@@ -44,15 +44,16 @@
     fixed: true,
   });
 
-  const { b, e } = useNamespace('layout-header');
+  const { b, e } = useNamespace('header');
 
   const hiddenHeaderStyle = computed((): CSSProperties => {
-    const { height, show } = props;
+    const { height, show, fixed } = props;
     const heightValue = `${height}px`;
     return {
       marginTop: show ? 0 : `-${heightValue}`,
       height: heightValue,
       lineHeight: heightValue,
+      display: fixed ? 'flex' : 'none',
     };
   });
 
@@ -78,7 +79,7 @@
 </template>
 
 <style scoped module lang="scss">
-  @include b('layout-header') {
+  @include b('header') {
     top: 0;
     width: 100%;
     transition: all 0.3s ease 0s;

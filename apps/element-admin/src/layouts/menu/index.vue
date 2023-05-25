@@ -24,13 +24,13 @@
 
   const getWrapperStyle = computed((): CSSProperties => {
     return {
-      height: `calc(100% - 48px)`,
+      height: 'calc(100% - 60px)',
     };
   });
 </script>
 
 <template>
-  <ElScrollbar :style="{ getWrapperStyle }">
+  <ElScrollbar :style="getWrapperStyle">
     <BasicMenu :menus="menuRef" :is-horizontal="isHorizontal"></BasicMenu>
   </ElScrollbar>
 </template>

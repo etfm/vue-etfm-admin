@@ -5,6 +5,7 @@
   import { MenuModeEnum, MenuTypeEnum, Mode } from './enum';
   // import { listenerRouteChange } from '@/logics/mitt/routeChange';
   // import { REDIRECT_NAME } from '@/router/constant';
+  import { useNamespace } from '@etfma/hooks';
 
   defineOptions({
     name: 'BasicMenu',
@@ -57,6 +58,8 @@
     ellipsis: true,
   });
 
+  const ns = useNamespace('el-basic-menu');
+
   // const menuState = reactive({
   //   defaultActive: '',
   //   defaultOpened: [],
@@ -82,6 +85,8 @@
   //   console.log(route);
   // }
 
+  console.log(ns.b());
+
   const handleOpen = (index: string, indexPath: string[]) => {
     console.log(index, indexPath);
   };
@@ -93,6 +98,7 @@
 
 <template>
   <ElMenu
+    :class="[ns.b()]"
     default-active="2"
     :mode="props.mode"
     :default-openeds="[]"
@@ -105,4 +111,8 @@
   </ElMenu>
 </template>
 
-<style scoped lang="scss" module></style>
+<style scoped lang="scss" module>
+  @include b('basic-menu') {
+    background-color: red;
+  }
+</style>

@@ -2,7 +2,7 @@
   import { MenuRecordRaw } from '@etfma/types';
   import { useNamespace } from '@etfma/hooks';
 
-  const ns = useNamespace('basic-menu-item-content');
+  const ns = useNamespace('el-basic-menu-item-content');
 
   defineOptions({
     name: 'BasicMenuItemContent',
@@ -20,8 +20,6 @@
     level: 0,
     isHorizontal: true,
   });
-
-  console.log(props);
 </script>
 
 <template>

@@ -2,15 +2,8 @@
   import { useNamespace } from '@etfma/hooks';
   import type { CSSProperties } from 'vue';
   import { computed } from 'vue';
-
-  defineOptions({ name: 'EtfmLayoutFooter' });
-
+  defineOptions({ name: 'VbenLayoutTab' });
   interface Props {
-    /**
-     * 是否显示
-     * @default true
-     */
-    show?: boolean;
     /**
      * zIndex
      * @default 0
@@ -22,7 +15,7 @@
     backgroundColor: string;
     /**
      * 高度
-     * @default 32
+     * @default 30
      */
     height?: number;
     /**
@@ -30,39 +23,52 @@
      * @default true
      */
     fixed?: boolean;
+    /**
+     * top 值
+     * @default header高度
+     */
+    top?: number;
   }
-
   const props = withDefaults(defineProps<Props>(), {
-    show: true,
     zIndex: 0,
-    height: 32,
+    height: 30,
     fixed: true,
+    top: 0,
   });
-
-  const { b } = useNamespace('footer');
-
-  const style = computed((): CSSProperties => {
-    const { backgroundColor, height, fixed, zIndex, show } = props;
+  const { b, e } = useNamespace('tab');
+  const hiddenStyle = computed((): CSSProperties => {
+    const { height, zIndex, top, fixed } = props;
     return {
-      position: fixed ? 'fixed' : 'static',
-      zIndex,
-      backgroundColor,
+      top: `${top}px`,
       height: `${height}px`,
-      marginBottom: show ? '0' : `-${height}px`,
+      zIndex,
+      display: fixed ? 'flex' : 'none',
+    };
+  });
+  const style = computed((): CSSProperties => {
+    const { backgroundColor, fixed } = props;
+    return {
+      ...hiddenStyle.value,
+      position: fixed ? 'fixed' : 'static',
+      display: 'flex',
+      backgroundColor,
     };
   });
 </script>
 
 <template>
-  <footer :class="b()" :style="style">
+  <div :class="e('hide')" :style="hiddenStyle"></div>
+  <section :class="b()" :style="style">
     <slot></slot>
-  </footer>
+  </section>
 </template>
 
 <style scoped module lang="scss">
-  @include b('footer') {
-    bottom: 0;
+  @include b('tab') {
     width: 100%;
-    transition: all 0.3s;
+    transition: all 0.3s ease 0s;
+    @include e('hide') {
+      background: transparent;
+    }
   }
 </style>

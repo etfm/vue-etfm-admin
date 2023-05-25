@@ -11,8 +11,6 @@
   }
 
   const props = withDefaults(defineProps<Props>(), {});
-
-  console.log(props);
 </script>
 
 <template>

@@ -40,7 +40,7 @@
     headerVisible?: boolean;
     /**
      * header高度
-     * @default 60
+     * @default 48
      */
     headerHeight?: number;
     /**
@@ -129,6 +129,21 @@
      */
     footerBackgroundColor?: string;
     /**
+     * tab是否可见
+     * @default true
+     */
+    tabVisible?: boolean;
+    /**
+     * tab高度
+     * @default 30
+     */
+    tabHeight?: number;
+    /**
+     * footer背景颜色
+     * @default #fff
+     */
+    tabBackgroundColor?: string;
+    /**
      * 混合侧边扩展区域是否可见
      * @default false
      */
@@ -145,24 +160,27 @@
     zIndex: 1000,
     isMobile: false,
     headerVisible: true,
-    headerHeight: 60,
+    headerHeight: 48,
     headerFixed: true,
-    headerBackgroundColor: 'red',
+    headerBackgroundColor: '#fff',
     sideVisible: true,
     sideWidth: 180,
     sideMixedWidth: 80,
     sideCollapse: false,
     sideCollapseWidth: 48,
-    sideBackgroundColor: 'green',
+    sideBackgroundColor: '#fff',
     contentPadding: 16,
     contentPaddingBottom: 16,
     contentPaddingTop: 16,
     contentPaddingLeft: 16,
     contentPaddingRight: 16,
-    footerBackgroundColor: 'yellow',
+    footerBackgroundColor: '#fff',
     footerHeight: 32,
     footerFixed: true,
-    footerVisible: true,
+    footerVisible: false,
+    tabVisible: true,
+    tabHeight: 30,
+    tabBackgroundColor: '#fff',
     mixedExtraVisible: false,
     fixedMixedExtra: false,
   });
@@ -205,7 +223,7 @@
     if (sideCollapseState.value) {
       width = isMobile ? 0 : sideCollapseWidth;
     } else {
-      if (layout === 'side-mixed-nav') {
+      if (layout === 'side-mixed-nav' && !isMobile) {
         width = sideMixedWidth;
       } else {
         width = sideWidth;
@@ -233,6 +251,16 @@
    * 遮罩可见性
    */
   const maskVisible = computed(() => !sideCollapseState.value && props.isMobile);
+
+  /**
+   * header fixed值
+   */
+  const getHeaderFixed = computed(() => (props.layout === 'mixed-nav' ? true : props.headerFixed));
+
+  /**
+   * tab top 值
+   */
+  const tabTop = computed(() => (fullContent.value ? 0 : props.headerHeight));
 
   /**
    * 侧边栏z-index
@@ -264,18 +292,19 @@
 
 <template>
   <div :class="b()">
+    <slot></slot>
     <LayoutSide
       v-if="getSideVisible"
       :show="!fullContent"
       :width="getSiderWidth"
-      :sideExtraWidth="sideWidth"
-      :mixedExtraVisible="mixedExtraVisible"
-      :zIndex="sideZIndex"
-      :domVisible="!isMobile"
-      :isSideMixed="isSideMixed"
-      :paddingTop="sidePaddingTop"
-      :fixedMixedExtra="fixedMixedExtra"
-      :backgroundColor="sideBackgroundColor"
+      :side-extra-width="sideWidth"
+      :mixed-extra-visible="mixedExtraVisible"
+      :z-index="sideZIndex"
+      :dom-visible="!isMobile"
+      :is-side-mixed="isSideMixed"
+      :padding-top="sidePaddingTop"
+      :fixed-mixed-extra="fixedMixedExtra"
+      :background-color="sideBackgroundColor"
       @extra-visible="handleExtraVisible"
     >
       <slot name="side"></slot>
@@ -288,21 +317,32 @@
       <LayoutHeader
         v-if="headerVisible"
         :show="!fullContent"
-        :zIndex="zIndex"
+        :z-index="zIndex"
         :height="headerHeight"
-        :fixed="headerFixed"
-        :fullWidth="!isSideMode"
-        :backgroundColor="headerBackgroundColor"
+        :fixed="getHeaderFixed"
+        :full-width="!isSideMode"
+        :background-color="headerBackgroundColor"
       >
         <slot name="header"></slot>
       </LayoutHeader>
 
+      <LayoutTab
+        v-if="tabVisible"
+        :background-color="tabBackgroundColor"
+        :top="tabTop"
+        :z-index="zIndex"
+        :height="tabHeight"
+        :fixed="getHeaderFixed"
+      >
+        <slot name="tab"></slot>
+      </LayoutTab>
+
       <LayoutContent
         :padding="contentPadding"
-        :paddingTop="contentPaddingTop"
-        :paddingRight="contentPaddingRight"
-        :paddingBottom="contentPaddingBottom"
-        :paddingLeft="contentPaddingLeft"
+        :padding-top="contentPaddingTop"
+        :padding-right="contentPaddingRight"
+        :padding-bottom="contentPaddingBottom"
+        :padding-left="contentPaddingLeft"
       >
         <slot name="content"></slot>
       </LayoutContent>
@@ -313,12 +353,11 @@
         :zIndex="zIndex"
         :height="footerHeight"
         :fixed="footerFixed"
-        :backgroundColor="footerBackgroundColor"
+        :background-color="footerBackgroundColor"
       >
         <slot name="footer"></slot>
       </LayoutFooter>
     </div>
-
     <div v-if="maskVisible" :class="e('mask')" :style="maskStyle" @click="handleClickMask"></div>
   </div>
 </template>

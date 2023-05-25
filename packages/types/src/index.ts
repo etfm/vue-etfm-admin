@@ -4,4 +4,5 @@ export * from './render';
 export * from './http';
 export * from './tools';
 export * from './menu';
-export * from './local';
+export * from './locale';
+export * from './element-ui';

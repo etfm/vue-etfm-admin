@@ -11,16 +11,17 @@
     "type-check": "vue-tsc --noEmit"
   },
   "dependencies": {
-    "@etfma/layout": "workspace:^0.0.0",
     "@etfma/design": "workspace:*",
     "@etfma/element-ui": "workspace:^0.0.0",
     "@etfma/hooks": "workspace:*",
     "@etfma/http": "workspace:*",
+    "@etfma/layout": "workspace:^0.0.0",
     "@etfma/pinia": "workspace:*",
     "@etfma/plugin": "workspace:*",
     "@etfma/render": "workspace:*",
     "@etfma/router": "workspace:*",
     "@etfma/shared": "workspace:*",
+    "naive-ui": "^2.34.4",
     "nprogress": "^0.2.0",
     "path-to-regexp": "^6.2.1"
   },

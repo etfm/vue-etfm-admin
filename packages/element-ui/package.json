@@ -16,7 +16,11 @@
   "exports": {
     ".": {
       "default": "./src/index.ts"
-    }
+    },
+    "./shared": {
+      "default": "./src/_shared.scss"
+    },
+    "./*": "./*"
   },
   "main": "src/index.ts",
   "module": "src/index.ts",
@@ -32,10 +36,10 @@
     "test": "node ./__tests__/@etfma/http.test.js"
   },
   "dependencies": {
+    "@etfma/design": "workspace:*",
     "@etfma/hooks": "workspace:*",
     "@etfma/plugin": "workspace:*",
-    "@etfma/shared": "workspace:*",
-    "@etfma/design": "workspace:*"
+    "@etfma/shared": "workspace:*"
   },
   "devDependencies": {
     "@etfma/types": "workspace:*"

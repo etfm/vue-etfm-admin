@@ -18,7 +18,8 @@
     },
     "./shared": {
       "default": "./src/_shared.scss"
-    }
+    },
+    "./*": "./*"
   },
   "main": "./src/index.ts",
   "module": "./src/index.ts",
@@ -29,8 +30,8 @@
   "scripts": {
     "bootstrap": "pnpm install",
     "build": "pnpm vite build",
-    "test": "node ./__tests__/@etfma/styles.test.js",
-    "clean": "pnpm rimraf .turbo node_modules dist"
+    "clean": "pnpm rimraf .turbo node_modules dist",
+    "test": "node ./__tests__/@etfma/styles.test.js"
   },
   "dependencies": {
     "modern-normalize": "^1.1.0"

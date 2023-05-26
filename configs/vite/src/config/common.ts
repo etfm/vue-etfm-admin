@@ -17,7 +17,7 @@ const commonConfig: UserConfig = {
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@import "@etfma/design/shared";`,
+        additionalData: `@use '@/styles/index.scss' as *;`,
       },
     },
   },

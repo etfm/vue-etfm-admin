@@ -1,11 +1,10 @@
 <script setup lang="ts">
-  import { ElMenu } from 'element-plus';
+  import { ElMenu, useNamespace } from 'element-plus';
   import BasicSubMenu from './BasicSubMenu.vue';
   import type { MenuRecordRaw } from '@etfma/types';
   import { MenuModeEnum, MenuTypeEnum, Mode } from './enum';
   // import { listenerRouteChange } from '@/logics/mitt/routeChange';
   // import { REDIRECT_NAME } from '@/router/constant';
-  import { useNamespace } from '@etfma/hooks';
 
   defineOptions({
     name: 'BasicMenu',
@@ -58,7 +57,7 @@
     ellipsis: true,
   });
 
-  const ns = useNamespace('el-basic-menu');
+  const ns = useNamespace('basic-menu');
 
   // const menuState = reactive({
   //   defaultActive: '',
@@ -111,7 +110,7 @@
   </ElMenu>
 </template>
 
-<style scoped lang="scss" module>
+<style scoped lang="scss">
   @include b('basic-menu') {
     background-color: red;
   }

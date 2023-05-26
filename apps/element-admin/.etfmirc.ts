@@ -13,9 +13,7 @@ const AppConfig = getAppEnvConfig();
  */
 export default defineApp({
   render: {
-    onMounted: async ({ router, app }) => {
-      console.log(app, '=======');
-
+    onMounted: async ({ router }) => {
       // 路由拦截
       setupRouterGuard(router);
     },

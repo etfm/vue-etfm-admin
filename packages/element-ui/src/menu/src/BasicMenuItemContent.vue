@@ -1,8 +1,8 @@
 <script setup lang="ts">
   import { MenuRecordRaw } from '@etfma/types';
-  import { useNamespace } from '@etfma/hooks';
+  import { useNamespace } from 'element-plus';
 
-  const ns = useNamespace('el-basic-menu-item-content');
+  const ns = useNamespace('basic-menu-item-content');
 
   defineOptions({
     name: 'BasicMenuItemContent',
@@ -23,7 +23,7 @@
 </script>
 
 <template>
-  <div :class="[ns.b(), 'flex items-center']">{{ menu.name }}</div>
+  <div :class="[ns.b(), 'truncate']">{{ menu.name }}</div>
 </template>
 
 <style lang="scss" scoped module>

@@ -23,6 +23,9 @@ importers:
       '@etfma/prettier':
         specifier: workspace:*
         version: link:configs/prettier
+      '@etfma/stylelint':
+        specifier: workspace:^0.0.0
+        version: link:configs/stylelint
       '@etfma/ts':
         specifier: workspace:*
         version: link:configs/ts

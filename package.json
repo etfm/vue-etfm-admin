@@ -23,6 +23,7 @@
     "@commitlint/cli": "^17.5.1",
     "@etfma/eslint": "workspace:*",
     "@etfma/prettier": "workspace:*",
+    "@etfma/stylelint": "workspace:^0.0.0",
     "@etfma/ts": "workspace:*",
     "@etfma/vite": "workspace:*",
     "@types/jsdom": "^21.1.0",

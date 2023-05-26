@@ -96,7 +96,7 @@
 </script>
 
 <template>
-  <ElMenu
+  <el-menu
     :class="[ns.b()]"
     default-active="2"
     :mode="props.mode"
@@ -105,13 +105,13 @@
     @close="handleClose"
   >
     <template v-for="item in menus" :key="item.path">
-      <BasicSubMenu :menu="item" :isHorizontal="isHorizontal" />
+      <basic-sub-menu :menu="item" :isHorizontal="isHorizontal" />
     </template>
-  </ElMenu>
+  </el-menu>
 </template>
 
 <style scoped lang="scss">
   @include b('basic-menu') {
-    background-color: red;
+    border-right: none;
   }
 </style>

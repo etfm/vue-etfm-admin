@@ -4,6 +4,8 @@ import type { ILocalContext, I18n } from '@etfma/types';
 import { initLocale } from './locale';
 import type { App } from 'vue';
 
+export const loadLocalePool: string[] = [];
+
 export const LOCALE = {
   ZH_CN: 'zh_CN',
   EN_US: 'en',

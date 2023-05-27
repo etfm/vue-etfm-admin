@@ -16,6 +16,7 @@
     "@etfma/hooks": "workspace:*",
     "@etfma/http": "workspace:*",
     "@etfma/layout": "workspace:^0.0.0",
+    "@etfma/locale": "workspace:^",
     "@etfma/pinia": "workspace:*",
     "@etfma/plugin": "workspace:*",
     "@etfma/render": "workspace:*",

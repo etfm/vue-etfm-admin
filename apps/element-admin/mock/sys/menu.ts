@@ -11,7 +11,7 @@ const dashboardRoute = {
   redirect: '/dashboard/analysis',
   meta: {
     title: 'routes.dashboard.dashboard',
-    hideChildrenInMenu: true,
+    hideChildrenInMenu: false,
     icon: 'bx:bx-home',
   },
   children: [
@@ -20,8 +20,8 @@ const dashboardRoute = {
       name: 'Analysis',
       component: '/dashboard/analysis/index',
       meta: {
-        hideMenu: true,
-        hideBreadcrumb: true,
+        hideMenu: false,
+        hideBreadcrumb: false,
         title: 'routes.dashboard.analysis',
         currentActiveMenu: '/dashboard',
         icon: 'bx:bx-home',
@@ -32,8 +32,8 @@ const dashboardRoute = {
       name: 'Workbench',
       component: '/dashboard/workbench/index',
       meta: {
-        hideMenu: true,
-        hideBreadcrumb: true,
+        hideMenu: false,
+        hideBreadcrumb: false,
         title: 'routes.dashboard.workbench',
         currentActiveMenu: '/dashboard',
         icon: 'bx:bx-home',
@@ -255,7 +255,8 @@ export default [
       switch (id) {
         case '1':
           dashboardRoute.redirect = dashboardRoute.path + '/' + dashboardRoute.children[0].path;
-          menu = [dashboardRoute, authRoute, levelRoute, sysRoute, linkRoute];
+          // menu = [dashboardRoute, authRoute, levelRoute, sysRoute, linkRoute];
+          menu = [dashboardRoute];
           break;
         case '2':
           dashboardRoute.redirect = dashboardRoute.path + '/' + dashboardRoute.children[1].path;

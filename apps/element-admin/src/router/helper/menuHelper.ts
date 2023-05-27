@@ -4,7 +4,6 @@ import type { RouteParams, AppRouteRecordRaw, AppRouteModule } from '@etfma/rout
 import type { Recordable } from '@etfma/types';
 
 import type { Menu, MenuModule } from '@/router/types';
-import { usePermissionStore } from '@/store/permission';
 
 export function getAllParentPath<T = Recordable<any>>(treeData: T[], path: string) {
   const menuList = findPath(treeData, (n) => n.path === path) as Menu[];

@@ -47,6 +47,10 @@ export function defineApplicationConfig(defineOptions: DefineOptions = {}) {
             find: /#\//,
             replacement: pathResolve('types') + '/',
           },
+          {
+            find: 'vue-i18n',
+            replacement: 'vue-i18n/dist/vue-i18n.cjs.js',
+          },
         ],
       },
       define: defineData,

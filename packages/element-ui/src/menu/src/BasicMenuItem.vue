@@ -14,8 +14,10 @@
 </script>
 
 <template>
-  <ElMenuItem>
-    <BasicMenuItemContent :menu="menu" />
+  <ElMenuItem :index="menu.path">
+    <template #title>
+      <BasicMenuItemContent :menu="menu" />
+    </template>
   </ElMenuItem>
 </template>
 

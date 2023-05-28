@@ -1,8 +1,10 @@
 <script setup lang="ts">
   import { ElMenu, useNamespace } from 'element-plus';
   import BasicSubMenu from './BasicSubMenu.vue';
-  import type { MenuRecordRaw } from '@etfma/types';
+  import type { MenuRecordRaw, RouteLocationNormalized } from '@etfma/types';
   import { MenuModeEnum, MenuTypeEnum, Mode } from './enum';
+  import { reactive, ref, unref } from 'vue';
+  import { listenerRouteChange } from './mitt';
   // import { listenerRouteChange } from '@/logics/mitt/routeChange';
   // import { REDIRECT_NAME } from '@/router/constant';
 
@@ -59,32 +61,29 @@
 
   const ns = useNamespace('basic-menu');
 
-  // const menuState = reactive({
-  //   defaultActive: '',
-  //   defaultOpened: [],
-  // });
-  // const currentActiveMenu = ref('');
+  const menuState = reactive({
+    defaultActive: '',
+    defaultOpened: [],
+  });
+  const currentActiveMenu = ref('');
 
-  // listenerRouteChange((route) => {
-  //   if (route.name === REDIRECT_NAME) return;
-  //   handleMenuChange(route);
-  //   currentActiveMenu.value = route.meta?.currentActiveMenu as string;
+  listenerRouteChange((menu) => {
+    handleMenuChange(menu);
+    currentActiveMenu.value = menu.meta?.currentActiveMenu as string;
 
-  //   if (unref(currentActiveMenu)) {
-  //     menuState.defaultActive = unref(currentActiveMenu);
-  //     setOpenKeys(unref(currentActiveMenu));
-  //   }
-  // });
+    if (unref(currentActiveMenu)) {
+      menuState.defaultActive = unref(currentActiveMenu);
+      setOpenKeys(unref(currentActiveMenu));
+    }
+  });
 
-  // function setOpenKeys(current: string) {
-  //   console.log(current);
-  // }
+  function setOpenKeys(current: string) {
+    console.log(current);
+  }
 
-  // function handleMenuChange(route: RouteLocationNormalized) {
-  //   console.log(route);
-  // }
-
-  console.log(ns.b());
+  function handleMenuChange(menu: MenuRecordRaw) {
+    console.log(menu);
+  }
 
   const handleOpen = (index: string, indexPath: string[]) => {
     console.log(index, indexPath);
@@ -96,18 +95,19 @@
 </script>
 
 <template>
-  <el-menu
+  <ElMenu
     :class="[ns.b()]"
-    default-active="2"
     :mode="props.mode"
-    :default-openeds="[]"
+    :default-active="menuState.defaultActive"
+    :default-openeds="menuState.defaultOpened"
+    :unique-opened="props.uniqueOpened"
     @open="handleOpen"
     @close="handleClose"
   >
     <template v-for="item in menus" :key="item.path">
-      <basic-sub-menu :menu="item" :isHorizontal="isHorizontal" />
+      <BasicSubMenu :menu="item" :isHorizontal="isHorizontal" />
     </template>
-  </el-menu>
+  </ElMenu>
 </template>
 
 <style scoped lang="scss">

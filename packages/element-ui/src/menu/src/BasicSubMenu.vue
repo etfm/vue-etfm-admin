@@ -35,7 +35,7 @@
 
 <template>
   <BasicMenuItem v-if="!hasChildren" :menu="menu" />
-  <ElSubMenu v-else :index="`submenu-${menu.path}`">
+  <ElSubMenu v-else :index="menu.path">
     <template #title>
       <BasicMenuItemContent :menu="menu"></BasicMenuItemContent>
     </template>

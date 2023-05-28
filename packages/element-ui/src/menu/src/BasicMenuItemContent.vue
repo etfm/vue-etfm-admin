@@ -10,9 +10,8 @@
 
   interface Props {
     menu: MenuRecordRaw;
-    showTitle: boolean;
-    level: number;
-    isHorizontal: boolean;
+    showTitle?: boolean;
+    level?: number;
   }
 
   const props = withDefaults(defineProps<Props>(), {
@@ -26,7 +25,4 @@
   <div :class="[ns.b(), 'truncate']">{{ menu.name }}</div>
 </template>
 
-<style lang="scss" scoped module>
-  @include b('basic-menu-item-content') {
-  }
-</style>
+<style lang="scss" scoped module></style>

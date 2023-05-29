@@ -4,6 +4,7 @@ import { getLanguageMessage, setLoadLocalePool } from './helper';
 
 async function createI18nOptions(): Promise<I18nOptions> {
   const locale = context.locale;
+
   const message = await getLanguageMessage(locale);
   setLoadLocalePool(locale);
 

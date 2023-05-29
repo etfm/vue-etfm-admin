@@ -38,6 +38,7 @@
   "dependencies": {
     "@etfma/design": "workspace:*",
     "@etfma/hooks": "workspace:*",
+    "@etfma/icons": "workspace:^0.0.0",
     "@etfma/plugin": "workspace:*",
     "@etfma/shared": "workspace:*"
   },

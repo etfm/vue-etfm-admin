@@ -2,6 +2,56 @@ import { unref } from 'vue';
 import { i18n, loadLocalePool } from './register';
 import { loggerWarning } from '@etfma/shared';
 
+/**
+ * 动态获取多语言配置文件
+ * @param locale
+ */
+export function getDynamicImportLocale(locale: string) {
+  const dynamicLocalesModules: Record<string, any> = import.meta.glob('/src/locales/lang/*.ts', {
+    eager: true,
+  });
+
+  const defaultLocal = dynamicImport(dynamicLocalesModules, locale);
+
+  return defaultLocal.default;
+}
+
+/**
+ * 匹配多语言文件
+ * @param dynamicLocalesModules
+ * @param locale
+ * @param folder
+ */
+export function dynamicImport(
+  dynamicLocalesModules: Record<string, any>,
+  locale: string,
+  folder: string = 'locales/lang',
+) {
+  const keys = Object.keys(dynamicLocalesModules);
+
+  const matchKeys = keys.filter((key) => {
+    const k = key.replace(`/src/${folder}/`, '');
+
+    const lastIndex = k?.lastIndexOf('.');
+
+    return k?.substring(0, lastIndex) === locale;
+  });
+
+  if (matchKeys?.length === 1) {
+    const matchKey = matchKeys[0];
+
+    return dynamicLocalesModules[matchKey];
+  } else if (matchKeys?.length > 1) {
+    loggerWarning(
+      'Please do not create `.ts` files with the same file name in the same hierarchical directory under the views folder. This will cause dynamic introduction failure',
+    );
+    return;
+  } else {
+    loggerWarning(`在src/${folder}下找不到${locale}.ts, 请自行创建!`);
+    return;
+  }
+}
+
 export function setHtmlPageLang(locale: string) {
   document.querySelector('html')?.setAttribute('lang', locale);
 }
@@ -64,11 +114,7 @@ export async function getLanguageMessage(locale: string) {
     message: {},
   };
 
-  try {
-    defaultLocal = (await import(`/src/locales/lang/${locale}.ts`))?.default;
-  } catch (e) {
-    loggerWarning(`没有找到${locale}文件， 请您查看文件是否存在`);
-  }
+  defaultLocal = getDynamicImportLocale(locale);
 
   const message = defaultLocal.message ?? {};
   return message;

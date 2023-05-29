@@ -1,12 +1,10 @@
 <script setup lang="ts">
   import { ElMenu, useNamespace } from 'element-plus';
   import BasicSubMenu from './BasicSubMenu.vue';
-  import type { MenuRecordRaw, RouteLocationNormalized } from '@etfma/types';
+  import type { MenuRecordRaw } from '@etfma/types';
   import { MenuModeEnum, MenuTypeEnum, Mode } from './enum';
   import { reactive, ref, unref } from 'vue';
   import { listenerRouteChange } from './mitt';
-  // import { listenerRouteChange } from '@/logics/mitt/routeChange';
-  // import { REDIRECT_NAME } from '@/router/constant';
 
   defineOptions({
     name: 'BasicMenu',

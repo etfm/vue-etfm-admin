@@ -119,6 +119,9 @@ importers:
       '@etfma/http':
         specifier: workspace:*
         version: link:../../packages/http
+      '@etfma/icons':
+        specifier: workspace:^0.0.0
+        version: link:../../packages/icons
       '@etfma/layout':
         specifier: workspace:^0.0.0
         version: link:../../packages/layout

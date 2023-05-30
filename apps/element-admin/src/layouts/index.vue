@@ -1,9 +1,10 @@
 <script lang="ts" setup>
   import { EtfmAdminLayout } from '@etfma/layout';
-  import { ElCheckbox, ElInputNumber, ElRadioGroup, ElRadioButton } from 'element-plus';
+  // import { ElCheckbox, ElInputNumber, ElRadioGroup, ElRadioButton } from 'element-plus';
   import { reactive } from 'vue';
   import AppLogo from './components/logo/AppLogo.vue';
   import LayoutMenu from './menu/index.vue';
+  import LayoutContent from './content/layout-content.vue';
 
   defineOptions({
     name: 'Dashboard',
@@ -29,14 +30,21 @@
     v-model:mixed-extra-visible="model.sideMixedExtraVisible"
   >
     <template #side>
-      <AppLogo />
+      <AppLogo v-if="model.layout === 'side-nav'" />
       <LayoutMenu />
     </template>
     <template #side-extra>side-extra</template>
-    <template #header>header</template>
+    <template #header>
+      <AppLogo v-if="model.layout === 'header-nav'" />
+      <LayoutMenu
+        v-if="model.layout === 'mixed-nav' || model.layout === 'header-nav'"
+        isHorizontal
+      />
+    </template>
     <template #footer>footer</template>
     <template #content>
-      <div>
+      <LayoutContent />
+      <!-- <div>
         <div>左侧菜单宽度</div>
         <ElInputNumber v-model="model.sideWidth" />
         <ElCheckbox v-model="model.siderCollapse" class="mx-5">折叠菜单</ElCheckbox>
@@ -54,7 +62,7 @@
           <ElRadioButton label="full-content">full-content</ElRadioButton>
         </ElRadioGroup>
         <hr />
-      </div>
+      </div> -->
     </template>
   </EtfmAdminLayout>
 </template>

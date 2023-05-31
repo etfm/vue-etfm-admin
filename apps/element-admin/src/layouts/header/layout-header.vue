@@ -14,7 +14,7 @@
 </template>
 <script lang="ts" setup>
   import { ElHeader } from 'element-plus';
-  import HeaderTrigger from '../trigger/header-trigger.vue';
+  import HeaderTrigger from '../trigger/index.vue.js';
   import LayoutBreadcrumb from '../components/breadcrumb/layout-breadcrumb.vue';
   import { useNamespace } from '@etfma/hooks';
   import AppLogo from '../components/logo/AppLogo.vue';
@@ -24,11 +24,11 @@
 </script>
 <style scoped lang="scss" module>
   @include b('header') {
-    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0px;
+    width: 100%;
+    padding: 0;
 
     @include m(left) {
       display: flex;

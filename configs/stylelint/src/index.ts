@@ -22,6 +22,7 @@ export default {
     },
   ],
   rules: {
+    'function-name-case': null,
     'prettier/prettier': true,
     'at-rule-no-unknown': null,
     'scss/at-rule-no-unknown': true,

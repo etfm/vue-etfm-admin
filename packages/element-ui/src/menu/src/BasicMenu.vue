@@ -99,6 +99,7 @@
     :default-active="menuState.defaultActive"
     :default-openeds="menuState.defaultOpened"
     :unique-opened="props.uniqueOpened"
+    :collapse="collapse"
     @open="handleOpen"
     @close="handleClose"
   >
@@ -110,6 +111,7 @@
 
 <style scoped lang="scss">
   @include b('basic-menu') {
+    width: 100%;
     border-right: none;
   }
 </style>

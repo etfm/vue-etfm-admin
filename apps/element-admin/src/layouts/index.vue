@@ -1,10 +1,9 @@
 <script lang="ts" setup>
   import { EtfmAdminLayout } from '@etfma/layout';
-  // import { ElCheckbox, ElInputNumber, ElRadioGroup, ElRadioButton } from 'element-plus';
   import { reactive } from 'vue';
   import AppLogo from './components/logo/AppLogo.vue';
-  import LayoutMenu from './menu/index.vue';
   import LayoutContent from './content/layout-content.vue';
+  import LayoutSider from './sider/layout-sider.vue';
 
   defineOptions({
     name: 'Dashboard',
@@ -18,6 +17,16 @@
     fixedMixedExtra: false,
     isMobile: false,
   });
+
+  /**
+   * 折叠菜单
+   * @param collapse
+   */
+  const toggleCollapsed = (collapse: boolean) => {
+    console.log(collapse, '======');
+
+    model.siderCollapse = !collapse;
+  };
 </script>
 
 <template>
@@ -30,16 +39,19 @@
     v-model:mixed-extra-visible="model.sideMixedExtraVisible"
   >
     <template #side>
-      <AppLogo v-if="model.layout === 'side-nav'" />
-      <LayoutMenu />
+      <LayoutSider
+        :is-collapse="model.siderCollapse"
+        :layout="model.layout"
+        @toggle="toggleCollapsed"
+      />
     </template>
     <template #side-extra>side-extra</template>
     <template #header>
       <AppLogo v-if="model.layout === 'header-nav'" />
-      <LayoutMenu
+      <!-- <LayoutMenu
         v-if="model.layout === 'mixed-nav' || model.layout === 'header-nav'"
         isHorizontal
-      />
+      /> -->
     </template>
     <template #footer>footer</template>
     <template #content>

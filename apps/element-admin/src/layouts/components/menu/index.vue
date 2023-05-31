@@ -14,10 +14,16 @@
      * @default false
      */
     isHorizontal?: boolean;
+    /**
+     * 是否折起
+     * @default false
+     */
+    isCollapse: boolean;
   }
 
   const props = withDefaults(defineProps<Props>(), {
     isHorizontal: false,
+    isCollapse: false,
   });
 
   const { menuRef } = useLayoutMenu();
@@ -31,6 +37,6 @@
 
 <template>
   <ElScrollbar :style="getWrapperStyle">
-    <BasicMenu :menus="menuRef" :is-horizontal="isHorizontal"></BasicMenu>
+    <BasicMenu :collapse="isCollapse" :menus="menuRef" :is-horizontal="isHorizontal"></BasicMenu>
   </ElScrollbar>
 </template>

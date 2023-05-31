@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { MenuRecordRaw } from '@etfma/types';
-  import { useNamespace } from 'element-plus';
+  import { useNamespace, ElIcon } from 'element-plus';
   import { Icon } from '@etfma/icons';
   import { computed } from 'vue';
 
@@ -11,27 +11,32 @@
   });
 
   interface Props {
+    /**
+     * 菜单
+     * @default []
+     */
     menu: MenuRecordRaw;
-    showTitle?: boolean;
+    /**
+     * 是否显示图标
+     * @default true
+     */
     showIcon?: boolean;
-    level?: number;
   }
 
   const props = withDefaults(defineProps<Props>(), {
-    showTitle: true,
-    showIcon: true,
-    level: 0,
     isHorizontal: true,
+    showIcon: true,
   });
 
   const icon = computed(() => props.menu.icon ?? '');
 </script>
 
 <template>
-  <div :class="[ns.b(), 'flex items-center']">
+  <ElIcon>
     <Icon v-if="props.showIcon" :icon="icon"></Icon>
-    <div v-if="props.showTitle" :class="['truncate']">{{ menu.name }}</div>
-  </div>
+  </ElIcon>
+
+  <span>{{ menu.name }}</span>
 </template>
 
 <style lang="scss" scoped module></style>

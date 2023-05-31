@@ -168,7 +168,7 @@
     sideWidth: 180,
     sideMixedWidth: 80,
     sideCollapse: false,
-    sideCollapseWidth: 48,
+    sideCollapseWidth: 64,
     sideBackgroundColor: '#fff',
     contentPadding: 16,
     contentPaddingBottom: 16,

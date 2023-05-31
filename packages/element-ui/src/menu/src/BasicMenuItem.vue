@@ -6,17 +6,25 @@
   interface Props {
     /**
      * 菜单项
+     * @default []
      */
     menu: MenuRecordRaw;
+    /**
+     * 是否显示标题
+     * @default true
+     */
+    showTitle?: boolean;
   }
 
-  const props = withDefaults(defineProps<Props>(), {});
+  const props = withDefaults(defineProps<Props>(), {
+    showTitle: true,
+  });
 </script>
 
 <template>
   <ElMenuItem :index="menu.path">
     <template #title>
-      <BasicMenuItemContent :menu="menu" />
+      <BasicMenuItemContent :show-title="showTitle" :menu="menu" />
     </template>
   </ElMenuItem>
 </template>

@@ -22,6 +22,8 @@ export default {
     },
   ],
   rules: {
+    'no-global-function-names': null,
+    'at-function-pattern': null,
     'function-name-case': null,
     'prettier/prettier': true,
     'at-rule-no-unknown': null,

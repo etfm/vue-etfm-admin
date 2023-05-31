@@ -15,9 +15,16 @@
      * @default MenuRecordRaw
      */
     menu: MenuRecordRaw;
+    /**
+     * 是否显示标题
+     * @default true
+     */
+    showTitle?: boolean;
   }
 
-  const props = withDefaults(defineProps<Props>(), {});
+  const props = withDefaults(defineProps<Props>(), {
+    showTitle: true,
+  });
 
   /**
    * 判断是否有子节点，动态渲染 menu-item/sub-menu-item
@@ -34,10 +41,10 @@
 </script>
 
 <template>
-  <BasicMenuItem v-if="!hasChildren" :menu="menu" />
+  <BasicMenuItem v-if="!hasChildren" :menu="menu" :show-title="showTitle" />
   <ElSubMenu v-else :index="menu.path">
     <template #title>
-      <BasicMenuItemContent :menu="menu"></BasicMenuItemContent>
+      <BasicMenuItemContent :show-title="showTitle" :menu="menu"></BasicMenuItemContent>
     </template>
     <template v-for="item in menu.children || []" :key="item.path">
       <BasicSubMenu :menu="item"></BasicSubMenu>

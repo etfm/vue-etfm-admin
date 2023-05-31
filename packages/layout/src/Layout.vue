@@ -8,6 +8,7 @@
   import LayoutHeader from './LayoutHeader.vue';
   import LayoutSide from './LayoutSide.vue';
   import LayoutTab from './LayoutTab.vue';
+  import LayoutBreadcrumb from './LayoutBreadcrumb.vue';
 
   defineOptions({
     name: 'EtfmLayout',
@@ -140,10 +141,35 @@
      */
     tabHeight?: number;
     /**
-     * footer背景颜色
+     * tab背景颜色
      * @default #fff
      */
     tabBackgroundColor?: string;
+    /**
+     * tab 是否固定
+     * @default true
+     */
+    tabFixed?: boolean;
+    /**
+     * breadcrumb是否可见
+     * @default true
+     */
+    breadcrumbVisible?: boolean;
+    /**
+     * breadcrumb高度
+     * @default 56
+     */
+    breadcrumbHeight?: number;
+    /**
+     * breadcrumb背景颜色
+     * @default #fff
+     */
+    breadcrumbBackgroundColor?: string;
+    /**
+     * breadcrumb 是否固定
+     * @default true
+     */
+    breadcrumbFixed?: boolean;
     /**
      * 混合侧边扩展区域是否可见
      * @default false
@@ -161,7 +187,7 @@
     zIndex: 1000,
     isMobile: false,
     headerVisible: true,
-    headerHeight: 48,
+    headerHeight: 60,
     headerFixed: true,
     headerBackgroundColor: '#fff',
     sideVisible: true,
@@ -182,6 +208,11 @@
     tabVisible: true,
     tabHeight: 30,
     tabBackgroundColor: '#fff',
+    tabFixed: true,
+    breadcrumbVisible: true,
+    breadcrumbHeight: 56,
+    breadcrumbBackgroundColor: '#fff',
+    breadcrumbFixed: true,
     mixedExtraVisible: false,
     fixedMixedExtra: false,
   });
@@ -264,6 +295,13 @@
   const tabTop = computed(() => (fullContent.value ? 0 : props.headerHeight));
 
   /**
+   * breadcrumb top 值
+   */
+  const breadcrumbTop = computed(() =>
+    fullContent.value ? props.tabHeight : props.headerHeight + props.tabHeight,
+  );
+
+  /**
    * 侧边栏z-index
    */
   const sideZIndex = computed(() => {
@@ -333,10 +371,20 @@
         :top="tabTop"
         :z-index="zIndex"
         :height="tabHeight"
-        :fixed="getHeaderFixed"
+        :fixed="tabFixed"
       >
         <slot name="tab"></slot>
       </LayoutTab>
+      <LayoutBreadcrumb
+        v-if="breadcrumbVisible"
+        :top="breadcrumbTop"
+        :z-index="zIndex"
+        :height="breadcrumbHeight"
+        :fixed="breadcrumbFixed"
+        :background-color="breadcrumbBackgroundColor"
+      >
+        <slot name="breadcrumb"></slot>
+      </LayoutBreadcrumb>
 
       <LayoutContent
         :padding="contentPadding"
@@ -380,7 +428,7 @@
       width: 100%;
       height: 100%;
       background-color: rgb(0 0 0 / 40%);
-      transition: background-color 0.2s;
+      transition: background-color 0.3s;
     }
   }
 </style>

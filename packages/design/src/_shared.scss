@@ -1,33 +1,137 @@
-$element-separator: '__' !default;
-$modifier-separator: '--' !default;
-$state-prefix: 'is' !default;
+@use './mixins/function' as *;
+@forward './mixins/config';
+@forward './mixins/function';
+@forward './mixins/_var';
+@use './mixins/config' as *;
 
-@mixin b($name) {
-  .#{$name} {
+@mixin res($key, $map: $breakpoints) {
+  @if map-has-key($map, $key) {
+    @media only screen and #{unquote(map-get($map, $key))} {
+      @content;
+    }
+  } @else {
+    @warn "Undefined points: `#{$map}`";
+  }
+}
+
+// BEM
+@mixin b($block) {
+  $B: $namespace + $common-separator + $block !global;
+
+  .#{$B} {
     @content;
   }
 }
 
-@mixin e($name) {
+@mixin e($element) {
+  $E: $element !global;
+  $selector: &;
+  $currentSelector: '';
+  @each $unit in $element {
+    $currentSelector: #{$currentSelector + '.' + $B + $element-separator + $unit + ','};
+  }
+
+  @if hitAllSpecialNestRule($selector) {
+    @at-root {
+      #{$selector} {
+        #{$currentSelector} {
+          @content;
+        }
+      }
+    }
+  } @else {
+    @at-root {
+      #{$currentSelector} {
+        @content;
+      }
+    }
+  }
+}
+
+@mixin m($modifier) {
+  $selector: &;
+  $currentSelector: '';
+  @each $unit in $modifier {
+    $currentSelector: #{$currentSelector + $selector + $modifier-separator + $unit + ','};
+  }
+
   @at-root {
-    &#{$element-separator}#{$name} {
+    #{$currentSelector} {
       @content;
     }
   }
 }
 
-@mixin m($name) {
+@mixin configurable-m($modifier, $E-flag: false) {
+  $selector: &;
+  $interpolation: '';
+
+  @if $E-flag {
+    $interpolation: $element-separator + $E-flag;
+  }
+
   @at-root {
-    &#{$modifier-separator}#{$name} {
+    #{$selector} {
+      .#{$B + $interpolation + $modifier-separator + $modifier} {
+        @content;
+      }
+    }
+  }
+}
+
+@mixin spec-selector($specSelector: '', $element: $E, $modifier: false, $block: $B) {
+  $modifierCombo: '';
+
+  @if $modifier {
+    $modifierCombo: $modifier-separator + $modifier;
+  }
+
+  @at-root {
+    #{&}#{$specSelector}.#{$block + $element-separator + $element + $modifierCombo} {
       @content;
     }
   }
 }
 
-// block__element.is-active {}
-@mixin is($state, $prefix: $state-prefix) {
+@mixin meb($modifier: false, $element: $E, $block: $B) {
+  $selector: &;
+  $modifierCombo: '';
+
+  @if $modifier {
+    $modifierCombo: $modifier-separator + $modifier;
+  }
+
   @at-root {
-    &.#{$prefix}-#{$state} {
+    #{$selector} {
+      .#{$block + $element-separator + $element + $modifierCombo} {
+        @content;
+      }
+    }
+  }
+}
+
+@mixin when($state) {
+  @at-root {
+    &.#{$state-prefix + $state} {
+      @content;
+    }
+  }
+}
+
+@mixin extend-rule($name) {
+  @extend #{'%shared-' + $name} !optional;
+}
+
+@mixin pseudo($pseudo) {
+  @at-root #{&}#{':#{$pseudo}'} {
+    @content;
+  }
+}
+
+// dark
+@mixin dark($block) {
+  html.dark {
+    @include b($block) {
       @content;
     }
   }

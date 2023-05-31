@@ -3,7 +3,7 @@
   import BasicSubMenu from './BasicSubMenu.vue';
   import type { MenuRecordRaw } from '@etfma/types';
   import { MenuModeEnum, MenuTypeEnum, Mode } from './enum';
-  import { reactive, ref, unref } from 'vue';
+  import { computed, reactive, ref, unref } from 'vue';
   import { listenerRouteChange } from './mitt';
 
   defineOptions({
@@ -63,6 +63,8 @@
     defaultActive: '',
     defaultOpened: [],
   });
+
+  const hasShowTitle = computed(() => !props.collapse);
   const currentActiveMenu = ref('');
 
   listenerRouteChange((menu) => {
@@ -104,7 +106,7 @@
     @close="handleClose"
   >
     <template v-for="item in menus" :key="item.path">
-      <BasicSubMenu :menu="item" :isHorizontal="isHorizontal" />
+      <BasicSubMenu :menu="item" :isHorizontal="isHorizontal" :collapse="hasShowTitle" />
     </template>
   </ElMenu>
 </template>

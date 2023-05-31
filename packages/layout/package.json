@@ -33,6 +33,7 @@
     "lint": "pnpm eslint ."
   },
   "dependencies": {
+    "@etfma/design": "workspace:^",
     "@etfma/hooks": "workspace:*",
     "@etfma/plugin": "workspace:*"
   },

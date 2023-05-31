@@ -6,7 +6,7 @@
   import LayoutSider from './sider/layout-sider.vue';
 
   defineOptions({
-    name: 'Dashboard',
+    name: 'Layout',
   });
 
   const model = reactive({
@@ -23,8 +23,6 @@
    * @param collapse
    */
   const toggleCollapsed = (collapse: boolean) => {
-    console.log(collapse, '======');
-
     model.siderCollapse = !collapse;
   };
 </script>

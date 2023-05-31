@@ -24,7 +24,6 @@ const dashboardRoute = {
         hideBreadcrumb: false,
         title: 'routes.dashboard.analysis',
         currentActiveMenu: '/dashboard',
-        icon: 'bx:bx-home',
       },
     },
     {
@@ -35,8 +34,6 @@ const dashboardRoute = {
         hideMenu: false,
         hideBreadcrumb: false,
         title: 'routes.dashboard.workbench',
-        currentActiveMenu: '/dashboard',
-        icon: 'bx:bx-home',
       },
     },
   ],

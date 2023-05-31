@@ -21,11 +21,17 @@
      * @default true
      */
     showIcon?: boolean;
+    /**
+     * 是否显示标题
+     * @default true
+     */
+    showTitle?: boolean;
   }
 
   const props = withDefaults(defineProps<Props>(), {
     isHorizontal: true,
     showIcon: true,
+    showTitle: true,
   });
 
   const icon = computed(() => props.menu.icon ?? '');
@@ -36,7 +42,7 @@
     <Icon v-if="props.showIcon" :icon="icon"></Icon>
   </ElIcon>
 
-  <span>{{ menu.name }}</span>
+  <span v-if="showTitle">{{ menu.name }}</span>
 </template>
 
 <style lang="scss" scoped module></style>

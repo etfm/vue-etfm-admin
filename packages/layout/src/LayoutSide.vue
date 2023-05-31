@@ -143,11 +143,11 @@
     height: 100%;
     overflow: hidden;
     box-shadow: 2px 0 8px 0 rgb(29 35 41 / 5%);
-    transition: all 0.2s ease 0s;
+    transition: all 0.3s ease 0s;
 
     @include e('hide') {
       height: 100%;
-      transition: all 0.2s ease 0s;
+      transition: all 0.3s ease 0s;
     }
 
     @include e('extra') {
@@ -155,7 +155,7 @@
       top: 0;
       height: 100%;
       overflow: hidden;
-      transition: all 0.2s ease 0s;
+      transition: all 0.3s ease 0s;
     }
   }
 </style>

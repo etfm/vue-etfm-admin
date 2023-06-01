@@ -176,6 +176,11 @@
      */
     breadcrumbFixed?: boolean;
     /**
+     * padding
+     * @default 16
+     */
+    breadcrumbPadding?: number;
+    /**
      * 混合侧边扩展区域是否可见
      * @default false
      */
@@ -217,8 +222,9 @@
     tabFixed: true,
     breadcrumbVisible: true,
     breadcrumbHeight: 56,
-    breadcrumbBackgroundColor: '#fff',
+    breadcrumbBackgroundColor: '#F2F3F5',
     breadcrumbFixed: true,
+    breadcrumbPadding: 16,
     mixedExtraVisible: false,
     fixedMixedExtra: false,
   });
@@ -395,6 +401,7 @@
       </LayoutTab>
       <LayoutBreadcrumb
         v-if="breadcrumbVisible"
+        :padding="breadcrumbPadding"
         :top="breadcrumbTop"
         :z-index="zIndex"
         :height="breadcrumbHeight"

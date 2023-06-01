@@ -5,6 +5,11 @@
   defineOptions({ name: 'EtfmaLayoutBreadcrumb' });
   interface Props {
     /**
+     * padding
+     * @default 16
+     */
+    padding?: number;
+    /**
      * zIndex
      * @default 0
      */
@@ -40,6 +45,7 @@
     fullContent?: boolean;
   }
   const props = withDefaults(defineProps<Props>(), {
+    padding: 16,
     zIndex: 0,
     height: 56,
     fixed: true,
@@ -58,12 +64,12 @@
     };
   });
   const style = computed((): CSSProperties => {
-    const { backgroundColor, fixed, fullContent, left } = props;
-    console.log(left, '====');
+    const { backgroundColor, fixed, fullContent, left, padding } = props;
 
     const widthValue = fixed && !fullContent ? `calc(100% - ${left}px)` : undefined;
     return {
       ...hiddenStyle.value,
+      padding: `${padding}px`,
       position: fixed ? 'fixed' : 'static',
       display: 'flex',
       backgroundColor,

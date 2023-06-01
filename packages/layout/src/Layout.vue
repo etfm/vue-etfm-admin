@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { useNamespace } from '@etfma/hooks';
-  import type { CSSProperties } from 'vue';
+  import { CSSProperties, unref } from 'vue';
   import { computed, watchEffect } from 'vue';
 
   import LayoutContent from './LayoutContent.vue';
@@ -270,7 +270,7 @@
   const isSideMode = computed(() => ['side-nav', 'side-mixed-nav'].includes(props.layout));
 
   /**
-   * 是否全屏显示content，不需要侧边、底部、顶部、tab区域
+   * 是否全屏显示content，不需要侧边、底部、顶部
    */
   const fullContent = computed(() => props.layout === 'full-content');
 
@@ -300,6 +300,15 @@
   const breadcrumbTop = computed(() =>
     fullContent.value ? props.tabHeight : props.headerHeight + props.tabHeight,
   );
+
+  /**
+   * menu left 值
+   */
+  const menuleft = computed(() => {
+    const { fixedMixedExtra, sideWidth, isMobile } = props;
+    if (isMobile) return 0;
+    return unref(getSiderWidth) + (unref(isSideMixed) && fixedMixedExtra ? sideWidth : 0);
+  });
 
   /**
    * 侧边栏z-index
@@ -358,6 +367,7 @@
         :show="!fullContent"
         :z-index="zIndex"
         :height="headerHeight"
+        :left="menuleft"
         :fixed="getHeaderFixed"
         :full-width="!isSideMode"
         :background-color="headerBackgroundColor"
@@ -372,6 +382,8 @@
         :z-index="zIndex"
         :height="tabHeight"
         :fixed="tabFixed"
+        :full-content="fullContent"
+        :left="menuleft"
       >
         <slot name="tab"></slot>
       </LayoutTab>
@@ -382,6 +394,8 @@
         :height="breadcrumbHeight"
         :fixed="breadcrumbFixed"
         :background-color="breadcrumbBackgroundColor"
+        :full-content="fullContent"
+        :left="menuleft"
       >
         <slot name="breadcrumb"></slot>
       </LayoutBreadcrumb>

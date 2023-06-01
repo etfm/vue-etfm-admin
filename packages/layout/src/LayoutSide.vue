@@ -26,7 +26,7 @@
      */
     backgroundColor: string;
     /**
-     * 宽度
+     * 菜单宽度 + 扩展区域宽度
      * @default 180
      */
     width?: number;

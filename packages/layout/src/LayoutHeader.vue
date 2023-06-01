@@ -35,6 +35,11 @@
      * @default false
      */
     fullWidth?: boolean;
+    /**
+     * left 值
+     * @default 180
+     */
+    left?: number;
   }
 
   const props = withDefaults(defineProps<Props>(), {
@@ -42,6 +47,7 @@
     zIndex: 0,
     height: 60,
     fixed: true,
+    left: 180,
   });
 
   const { b, e } = useNamespace('header');
@@ -58,13 +64,15 @@
   });
 
   const style = computed((): CSSProperties => {
-    const { backgroundColor, height, fixed, zIndex, show, fullWidth } = props;
+    const { backgroundColor, height, fixed, zIndex, show, fullWidth, left } = props;
     const right = !show || !fullWidth ? undefined : 0;
+    const widthValue = fixed && !fullWidth ? `calc(100% - ${left}px)` : undefined;
     return {
       position: fixed ? 'fixed' : 'static',
       marginTop: show ? 0 : `-${height}px`,
       backgroundColor,
       height: `${height}px`,
+      width: widthValue,
       zIndex,
       right,
     };

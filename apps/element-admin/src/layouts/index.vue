@@ -1,16 +1,18 @@
 <script lang="ts" setup>
   import { EtfmAdminLayout } from '@etfma/layout';
   import { reactive } from 'vue';
-  import AppLogo from './components/logo/AppLogo.vue';
   import LayoutContent from './content/layout-content.vue';
   import LayoutSider from './sider/layout-sider.vue';
+  import LayoutHeader from './header/layout-header.vue';
+
+  import { ElInputNumber, ElCheckbox, ElRadioGroup, ElRadioButton } from 'element-plus';
 
   defineOptions({
     name: 'Layout',
   });
 
   const model = reactive({
-    sideWidth: 200,
+    sideWidth: 180,
     siderCollapse: false,
     layout: 'side-nav',
     sideMixedExtraVisible: false,
@@ -45,7 +47,7 @@
     </template>
     <template #side-extra>side-extra</template>
     <template #header>
-      <AppLogo v-if="model.layout === 'header-nav'" />
+      <LayoutHeader :layout="model.layout" />
       <!-- <LayoutMenu
         v-if="model.layout === 'mixed-nav' || model.layout === 'header-nav'"
         isHorizontal
@@ -54,7 +56,7 @@
     <template #footer>footer</template>
     <template #content>
       <LayoutContent />
-      <!-- <div>
+      <div>
         <div>左侧菜单宽度</div>
         <ElInputNumber v-model="model.sideWidth" />
         <ElCheckbox v-model="model.siderCollapse" class="mx-5">折叠菜单</ElCheckbox>
@@ -72,7 +74,7 @@
           <ElRadioButton label="full-content">full-content</ElRadioButton>
         </ElRadioGroup>
         <hr />
-      </div> -->
+      </div>
     </template>
   </EtfmAdminLayout>
 </template>

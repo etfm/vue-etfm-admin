@@ -28,12 +28,24 @@
      * @default header+tab高度
      */
     top?: number;
+    /**
+     * left 值
+     * @default 180
+     */
+    left?: number;
+    /**
+     * 全屏
+     * @default false
+     */
+    fullContent: boolean;
   }
   const props = withDefaults(defineProps<Props>(), {
     zIndex: 0,
     height: 56,
     fixed: true,
     top: 0,
+    left: 180,
+    fullContent: false,
   });
   const { b, e } = useNamespace('breadcrumb');
   const hiddenStyle = computed((): CSSProperties => {
@@ -46,12 +58,14 @@
     };
   });
   const style = computed((): CSSProperties => {
-    const { backgroundColor, fixed } = props;
+    const { backgroundColor, fixed, fullContent, left } = props;
+    const widthValue = fixed && !fullContent ? `calc(100% - ${left}px)` : undefined;
     return {
       ...hiddenStyle.value,
       position: fixed ? 'fixed' : 'static',
       display: 'flex',
       backgroundColor,
+      width: widthValue,
     };
   });
 </script>
@@ -67,7 +81,9 @@
   @include b('breadcrumb') {
     width: 100%;
     transition: all 0.3s ease 0s;
+
     @include e('hide') {
+      width: 100%;
       background: transparent;
     }
   }

@@ -306,7 +306,7 @@
    */
   const menuleft = computed(() => {
     const { fixedMixedExtra, sideWidth, isMobile } = props;
-    if (isMobile) return 0;
+    if (isMobile || !unref(getSideVisible)) return 0;
     return unref(getSiderWidth) + (unref(isSideMixed) && fixedMixedExtra ? sideWidth : 0);
   });
 

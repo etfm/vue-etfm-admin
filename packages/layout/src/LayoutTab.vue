@@ -37,7 +37,7 @@
      * 全屏
      * @default false
      */
-    fullContent: boolean;
+    fullContent?: boolean;
   }
   const props = withDefaults(defineProps<Props>(), {
     zIndex: 0,

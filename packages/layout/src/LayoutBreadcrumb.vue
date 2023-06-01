@@ -37,7 +37,7 @@
      * 全屏
      * @default false
      */
-    fullContent: boolean;
+    fullContent?: boolean;
   }
   const props = withDefaults(defineProps<Props>(), {
     zIndex: 0,
@@ -59,6 +59,8 @@
   });
   const style = computed((): CSSProperties => {
     const { backgroundColor, fixed, fullContent, left } = props;
+    console.log(left, '====');
+
     const widthValue = fixed && !fullContent ? `calc(100% - ${left}px)` : undefined;
     return {
       ...hiddenStyle.value,

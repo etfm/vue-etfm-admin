@@ -1,5 +1,5 @@
 <template>
-  <div class="layout-breadcrumd">
+  <div :class="[ns.b()]">
     <ElBreadcrumb separator="/">
       <ElBreadcrumbItem><a href="/">Dashboard</a></ElBreadcrumbItem>
       <ElBreadcrumbItem>promotion list</ElBreadcrumbItem>
@@ -9,9 +9,16 @@
 </template>
 <script setup lang="ts">
   import { ElBreadcrumb, ElBreadcrumbItem } from 'element-plus';
+  import { useNamespace } from '@etfma/hooks';
+
+  const ns = useNamespace('layout-breadcrumd');
 </script>
 <style scoped lang="scss" module>
-  .layout-breadcrumd {
+  @include b('layout-breadcrumd') {
+    display: flex;
+    align-items: center;
+    width: 100%;
     padding: 0 8px;
+    background-color: getCssVar('bg-color-page');
   }
 </style>

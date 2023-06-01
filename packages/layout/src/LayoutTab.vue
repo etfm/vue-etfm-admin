@@ -83,6 +83,7 @@
     transition: all 0.3s ease 0s;
 
     @include e('hide') {
+      flex: 0 0 auto;
       width: 100%;
       background: transparent;
     }

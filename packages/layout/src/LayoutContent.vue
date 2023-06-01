@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import type { CSSProperties } from 'vue';
   import { computed } from 'vue';
+  import { useNamespace } from '@etfma/hooks';
 
   defineOptions({ name: 'EtfmLayoutContent' });
 
@@ -30,6 +31,10 @@
      * @default 16
      */
     paddingRight?: number;
+    /**
+     * 背景颜色
+     */
+    backgroundColor: string;
   }
 
   const props = withDefaults(defineProps<Props>(), {
@@ -40,20 +45,30 @@
     paddingRight: 16,
   });
 
+  const ns = useNamespace('content');
+
   const style = computed((): CSSProperties => {
-    const { padding, paddingBottom, paddingTop, paddingLeft, paddingRight } = props;
+    const { padding, paddingBottom, paddingTop, paddingLeft, paddingRight, backgroundColor } =
+      props;
     return {
       padding: `${padding}px`,
       paddingBottom: `${paddingBottom}px`,
       paddingTop: `${paddingTop}px`,
       paddingLeft: `${paddingLeft}px`,
       paddingRight: `${paddingRight}px`,
+      backgroundColor,
     };
   });
 </script>
 
 <template>
-  <main :style="style" class="vben-admin-layout-content">
+  <main :style="style" :class="[ns.b()]">
     <slot></slot>
   </main>
 </template>
+<style scoped lang="scss" module>
+  @include b('content') {
+    flex: auto;
+    height: 100%;
+  }
+</style>

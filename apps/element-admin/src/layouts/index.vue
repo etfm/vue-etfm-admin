@@ -4,6 +4,7 @@
   import LayoutContent from './content/layout-content.vue';
   import LayoutSider from './sider/layout-sider.vue';
   import LayoutHeader from './header/layout-header.vue';
+  import LayoutBreadcrumb from './components/breadcrumb/layout-breadcrumb.vue';
 
   import { ElInputNumber, ElCheckbox, ElRadioGroup, ElRadioButton } from 'element-plus';
 
@@ -52,6 +53,10 @@
         v-if="model.layout === 'mixed-nav' || model.layout === 'header-nav'"
         isHorizontal
       /> -->
+    </template>
+    <template #tab> 1123 </template>
+    <template #breadcrumb>
+      <LayoutBreadcrumb />
     </template>
     <template #footer>footer</template>
     <template #content>

@@ -111,6 +111,11 @@
      */
     contentPaddingRight?: number;
     /**
+     * footer背景颜色
+     * @default #F2F3F5
+     */
+    contentBackgroundColor?: string;
+    /**
      * footer 是否可见
      * @default false
      */
@@ -127,7 +132,7 @@
     footerFixed?: boolean;
     /**
      * footer背景颜色
-     * @default #fff
+     * @default #F2F3F5
      */
     footerBackgroundColor?: string;
     /**
@@ -201,7 +206,8 @@
     contentPaddingTop: 16,
     contentPaddingLeft: 16,
     contentPaddingRight: 16,
-    footerBackgroundColor: '#fff',
+    contentBackgroundColor: '#F2F3F5',
+    footerBackgroundColor: '#F2F3F5',
     footerHeight: 32,
     footerFixed: true,
     footerVisible: false,
@@ -401,6 +407,7 @@
       </LayoutBreadcrumb>
 
       <LayoutContent
+        :background-color="contentBackgroundColor"
         :padding="contentPadding"
         :padding-top="contentPaddingTop"
         :padding-right="contentPaddingRight"
@@ -428,11 +435,14 @@
 <style scoped module lang="scss">
   @include b('layout') {
     display: flex;
+    width: 100%;
+    height: 100%;
 
     @include e('main') {
       display: flex;
       flex: auto;
       flex-direction: column;
+      height: 100%;
     }
 
     @include e('mask') {

@@ -304,7 +304,7 @@
   /**
    * menu left 值
    */
-  const menuleft = computed(() => {
+  const menuLeft = computed(() => {
     const { fixedMixedExtra, sideWidth, isMobile } = props;
     if (isMobile || !unref(getSideVisible)) return 0;
     return unref(getSiderWidth) + (unref(isSideMixed) && fixedMixedExtra ? sideWidth : 0);
@@ -367,7 +367,7 @@
         :show="!fullContent"
         :z-index="zIndex"
         :height="headerHeight"
-        :left="menuleft"
+        :left="menuLeft"
         :fixed="getHeaderFixed"
         :full-width="!isSideMode"
         :background-color="headerBackgroundColor"
@@ -383,7 +383,7 @@
         :height="tabHeight"
         :fixed="tabFixed"
         :full-content="fullContent"
-        :left="menuleft"
+        :left="menuLeft"
       >
         <slot name="tab"></slot>
       </LayoutTab>
@@ -395,7 +395,7 @@
         :fixed="breadcrumbFixed"
         :background-color="breadcrumbBackgroundColor"
         :full-content="fullContent"
-        :left="menuleft"
+        :left="menuLeft"
       >
         <slot name="breadcrumb"></slot>
       </LayoutBreadcrumb>

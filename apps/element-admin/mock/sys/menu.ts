@@ -23,7 +23,7 @@ const dashboardRoute = {
         hideMenu: false,
         hideBreadcrumb: false,
         title: 'routes.dashboard.analysis',
-        currentActiveMenu: '/dashboard',
+        currentActiveMenu: '/dashboard/analysis',
       },
     },
     {
@@ -252,8 +252,8 @@ export default [
       switch (id) {
         case '1':
           dashboardRoute.redirect = dashboardRoute.path + '/' + dashboardRoute.children[0].path;
-          menu = [dashboardRoute, authRoute, levelRoute, sysRoute, linkRoute];
-          // menu = [dashboardRoute];
+          // menu = [dashboardRoute, authRoute, levelRoute, sysRoute, linkRoute];
+          menu = [dashboardRoute];
           break;
         case '2':
           dashboardRoute.redirect = dashboardRoute.path + '/' + dashboardRoute.children[1].path;

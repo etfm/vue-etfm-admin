@@ -1,13 +1,14 @@
-import type { Router, RouteLocationNormalized } from '@etfma/router';
+import type { Router, RouteLocationNormalized, AppRouteRecordRaw } from '@etfma/router';
 // import { useAppStoreWithOut } from '/@/store/modules/app'
 // import { useUserStoreWithOut } from '/@/store/modules/user'
 // import { useTransitionSetting } from '/@/hooks/setting/useTransitionSetting'
 // import { AxiosCanceler } from '/@/utils/http/axios/axiosCancel'
 // import { warn } from '/@/utils/log'
 // import { unref } from 'vue'
-import { setRouteChange } from '@/logics/mitt/routeChange';
+import { setRouteChange } from '@etfma/element-ui';
 import { createPermissionGuard } from './permissionGuard';
 import { createStateGuard } from './stateGuard';
+import { transformRouteToMenu } from '../helper/menuHelper';
 // import nProgress from 'nprogress'
 // import projectSetting from '/@/settings/projectSetting'
 // import { createParamMenuGuard } from './paramMenuGuard'
@@ -31,11 +32,12 @@ export function setupRouterGuard(router: Router) {
 function createPageGuard(router: Router) {
   const loadedPageMap = new Map<string, boolean>();
 
-  router.beforeEach(async (to) => {
+  router.beforeEach(async (to: any) => {
     // The page has already been loaded, it will be faster to open it again, you don’t need to do loading and other processing
     to.meta.loaded = !!loadedPageMap.get(to.path);
     // Notify routing changes
-    setRouteChange(to);
+    const menu = transformRouteToMenu([to]);
+    setRouteChange(menu[0]);
 
     return true;
   });

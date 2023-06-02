@@ -49,4 +49,7 @@
     emit('toggle', collapse);
   };
 </script>
-<style scoped lang="scss" module></style>
+<style scoped lang="scss" module>
+  @include b('layout-menu') {
+  }
+</style>

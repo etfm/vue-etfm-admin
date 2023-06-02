@@ -17,9 +17,9 @@ export function setRouteChange(lastChangeRoute: MenuRecordRaw) {
   emitter.emit(key, lastChangeRoute);
 }
 
-export function listenerRouteChange(callback: (route: MenuRecordRaw) => void) {
+export function listenerRouteChange(callback: (route: MenuRecordRaw) => void, immediate = true) {
   emitter.on(key, callback as any);
-  lastChangeTab && callback(lastChangeTab);
+  immediate && lastChangeTab && callback(lastChangeTab);
 }
 
 export function removeTabChangeListener() {

@@ -4,20 +4,23 @@
  */
 
 import { mitt } from '@etfma/shared';
-import type { MenuRecordRaw } from '@etfma/types';
+import type { RouteLocationNormalized } from '@etfma/types';
 
 const emitter = mitt();
 
 const key = Symbol('router-change');
 
-let lastChangeTab: MenuRecordRaw;
+let lastChangeTab: RouteLocationNormalized;
 
-export function setRouteChange(lastChangeRoute: MenuRecordRaw) {
+export function setRouteChange(lastChangeRoute: RouteLocationNormalized) {
   lastChangeTab = lastChangeRoute;
   emitter.emit(key, lastChangeRoute);
 }
 
-export function listenerRouteChange(callback: (route: MenuRecordRaw) => void, immediate = true) {
+export function listenerRouteChange(
+  callback: (route: RouteLocationNormalized) => void,
+  immediate = true,
+) {
   emitter.on(key, callback as any);
   immediate && lastChangeTab && callback(lastChangeTab);
 }

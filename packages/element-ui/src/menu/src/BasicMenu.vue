@@ -3,8 +3,7 @@
   import BasicSubMenu from './BasicSubMenu.vue';
   import type { MenuRecordRaw } from '@etfma/types';
   import { MenuModeEnum, MenuTypeEnum, Mode } from './enum';
-  import { computed, reactive } from 'vue';
-  import { listenerRouteChange } from './mitt';
+  import { computed, reactive, watch } from 'vue';
   import { lodash } from '@etfma/shared';
 
   defineOptions({
@@ -82,12 +81,15 @@
 
   const hasShowTitle = computed(() => !props.collapse);
 
-  /**
-   * 监听当前路由的变化
-   */
-  listenerRouteChange((menu) => {
-    handleMenuChange(menu);
-  });
+  watch(
+    () => props.defaultActive,
+    (newVal) => {
+      menuState.defaultActive = newVal ?? '';
+    },
+    {
+      immediate: true,
+    },
+  );
 
   /**
    * 收集默认打开菜单的key
@@ -103,14 +105,6 @@
    */
   function removeKey(key: string) {
     lodash.remove(menuState.defaultOpeneds, (k) => key == k);
-  }
-
-  /**
-   * 菜单发生变化，更新默认选中
-   * @param menu
-   */
-  function handleMenuChange(menu: MenuRecordRaw) {
-    menuState.defaultActive = menu.meta?.currentActiveMenu as string;
   }
 
   /**

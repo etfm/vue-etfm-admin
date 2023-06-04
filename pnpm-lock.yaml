@@ -341,6 +341,34 @@ importers:
         specifier: ^0.1.0
         version: 0.1.0(vite@4.3.8)
 
+  packages/core:
+    dependencies:
+      '@etfma/shared':
+        specifier: workspace:*
+        version: link:../shared
+      events:
+        specifier: ^3.3.0
+        version: 3.3.0
+      intl-messageformat:
+        specifier: ^10.3.5
+        version: 10.3.5
+      store:
+        specifier: ^2.0.12
+        version: 2.0.12
+      vue:
+        specifier: ^3.2.47
+        version: 3.3.4
+    devDependencies:
+      '@types/events':
+        specifier: ^3.0.0
+        version: 3.0.0
+      semver:
+        specifier: ^7.5.1
+        version: 7.5.1
+      strict-event-emitter-types:
+        specifier: ^2.0.0
+        version: 2.0.0
+
   packages/design:
     dependencies:
       modern-normalize:
@@ -802,7 +830,6 @@ packages:
     hasBin: true
     dependencies:
       '@babel/types': 7.21.5
-    dev: true
 
   /@babel/plugin-syntax-jsx@7.21.4(@babel/core@7.21.8):
     resolution: {integrity: sha512-5hewiLct5OKyh6PLKEYaFclcqtIgCb6bmELouxjF6up5q3Sov7rOayW4RwhbaBL0dit8rA80GNfY+UuDp2mBbQ==}
@@ -1340,6 +1367,40 @@ packages:
       '@floating-ui/core': 1.2.6
     dev: false
 
+  /@formatjs/ecma402-abstract@1.15.0:
+    resolution: {integrity: sha512-7bAYAv0w4AIao9DNg0avfOLTCPE9woAgs6SpXuMq11IN3A+l+cq8ghczwqSZBM11myvPSJA7vLn72q0rJ0QK6Q==}
+    dependencies:
+      '@formatjs/intl-localematcher': 0.2.32
+      tslib: 2.5.2
+    dev: false
+
+  /@formatjs/fast-memoize@2.0.1:
+    resolution: {integrity: sha512-M2GgV+qJn5WJQAYewz7q2Cdl6fobQa69S1AzSM2y0P68ZDbK5cWrJIcPCO395Of1ksftGZoOt4LYCO/j9BKBSA==}
+    dependencies:
+      tslib: 2.5.2
+    dev: false
+
+  /@formatjs/icu-messageformat-parser@2.4.0:
+    resolution: {integrity: sha512-6Dh5Z/gp4F/HovXXu/vmd0If5NbYLB5dZrmhWVNb+BOGOEU3wt7Z/83KY1dtd7IDhAnYHasbmKE1RbTE0J+3hw==}
+    dependencies:
+      '@formatjs/ecma402-abstract': 1.15.0
+      '@formatjs/icu-skeleton-parser': 1.4.0
+      tslib: 2.5.2
+    dev: false
+
+  /@formatjs/icu-skeleton-parser@1.4.0:
+    resolution: {integrity: sha512-Qq347VM616rVLkvN6QsKJELazRyNlbCiN47LdH0Mc5U7E2xV0vatiVhGqd3KFgbc055BvtnUXR7XX60dCGFuWg==}
+    dependencies:
+      '@formatjs/ecma402-abstract': 1.15.0
+      tslib: 2.5.2
+    dev: false
+
+  /@formatjs/intl-localematcher@0.2.32:
+    resolution: {integrity: sha512-k/MEBstff4sttohyEpXxCmC3MqbUn9VvHGlZ8fauLzkbwXmVrEeyzS+4uhrvAk9DWU9/7otYWxyDox4nT/KVLQ==}
+    dependencies:
+      tslib: 2.5.2
+    dev: false
+
   /@hapi/hoek@9.3.0:
     resolution: {integrity: sha512-/c6rf4UJlmHlC9b5BaNvzAcFv7HZ2QHaV0D4/HNlBdvFnvQq8RI4kYdhyPCl7Xj+oWvTWQ8ujhqS53LIgAe6KQ==}
     dev: true
@@ -1829,6 +1890,10 @@ packages:
 
   /@types/estree@1.0.1:
     resolution: {integrity: sha512-LG4opVs2ANWZ1TJoKc937iMmNstM/d0ae1vNbnBvBhqCSezgVUOzcLCqbI5elV8Vy6WKwKjaqR+zO9VKirBBCA==}
+    dev: true
+
+  /@types/events@3.0.0:
+    resolution: {integrity: sha512-EaObqwIvayI5a8dCzhFrjKzVwKLxjoG9T6Ppd5CEo07LRKfQ8Yokw54r5+Wq7FaBQ+yXRvQAYPrHwya1/UFt9g==}
     dev: true
 
   /@types/fs-extra@11.0.1:
@@ -2481,7 +2546,7 @@ packages:
   /@vue/compiler-core@3.3.4:
     resolution: {integrity: sha512-cquyDNvZ6jTbf/+x+AgM2Arrp6G4Dzbb0R64jiG804HRMfRiFXWI6kqUVqZ6ZR0bQhIoQjB4+2bhNtVwndW15g==}
     dependencies:
-      '@babel/parser': 7.21.8
+      '@babel/parser': 7.22.4
       '@vue/shared': 3.3.4
       estree-walker: 2.0.2
       source-map-js: 1.0.2
@@ -2495,7 +2560,7 @@ packages:
   /@vue/compiler-sfc@3.3.4:
     resolution: {integrity: sha512-6y/d8uw+5TkCuzBkgLS0v3lSM3hJDntFEiUORM11pQ/hKvkhSKZrXW6i69UyXlJQisJxuUEJKAWEqWbWsLeNKQ==}
     dependencies:
-      '@babel/parser': 7.21.8
+      '@babel/parser': 7.22.4
       '@vue/compiler-core': 3.3.4
       '@vue/compiler-dom': 3.3.4
       '@vue/compiler-ssr': 3.3.4
@@ -4402,6 +4467,11 @@ packages:
       through: 2.3.8
     dev: true
 
+  /events@3.3.0:
+    resolution: {integrity: sha512-mQw+2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q==}
+    engines: {node: '>=0.8.x'}
+    dev: false
+
   /evtd@0.2.4:
     resolution: {integrity: sha512-qaeGN5bx63s/AXgQo8gj6fBkxge+OoLddLniox5qtLAEY5HSnuSlISXVPxnSae1dWblvTh4/HoMIB+mbMsvZzw==}
     dev: false
@@ -5119,6 +5189,15 @@ packages:
       has: 1.0.3
       side-channel: 1.0.4
     dev: true
+
+  /intl-messageformat@10.3.5:
+    resolution: {integrity: sha512-6kPkftF8Jg3XJCkGKa5OD+nYQ+qcSxF4ZkuDdXZ6KGG0VXn+iblJqRFyDdm9VvKcMyC0Km2+JlVQffFM52D0YA==}
+    dependencies:
+      '@formatjs/ecma402-abstract': 1.15.0
+      '@formatjs/fast-memoize': 2.0.1
+      '@formatjs/icu-messageformat-parser': 2.4.0
+      tslib: 2.5.2
+    dev: false
 
   /is-accessor-descriptor@0.1.6:
     resolution: {integrity: sha512-e1BM1qnDbMRG3ll2U9dSK0UMHuWOs3pY3AtcFsmvwPtKL3MML/Q86i+GilLfvqEs4GW+ExB91tQ3Ig9noDIZ+A==}
@@ -7592,10 +7671,18 @@ packages:
     resolution: {integrity: sha512-Rz6yejtVyWnVjC1RFvNmYL10kgjC49EOghxWn0RFqlCHGFpQx+Xe7yW3I4ceK1SGrWIGMjD5Kbue8W/udkbMJg==}
     dev: true
 
+  /store@2.0.12:
+    resolution: {integrity: sha512-eO9xlzDpXLiMr9W1nQ3Nfp9EzZieIQc10zPPMP5jsVV7bLOziSFFBP0XoDXACEIFtdI+rIz0NwWVA/QVJ8zJtw==}
+    dev: false
+
   /stream-combiner@0.0.4:
     resolution: {integrity: sha512-rT00SPnTVyRsaSz5zgSPma/aHSOic5U1prhYdRy5HS2kTZviFpmDgzilbtsJsxiroqACmayynDN/9VzIbX5DOw==}
     dependencies:
       duplexer: 0.1.2
+    dev: true
+
+  /strict-event-emitter-types@2.0.0:
+    resolution: {integrity: sha512-Nk/brWYpD85WlOgzw5h173aci0Teyv8YdIAEtV+N88nDB0dLlazZyJMIsN6eo1/AR61l+p6CJTG1JIyFaoNEEA==}
     dev: true
 
   /strict-uri-encode@1.1.0:
@@ -8166,7 +8253,6 @@ packages:
 
   /tslib@2.5.2:
     resolution: {integrity: sha512-5svOrSA2w3iGFDs1HibEVBGbDrAY82bFQ3HZ3ixB+88nsbsWQoKqDRb5UBYAUPEzbBn6dAp5gRNXglySbx1MlA==}
-    dev: true
 
   /tsutils@3.21.0(typescript@5.0.4):
     resolution: {integrity: sha512-mHKK3iUXL+3UF6xL5k0PEhKRUBKPBCv/+RkEOpjRWxxx27KKRBmmA60A9pgOUvMi8GKhRMPEmjBRPzs2W7O1OA==}

@@ -4,7 +4,6 @@ import {
   PanelConfig,
   WidgetConfig,
   PanelDockConfig,
-  DialogDockConfig,
   isDockConfig,
   isPanelDockConfig,
   isPanelConfig,
@@ -47,11 +46,11 @@ export class Skeleton {
 
   private containers = new Map<string, WidgetContainer<any>>();
 
-  readonly leftArea: Area<DockConfig | PanelDockConfig | DialogDockConfig>;
+  readonly leftArea: Area<DockConfig | PanelDockConfig>;
 
-  readonly topArea: Area<DockConfig | DividerConfig | PanelDockConfig | DialogDockConfig>;
+  readonly topArea: Area<DockConfig | PanelDockConfig>;
 
-  readonly toolbar: Area<DockConfig | DividerConfig | PanelDockConfig | DialogDockConfig>;
+  readonly toolbar: Area<DockConfig | PanelDockConfig>;
 
   readonly leftFixedArea: Area<PanelConfig, Panel>;
 
@@ -298,15 +297,7 @@ export class Skeleton {
       } else {
         widget = new Dock(this, config);
       }
-    }
-    // else if (isDividerConfig(config)) {
-    //   widget = new Widget(this, {
-    //     ...config,
-    //     type: 'Widget',
-    //     content: Divider,
-    //   })
-    // }
-    else if (isPanelConfig(config)) {
+    } else if (isPanelConfig(config)) {
       widget = this.createPanel(config);
     } else {
       widget = new Widget(this, config as WidgetConfig);

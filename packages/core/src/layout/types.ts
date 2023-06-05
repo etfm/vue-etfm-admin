@@ -1,6 +1,7 @@
 import { VNode } from 'vue';
 import { IWidget } from './widget/widget';
-import { IWidgetBaseConfig, IWidgetConfigArea } from '../../types/api';
+import { IWidgetBaseConfig, IWidgetConfigArea } from '../types/api';
+import { I18nData } from '../types/i18n';
 
 export interface WidgetConfig extends IWidgetBaseConfig {
   type: 'Widget';
@@ -16,23 +17,9 @@ export function isWidgetConfig(obj: any): obj is WidgetConfig {
 }
 
 export interface DockProps {
-  title?: TitleContent;
-  icon?: IconType;
   size?: 'small' | 'medium' | 'large';
   className?: string;
-  description?: TipContent;
   onClick?: () => void;
-}
-
-export interface DividerConfig extends IWidgetBaseConfig {
-  type: 'Divider';
-  props?: {
-    align?: 'left' | 'right' | 'center';
-  };
-}
-
-export function isDividerConfig(obj: any): obj is DividerConfig {
-  return obj && obj.type === 'Divider';
 }
 
 export interface IDockBaseConfig extends IWidgetBaseConfig {
@@ -65,8 +52,6 @@ export function isPanelConfig(obj: any): obj is PanelConfig {
 export type HelpTipConfig = string | { url?: string; content?: string | VNode };
 
 export interface PanelProps {
-  title?: TitleContent;
-  icon?: any; // 冗余字段
   description?: string | I18nData;
   hideTitleBar?: boolean; // panel.props 兼容，不暴露
   help?: HelpTipConfig; // 显示问号帮助

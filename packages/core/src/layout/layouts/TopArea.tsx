@@ -1,7 +1,7 @@
-import classNames from 'classnames'
-import { defineComponent, PropType } from 'vue'
-import { Area } from '../area'
-import { observer } from '@elcplat/lowcode-core'
+import classNames from 'classnames';
+import { defineComponent, PropType } from 'vue';
+import { Area } from '../area';
+import { observer } from '../../obx';
 
 export const TopArea = observer(
   defineComponent({
@@ -17,30 +17,30 @@ export const TopArea = observer(
     },
     setup(props) {},
     render() {
-      const left: any[] = []
-      const center: any[] = []
-      const right: any[] = []
+      const left: any[] = [];
+      const center: any[] = [];
+      const right: any[] = [];
       this.area.container.items
         .slice()
         .sort((a, b) => {
-          const index1 = a.config?.index || 0
-          const index2 = b.config?.index || 0
-          return index1 === index2 ? 0 : index1 > index2 ? 1 : -1
+          const index1 = a.config?.index || 0;
+          const index2 = b.config?.index || 0;
+          return index1 === index2 ? 0 : index1 > index2 ? 1 : -1;
         })
         .forEach((item) => {
           const content = (
             <div class={this.itemClassName || ''} key={`top-area-${item.name}`}>
               {item.content}
             </div>
-          )
+          );
           if (item.align === 'center') {
-            center.push(content)
+            center.push(content);
           } else if (item.align === 'left') {
-            left.push(content)
+            left.push(content);
           } else {
-            right.push(content)
+            right.push(content);
           }
-        })
+        });
 
       return (
         <div
@@ -52,7 +52,7 @@ export const TopArea = observer(
           <div class="lc-top-area-center">{center}</div>
           <div class="lc-top-area-right">{right}</div>
         </div>
-      )
+      );
     },
-  })
-)
+  }),
+);

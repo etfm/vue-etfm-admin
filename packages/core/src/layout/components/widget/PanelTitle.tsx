@@ -1,9 +1,10 @@
-import classNames from 'classnames'
-import { defineComponent, PropType } from 'vue'
-import { Panel } from '../../widget'
-import { Icon, Tip, Title } from '@elcplat/lowcode-components'
-import { observer } from '@elcplat/lowcode-core'
+import classNames from 'classnames';
+import { defineComponent, PropType } from 'vue';
+import { Panel } from '../../widget';
+import { Icon, Tip, Title } from '@elcplat/lowcode-components';
+import { observer } from '@elcplat/lowcode-core';
 
+//不需要
 export const PanelTitle = observer(
   defineComponent({
     name: 'PanelTitle',
@@ -24,15 +25,15 @@ export const PanelTitle = observer(
               </a>
               <Tip>{tip.content}</Tip>
             </div>
-          )
+          );
         }
         return (
           <div>
             <Icon type="help" size="small" class="lc-help-tip" />
             <Tip>{tip.content}</Tip>
           </div>
-        )
-      }
+        );
+      };
 
       return (
         <div
@@ -44,7 +45,7 @@ export const PanelTitle = observer(
           <Title title={this.panel.title || this.panel.name} />
           {this.panel.help ? <HelpTip tip={this.panel.help} /> : null}
         </div>
-      )
+      );
     },
-  })
-)
+  }),
+);

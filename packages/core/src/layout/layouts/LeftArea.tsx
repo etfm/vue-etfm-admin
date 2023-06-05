@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { defineComponent, PropType } from 'vue';
 import { Area } from '../area';
-import { observer } from '@elcplat/lowcode-core';
+import { observer } from '../../obx';
 
 export const LeftArea = observer(
   defineComponent({

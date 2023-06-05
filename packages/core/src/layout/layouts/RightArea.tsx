@@ -1,8 +1,8 @@
-import classNames from 'classnames'
-import { defineComponent, PropType } from 'vue'
-import { Area } from '../area'
-import { Panel } from '../widget'
-import { observer } from '@elcplat/lowcode-core'
+import classNames from 'classnames';
+import { defineComponent, PropType } from 'vue';
+import { Area } from '../area';
+import { Panel } from '../widget';
+import { observer } from '../../obx';
 
 export const RightArea = observer(
   defineComponent({
@@ -22,7 +22,7 @@ export const RightArea = observer(
         >
           {this.area.container.items.map((item) => item.content)}
         </div>
-      )
+      );
     },
-  })
-)
+  }),
+);

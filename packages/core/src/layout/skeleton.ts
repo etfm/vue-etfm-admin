@@ -1,4 +1,4 @@
-import { action, define } from '../../obx';
+import { action, define } from '../obx';
 import {
   DockConfig,
   PanelConfig,
@@ -7,7 +7,6 @@ import {
   isDockConfig,
   isPanelDockConfig,
   isPanelConfig,
-  DividerConfig,
 } from './types';
 import {
   WidgetContainer,
@@ -24,9 +23,9 @@ import {
 import { Area } from './area';
 import { isVNode } from 'vue';
 import { Logger, lodash } from '@etfma/shared';
-import { Editor } from '../../core/core';
-import { EditorConfig } from '../../types/core';
-import { IWidgetBaseConfig, IWidgetConfigArea } from '../../types/api';
+import { Editor } from '../core/core';
+import { EditorConfig } from '../types/core';
+import { IWidgetBaseConfig, IWidgetConfigArea } from '../types/api';
 
 const logger = new Logger({ bizName: 'skeleton' });
 
@@ -228,7 +227,7 @@ export class Skeleton {
   }
 
   private setupPlugins() {
-    const { config, components = {} } = this.editor;
+    const { config } = this.editor;
     if (!config) {
       return;
     }
@@ -264,9 +263,6 @@ export class Skeleton {
           config.type = 'Panel';
         } else if (/Icon$/.test(type)) {
           config.type = type.replace('Icon', 'Dock');
-        }
-        if (pluginKey in components) {
-          config.content = components[pluginKey];
         }
         this.add(config as IWidgetBaseConfig);
       });
@@ -332,15 +328,6 @@ export class Skeleton {
 
   getStage(name: string) {
     return this.stages.container.get(name);
-  }
-
-  createStage(config: any) {
-    const stage = this.add({
-      name: lodash.uniqueId('stage'),
-      area: 'stages',
-      ...config,
-    });
-    return stage?.getName?.();
   }
 
   createContainer(

@@ -1,8 +1,8 @@
-import { IconType, TipContent, TitleContent } from '@elcplat/lowcode-types'
-import classNames from 'classnames'
-import { defineComponent, PropType } from 'vue'
-import { composeTitle } from '../../utils'
-import { Title } from '@elcplat/lowcode-components'
+import { IconType, TipContent, TitleContent } from '@elcplat/lowcode-types';
+import classNames from 'classnames';
+import { defineComponent, PropType } from 'vue';
+import { composeTitle } from '../../utils';
+import { Title } from '@elcplat/lowcode-components';
 
 export const DockView = defineComponent({
   name: 'DockView',
@@ -25,10 +25,10 @@ export const DockView = defineComponent({
     },
   },
   setup(props) {
-    const title = composeTitle(props.title, props.icon, props.description)
+    const title = composeTitle(props.title, props.icon, props.description);
     return {
       title,
-    }
+    };
   },
   render() {
     return (
@@ -39,6 +39,6 @@ export const DockView = defineComponent({
         })}
         onClick={this.onClick}
       />
-    )
+    );
   },
-})
+});

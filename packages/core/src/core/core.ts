@@ -4,6 +4,7 @@ import { globalLocale } from '../intl';
 import Preference from '../utils/preference';
 import { observable, define } from '../obx';
 import {
+  EditorConfig,
   IPublicModelEditor,
   IPublicTypeEditorGetResult,
   IPublicTypeEditorValueKey,
@@ -11,8 +12,6 @@ import {
 import { EventBus, IEventBus } from './event-bus';
 
 const keyBlacklist = ['skeleton', 'plugins'];
-
-interface EditorConfig {}
 
 export interface IEditor extends IPublicModelEditor {
   config?: EditorConfig;

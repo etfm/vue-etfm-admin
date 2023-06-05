@@ -1,4 +1,3 @@
-import { EditorConfig, PluginClassSet } from '@elcplat/lowcode-types';
 import { defineComponent, PropType } from 'vue';
 import { Skeleton } from '../skeleton';
 import './workbench.less';
@@ -11,7 +10,8 @@ import { Toolbar } from './Toolbar';
 import { RightArea } from './RightArea';
 import { MainArea } from './MainArea';
 import { BottomArea } from './BottomArea';
-import { observer } from '../../../obx';
+import { observer } from '../../obx';
+import { EditorConfig } from '../../types/core';
 
 export const Workbench = observer(
   defineComponent({

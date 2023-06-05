@@ -1,9 +1,9 @@
-import classNames from 'classnames'
-import { defineComponent, PropType, onUpdated } from 'vue'
-import { Area } from '../area'
-import { PanelConfig } from '../types'
-import { Panel } from '../widget'
-import { observer } from '@elcplat/lowcode-core'
+import classNames from 'classnames';
+import { defineComponent, PropType, onUpdated } from 'vue';
+import { Area } from '../area';
+import { PanelConfig } from '../types';
+import { Panel } from '../widget';
+import { observer } from '../../obx';
 
 export const LeftFixedPane = observer(
   defineComponent({
@@ -16,16 +16,16 @@ export const LeftFixedPane = observer(
     },
     setup(props) {
       onUpdated(() => {
-        props.area.skeleton.editor.get('designer')?.touchOffsetObserver()
-      })
+        props.area.skeleton.editor.get('designer')?.touchOffsetObserver();
+      });
     },
     render() {
-      const width = this.area.current?.config.props?.width
+      const width = this.area.current?.config.props?.width;
       const style = width
         ? {
             width,
           }
-        : undefined
+        : undefined;
 
       return (
         <div
@@ -36,7 +36,7 @@ export const LeftFixedPane = observer(
         >
           {this.area.container.items.map((panel) => panel.content)}
         </div>
-      )
+      );
     },
-  })
-)
+  }),
+);

@@ -1,8 +1,8 @@
-import { observable, define } from '../../obx';
+import { observable, define } from '../obx';
 import { WidgetContainer } from './widget';
 import { Skeleton } from './skeleton';
 import { IWidget } from './widget/widget';
-import { IWidgetBaseConfig } from '../../types/api';
+import { IWidgetBaseConfig } from '../types/api';
 
 export class Area<C extends IWidgetBaseConfig = any, T extends IWidget = IWidget> {
   private lastCurrent: T | null = null;

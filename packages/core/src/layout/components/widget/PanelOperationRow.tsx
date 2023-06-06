@@ -32,20 +32,13 @@ export const PanelOperationRow = defineComponent({
       return null;
     }
 
-    const hideTitleBar = this.panel?.config.props?.hideTitleBar;
-
-    const areaName = this.panel?.parent?.name;
-    const area = this.panel.skeleton[areaName];
+    const areaName = this.panel?.parent?.name as string;
 
     return (
       <Fragment>
-        {!hideTitleBar && (
-          <Fragment>
-            <div text class="lc-pane-icon-fix" onClick={this.setDisplay}>
-              {areaName === 'leftFloatArea' ? <IconFix /> : <IconFloat />}
-            </div>
-          </Fragment>
-        )}
+        <div class="lc-pane-icon-fix" onClick={this.setDisplay}>
+          {areaName === 'leftFloatArea' ? <IconFix /> : <IconFloat />}
+        </div>
       </Fragment>
     );
   },

@@ -36,6 +36,7 @@
     "classnames": "^2.3.2",
     "events": "^3.3.0",
     "intl-messageformat": "^10.3.5",
+    "power-di": "^2.4.37",
     "store": "^2.0.12"
   },
   "peerDependencies": {

@@ -65,7 +65,7 @@ export interface PanelProps {
 
 export interface PanelDockConfig extends IDockBaseConfig {
   type: 'PanelDock';
-  panelName?: string;
+  panel?: string | VNode | PanelConfig[];
   panelProps?: PanelProps & {
     area?: IWidgetConfigArea;
   };

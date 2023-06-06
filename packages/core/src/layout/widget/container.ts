@@ -1,6 +1,6 @@
 import { define, observable } from '../../obx';
 import { isPanel } from './panel';
-import { hasOwnProperty } from '../../shell';
+import { hasOwnProperty } from '../../utils';
 
 export interface WidgetItem {
   name: string;

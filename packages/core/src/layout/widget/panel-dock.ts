@@ -3,7 +3,7 @@ import { createElement, uniqueId } from '../../utils';
 import { Skeleton } from '../skeleton';
 import { PanelDockConfig } from '../types';
 import { Panel } from './panel';
-import { PanelDockView, WidgetView } from '../components/widget';
+import { PanelDockView } from '../components/widget';
 import { IWidget } from './widget';
 import { ComponentInternalInstance } from 'vue';
 
@@ -27,9 +27,8 @@ export class PanelDock implements IWidget {
       return this._body;
     }
     this.inited = true;
-    const { props } = this.config;
-    // TODO
-    this._body = createElement(PanelDockView, {
+    const { props, content } = this.config;
+    this._body = createElement(content, {
       ...props,
       dock: this,
     });
@@ -74,7 +73,7 @@ export class PanelDock implements IWidget {
   }
 
   constructor(readonly skeleton: Skeleton, readonly config: PanelDockConfig) {
-    const { content, contentProps, panelProps, name, props } = config;
+    const { content, contentProps, panel, panelProps, name, props } = config;
     this.name = name;
     this.id = uniqueId(`dock:${name}$`);
     this.panelName = config.panelName || name;
@@ -87,7 +86,7 @@ export class PanelDock implements IWidget {
         name: this.panelName,
         props: _panelProps,
         contentProps,
-        content,
+        content: panel,
         area: panelProps?.area,
       }) as Panel;
     }

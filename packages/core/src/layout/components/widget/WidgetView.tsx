@@ -1,5 +1,7 @@
 import { defineComponent, onMounted, onUpdated, PropType, ref } from 'vue';
 import { observer } from '../../../obx';
+import { IWidget } from '../../widget';
+import { SkeletonEvents } from '../../skeleton';
 
 export const WidgetView = observer(
   defineComponent({

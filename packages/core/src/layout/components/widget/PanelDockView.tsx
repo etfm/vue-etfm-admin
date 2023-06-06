@@ -1,5 +1,6 @@
 import { defineComponent, PropType, onUpdated, onMounted, ref } from 'vue';
 import { PanelDock } from '../../widget/panel-dock';
+import { SkeletonEvents } from '../../skeleton';
 
 export const PanelDockView = defineComponent({
   name: 'PanelDockView',

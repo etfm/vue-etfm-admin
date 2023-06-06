@@ -1,96 +1,86 @@
-import { observable, define } from '@elcplat/lowcode-core'
-import { createElement, uniqueId } from '@elcplat/lowcode-shared'
-import { Skeleton } from '../skeleton'
-import { PanelDockConfig } from '../types'
-import { Panel } from './panel'
-import { PanelDockView, WidgetView } from '../components/widget'
-import { IWidget } from './widget'
-import { composeTitle } from '../utils'
-import { ComponentInternalInstance } from 'vue'
+import { observable, define } from '../../obx';
+import { createElement, uniqueId } from '../../utils';
+import { Skeleton } from '../skeleton';
+import { PanelDockConfig } from '../types';
+import { Panel } from './panel';
+import { PanelDockView, WidgetView } from '../components/widget';
+import { IWidget } from './widget';
+import { ComponentInternalInstance } from 'vue';
 
 export class PanelDock implements IWidget {
-  readonly isWidget = true
+  readonly isWidget = true;
 
-  readonly isPanelDock = true
+  readonly isPanelDock = true;
 
-  readonly id: string
+  readonly id: string;
 
-  readonly name: string
+  readonly name: string;
 
-  readonly align?: string
+  readonly align?: string;
 
-  private inited = false
+  private inited = false;
 
-  private _body: any
+  private _body: any;
 
   get body() {
     if (this.inited) {
-      return this._body
+      return this._body;
     }
-    this.inited = true
-    const { props } = this.config
-
+    this.inited = true;
+    const { props } = this.config;
+    // TODO
     this._body = createElement(PanelDockView, {
       ...props,
       dock: this,
-    })
+    });
 
-    return this._body
+    return this._body;
   }
 
-  private _shell: ComponentInternalInstance | null = null
+  private _shell: ComponentInternalInstance | null = null;
 
   get content() {
-    return createElement(WidgetView, {
+    return createElement(PanelDockView, {
       widget: this,
       ref: (ref: ComponentInternalInstance | null) => {
-        this._shell = ref
+        this._shell = ref;
       },
       key: this.id,
-    })
+    });
   }
 
   getDOMNode() {
-    return this._shell
+    return this._shell;
   }
 
-  _visible = true
+  _visible = true;
 
   get visible() {
-    return this._visible
+    return this._visible;
   }
 
   get actived(): boolean {
-    return this.panel?.visible || false
+    return this.panel?.visible || false;
   }
 
-  readonly panelName: string
+  readonly panelName: string;
 
-  private _panel?: Panel
+  private _panel?: Panel;
 
-  _disabled = false
+  _disabled = false;
 
   get panel() {
-    return this._panel || this.skeleton.getPanel(this.panelName)
+    return this._panel || this.skeleton.getPanel(this.panelName);
   }
 
   constructor(readonly skeleton: Skeleton, readonly config: PanelDockConfig) {
-    const { content, contentProps, panelProps, name, props } = config
-    this.name = name
-    this.id = uniqueId(`dock:${name}$`)
-    this.panelName = config.panelName || name
-    this.align = props?.align
+    const { content, contentProps, panelProps, name, props } = config;
+    this.name = name;
+    this.id = uniqueId(`dock:${name}$`);
+    this.panelName = config.panelName || name;
+    this.align = props?.align;
     if (content) {
-      const _panelProps: any = { ...panelProps }
-      if (_panelProps.title == null && props) {
-        _panelProps.title = composeTitle(
-          props.title,
-          undefined,
-          props.description,
-          true,
-          true
-        )
-      }
+      const _panelProps: any = { ...panelProps };
 
       this._panel = this.skeleton.add({
         type: 'Panel',
@@ -99,13 +89,13 @@ export class PanelDock implements IWidget {
         contentProps,
         content,
         area: panelProps?.area,
-      }) as Panel
+      }) as Panel;
     }
     if (props?.onInit) {
-      props.onInit.call(this, this)
+      props.onInit.call(this, this);
     }
 
-    this.makeObservable()
+    this.makeObservable();
   }
 
   makeObservable() {
@@ -114,70 +104,70 @@ export class PanelDock implements IWidget {
       actived: observable.computed,
       _disabled: observable.ref,
       panel: observable.computed,
-    })
+    });
   }
 
   setVisible(flag: boolean) {
     if (flag === this._visible) {
-      return
+      return;
     }
     if (flag) {
-      this._visible = true
+      this._visible = true;
     } else if (this.inited) {
-      this._visible = false
+      this._visible = false;
     }
   }
 
   hide() {
-    this.setVisible(false)
+    this.setVisible(false);
   }
 
   show() {
-    this.setVisible(true)
+    this.setVisible(true);
   }
 
   toggle() {
-    this.setVisible(!this._visible)
+    this.setVisible(!this._visible);
   }
 
   private setDisabled(flag: boolean) {
-    if (this._disabled === flag) return
-    this._disabled = flag
+    if (this._disabled === flag) return;
+    this._disabled = flag;
   }
 
   disable() {
-    this.setDisabled(true)
+    this.setDisabled(true);
   }
 
   enable() {
-    this.setDisabled(false)
+    this.setDisabled(false);
   }
 
   get disabled(): boolean {
-    return this._disabled
+    return this._disabled;
   }
 
   togglePanel() {
-    this.panel?.toggle()
+    this.panel?.toggle();
   }
 
   getName() {
-    return this.name
+    return this.name;
   }
 
   getContent() {
-    return this.content
+    return this.content;
   }
 
   hidePanel() {
-    this.panel?.setActive(false)
+    this.panel?.setActive(false);
   }
 
   showPanel() {
-    this.panel?.setActive(true)
+    this.panel?.setActive(true);
   }
 }
 
 export function isPanelDock(obj: any): obj is PanelDock {
-  return obj && obj.isPanelDock
+  return obj && obj.isPanelDock;
 }

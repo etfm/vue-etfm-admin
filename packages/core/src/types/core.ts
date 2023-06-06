@@ -113,10 +113,7 @@ export interface PluginConfig {
     marked?: boolean;
     align?: 'left' | 'right' | 'top' | 'bottom';
     onClick?: () => void;
-    dialogProps?: Record<string, unknown>;
-    balloonProps?: Record<string, unknown>;
     panelProps?: Record<string, unknown>;
-    linkProps?: Record<string, unknown>;
   };
   config?: any;
   pluginProps?: Record<string, unknown>;

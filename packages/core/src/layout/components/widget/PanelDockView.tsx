@@ -1,10 +1,5 @@
-import { IconType, TipContent, TitleContent } from '@elcplat/lowcode-types'
-import classNames from 'classnames'
-import { defineComponent, PropType, onUpdated, onMounted } from 'vue'
-import { SkeletonEvents } from '../../skeleton'
-import { composeTitle } from '../../utils'
-import { PanelDock } from '../../widget'
-import { Title } from '@elcplat/lowcode-components'
+import { defineComponent, PropType, onUpdated, onMounted, ref } from 'vue';
+import { PanelDock } from '../../widget/panel-dock';
 
 export const PanelDockView = defineComponent({
   name: 'PanelDockView',
@@ -13,71 +8,73 @@ export const PanelDockView = defineComponent({
       type: Object as PropType<PanelDock>,
       required: true,
     },
-    title: {
-      type: [String, Object] as PropType<TitleContent>,
-    },
-    icon: {
-      type: [String, Object] as PropType<IconType>,
-    },
-    size: {
-      type: String as PropType<'small' | 'medium' | 'large'>,
-    },
-    description: {
-      type: [String, Object] as PropType<TipContent>,
-    },
     onClick: {
       type: Function as PropType<() => void>,
     },
   },
   setup(props) {
-    let lastActived = false
+    let lastActived = ref(false);
+    const lastVisible = ref(false);
+    const lastDisabled = ref(false);
 
     onMounted(() => {
-      checkActived()
-    })
+      checkDisabled();
+      checkActived();
+      checkActived();
+    });
 
     onUpdated(() => {
-      checkActived()
-    })
-
-    const handleClick = () => {
-      props.onClick && props.onClick()
-      props.dock.togglePanel()
-    }
+      checkVisible();
+      checkVisible();
+      checkDisabled();
+    });
 
     const checkActived = () => {
-      const { dock } = props
-      if (dock.actived !== lastActived) {
-        lastActived = dock.actived
+      const { dock } = props;
+      if (dock.actived !== lastActived.value) {
+        lastActived.value = dock.actived;
         if (lastActived) {
-          dock.skeleton.postEvent(
-            SkeletonEvents.PANEL_DOCK_ACTIVE,
-            dock.name,
-            dock
-          )
+          dock.skeleton.postEvent(SkeletonEvents.PANEL_DOCK_ACTIVE, dock.name, dock);
         } else {
-          dock.skeleton.postEvent(
-            SkeletonEvents.PANEL_DOCK_UNACTIVE,
-            dock.name,
-            dock
-          )
+          dock.skeleton.postEvent(SkeletonEvents.PANEL_DOCK_UNACTIVE, dock.name, dock);
         }
       }
-    }
+    };
 
-    return {
-      handleClick,
-    }
+    const checkVisible = () => {
+      const { dock } = props;
+      const currentVisible = dock.visible;
+
+      if (currentVisible !== lastVisible.value) {
+        lastVisible.value = currentVisible;
+        if (lastVisible.value) {
+          dock.skeleton.postEvent(SkeletonEvents.WIDGET_SHOW, dock.name, dock);
+        } else {
+          dock.skeleton.postEvent(SkeletonEvents.WIDGET_SHOW, dock.name, dock);
+        }
+      }
+    };
+
+    const checkDisabled = () => {
+      const { dock } = props;
+      const currentDisabled = dock.disabled ?? false;
+      if (currentDisabled !== lastDisabled.value) {
+        lastDisabled.value = currentDisabled;
+        if (lastDisabled.value) {
+          dock.skeleton.postEvent(SkeletonEvents.WIDGET_DISABLE, dock.name, dock);
+        } else {
+          dock.skeleton.postEvent(SkeletonEvents.WIDGET_ENABLE, dock.name, dock);
+        }
+      }
+    };
   },
   render() {
-    return (
-      <Title
-        title={composeTitle(this.title, this.icon, this.description) as any}
-        class={classNames('lc-dock', this.$attrs.class as string, {
-          [`lc-dock-${this.size}`]: this.size,
-        })}
-        onClick={this.handleClick}
-      />
-    )
+    if (!this.dock.visible) {
+      return null;
+    }
+    if (this.dock.disabled) {
+      return <div class="lc-widget-disabled">{this.dock.body}</div>;
+    }
+    return this.dock.body;
   },
-})
+});

@@ -1,10 +1,11 @@
-import { define, observable } from '../../../obx';
+import { define, observable } from '../../obx';
 import { lodash } from '@etfma/shared';
 import { WidgetConfig } from '../types';
 import { Skeleton } from '../skeleton';
 import { WidgetView } from '../components/widget';
-import { IWidgetBaseConfig } from '../../../types/api';
-import { createElement } from '../../../shell';
+import { IWidgetBaseConfig } from '../../types/api';
+import { createElement } from '../../utils';
+import { getEvent } from '../../shell';
 
 export interface IWidget {
   readonly name: string;

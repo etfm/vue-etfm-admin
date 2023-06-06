@@ -4,22 +4,10 @@ import {
   PanelConfig,
   WidgetConfig,
   PanelDockConfig,
-  isDockConfig,
   isPanelDockConfig,
   isPanelConfig,
 } from './types';
-import {
-  WidgetContainer,
-  Panel,
-  isPanel,
-  Widget,
-  isWidget,
-  IWidget,
-  PanelDock,
-  Dock,
-  Stage,
-  StageConfig,
-} from './widget';
+import { WidgetContainer, Panel, isPanel, Widget, isWidget, IWidget, PanelDock } from './widget';
 import { Area } from './area';
 import { isVNode } from 'vue';
 import { Logger, lodash } from '@etfma/shared';
@@ -60,8 +48,6 @@ export class Skeleton {
   readonly mainArea: Area<WidgetConfig | PanelConfig, Widget | Panel>;
 
   readonly bottomArea: Area<PanelConfig, Panel>;
-
-  readonly stages: Area<StageConfig, Stage>;
 
   constructor(readonly editor: Editor) {
     this.leftArea = new Area(
@@ -157,12 +143,6 @@ export class Skeleton {
       },
       true,
     );
-    this.stages = new Area(this, 'stages', (config) => {
-      if (isWidget(config)) {
-        return config;
-      }
-      return new Stage(this, config);
-    });
 
     // this.setupPlugins()
     this.setupEvents();
@@ -238,31 +218,17 @@ export class Skeleton {
     }
     Object.keys(plugins).forEach((area) => {
       plugins[area].forEach((item) => {
-        const { pluginKey, type, props = {}, pluginProps } = item;
+        const { pluginKey, props = {}, pluginProps } = item;
         const config: Partial<IWidgetBaseConfig> = {
           area: area as IWidgetConfigArea,
           type: 'Widget',
           name: pluginKey,
           contentProps: pluginProps,
         };
-        const { dialogProps, balloonProps, panelProps, linkProps, ...restProps } = props;
+        const { panelProps, ...restProps } = props;
         config.props = restProps;
-        if (dialogProps) {
-          config.dialogProps = dialogProps;
-        }
-        if (balloonProps) {
-          config.balloonProps = balloonProps;
-        }
         if (panelProps) {
           config.panelProps = panelProps;
-        }
-        if (linkProps) {
-          config.linkProps = linkProps;
-        }
-        if (type === 'TabPanel') {
-          config.type = 'Panel';
-        } else if (/Icon$/.test(type)) {
-          config.type = type.replace('Icon', 'Dock');
         }
         this.add(config as IWidgetBaseConfig);
       });
@@ -284,15 +250,8 @@ export class Skeleton {
 
     let widget: IWidget;
 
-    if (isDockConfig(config)) {
-      if (isPanelDockConfig(config)) {
-        widget = new PanelDock(this, config);
-      } else if (false) {
-        // DialogDock
-        // others...
-      } else {
-        widget = new Dock(this, config);
-      }
+    if (isPanelDockConfig(config)) {
+      widget = new PanelDock(this, config);
     } else if (isPanelConfig(config)) {
       widget = this.createPanel(config);
     } else {
@@ -324,10 +283,6 @@ export class Skeleton {
 
   getPanel(name: string): Panel | undefined {
     return this.panels.get(name);
-  }
-
-  getStage(name: string) {
-    return this.stages.container.get(name);
   }
 
   createContainer(
@@ -411,8 +366,6 @@ export class Skeleton {
         return this.leftFixedArea.add(parsedConfig as PanelConfig);
       case 'leftFloatArea':
         return this.leftFloatArea.add(parsedConfig as PanelConfig);
-      case 'stages':
-        return this.stages.add(parsedConfig as StageConfig);
       default:
       // do nothing
     }

@@ -1,7 +1,6 @@
 import { VNode } from 'vue';
 import { IWidget } from './widget/widget';
 import { IWidgetBaseConfig, IWidgetConfigArea } from '../types/api';
-import { I18nData } from '../types/i18n';
 
 export interface WidgetConfig extends IWidgetBaseConfig {
   type: 'Widget';
@@ -52,9 +51,6 @@ export function isPanelConfig(obj: any): obj is PanelConfig {
 export type HelpTipConfig = string | { url?: string; content?: string | VNode };
 
 export interface PanelProps {
-  description?: string | I18nData;
-  hideTitleBar?: boolean; // panel.props 兼容，不暴露
-  help?: HelpTipConfig; // 显示问号帮助
   width?: number; // panel.props
   height?: number; // panel.props
   maxWidth?: number; // panel.props

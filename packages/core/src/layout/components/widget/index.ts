@@ -1,11 +1,7 @@
-export * from './DraggableLineView'
-export * from './PanelDockView'
-export * from './PanelOperationRow'
-export * from './PanelTitle'
-export * from './PanelView'
-export * from './TabsPanelView'
-export * from './TitledPanelView'
-export * from './WidgetView'
-export * from './DockView'
+export * from './DraggableLineView';
+export * from './PanelDockView';
+export * from './PanelOperationRow';
+export * from './PanelView';
+export * from './WidgetView';
 
-import './index.less'
+import './index.less';

@@ -1,5 +1,3 @@
-import { IPublicTypeDisposable } from '../disposable';
-
 export interface IPublicApiEvent {
   /**
    * 监听事件
@@ -7,7 +5,7 @@ export interface IPublicApiEvent {
    * @param event 事件名称
    * @param listener 事件回调
    */
-  on(event: string, listener: (...args: any[]) => void): IPublicTypeDisposable;
+  on(event: string, listener: (...args: any[]) => void): void;
 
   /**
    * 取消监听事件

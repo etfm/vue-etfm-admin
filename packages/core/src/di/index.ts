@@ -1,2 +1,2 @@
-export * from './setter'
-export * from './ioc-context'
+export * from './ioc-context';
+export * from 'power-di';

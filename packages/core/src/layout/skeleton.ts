@@ -11,9 +11,10 @@ import { WidgetContainer, Panel, isPanel, Widget, isWidget, IWidget, PanelDock }
 import { Area } from './area';
 import { isVNode } from 'vue';
 import { Logger, lodash } from '@etfma/shared';
-import { Editor } from '../core/core';
-import { EditorConfig } from '../types/core';
-import { IWidgetBaseConfig, IWidgetConfigArea } from '../types/api';
+import { Editor, IEditor } from '../core/core';
+import { EditorConfig, PluginClassSet } from '../types/core';
+import { IPublicApiSkeleton, IWidgetBaseConfig, IWidgetConfigArea } from '../types/api';
+import { IPublicTypeSkeletonConfig } from '../types/widget-base-config';
 
 const logger = new Logger({ bizName: 'skeleton' });
 
@@ -26,6 +27,70 @@ export enum SkeletonEvents {
   WIDGET_HIDE = 'skeleton.widget.hide',
   WIDGET_DISABLE = 'skeleton.widget.disable',
   WIDGET_ENABLE = 'skeleton.widget.enable',
+}
+
+export interface ISkeleton
+  extends Omit<
+    IPublicApiSkeleton,
+    | 'showPanel'
+    | 'hidePanel'
+    | 'showWidget'
+    | 'enableWidget'
+    | 'hideWidget'
+    | 'disableWidget'
+    | 'showArea'
+    | 'onShowPanel'
+    | 'onHidePanel'
+    | 'onShowWidget'
+    | 'onHideWidget'
+    | 'remove'
+    | 'hideArea'
+    | 'add'
+  > {
+  editor: IEditor;
+
+  readonly leftArea: Area<DockConfig | PanelDockConfig>;
+
+  readonly topArea: Area<DockConfig | PanelDockConfig>;
+
+  readonly subTopArea: Area<DockConfig | PanelDockConfig>;
+
+  readonly toolbar: Area<DockConfig | PanelDockConfig>;
+
+  readonly leftFixedArea: Area<PanelConfig, Panel>;
+
+  readonly leftFloatArea: Area<PanelConfig, Panel>;
+
+  readonly rightArea: Area<PanelConfig, Panel>;
+
+  readonly mainArea: Area<WidgetConfig | PanelConfig, Widget | Panel>;
+
+  readonly bottomArea: Area<PanelConfig, Panel>;
+
+  readonly widgets: IWidget[];
+
+  getPanel(name: string): Panel | undefined;
+
+  getWidget(name: string): IWidget | undefined;
+
+  buildFromConfig(config?: EditorConfig, components?: PluginClassSet): void;
+
+  createStage(config: any): string | undefined;
+
+  createContainer(
+    name: string,
+    handle: (item: any) => any,
+    exclusive?: boolean,
+    checkVisible?: () => boolean,
+    defaultSetCurrent?: boolean,
+  ): WidgetContainer;
+
+  createPanel(config: PanelConfig): Panel;
+
+  add(
+    config: IPublicTypeSkeletonConfig,
+    extraConfig?: Record<string, any>,
+  ): IWidget | Widget | Panel | PanelDock | undefined;
 }
 
 export class Skeleton {

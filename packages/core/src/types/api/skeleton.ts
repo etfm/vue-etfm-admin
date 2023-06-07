@@ -109,8 +109,7 @@ export type IWidgetConfigArea =
   | 'bottomArea'
   | 'bottom'
   | 'leftFixedArea'
-  | 'leftFloatArea'
-  | 'stages';
+  | 'leftFloatArea';
 
 export interface IWidgetBaseConfig {
   type: string;

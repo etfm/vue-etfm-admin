@@ -6,8 +6,32 @@ import {
 } from '../types/api';
 import { EngineConfig } from '../config/config';
 import { Logger } from '@etfma/shared';
+import { IPublicTypePluginConfig } from '../types/plugin-config';
+import { IPublicApiLogger } from '../types/api/logger';
+import { IPublicTypePluginMeta } from '../types/plugin-meta';
 
 export type PreferenceValueType = string | number | boolean;
+
+export interface ILowCodePluginRuntimeCore {
+  name: string;
+  dep: string[];
+  disabled: boolean;
+  config: IPublicTypePluginConfig;
+  logger: IPublicApiLogger;
+  meta: IPublicTypePluginMeta;
+  init(forceInit?: boolean): void;
+  isInited(): boolean;
+  destroy(): void;
+  toProxy(): any;
+  setDisabled(flag: boolean): void;
+}
+
+interface ILowCodePluginRuntimeExportsAccessor {
+  [propName: string]: any;
+}
+
+export type ILowCodePluginRuntime = ILowCodePluginRuntimeCore &
+  ILowCodePluginRuntimeExportsAccessor;
 
 export interface ILowCodePluginPreferenceDeclarationProperty {
   // shape like 'name' or 'group.name' or 'group.subGroup.name'

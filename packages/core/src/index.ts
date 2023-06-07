@@ -1,26 +1,21 @@
 import { App, createApp } from 'vue';
-import {
-  Editor,
-  engineConfig,
-  Designer,
-  LowCodePluginManager,
-  ILowCodePluginContextPrivate,
-  ILowCodePluginContextApiAssembler,
-  PluginPreference,
-} from './core/core';
+import { Editor } from './core/core';
 import { globalContext } from './di';
 
-import { EngineOptions, IPublicModelDocumentModel } from '@elcplat/lowcode-types';
 import { Skeleton as InnerSkeleton, Workbench } from './layout';
 
-import { Hotkey, Project, Skeleton, Setters, Material, Event, Dragon, Global } from './shell';
-import { getLogger, isPlainObject, Logger } from '@elcplat/lowcode-shared';
-import { shellModelFactory } from './modules/shell-model-factory';
+import { Skeleton, Material, Event, Global } from './shell';
+import { lodash, Logger } from '@etfma/shared';
 
-export * from './modules/lowcode-types';
-
-import jsonPkg from '../../../lerna.json';
-import { ILowCodePluginContext } from './modules/lowcode-types';
+import jsonPkg from '../../../package.json';
+import {
+  ILowCodePluginContext,
+  ILowCodePluginContextApiAssembler,
+  ILowCodePluginContextPrivate,
+  PluginPreference,
+} from './plugin';
+import { EngineOptions } from './types/engine-options';
+import { engineConfig } from './config/config';
 
 const editor = new Editor();
 globalContext.register(editor, Editor);
@@ -34,7 +29,7 @@ const skeleton = new Skeleton(innerSkeleton);
 const material = new Material(editor);
 const config = engineConfig;
 const event = new Event(editor, { prefix: 'common' });
-const logger = getLogger({ level: 'warn', bizName: 'common' }) as Logger;
+const logger = new Logger({ bizName: 'common' });
 
 const pluginContextApiAssembler: ILowCodePluginContextApiAssembler = {
   assembleApis: (context: ILowCodePluginContextPrivate) => {
@@ -61,102 +56,12 @@ export { skeleton, plugins, material, config, event, logger, global, editor };
   const componentMetaParser = (ctx: ILowCodePluginContext) => {
     return {
       init() {
-        editor.onGot('assets', (assets: any) => {
-          const { components = [] } = assets;
-          designer.buildComponentMetasMap(components);
-        });
+        editor.onGot('assets', (assets: any) => {});
       },
     };
   };
   componentMetaParser.pluginName = '___component_meta_parser___';
   await plugins.register(componentMetaParser);
-  // // 注册默认的 setters
-  // const setterRegistry = (ctx: ILowCodePluginContext) => {
-  //   return {
-  //     init() {
-  //       if (engineConfig.get('disableDefaultSetters')) return
-  //       const builtinSetters = require('@alilc/lowcode-engine-ext')?.setters
-  //       if (builtinSetters) {
-  //         ctx.setters.registerSetter(builtinSetters)
-  //       }
-  //     },
-  //   }
-  // }
-  // setterRegistry.pluginName = '___setter_registry___'
-  // await plugins.register(setterRegistry)
-  // 注册默认的面板
-  // const defaultPanelRegistry = (ctx: ILowCodePluginContext) => {
-  //   return {
-  //     init() {
-  //       // ctx.skeleton.add({
-  //       //   area: 'topArea',
-  //       //   name: 'logo',
-  //       //   type: 'Widget',
-  //       //   content: '图标',
-  //       //   props: {
-  //       //     align: 'left',
-  //       //   },
-  //       // })
-  //       // skeleton.add({
-  //       //   area: 'mainArea',
-  //       //   name: 'designer',
-  //       //   type: 'Widget',
-  //       //   content: DesignerPlugin,
-  //       // })
-  //       // if (!engineConfig.get('disableDefaultSettingPanel')) {
-  //       //   skeleton.add({
-  //       //     area: 'rightArea',
-  //       //     name: 'settingsPane',
-  //       //     type: 'Panel',
-  //       //     content: SettingsPrimaryPane,
-  //       //     props: {
-  //       //       ignoreRoot: true,
-  //       //     },
-  //       //   })
-  //       // }
-  //       // // by default in float area;
-  //       // let isInFloatArea = true
-  //       // const hasPreferenceForOutline = editor
-  //       //   ?.getPreference()
-  //       //   ?.contains('outline-pane-pinned-status-isFloat', 'skeleton')
-  //       // if (hasPreferenceForOutline) {
-  //       //   isInFloatArea = editor
-  //       //     ?.getPreference()
-  //       //     ?.get('outline-pane-pinned-status-isFloat', 'skeleton')
-  //       // }
-  //       // skeleton.add({
-  //       //   area: 'leftArea',
-  //       //   name: 'outlinePane',
-  //       //   type: 'PanelDock',
-  //       //   content: Outline,
-  //       //   panelProps: {
-  //       //     area: isInFloatArea ? 'leftFloatArea' : 'leftFixedArea',
-  //       //     keepVisibleWhileDragging: true,
-  //       //     ...engineConfig.get('defaultOutlinePaneProps'),
-  //       //   },
-  //       //   contentProps: {
-  //       //     treeTitleExtra: engineConfig.get('treeTitleExtra'),
-  //       //   },
-  //       // })
-  //       // skeleton.add({
-  //       //   area: 'rightArea',
-  //       //   name: 'backupOutline',
-  //       //   type: 'Panel',
-  //       //   props: {
-  //       //     condition: () => {
-  //       //       return (
-  //       //         designer.dragon.dragging &&
-  //       //         !getTreeMaster(designer).hasVisibleTreeBoard()
-  //       //       )
-  //       //     },
-  //       //   },
-  //       //   content: OutlineBackupPane,
-  //       // })
-  //     },
-  //   }
-  // }
-  // defaultPanelRegistry.pluginName = '___default_panel___'
-  // await plugins.register(defaultPanelRegistry)
 })();
 
 // container which will host LowCodeEngine DOM
@@ -173,7 +78,7 @@ export async function init(
 ) {
   await destroy();
   let engineOptions: null | HTMLElement = null;
-  if (isPlainObject(container)) {
+  if (lodash.isPlainObject(container)) {
     engineOptions = container;
     engineContainer = document.createElement('div');
     engineContainer.id = 'engine';

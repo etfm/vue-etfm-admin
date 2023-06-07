@@ -136,6 +136,10 @@ export class Panel implements IWidget {
     }
   }
 
+  disable() {}
+
+  enable(): void {}
+
   getName() {
     return this.name;
   }

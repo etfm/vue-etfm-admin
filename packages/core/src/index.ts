@@ -1,21 +1,23 @@
 import { App, createApp } from 'vue';
-import { Editor } from './core/core';
+import { Editor, commonEvent } from './core/core';
 import { globalContext } from './di';
 
 import { Skeleton as InnerSkeleton, Workbench } from './layout';
 
-import { Skeleton, Material, Event, Global } from './shell';
+import { Skeleton, Material, Event, Global, Plugins } from './shell';
 import { lodash, Logger } from '@etfma/shared';
 
 import jsonPkg from '../../../package.json';
 import {
-  ILowCodePluginContext,
   ILowCodePluginContextApiAssembler,
   ILowCodePluginContextPrivate,
+  PluginManager,
   PluginPreference,
 } from './plugin';
-import { EngineOptions } from './types/engine-options';
+import { IPublicTypeEngineOptions } from './types/engine-options';
 import { engineConfig } from './config/config';
+import { IPublicModelPluginContext } from './types/plugin-context';
+import { IPublicTypePluginMeta } from './types/plugin-meta';
 
 const editor = new Editor();
 globalContext.register(editor, Editor);
@@ -25,24 +27,35 @@ const global = new Global(globalContext);
 const innerSkeleton = new InnerSkeleton(editor);
 editor.set('skeleton' as any, innerSkeleton);
 
-const skeleton = new Skeleton(innerSkeleton);
+const skeleton = new Skeleton(innerSkeleton, 'any');
 const material = new Material(editor);
 const config = engineConfig;
-const event = new Event(editor, { prefix: 'common' });
+const event = new Event(editor as any, { prefix: 'common' });
 const logger = new Logger({ bizName: 'common' });
+let plugins: Plugins;
 
 const pluginContextApiAssembler: ILowCodePluginContextApiAssembler = {
-  assembleApis: (context: ILowCodePluginContextPrivate) => {
+  assembleApis: (
+    context: ILowCodePluginContextPrivate,
+    pluginName: string,
+    meta: IPublicTypePluginMeta,
+  ) => {
     context.skeleton = skeleton;
     context.material = material;
-    context.event = event;
+    const eventPrefix = meta?.eventPrefix || 'common';
+    context.event = new Event(commonEvent, { prefix: eventPrefix });
     context.config = config;
     context.global = global;
     context.editor = editor;
+    context.plugins = plugins;
+    context.logger = new Logger({ bizName: `plugin:${pluginName}` });
   },
 };
-const plugins = new LowCodePluginManager(pluginContextApiAssembler).toProxy();
-editor.set('plugins' as any, plugins);
+
+const innerPlugins = new PluginManager(pluginContextApiAssembler);
+plugins = new Plugins(innerPlugins).toProxy();
+editor.set('innerPlugins', innerPlugins);
+editor.set('plugins', plugins);
 
 export { skeleton, plugins, material, config, event, logger, global, editor };
 // export const __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED = {
@@ -53,7 +66,7 @@ export { skeleton, plugins, material, config, event, logger, global, editor };
 // 注册一批内置插件
 (async function registerPlugins() {
   // 处理 editor.set('assets')，将组件元数据创建好
-  const componentMetaParser = (ctx: ILowCodePluginContext) => {
+  const componentMetaParser = (ctx: IPublicModelPluginContext) => {
     return {
       init() {
         editor.onGot('assets', (assets: any) => {});
@@ -73,7 +86,7 @@ engineConfig.set('ENGINE_VERSION', version);
 
 export async function init(
   container?: HTMLElement,
-  options?: EngineOptions,
+  options?: IPublicTypeEngineOptions,
   pluginPreference?: PluginPreference,
 ) {
   await destroy();

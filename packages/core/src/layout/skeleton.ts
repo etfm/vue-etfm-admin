@@ -53,8 +53,6 @@ export interface ISkeleton
 
   readonly topArea: Area<DockConfig | PanelDockConfig>;
 
-  readonly subTopArea: Area<DockConfig | PanelDockConfig>;
-
   readonly toolbar: Area<DockConfig | PanelDockConfig>;
 
   readonly leftFixedArea: Area<PanelConfig, Panel>;
@@ -74,8 +72,6 @@ export interface ISkeleton
   getWidget(name: string): IWidget | undefined;
 
   buildFromConfig(config?: EditorConfig, components?: PluginClassSet): void;
-
-  createStage(config: any): string | undefined;
 
   createContainer(
     name: string,

@@ -142,8 +142,3 @@ export interface IPublicTypeEngineOptions {
     constants?: Record<string, any>;
   };
 }
-
-/**
- * @deprecated use IPublicTypeEngineOptions instead
- */
-export interface EngineOptions {}

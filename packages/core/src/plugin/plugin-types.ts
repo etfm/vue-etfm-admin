@@ -9,6 +9,9 @@ import { Logger } from '@etfma/shared';
 import { IPublicTypePluginConfig } from '../types/plugin-config';
 import { IPublicApiLogger } from '../types/api/logger';
 import { IPublicTypePluginMeta } from '../types/plugin-meta';
+import { IPublicApiMaterial } from '../types/api/material';
+import { IPublicModelPluginContext } from '../types/plugin-context';
+import { IPublicApiPlugins } from '../types/api/plugins';
 
 export type PreferenceValueType = string | number | boolean;
 
@@ -121,25 +124,23 @@ export interface IPluginPreferenceMananger {
   ) => PreferenceValueType | undefined;
 }
 
-export interface ILowCodePluginContext {
-  get skeleton(): IPublicApiSkeleton;
-  get config(): EngineConfig;
-  get event(): IPublicApiEvent;
-  get global(): IPublicApiGlobal;
-  get editor(): IPublicApiEditor;
-  logger: Logger;
-  plugins: ILowCodePluginManager;
-  preference: IPluginPreferenceMananger;
-}
 export interface ILowCodePluginContextPrivate {
+  context: Logger;
   set skeleton(skeleton: IPublicApiSkeleton);
   set event(event: IPublicApiEvent);
   set config(config: EngineConfig);
   set global(global: IPublicApiGlobal);
   set editor(editor: IPublicApiEditor);
+  set material(material: IPublicApiMaterial);
+  set plugins(plugins: IPublicApiPlugins);
+  set logger(plugins: IPublicApiLogger);
 }
 export interface ILowCodePluginContextApiAssembler {
-  assembleApis: (context: ILowCodePluginContextPrivate) => void;
+  assembleApis: (
+    context: ILowCodePluginContextPrivate,
+    pluginName: string,
+    meta: IPublicTypePluginMeta,
+  ) => void;
 }
 
 interface ILowCodePluginManagerPluginAccessor {
@@ -148,7 +149,10 @@ interface ILowCodePluginManagerPluginAccessor {
 
 export interface ILowCodePluginManagerCore {
   register(
-    pluginConfigCreator: (ctx: ILowCodePluginContext, pluginOptions?: any) => ILowCodePluginConfig,
+    pluginConfigCreator: (
+      ctx: IPublicModelPluginContext,
+      pluginOptions?: any,
+    ) => ILowCodePluginConfig,
     pluginOptions?: any,
     options?: any,
   ): Promise<void>;
@@ -191,7 +195,7 @@ export interface IPluginMetaDefinition {
 }
 
 interface IPluginConfigCreatorFn<T extends Record<string, any> = Record<string, any>> {
-  (ctx: ILowCodePluginContext, pluginOptions?: T): ILowCodePluginConfig;
+  (ctx: IPublicModelPluginContext, pluginOptions?: T): ILowCodePluginConfig;
 }
 
 export type IPluginConfigCreator<T extends Record<string, any> = Record<string, any>> =

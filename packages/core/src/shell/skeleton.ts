@@ -7,15 +7,13 @@ import { IPublicTypeWidgetConfigArea } from '../types/widget-config-area';
 import { SkeletonItem } from './skeleton-item';
 import { skeletonSymbol } from './symbols';
 
-const innerSkeletonSymbol = Symbol('skeleton');
-
 export class Skeleton implements IPublicApiSkeleton {
   private readonly [skeletonSymbol]: ISkeleton;
   private readonly pluginName: string;
 
-  constructor(skeleton: ISkeleton, pluginName: string, readonly workspaceMode: boolean = false) {
-    this[innerSkeletonSymbol] = skeleton;
+  constructor(skeleton: ISkeleton, pluginName: string) {
     this.pluginName = pluginName;
+    this[skeletonSymbol] = skeleton;
   }
 
   /**

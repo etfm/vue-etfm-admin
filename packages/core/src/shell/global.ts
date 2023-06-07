@@ -3,7 +3,7 @@ import { globalSymbol } from './symbols';
 import { IocContext } from '../di';
 import { IPublicTypeEditorGetResult } from '../types/core';
 
-export default class Global implements IPublicApiGlobal {
+export class Global implements IPublicApiGlobal {
   private readonly [globalSymbol]: IocContext;
 
   constructor(global: IocContext) {

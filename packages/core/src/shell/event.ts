@@ -1,7 +1,9 @@
-import { Editor as InnerEditor } from '../core/core';
+import { IEventBus } from '../core/event-bus';
 import { IPublicApiEvent } from '../types/api';
-import { editorSymbol } from './symbols';
 import { Logger } from '@etfma/shared';
+import { IPublicTypeDisposable } from '../types/disposable';
+import { IEditor } from '../core/core';
+import { isPluginEventName } from '../utils/is/is-plugin-event-name';
 
 const logger = new Logger({ bizName: 'shell:event' });
 
@@ -9,18 +11,14 @@ type EventOptions = {
   prefix: string;
 };
 
-export default class Event implements IPublicApiEvent {
-  private readonly [editorSymbol]: InnerEditor;
+const eventBusSymbol = Symbol('eventBus');
+
+export class Event implements IPublicApiEvent {
+  private readonly [eventBusSymbol]: IEventBus;
   private readonly options: EventOptions;
 
-  // TODO:
-  /**
-   * 内核触发的事件名
-   */
-  readonly names = [];
-
-  constructor(editor: InnerEditor, options: EventOptions) {
-    this[editorSymbol] = editor;
+  constructor(eventBus: IEventBus, options: EventOptions, public workspaceMode = false) {
+    this[eventBusSymbol] = eventBus;
     this.options = options;
     if (!this.options.prefix) {
       logger.warn('prefix is required while initializing Event');
@@ -32,12 +30,15 @@ export default class Event implements IPublicApiEvent {
    * @param event 事件名称
    * @param listener 事件回调
    */
-  on(event: string, listener: (...args: any[]) => void) {
-    if (event.startsWith('designer')) {
-      logger.warn('designer events are disabled');
-      return;
+  on(event: string, listener: (...args: any[]) => void): IPublicTypeDisposable {
+    if (isPluginEventName(event)) {
+      return this[eventBusSymbol].on(event, listener);
+    } else {
+      logger.warn(
+        `fail to monitor on event ${event}, event should have a prefix like 'somePrefix:eventName'`,
+      );
+      return () => {};
     }
-    this[editorSymbol].on(event, listener);
   }
 
   /**
@@ -45,8 +46,8 @@ export default class Event implements IPublicApiEvent {
    * @param event 事件名称
    * @param listener 事件回调
    */
-  off(event: string, listener: (...args: unknown[]) => void) {
-    this[editorSymbol].off(event, listener);
+  off(event: string, listener: (...args: any[]) => void) {
+    this[eventBusSymbol].off(event, listener);
   }
 
   /**
@@ -55,12 +56,12 @@ export default class Event implements IPublicApiEvent {
    * @param args 事件参数
    * @returns
    */
-  emit(event: string, ...args: unknown[]) {
+  emit(event: string, ...args: any[]) {
     if (!this.options.prefix) {
       logger.warn('Event#emit has been forbidden while prefix is not specified');
       return;
     }
-    this[editorSymbol].emit(`${this.options.prefix}:${event}`, ...args);
+    this[eventBusSymbol].emit(`${this.options.prefix}:${event}`, ...args);
   }
 
   /**
@@ -69,10 +70,10 @@ export default class Event implements IPublicApiEvent {
    * @param args
    */
   __internalEmit__(event: string, ...args: unknown[]) {
-    this[editorSymbol].emit(event, ...args);
+    this[eventBusSymbol].emit(event, ...args);
   }
 }
 
-export function getEvent(editor: InnerEditor, options: any = { prefix: 'common' }) {
-  return new Event(editor, options);
+export function getEvent(editor: IEditor, options: any = { prefix: 'common' }) {
+  return new Event(editor.eventBus, options);
 }

@@ -49,4 +49,8 @@ export class Logger {
   log(...args) {
     console.log(`[${this.pre}]`, `[${this.bizName}]`, ...args);
   }
+
+  info(...args) {
+    console.info(`[${this.pre}]`, `[${this.bizName}]`, ...args);
+  }
 }

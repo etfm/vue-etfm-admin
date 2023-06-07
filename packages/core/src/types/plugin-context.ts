@@ -54,8 +54,3 @@ export interface IPublicModelPluginContext {
    */
   get pluginEvent(): IPublicApiEvent;
 }
-
-/**
- * @deprecated please use IPublicModelPluginContext instead
- */
-export interface ILowCodePluginContext extends IPublicModelPluginContext {}

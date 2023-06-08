@@ -7,7 +7,6 @@ export type IPublicTypeWidgetConfigArea =
   | 'rightArea'
   | 'right'
   | 'topArea'
-  | 'subTopArea'
   | 'top'
   | 'toolbar'
   | 'mainArea'
@@ -17,5 +16,4 @@ export type IPublicTypeWidgetConfigArea =
   | 'bottomArea'
   | 'bottom'
   | 'leftFixedArea'
-  | 'leftFloatArea'
-  | 'stages';
+  | 'leftFloatArea';

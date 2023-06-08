@@ -1,4 +1,4 @@
-import { IPublicTypePluginDeclaration } from './';
+import { IPublicTypePluginDeclaration } from './plugin-declaration';
 
 export interface IPublicTypePluginMeta {
   /**

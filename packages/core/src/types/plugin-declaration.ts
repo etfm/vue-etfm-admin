@@ -1,4 +1,4 @@
-import { IPublicTypePluginDeclarationProperty } from './';
+import { IPublicTypePluginDeclarationProperty } from './plugin-declaration-property';
 
 /**
  * declaration of plugin`s preference

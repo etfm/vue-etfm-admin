@@ -1,14 +1,14 @@
-import { EventEmitter } from 'events';
 import { observable, define } from '../../obx';
 import { WidgetContainer } from './container';
 import { PanelConfig } from '../types';
 import { PanelView } from '../components/widget';
-import { Skeleton } from '../skeleton';
+import { ISkeleton } from '../skeleton';
 import { IWidget } from './widget';
 import { isPanelDock, PanelDock } from './panel-dock';
 import { createElement } from '../../utils';
 import { uniqueId } from '../../utils/unique-id';
 import { getEvent } from '../../shell';
+import { IEventBus, createModuleEventBus } from '../../core/event-bus';
 
 export class Panel implements IWidget {
   readonly isWidget = true;
@@ -21,7 +21,7 @@ export class Panel implements IWidget {
 
   _actived = false;
 
-  private emitter = new EventEmitter();
+  private emitter: IEventBus = createModuleEventBus('Panel');
 
   get actived(): boolean {
     return this._actived;
@@ -63,14 +63,13 @@ export class Panel implements IWidget {
 
   public parent?: WidgetContainer;
 
-  constructor(readonly skeleton: Skeleton, readonly config: PanelConfig) {
+  constructor(readonly skeleton: ISkeleton, readonly config: PanelConfig) {
+    this.makeObservable();
+
     const { name, content, props = {} } = config;
     this.name = name;
     this.id = uniqueId(`pane:${name}$`);
     if (Array.isArray(content)) {
-      if (content.length === 1) {
-        // todo: not show tabs
-      }
       this.container = this.skeleton.createContainer(
         name,
         (item) => {
@@ -89,11 +88,9 @@ export class Panel implements IWidget {
       props.onInit.call(this, this);
     }
 
-    if ((content as any).onInit) {
+    if (typeof content !== 'string' && content && (content as any).onInit) {
       (content as any).onInit.call(this, this);
     }
-    // todo: process shortcut
-    this.makeObservable();
   }
 
   makeObservable() {
@@ -212,37 +209,6 @@ export class Panel implements IWidget {
     return this.skeleton.widgets.filter((item) => {
       return isPanelDock(item) && item.panelName === this.name;
     }) as any;
-  }
-
-  /**
-   * @deprecated
-   */
-  getSupportedPositions() {
-    return ['default'];
-  }
-
-  /**
-   * @deprecated
-   */
-  getCurrentPosition() {
-    return 'default';
-  }
-
-  /**
-   * @deprecated
-   */
-  setPosition(/* position: string */) {
-    // noop
-  }
-
-  /**
-   * @deprecated
-   */
-  onActiveChange(fn: (flag: boolean) => void): () => void {
-    this.emitter.on('activechange', fn);
-    return () => {
-      this.emitter.removeListener('activechange', fn);
-    };
   }
 }
 

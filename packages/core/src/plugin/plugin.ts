@@ -1,41 +1,34 @@
 import { Logger } from '@etfma/shared';
-import {
-  ILowCodePlugin,
-  ILowCodePluginConfig,
-  ILowCodePluginManager,
-  ILowCodePluginConfigMeta,
-} from './plugin-types';
-import { EventEmitter } from 'events';
+import { IPublicTypePluginConfig } from '../types/plugin-config';
+import { ILowCodePluginRuntime, ILowCodePluginManager } from './plugin-types';
+import { IPublicTypePluginMeta } from '../types/plugin-meta';
 
-export class LowCodePlugin implements ILowCodePlugin {
-  config: ILowCodePluginConfig;
+export class LowCodePluginRuntime implements ILowCodePluginRuntime {
+  config: IPublicTypePluginConfig;
 
   logger: Logger;
 
   private manager: ILowCodePluginManager;
 
-  private emitter: EventEmitter;
-
-  private _inited: boolean = false;
+  private _inited: boolean;
 
   private pluginName: string;
 
-  private meta: ILowCodePluginConfigMeta;
+  meta: IPublicTypePluginMeta;
 
   /**
    * 标识插件状态，是否被 disabled
    */
-  private _disabled: boolean = false;
+  private _disabled: boolean;
 
   constructor(
     pluginName: string,
     manager: ILowCodePluginManager,
-    config: ILowCodePluginConfig,
-    meta: ILowCodePluginConfigMeta,
+    config: IPublicTypePluginConfig,
+    meta: IPublicTypePluginMeta,
   ) {
     this.manager = manager;
     this.config = config;
-    this.emitter = new EventEmitter();
     this.pluginName = pluginName;
     this.meta = meta;
     this.logger = new Logger({ bizName: `plugin:${pluginName}` });
@@ -50,29 +43,15 @@ export class LowCodePlugin implements ILowCodePlugin {
       return [this.meta.dependencies];
     }
     // compat legacy way to declare dependencies
-    if (typeof this.config.dep === 'string') {
-      return [this.config.dep];
+    const legacyDepValue = (this.config as any).dep;
+    if (typeof legacyDepValue === 'string') {
+      return [legacyDepValue];
     }
-    return this.meta.dependencies || this.config.dep || [];
+    return this.meta.dependencies || legacyDepValue || [];
   }
 
   get disabled() {
     return this._disabled;
-  }
-
-  on(event: string | number, listener: (...args: any[]) => void): any {
-    this.emitter.on(event, listener);
-    return () => {
-      this.emitter.off(event, listener);
-    };
-  }
-
-  emit(event: string | number, ...args: any[]) {
-    return this.emitter.emit(event, ...args);
-  }
-
-  removeAllListeners(event: string | number): any {
-    return this.emitter.removeAllListeners(event);
   }
 
   isInited() {
@@ -98,7 +77,6 @@ export class LowCodePlugin implements ILowCodePlugin {
   }
 
   toProxy() {
-    this.logger.error(this._inited, 'Could not call toProxy before init');
     const exports = this.config.exports?.();
     return new Proxy(this, {
       get(target, prop, receiver) {

@@ -4,7 +4,6 @@ import {
   IPublicApiGlobal,
   IPublicApiEditor,
 } from '../types/api';
-import { EngineConfig } from '../config/config';
 import { Logger } from '@etfma/shared';
 import { IPublicTypePluginConfig } from '../types/plugin-config';
 import { IPublicApiLogger } from '../types/api/logger';
@@ -12,6 +11,10 @@ import { IPublicTypePluginMeta } from '../types/plugin-meta';
 import { IPublicApiMaterial } from '../types/api/material';
 import { IPublicModelPluginContext } from '../types/plugin-context';
 import { IPublicApiPlugins } from '../types/api/plugins';
+import { IPublicTypePlugin } from '../types/plugin';
+import { IPublicTypePluginRegisterOptions } from '../types/plugin-register-options';
+import PluginContext from './plugin-context';
+import { IPublicModelEngineConfig } from '../types/engine-config';
 
 export type PreferenceValueType = string | number | boolean;
 
@@ -125,10 +128,9 @@ export interface IPluginPreferenceMananger {
 }
 
 export interface ILowCodePluginContextPrivate {
-  context: Logger;
   set skeleton(skeleton: IPublicApiSkeleton);
   set event(event: IPublicApiEvent);
-  set config(config: EngineConfig);
+  set config(config: IPublicModelEngineConfig);
   set global(global: IPublicApiGlobal);
   set editor(editor: IPublicApiEditor);
   set material(material: IPublicApiMaterial);
@@ -144,25 +146,23 @@ export interface ILowCodePluginContextApiAssembler {
 }
 
 interface ILowCodePluginManagerPluginAccessor {
-  [pluginName: string]: ILowCodePlugin | any;
+  [pluginName: string]: ILowCodePluginRuntime | any;
 }
 
 export interface ILowCodePluginManagerCore {
   register(
-    pluginConfigCreator: (
-      ctx: IPublicModelPluginContext,
-      pluginOptions?: any,
-    ) => ILowCodePluginConfig,
+    pluginModel: IPublicTypePlugin,
     pluginOptions?: any,
-    options?: any,
+    options?: IPublicTypePluginRegisterOptions,
   ): Promise<void>;
   init(pluginPreference?: Map<string, Record<string, PreferenceValueType>>): Promise<void>;
-  get(pluginName: string): ILowCodePlugin | undefined;
-  getAll(): ILowCodePlugin[];
+  get(pluginName: string): ILowCodePluginRuntime | undefined;
+  getAll(): ILowCodePluginRuntime[];
   has(pluginName: string): boolean;
   delete(pluginName: string): any;
   setDisabled(pluginName: string, flag: boolean): void;
   dispose(): void;
+  _getLowCodePluginContext(options: IPluginContextOptions): PluginContext;
 }
 
 export type ILowCodePluginManager = ILowCodePluginManagerCore & ILowCodePluginManagerPluginAccessor;
@@ -182,6 +182,7 @@ export interface ILowCodeRegisterOptions {
 
 export interface IPluginContextOptions {
   pluginName: string;
+  meta?: IPublicTypePluginMeta;
 }
 
 export interface IPluginMetaDefinition {

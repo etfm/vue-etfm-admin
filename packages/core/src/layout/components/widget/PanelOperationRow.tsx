@@ -32,13 +32,20 @@ export const PanelOperationRow = defineComponent({
       return null;
     }
 
+    let canSetFixed = true;
+    if (this.panel?.config.props?.canSetFixed === false) {
+      canSetFixed = false;
+    }
+
     const areaName = this.panel?.parent?.name as string;
 
     return (
       <Fragment>
-        <div class="lc-pane-icon-fix" onClick={this.setDisplay}>
-          {areaName === 'leftFloatArea' ? <IconFix /> : <IconFloat />}
-        </div>
+        {canSetFixed && (
+          <div class="lc-pane-icon-fix" onClick={this.setDisplay}>
+            {areaName === 'leftFloatArea' ? <IconFix /> : <IconFloat />}
+          </div>
+        )}
       </Fragment>
     );
   },

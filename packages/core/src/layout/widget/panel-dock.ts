@@ -1,11 +1,10 @@
 import { observable, define } from '../../obx';
 import { createElement, uniqueId } from '../../utils';
-import { Skeleton } from '../skeleton';
+import { ISkeleton } from '../skeleton';
 import { PanelDockConfig } from '../types';
 import { Panel } from './panel';
 import { PanelDockView } from '../components/widget';
 import { IWidget } from './widget';
-import { ComponentInternalInstance } from 'vue';
 
 export class PanelDock implements IWidget {
   readonly isWidget = true;
@@ -16,7 +15,7 @@ export class PanelDock implements IWidget {
 
   readonly name: string;
 
-  readonly align?: string;
+  readonly align?: 'left' | 'right' | 'bottom' | 'center' | 'top' | undefined;
 
   private inited = false;
 
@@ -36,20 +35,14 @@ export class PanelDock implements IWidget {
     return this._body;
   }
 
-  private _shell: ComponentInternalInstance | null = null;
-
   get content() {
+    const area = this.config?.area;
     return createElement(PanelDockView, {
-      widget: this,
-      ref: (ref: ComponentInternalInstance | null) => {
-        this._shell = ref;
-      },
+      panelDock: this,
       key: this.id,
+      area,
+      config: this.config,
     });
-  }
-
-  getDOMNode() {
-    return this._shell;
   }
 
   _visible = true;
@@ -72,14 +65,16 @@ export class PanelDock implements IWidget {
     return this._panel || this.skeleton.getPanel(this.panelName);
   }
 
-  constructor(readonly skeleton: Skeleton, readonly config: PanelDockConfig) {
+  constructor(readonly skeleton: ISkeleton, readonly config: PanelDockConfig) {
+    this.makeObservable();
+
     const { content, contentProps, panel, panelProps, name, props } = config;
     this.name = name;
-    this.id = uniqueId(`dock:${name}$`);
+    this.id = uniqueId(`panelDock:${name}$`);
     this.panelName = config.panelName || name;
     this.align = props?.align;
     if (content) {
-      const _panelProps: any = { ...panelProps };
+      const _panelProps = { ...panelProps };
 
       this._panel = this.skeleton.add({
         type: 'Panel',
@@ -93,8 +88,6 @@ export class PanelDock implements IWidget {
     if (props?.onInit) {
       props.onInit.call(this, this);
     }
-
-    this.makeObservable();
   }
 
   makeObservable() {

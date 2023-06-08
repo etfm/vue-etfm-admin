@@ -1,7 +1,6 @@
 import { EventEmitter } from 'events';
 import { engineConfig } from '../config/config';
 import { globalLocale } from '../intl';
-import Preference from '../utils/preference';
 import { observable, define } from '../obx';
 import {
   EditorConfig,
@@ -11,7 +10,7 @@ import {
 } from '../types/core';
 import { EventBus, IEventBus } from './event-bus';
 
-const keyBlacklist = ['skeleton', 'plugins'];
+const keyBlacklist = ['skeleton', 'plugins', 'material', 'innerPlugins'];
 
 export interface IEditor extends IPublicModelEditor {
   config?: EditorConfig;
@@ -30,13 +29,6 @@ export class Editor extends EventEmitter implements IEditor {
   get locale() {
     return globalLocale.getLocale();
   }
-
-  /**
-   * used to store preferences
-   *
-   * @memberof Editor
-   */
-  readonly preference = new Preference();
 
   config?: EditorConfig;
 
@@ -84,7 +76,7 @@ export class Editor extends EventEmitter implements IEditor {
 
   onceGot<T = undefined, KeyOrType extends IPublicTypeEditorValueKey = any>(
     keyOrType: KeyOrType,
-  ): Promise<IPublicTypeEditorGetResult<T, IPublicTypeEditorValueKey>> {
+  ): Promise<IPublicTypeEditorGetResult<T, KeyOrType>> {
     const x = this.context.get(keyOrType);
     if (x !== undefined) {
       return Promise.resolve(x);
@@ -135,10 +127,6 @@ export class Editor extends EventEmitter implements IEditor {
     } catch (err) {
       console.warn(err);
     }
-  }
-
-  getPreference() {
-    return this.preference;
   }
 
   private notifyGot(key: IPublicTypeEditorValueKey) {

@@ -1,8 +1,6 @@
 import { EngineConfig, engineConfig } from '../config/config';
-import { ILowCodePluginManager } from './plugin-types';
 import { Logger } from '@etfma/shared';
 import {
-  ILowCodePluginContext,
   IPluginContextOptions,
   ILowCodePluginPreferenceDeclaration,
   PreferenceValueType,
@@ -13,28 +11,32 @@ import {
 import { isValidPreferenceKey } from './plugin-utils';
 import { IPublicApiEditor, IPublicApiEvent, IPublicApiSkeleton } from '../types/api';
 import { IPublicApiGlobal } from '../types/api/global';
+import { IPublicModelPluginContext } from '../types/plugin-context';
+import { IPublicApiPlugins } from '../types/api/plugins';
+import { IPublicApiMaterial } from '../types/api/material';
+import { createModuleEventBus } from '../core/event-bus';
 
-export default class PluginContext implements ILowCodePluginContext, ILowCodePluginContextPrivate {
+export default class PluginContext
+  implements IPublicModelPluginContext, ILowCodePluginContextPrivate
+{
   skeleton: IPublicApiSkeleton;
   event: IPublicApiEvent;
   config: EngineConfig;
   global: IPublicApiGlobal;
   editor: IPublicApiEditor;
-
   logger: Logger;
-  plugins: ILowCodePluginManager;
+  plugins: IPublicApiPlugins;
   preference: IPluginPreferenceMananger;
+  material: IPublicApiMaterial;
+  pluginEvent: IPublicApiEvent;
 
   constructor(
-    plugins: ILowCodePluginManager,
     options: IPluginContextOptions,
     contextApiAssembler: ILowCodePluginContextApiAssembler,
   ) {
-    contextApiAssembler.assembleApis(this);
-    this.plugins = plugins;
-    const { pluginName = 'anonymous' } = options;
-    this.logger = new Logger({ bizName: `plugin:${pluginName}` });
-
+    const { pluginName = 'anonymous', meta = {} } = options;
+    contextApiAssembler.assembleApis(this, pluginName, meta);
+    this.pluginEvent = createModuleEventBus(pluginName, 200);
     const enhancePluginContextHook = engineConfig.get('enhancePluginContextHook');
     if (enhancePluginContextHook) {
       enhancePluginContextHook(this);

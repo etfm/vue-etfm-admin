@@ -29,6 +29,15 @@ export const PanelView = observer(
     },
     setup(props) {
       let lastVisible = false;
+
+      onMounted(() => {
+        checkVisible();
+      });
+
+      onUpdated(() => {
+        checkVisible();
+      });
+
       const checkVisible = () => {
         const { panel } = props;
         const currentVisible = panel.inited && panel.visible;
@@ -45,14 +54,6 @@ export const PanelView = observer(
           }
         }
       };
-
-      onMounted(() => {
-        checkVisible();
-      });
-
-      onUpdated(() => {
-        checkVisible();
-      });
     },
     render() {
       if (!this.panel.inited) {

@@ -14,7 +14,11 @@ import { Logger, lodash } from '@etfma/shared';
 import { Editor, IEditor } from '../core/core';
 import { EditorConfig, PluginClassSet } from '../types/core';
 import { IPublicApiSkeleton, IWidgetBaseConfig, IWidgetConfigArea } from '../types/api';
-import { IPublicTypeSkeletonConfig } from '../types/widget-base-config';
+import {
+  IPublicTypeSkeletonConfig,
+  IPublicTypeWidgetBaseConfig,
+} from '../types/widget-base-config';
+import { engineConfig } from '../config/config';
 
 const logger = new Logger({ bizName: 'skeleton' });
 
@@ -87,6 +91,9 @@ export interface ISkeleton
     config: IPublicTypeSkeletonConfig,
     extraConfig?: Record<string, any>,
   ): IWidget | Widget | Panel | PanelDock | undefined;
+
+  toggleFloatStatus(panel: Panel): void;
+  postEvent(event: SkeletonEvents, ...args: any[]): void;
 }
 
 export class Skeleton {
@@ -109,6 +116,8 @@ export class Skeleton {
   readonly mainArea: Area<WidgetConfig | PanelConfig, Widget | Panel>;
 
   readonly bottomArea: Area<PanelConfig, Panel>;
+
+  readonly widgets: IWidget[] = [];
 
   constructor(readonly editor: Editor) {
     this.leftArea = new Area(
@@ -207,7 +216,6 @@ export class Skeleton {
 
     // this.setupPlugins()
     this.setupEvents();
-
     this.makeObservable();
   }
 
@@ -225,16 +233,16 @@ export class Skeleton {
     // adjust pinned status when panel shown
     this.editor.on('skeleton.panel.show', (panelName, panel) => {
       const panelNameKey = `${panelName}-pinned-status-isFloat`;
-      const isInFloatAreaPreferenceExists = this.editor
-        ?.getPreference()
+      const isInFloatAreaPreferenceExists = engineConfig
+        .getPreference()
         ?.contains(panelNameKey, 'skeleton');
       if (isInFloatAreaPreferenceExists) {
-        const isInFloatAreaFromPreference = this.editor
-          ?.getPreference()
+        const isInFloatAreaFromPreference = engineConfig
+          .getPreference()
           ?.get(panelNameKey, 'skeleton');
-        const isCurrentInFloatArea = (panel as Panel)?.isChildOfFloatArea();
+        const isCurrentInFloatArea = panel?.isChildOfFloatArea();
         if (isInFloatAreaFromPreference !== isCurrentInFloatArea) {
-          this.toggleFloatStatus(panel as Panel);
+          this.toggleFloatStatus(panel);
         }
       }
     });
@@ -257,7 +265,7 @@ export class Skeleton {
       this.leftFloatArea.add(panel);
       this.leftFloatArea.container.active(panel);
     }
-    this.editor?.getPreference()?.set(`${panel.name}-pinned-status-isFloat`, !isFloat, 'skeleton');
+    engineConfig.getPreference()?.set(`${panel.name}-pinned-status-isFloat`, !isFloat, 'skeleton');
   }
 
   buildFromConfig(config?: EditorConfig) {
@@ -297,20 +305,16 @@ export class Skeleton {
   }
 
   postEvent(event: SkeletonEvents, ...args: any[]) {
-    this.editor.emit(event, ...args);
+    this.editor.eventBus.emit(event, ...args);
   }
 
-  readonly widgets: IWidget[] = [];
-
-  createWidget(config: IWidgetBaseConfig | IWidget) {
+  createWidget(config: IPublicTypeWidgetBaseConfig | IWidget) {
     if (isWidget(config)) {
       return config;
     }
 
     config = this.parseConfig(config);
-
     let widget: IWidget;
-
     if (isPanelDockConfig(config)) {
       widget = new PanelDock(this, config);
     } else if (isPanelConfig(config)) {
@@ -329,8 +333,7 @@ export class Skeleton {
   }
 
   createPanel(config: PanelConfig) {
-    const parsedConfig = this.parseConfig(config as any);
-
+    const parsedConfig = this.parseConfig(config);
     const panel = new Panel(this, parsedConfig as PanelConfig);
     this.panels.set(panel.name, panel);
     logger.debug(
@@ -358,7 +361,7 @@ export class Skeleton {
     return container;
   }
 
-  private parseConfig(config: IWidgetBaseConfig) {
+  private parseConfig(config: IPublicTypeWidgetBaseConfig) {
     if (config.parsed) {
       return config;
     }
@@ -384,7 +387,7 @@ export class Skeleton {
     return restConfig;
   }
 
-  add(config: IWidgetBaseConfig, extraConfig?: Record<string, any>) {
+  add(config: IPublicTypeSkeletonConfig, extraConfig?: Record<string, any>) {
     const parsedConfig = {
       ...this.parseConfig(config),
       ...extraConfig,

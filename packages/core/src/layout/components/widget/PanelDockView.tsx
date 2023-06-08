@@ -1,12 +1,12 @@
 import { defineComponent, PropType, onUpdated, onMounted, ref } from 'vue';
-import { PanelDock } from '../../widget/panel-dock';
 import { SkeletonEvents } from '../../skeleton';
+import { IPublicTypePanelDockProps } from '../../../types/widget-base-config';
 
 export const PanelDockView = defineComponent({
   name: 'PanelDockView',
   props: {
-    dock: {
-      type: Object as PropType<PanelDock>,
+    panelDock: {
+      type: Object as PropType<IPublicTypePanelDockProps>,
       required: true,
     },
     onClick: {
@@ -31,51 +31,55 @@ export const PanelDockView = defineComponent({
     });
 
     const checkActived = () => {
-      const { dock } = props;
-      if (dock.actived !== lastActived.value) {
-        lastActived.value = dock.actived;
+      const { panelDock } = props;
+      if (panelDock.actived !== lastActived.value) {
+        lastActived.value = panelDock.actived;
         if (lastActived) {
-          dock.skeleton.postEvent(SkeletonEvents.PANEL_DOCK_ACTIVE, dock.name, dock);
+          panelDock.skeleton.postEvent(SkeletonEvents.PANEL_DOCK_ACTIVE, panelDock.name, panelDock);
         } else {
-          dock.skeleton.postEvent(SkeletonEvents.PANEL_DOCK_UNACTIVE, dock.name, dock);
+          panelDock.skeleton.postEvent(
+            SkeletonEvents.PANEL_DOCK_UNACTIVE,
+            panelDock.name,
+            panelDock,
+          );
         }
       }
     };
 
     const checkVisible = () => {
-      const { dock } = props;
-      const currentVisible = dock.visible;
+      const { panelDock } = props;
+      const currentVisible = panelDock.visible;
 
       if (currentVisible !== lastVisible.value) {
         lastVisible.value = currentVisible;
         if (lastVisible.value) {
-          dock.skeleton.postEvent(SkeletonEvents.WIDGET_SHOW, dock.name, dock);
+          panelDock.skeleton.postEvent(SkeletonEvents.WIDGET_SHOW, panelDock.name, panelDock);
         } else {
-          dock.skeleton.postEvent(SkeletonEvents.WIDGET_SHOW, dock.name, dock);
+          panelDock.skeleton.postEvent(SkeletonEvents.WIDGET_SHOW, panelDock.name, panelDock);
         }
       }
     };
 
     const checkDisabled = () => {
-      const { dock } = props;
-      const currentDisabled = dock.disabled ?? false;
+      const { panelDock } = props;
+      const currentDisabled = panelDock.disabled ?? false;
       if (currentDisabled !== lastDisabled.value) {
         lastDisabled.value = currentDisabled;
         if (lastDisabled.value) {
-          dock.skeleton.postEvent(SkeletonEvents.WIDGET_DISABLE, dock.name, dock);
+          panelDock.skeleton.postEvent(SkeletonEvents.WIDGET_DISABLE, panelDock.name, panelDock);
         } else {
-          dock.skeleton.postEvent(SkeletonEvents.WIDGET_ENABLE, dock.name, dock);
+          panelDock.skeleton.postEvent(SkeletonEvents.WIDGET_ENABLE, panelDock.name, panelDock);
         }
       }
     };
   },
   render() {
-    if (!this.dock.visible) {
+    if (!this.panelDock.visible) {
       return null;
     }
-    if (this.dock.disabled) {
-      return <div class="lc-widget-disabled">{this.dock.body}</div>;
+    if (this.panelDock.disabled) {
+      return <div class="lc-widget-disabled">{this.panelDock.body}</div>;
     }
-    return this.dock.body;
+    return this.panelDock.body;
   },
 });

@@ -111,7 +111,8 @@ export class WidgetContainer<T extends WidgetItem = any, G extends WidgetItem = 
       item.setParent(this);
     }
     if (this.defaultSetCurrent) {
-      if (!this._current) {
+      const shouldHiddenWhenInit = (item as any).config?.props?.hiddenWhenInit;
+      if (!this._current && !shouldHiddenWhenInit) {
         this.active(item);
       }
     }

@@ -1,11 +1,10 @@
 import { define, observable } from '../../obx';
-import { lodash } from '@etfma/shared';
 import { WidgetConfig } from '../types';
-import { Skeleton } from '../skeleton';
+import { ISkeleton } from '../skeleton';
 import { WidgetView } from '../components/widget';
-import { IWidgetBaseConfig } from '../../types/api';
-import { createElement } from '../../utils';
+import { createElement, uniqueId } from '../../utils';
 import { getEvent } from '../../shell';
+import { IPublicTypeWidgetBaseConfig } from '../../types/widget-base-config';
 
 export interface IWidget {
   readonly name: string;
@@ -15,8 +14,8 @@ export interface IWidget {
   readonly visible: boolean;
   readonly disabled?: boolean;
   readonly body: any;
-  readonly skeleton: Skeleton;
-  readonly config: IWidgetBaseConfig;
+  readonly skeleton: ISkeleton;
+  readonly config: IPublicTypeWidgetBaseConfig;
 
   getName(): string;
   getContent(): any;
@@ -30,7 +29,7 @@ export interface IWidget {
 export class Widget implements IWidget {
   readonly isWidget = true;
 
-  readonly id = lodash.uniqueId('widget');
+  readonly id = uniqueId('widget');
 
   readonly name: string;
 
@@ -70,17 +69,15 @@ export class Widget implements IWidget {
     });
   }
 
-  constructor(readonly skeleton: Skeleton, readonly config: WidgetConfig) {
+  constructor(readonly skeleton: ISkeleton, readonly config: WidgetConfig) {
+    this.makeObservable();
+
     const { props = {}, name } = config;
     this.name = name;
     this.align = props.align;
     if (props.onInit) {
       props.onInit.call(this, this);
     }
-
-    this.makeObservable();
-
-    console.log('Widget:constructor:', this);
   }
 
   makeObservable() {

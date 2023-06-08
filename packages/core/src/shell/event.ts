@@ -17,7 +17,7 @@ export class Event implements IPublicApiEvent {
   private readonly [eventBusSymbol]: IEventBus;
   private readonly options: EventOptions;
 
-  constructor(eventBus: IEventBus, options: EventOptions, public workspaceMode = false) {
+  constructor(eventBus: IEventBus, options: EventOptions) {
     this[eventBusSymbol] = eventBus;
     this.options = options;
     if (!this.options.prefix) {

@@ -1,1 +1,1 @@
-export * from './Workbench'
+export * from './Workbench';

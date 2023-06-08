@@ -4,7 +4,7 @@ import { globalContext } from './di';
 
 import { Skeleton as InnerSkeleton, Workbench } from './layout';
 
-import { Skeleton, Material, Event, Global, Plugins } from './shell';
+import { Skeleton, Material, Event, Global, Plugins, Config } from './shell';
 import { lodash, Logger } from '@etfma/shared';
 
 import jsonPkg from '../../../package.json';
@@ -16,21 +16,26 @@ import {
 } from './plugin';
 import { IPublicTypeEngineOptions } from './types/engine-options';
 import { engineConfig } from './config/config';
-import { IPublicModelPluginContext } from './types/plugin-context';
 import { IPublicTypePluginMeta } from './types/plugin-meta';
+
+import symbols from './symbols';
+import classes from './classes';
+
+const global = new Global(globalContext);
 
 const editor = new Editor();
 globalContext.register(editor, Editor);
 globalContext.register(editor, 'editor');
-const global = new Global(globalContext);
 
 const innerSkeleton = new InnerSkeleton(editor);
-editor.set('skeleton' as any, innerSkeleton);
+editor.set('skeleton', innerSkeleton);
+
+const material = new Material(editor);
+editor.set('material', material);
 
 const skeleton = new Skeleton(innerSkeleton, 'any');
-const material = new Material(editor);
-const config = engineConfig;
-const event = new Event(editor as any, { prefix: 'common' });
+const config = new Config(engineConfig);
+const event = new Event(commonEvent, { prefix: 'common' });
 const logger = new Logger({ bizName: 'common' });
 let plugins: Plugins;
 
@@ -58,29 +63,14 @@ editor.set('innerPlugins', innerPlugins);
 editor.set('plugins', plugins);
 
 export { skeleton, plugins, material, config, event, logger, global, editor };
-// export const __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED = {
-//   symbols,
-//   classes,
-// }
-
-// 注册一批内置插件
-(async function registerPlugins() {
-  // 处理 editor.set('assets')，将组件元数据创建好
-  const componentMetaParser = (ctx: IPublicModelPluginContext) => {
-    return {
-      init() {
-        editor.onGot('assets', (assets: any) => {});
-      },
-    };
-  };
-  componentMetaParser.pluginName = '___component_meta_parser___';
-  await plugins.register(componentMetaParser);
-})();
+export const __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED = {
+  symbols,
+  classes,
+};
 
 // container which will host LowCodeEngine DOM
-let engineContainer: HTMLElement;
+let engineContainer: HTMLElement | undefined;
 let app: App;
-// @ts-ignore webpack Define variable
 export const version = jsonPkg.version;
 engineConfig.set('ENGINE_VERSION', version);
 
@@ -90,7 +80,7 @@ export async function init(
   pluginPreference?: PluginPreference,
 ) {
   await destroy();
-  let engineOptions: null | HTMLElement = null;
+  let engineOptions: IPublicTypeEngineOptions | HTMLElement | undefined | null = null;
   if (lodash.isPlainObject(container)) {
     engineOptions = container;
     engineContainer = document.createElement('div');

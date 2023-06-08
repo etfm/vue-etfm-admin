@@ -21,10 +21,10 @@ export const LeftFloatPane = observer(
       const shell = ref<HTMLElement | null>(null);
 
       onMounted(() => {
-        props.area.skeleton.editor.on('designer.drag', triggerClose);
+        props.area.skeleton.editor.eventBus.on('designer.drag', triggerClose);
 
         dispose = () => {
-          props.area.skeleton.editor.removeListener('designer.drag', triggerClose);
+          props.area.skeleton.editor.eventBus.removeListener('designer.drag', triggerClose);
         };
 
         focusing = focusTracker.create({

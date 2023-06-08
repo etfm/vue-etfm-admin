@@ -1,8 +1,6 @@
-import { Editor } from '../../../core/core';
 import { defineComponent, PropType, ref, unref } from 'vue';
 import { Panel } from '../../widget';
 import { DraggableLine } from '../draggable-line';
-import { globalContext } from '../../../di';
 
 export const DraggableLineView = defineComponent({
   name: 'DraggableLineView',
@@ -14,20 +12,20 @@ export const DraggableLineView = defineComponent({
   },
   setup(props) {
     const shell = ref();
-    const defaultWidth = ref(0);
+    let defaultWidth: number;
 
     const getDefaultWidth = () => {
       const configWidth = props.panel?.config.props?.width;
       if (configWidth) {
         return configWidth;
       }
-      if (defaultWidth.value) {
-        return defaultWidth.value;
+      if (defaultWidth) {
+        return defaultWidth;
       }
       const containerRef = unref(shell)?.getParent();
       if (containerRef) {
-        defaultWidth.value = containerRef.offsetWidth;
-        return defaultWidth.value;
+        defaultWidth = containerRef.offsetWidth;
+        return defaultWidth;
       }
       return 300;
     };
@@ -42,15 +40,15 @@ export const DraggableLineView = defineComponent({
       }
 
       // 抛出事件，对于有些需要 panel 插件随着 度变化进行再次渲染的，由panel插件内部监听事件实现
-      const editor = globalContext.get(Editor);
-      editor?.emit('dockpane.drag', width);
+      const editor = props.panel.skeleton.editor;
+      editor?.eventBus.emit('dockpane.drag', width);
     };
 
     const onDragChange = (type: 'start' | 'end') => {
-      const editor = globalContext.get(Editor);
-      editor?.emit('dockpane.dragchange', type);
+      const editor = props.panel.skeleton.editor;
+      editor?.eventBus.emit('dockpane.dragchange', type);
       // builtinSimulator 屏蔽掉 鼠标事件
-      editor?.emit('designer.builtinSimulator.disabledEvents', type === 'start');
+      editor?.eventBus.emit('designer.builtinSimulator.disabledEvents', type === 'start');
     };
 
     return {

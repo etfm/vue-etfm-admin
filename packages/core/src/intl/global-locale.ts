@@ -1,5 +1,8 @@
-import { EventEmitter } from 'events';
 import { observable, define } from '../obx';
+import { IEventBus, createModuleEventBus } from '../core/event-bus';
+import { Logger } from '@etfma/shared';
+
+const logger = new Logger({ bizName: 'globalLocale' });
 
 const languageMap: { [key: string]: string } = {
   en: 'en-US',
@@ -30,7 +33,7 @@ const languageMap: { [key: string]: string } = {
 const LowcodeConfigKey = 'ali-lowcode-config';
 
 class GlobalLocale {
-  private emitter = new EventEmitter();
+  private emitter: IEventBus = createModuleEventBus('GlobalLocale');
 
   _locale?: string;
 
@@ -41,13 +44,8 @@ class GlobalLocale {
 
     // TODO: store 1 & store 2 abstract out as custom implements
 
-    // store 1: config from window
-    let locale: string = getConfig('locale');
-    if (locale) {
-      return languageMap[locale] || locale.replace('_', '-');
-    }
-
-    // store 2: config from storage
+    // store 1: config from storage
+    let result: string | null = null;
     if (hasLocalStorage(window)) {
       const store = window.localStorage;
       let config: any;
@@ -57,28 +55,43 @@ class GlobalLocale {
         // ignore;
       }
       if (config?.locale) {
-        return (config.locale || '').replace('_', '-');
+        result = (config.locale || '').replace('_', '-');
+        logger.debug(`getting locale from localStorage: ${result}`);
+      }
+    }
+    if (!result) {
+      // store 2: config from window
+      let localeFromConfig: string = getConfig('locale');
+      if (localeFromConfig) {
+        result = languageMap[localeFromConfig] || localeFromConfig.replace('_', '-');
+        logger.debug(`getting locale from config: ${result}`);
       }
     }
 
-    // store 2: config from system
-    const { navigator } = window as any;
-    if (navigator.language) {
-      const lang = navigator.language as string;
-      return languageMap[lang] || lang.replace('_', '-');
-    } else if (navigator.browserLanguage) {
-      const it = navigator.browserLanguage.split('-');
-      locale = it[0];
-      if (it[1]) {
-        locale += `-${it[1].toUpperCase()}`;
+    if (!result) {
+      // store 3: config from system
+      const { navigator } = window as any;
+      if (navigator.language) {
+        const lang = navigator.language as string;
+        return languageMap[lang] || lang.replace('_', '-');
+      } else if (navigator.browserLanguage) {
+        const it = navigator.browserLanguage.split('-');
+        let localeFromSystem = it[0];
+        if (it[1]) {
+          localeFromSystem += `-${it[1].toUpperCase()}`;
+        }
+        result = localeFromSystem;
+        logger.debug(`getting locale from system: ${result}`);
       }
     }
-
-    if (!locale) {
-      locale = 'zh-CN';
+    if (!result) {
+      logger.warn(
+        'something when wrong when trying to get locale, use zh-CN as default, please check it out!',
+      );
+      result = 'zh-CN';
     }
-
-    return locale;
+    this._locale = result;
+    return result;
   }
 
   constructor() {
@@ -94,6 +107,7 @@ class GlobalLocale {
   }
 
   setLocale(locale: string) {
+    logger.info(`setting locale to ${locale}`);
     if (locale === this.locale) {
       return;
     }
@@ -140,12 +154,5 @@ function hasLocalStorage(obj: any): obj is WindowLocalStorage {
 }
 
 let globalLocale = new GlobalLocale();
-// let globalLocale: GlobalLocale;
-// if ((window as any).__GlobalLocale) {
-//   globalLocale = (window as any).__GlobalLocale as any;
-// } else {
-//   globalLocale = new GlobalLocale();
-//   (window as any).__GlobalLocale = globalLocale;
-// }
 
 export { globalLocale };

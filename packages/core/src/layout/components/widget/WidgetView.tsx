@@ -1,4 +1,4 @@
-import { defineComponent, onMounted, onUpdated, PropType, ref } from 'vue';
+import { defineComponent, onMounted, onUpdated, PropType } from 'vue';
 import { observer } from '../../../obx';
 import { IWidget } from '../../widget';
 import { SkeletonEvents } from '../../skeleton';
@@ -13,8 +13,8 @@ export const WidgetView = observer(
       },
     },
     setup(props) {
-      const lastVisible = ref(false);
-      const lastDisabled = ref(false);
+      let lastVisible = false;
+      let lastDisabled = false;
 
       onMounted(() => {
         checkVisible();
@@ -30,9 +30,9 @@ export const WidgetView = observer(
         const { widget } = props;
         const currentVisible = widget.visible;
 
-        if (currentVisible !== lastVisible.value) {
-          lastVisible.value = currentVisible;
-          if (lastVisible.value) {
+        if (currentVisible !== lastVisible) {
+          lastVisible = currentVisible;
+          if (lastVisible) {
             widget.skeleton.postEvent(SkeletonEvents.WIDGET_SHOW, widget.name, widget);
           } else {
             widget.skeleton.postEvent(SkeletonEvents.WIDGET_SHOW, widget.name, widget);
@@ -43,9 +43,9 @@ export const WidgetView = observer(
       const checkDisabled = () => {
         const { widget } = props;
         const currentDisabled = widget.disabled ?? false;
-        if (currentDisabled !== lastDisabled.value) {
-          lastDisabled.value = currentDisabled;
-          if (lastDisabled.value) {
+        if (currentDisabled !== lastDisabled) {
+          lastDisabled = currentDisabled;
+          if (lastDisabled) {
             widget.skeleton.postEvent(SkeletonEvents.WIDGET_DISABLE, widget.name, widget);
           } else {
             widget.skeleton.postEvent(SkeletonEvents.WIDGET_ENABLE, widget.name, widget);

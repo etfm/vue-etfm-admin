@@ -1,12 +1,24 @@
 import { observable, define } from '../obx';
 import { WidgetContainer } from './widget';
-import { Skeleton } from './skeleton';
+import { ISkeleton } from './skeleton';
 import { IWidget } from './widget/widget';
-import { IWidgetBaseConfig } from '../types/api';
+import { Logger } from '@etfma/shared';
+import { IPublicTypeWidgetBaseConfig } from '../types/widget-base-config';
 
-export class Area<C extends IWidgetBaseConfig = any, T extends IWidget = IWidget> {
-  private lastCurrent: T | null = null;
+const logger = new Logger({ bizName: 'skeleton:area' });
 
+export interface IArea<C, T> {
+  isEmpty(): boolean;
+  add(config: T | C): T;
+  remove(config: T | string): number;
+  setVisible(flag: boolean): void;
+  hide(): void;
+  show(): void;
+}
+
+export class Area<C extends IPublicTypeWidgetBaseConfig = any, T extends IWidget = IWidget>
+  implements IArea<C, T>
+{
   _visible = true;
 
   get visible() {
@@ -24,14 +36,17 @@ export class Area<C extends IWidgetBaseConfig = any, T extends IWidget = IWidget
   }
 
   readonly container: WidgetContainer<T, C>;
+  private lastCurrent: T | null = null;
 
   constructor(
-    readonly skeleton: Skeleton,
+    readonly skeleton: ISkeleton,
     readonly name: string,
     handle: (item: T | C) => T,
     private exclusive?: boolean,
     defaultSetCurrent = false,
   ) {
+    this.makeObservable();
+
     this.container = skeleton.createContainer(
       name,
       handle,
@@ -39,13 +54,11 @@ export class Area<C extends IWidgetBaseConfig = any, T extends IWidget = IWidget
       () => this.visible,
       defaultSetCurrent,
     );
-
-    this.makeObservable();
   }
 
   makeObservable() {
     define(this, {
-      _visible: observable,
+      _visible: observable.ref,
       visible: observable.computed,
     });
   }
@@ -58,6 +71,7 @@ export class Area<C extends IWidgetBaseConfig = any, T extends IWidget = IWidget
     const item = this.container.get(config.name);
 
     if (item) {
+      logger.warn(`The ${config.name} has already been added to skeleton.`);
       return item;
     }
     return this.container.add(config);

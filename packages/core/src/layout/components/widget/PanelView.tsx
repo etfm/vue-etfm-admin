@@ -59,7 +59,7 @@ export const PanelView = observer(
       if (!this.panel.inited) {
         return null;
       }
-      const editor = globalContext.get(Editor);
+      const editor = this.panel.skeleton.editor;
       const panelName = this.area ? `${this.area}-${this.panel.name}` : this.panel.name;
       editor?.emit('skeleton.panel.toggle', {
         name: panelName || '',

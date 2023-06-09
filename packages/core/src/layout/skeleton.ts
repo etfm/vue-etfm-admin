@@ -265,7 +265,7 @@ export class Skeleton {
       this.leftFloatArea.add(panel);
       this.leftFloatArea.container.active(panel);
     }
-    engineConfig.getPreference()?.set(`${panel.name}-pinned-status-isFloat`, !isFloat, 'skeleton');
+    engineConfig.getPreference().set(`${panel.name}-pinned-status-isFloat`, !isFloat, 'skeleton');
   }
 
   buildFromConfig(config?: EditorConfig) {

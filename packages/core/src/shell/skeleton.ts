@@ -218,10 +218,6 @@ function normalizeArea(
       return 'leftFixedArea';
     case 'leftFloatArea':
       return 'leftFloatArea';
-    case 'stages':
-      return 'stages';
-    case 'subTopArea':
-      return 'subTopArea';
     default:
       throw new Error(`${area} not supported`);
   }

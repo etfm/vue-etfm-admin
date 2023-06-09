@@ -5,8 +5,6 @@ import { observer } from '../../../obx';
 import classNames from 'classnames';
 import { PanelOperationRow } from './PanelOperationRow';
 import { DraggableLineView } from './DraggableLineView';
-import { globalContext } from '../../../di';
-import { Editor } from '../../../core/core';
 
 /// 需要保留 不带任何组件
 export const PanelView = observer(

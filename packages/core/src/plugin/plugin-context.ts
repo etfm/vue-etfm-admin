@@ -15,6 +15,7 @@ import { IPublicModelPluginContext } from '../types/plugin-context';
 import { IPublicApiPlugins } from '../types/api/plugins';
 import { IPublicApiMaterial } from '../types/api/material';
 import { createModuleEventBus } from '../core/event-bus';
+import { IPublicApiCommon } from '../types/api/common';
 
 export default class PluginContext
   implements IPublicModelPluginContext, ILowCodePluginContextPrivate
@@ -29,6 +30,7 @@ export default class PluginContext
   preference: IPluginPreferenceMananger;
   material: IPublicApiMaterial;
   pluginEvent: IPublicApiEvent;
+  common: IPublicApiCommon;
 
   constructor(
     options: IPluginContextOptions,

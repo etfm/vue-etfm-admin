@@ -15,6 +15,7 @@ import { IPublicTypePlugin } from '../types/plugin';
 import { IPublicTypePluginRegisterOptions } from '../types/plugin-register-options';
 import PluginContext from './plugin-context';
 import { IPublicModelEngineConfig } from '../types/engine-config';
+import { IPublicApiCommon } from '../types/api/common';
 
 export type PreferenceValueType = string | number | boolean;
 
@@ -133,6 +134,7 @@ export interface ILowCodePluginContextPrivate {
   set config(config: IPublicModelEngineConfig);
   set global(global: IPublicApiGlobal);
   set editor(editor: IPublicApiEditor);
+  set common(common: IPublicApiCommon);
   set material(material: IPublicApiMaterial);
   set plugins(plugins: IPublicApiPlugins);
   set logger(plugins: IPublicApiLogger);

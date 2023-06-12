@@ -38,7 +38,7 @@ const skeleton = new Skeleton(innerSkeleton, 'any');
 const config = new Config(engineConfig);
 const event = new Event(commonEvent, { prefix: 'common' });
 const logger = new Logger({ bizName: 'common' });
-const common = new Common(editor, innerSkeleton);
+const common = new Common(innerSkeleton);
 let plugins: Plugins;
 
 const pluginContextApiAssembler: ILowCodePluginContextApiAssembler = {

@@ -117,8 +117,6 @@ export class WidgetContainer<T extends WidgetItem = any, G extends WidgetItem = 
       }
     }
 
-    console.log('widget-container:items:', this.items);
-    console.log('widget-container:maps:', this.maps);
     return item;
   }
 

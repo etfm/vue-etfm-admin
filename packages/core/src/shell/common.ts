@@ -1,4 +1,3 @@
-import { Editor } from '../core/core';
 import {
   IPublicApiCommon,
   IPublicApiCommonSkeletonCabin,
@@ -8,12 +7,13 @@ import { createIntl as innerCreateIntl } from '../intl';
 import { Skeleton as InnerSkeleton } from '../layout/skeleton';
 import { Workbench as InnerWorkbench } from '../layout/layouts';
 import { skeletonSymbol } from './symbols';
+import { h } from 'vue';
 
 export class Common implements IPublicApiCommon {
   private readonly __skeletonCabin: any;
   private readonly __utils: Utils;
 
-  constructor(editor: Editor, skeleton: InnerSkeleton) {
+  constructor(skeleton: InnerSkeleton) {
     this.__skeletonCabin = new SkeletonCabin(skeleton);
     this.__utils = new Utils();
   }
@@ -46,6 +46,10 @@ class SkeletonCabin implements IPublicApiCommonSkeletonCabin {
 
   get Workbench(): any {
     const innerSkeleton = this[skeletonSymbol];
-    return (props: any) => <InnerWorkbench {...props} skeleton={innerSkeleton} />;
+    return (props: any) =>
+      h(InnerWorkbench, {
+        ...props,
+        skeleton: innerSkeleton,
+      });
   }
 }

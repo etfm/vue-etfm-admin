@@ -5,7 +5,16 @@ import { LowCodePluginRuntime } from './plugin';
 import LowCodePluginContext from './plugin-context';
 import sequencify from './sequencify';
 import semverSatisfies from 'semver/functions/satisfies';
-import { IPublicTypePlugin } from '../types/plugin';
+import {
+  IPluginManager,
+  IPluginRuntime,
+  IPluginPreference,
+  IPluginContextApiAssembler,
+  IPluginContextOptions,
+  IPublicTypePlugin,
+  IPublicTypePluginRegisterOptions,
+  IPublicTypePreferenceValueType,
+} from '@etfma/types';
 
 const logger = new Logger({ bizName: 'pluginManager' });
 
@@ -27,17 +36,17 @@ const RESERVED_EVENT_PREFIX = [
   'context',
 ];
 
-export class PluginManager implements ILowCodePluginManager {
-  private plugins: ILowCodePluginRuntime[] = [];
+export class PluginManager implements IPluginManager {
+  private plugins: IPluginRuntime[] = [];
 
-  pluginsMap: Map<string, ILowCodePluginRuntime> = new Map();
+  pluginsMap: Map<string, IPluginRuntime> = new Map();
   pluginContextMap: Map<string, LowCodePluginContext> = new Map();
 
-  private pluginPreference?: PluginPreference = new Map();
+  private pluginPreference?: IPluginPreference = new Map();
 
-  contextApiAssembler: ILowCodePluginContextApiAssembler;
+  contextApiAssembler: IPluginContextApiAssembler;
 
-  constructor(contextApiAssembler: ILowCodePluginContextApiAssembler) {
+  constructor(contextApiAssembler: IPluginContextApiAssembler) {
     this.contextApiAssembler = contextApiAssembler;
   }
 
@@ -69,7 +78,7 @@ export class PluginManager implements ILowCodePluginManager {
   async register(
     pluginModel: IPublicTypePlugin,
     options?: any,
-    registerOptions?: ILowCodeRegisterOptions,
+    registerOptions?: IPublicTypePluginRegisterOptions,
   ): Promise<void> {
     // registerOptions maybe in the second place
     if (isLowCodeRegisterOptions(options)) {
@@ -98,7 +107,7 @@ export class PluginManager implements ILowCodePluginManager {
     // @ts-ignore
     pluginName = pluginName || config.name;
 
-    ctx.setPreference(pluginName, preferenceDeclaration);
+    ctx.setPreference(pluginName, preferenceDeclaration!);
 
     const allowOverride = registerOptions?.override === true;
 
@@ -140,11 +149,11 @@ export class PluginManager implements ILowCodePluginManager {
     );
   }
 
-  get(pluginName: string): ILowCodePluginRuntime | undefined {
+  get(pluginName: string): IPluginRuntime | undefined {
     return this.pluginsMap.get(pluginName);
   }
 
-  getAll(): ILowCodePluginRuntime[] {
+  getAll(): IPluginRuntime[] {
     return this.plugins;
   }
 
@@ -162,9 +171,9 @@ export class PluginManager implements ILowCodePluginManager {
     return this.pluginsMap.delete(pluginName);
   }
 
-  async init(pluginPreference?: PluginPreference) {
+  async init(pluginPreference?: IPluginPreference) {
     const pluginNames: string[] = [];
-    const pluginObj: { [name: string]: ILowCodePluginRuntime } = {};
+    const pluginObj: { [name: string]: IPluginRuntime } = {};
     this.pluginPreference = pluginPreference;
     this.plugins.forEach((plugin) => {
       pluginNames.push(plugin.name);
@@ -195,7 +204,9 @@ export class PluginManager implements ILowCodePluginManager {
     return this.pluginsMap.size;
   }
 
-  getPluginPreference(pluginName: string): Record<string, PreferenceValueType> | null | undefined {
+  getPluginPreference(
+    pluginName: string,
+  ): Record<string, IPublicTypePreferenceValueType> | null | undefined {
     if (!this.pluginPreference) {
       return null;
     }
@@ -230,6 +241,6 @@ export class PluginManager implements ILowCodePluginManager {
   }
 }
 
-export function isLowCodeRegisterOptions(opts: any): opts is ILowCodeRegisterOptions {
+export function isLowCodeRegisterOptions(opts: any): opts is IPublicTypePluginRegisterOptions {
   return opts && ('autoInit' in opts || 'override' in opts);
 }

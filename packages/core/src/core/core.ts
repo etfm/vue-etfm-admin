@@ -1,13 +1,13 @@
 import { EventEmitter } from 'events';
 import { engineConfig } from '../config/config';
 import { observable, define } from '../obx';
-import {
+import { EventBus } from './event-bus';
+import type {
   EditorConfig,
   IPublicModelEditor,
   IPublicTypeEditorGetResult,
   IPublicTypeEditorValueKey,
-} from '../types/core';
-import { EventBus } from './event-bus';
+} from '@etfma/types';
 
 const keyBlacklist = ['skeleton', 'plugins', 'material', 'innerPlugins'];
 

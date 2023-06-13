@@ -1,4 +1,4 @@
-import { IPublicTypePreferenceValueType } from './preference-value-type';
+import { IPublicTypePreferenceValueType } from '../preference-value-type';
 
 export interface IPublicTypePluginDeclarationProperty {
   // shape like 'name' or 'group.name' or 'group.subGroup.name'

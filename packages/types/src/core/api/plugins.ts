@@ -1,17 +1,8 @@
-import { IPublicTypePlugin } from '../plugin';
-import { IPublicModelPluginInstance } from '../plugin-instance';
-import { IPublicTypePluginRegisterOptions } from '../plugin-register-options';
+import { IPublicTypePlugin } from '../plugin/plugin';
+import { IPublicModelPluginInstance } from '../plugin/plugin-instance';
+import { PluginOptionsType } from '../plugin/plugin-manager';
+import { IPublicTypePluginRegisterOptions } from '../plugin/plugin-register-options';
 import { IPublicTypePreferenceValueType } from '../preference-value-type';
-
-export interface IPluginPreferenceMananger {
-  // eslint-disable-next-line max-len
-  getPreferenceValue: (
-    key: string,
-    defaultValue?: IPublicTypePreferenceValueType,
-  ) => IPublicTypePreferenceValueType | undefined;
-}
-
-export type PluginOptionsType = string | number | boolean | object;
 
 export interface IPublicApiPlugins {
   /**

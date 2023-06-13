@@ -1,8 +1,8 @@
-import { IPublicApiLogger } from './api/logger';
+import { IPublicApiLogger } from '../api';
 import { IPublicTypePluginConfig } from './plugin-config';
 import { IPublicTypePluginMeta } from './plugin-meta';
 
-export interface ILowCodePluginRuntimeCore {
+export interface IPluginRuntimeCore {
   name: string;
   dep: string[];
   disabled: boolean;
@@ -16,9 +16,8 @@ export interface ILowCodePluginRuntimeCore {
   setDisabled(flag: boolean): void;
 }
 
-interface ILowCodePluginRuntimeExportsAccessor {
+interface IPluginRuntimeExportsAccessor {
   [propName: string]: any;
 }
 
-export type ILowCodePluginRuntime = ILowCodePluginRuntimeCore &
-  ILowCodePluginRuntimeExportsAccessor;
+export type IPluginRuntime = IPluginRuntimeCore & IPluginRuntimeExportsAccessor;

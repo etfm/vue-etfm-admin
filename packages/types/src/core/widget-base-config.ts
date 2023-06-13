@@ -1,7 +1,6 @@
 import { IPublicTypeWidgetConfigArea } from './widget-config-area';
 
 export interface IPublicTypeWidgetBaseConfig {
-  [extra: string]: any;
   type: string;
   name: string;
 
@@ -15,27 +14,7 @@ export interface IPublicTypeWidgetBaseConfig {
   props?: Record<string, any>;
   content?: any;
   contentProps?: Record<string, any>;
-}
-
-export interface IPublicTypePanelDockConfig extends IPublicTypeWidgetBaseConfig {
-  type: 'PanelDock';
-
-  panelProps?: IPublicTypePanelDockPanelProps;
-
-  props?: IPublicTypePanelDockProps;
-
-  /** 面板 name, 当没有 props.title 时, 会使用 name 作为标题 */
-  name: string;
-}
-
-export interface IPublicTypePanelDockProps {
-  [key: string]: any;
-
-  size?: 'small' | 'medium' | 'large';
-
-  className?: string;
-
-  onClick?: () => void;
+  [extra: string]: any;
 }
 
 export interface IPublicTypePanelDockPanelProps {
@@ -55,4 +34,4 @@ export interface IPublicTypePanelDockPanelProps {
   area?: IPublicTypeWidgetConfigArea;
 }
 
-export type IPublicTypeSkeletonConfig = IPublicTypePanelDockConfig | IPublicTypeWidgetBaseConfig;
+export type IPublicTypeSkeletonConfig = IPublicTypeWidgetBaseConfig;

@@ -1,3 +1,5 @@
+import { IPublicTypeWidgetBaseConfig } from '../widget-base-config';
+
 export interface IPublicApiSkeleton {
   /**
    * 增加一个面板实例
@@ -5,14 +7,14 @@ export interface IPublicApiSkeleton {
    * @param extraConfig
    * @returns
    */
-  add(config: IWidgetBaseConfig, extraConfig?: Record<string, any>): any;
+  add(config: IPublicTypeWidgetBaseConfig, extraConfig?: Record<string, any>): any;
 
   /**
    * 移除一个面板实例
    * @param config
    * @returns
    */
-  remove(config: IWidgetBaseConfig): number | undefined;
+  remove(config: IPublicTypeWidgetBaseConfig): number | undefined;
 
   /**
    * 显示面板
@@ -89,41 +91,4 @@ export interface IPublicApiSkeleton {
    * @returns
    */
   onHideWidget(listener: (...args: unknown[]) => void): () => void;
-}
-
-/**
- * 所有可能的停靠位置
- */
-export type IWidgetConfigArea =
-  | 'leftArea'
-  | 'left'
-  | 'rightArea'
-  | 'right'
-  | 'topArea'
-  | 'top'
-  | 'toolbar'
-  | 'mainArea'
-  | 'main'
-  | 'center'
-  | 'centerArea'
-  | 'bottomArea'
-  | 'bottom'
-  | 'leftFixedArea'
-  | 'leftFloatArea';
-
-export interface IWidgetBaseConfig {
-  type: string;
-  name: string;
-  /**
-   * 停靠位置：
-   * - 当 type 为 'Panel' 时自动为 'leftFloatArea'；
-   * - 当 type 为 'Widget' 时自动为 'mainArea'；
-   * - 其他时候自动为 'leftArea'；
-   */
-  area?: IWidgetConfigArea;
-  props?: Record<string, any>;
-  content?: any;
-  contentProps?: Record<string, any>;
-  // index?: number;
-  [extra: string]: any;
 }

@@ -1,16 +1,9 @@
-import { IPublicApiEvent } from '../types/api/event';
 import { EventEmitter } from 'events';
 import { Logger } from '@etfma/shared';
+import { IEventBus } from '@etfma/types';
 
 const logger = new Logger({ bizName: 'event-bus' });
 const moduleLogger = new Logger({ bizName: 'module-event-bus' });
-
-export interface IEventBus extends IPublicApiEvent {
-  removeListener(event: string | number, listener: (...args: any[]) => void): any;
-  addListener(event: string | number, listener: (...args: any[]) => void): any;
-  setMaxListeners(n: number): any;
-  removeAllListeners(event?: string | number): any;
-}
 
 export class EventBus implements IEventBus {
   private readonly eventEmitter: EventEmitter;

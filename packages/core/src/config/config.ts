@@ -1,8 +1,10 @@
 import { Logger, lodash } from '@etfma/shared';
 import Preference from '../utils/preference';
-import { IPublicTypeEngineOptions } from '../types/engine-options';
-import { IPublicModelEngineConfig } from '../types/engine-config';
-import { IPublicModelPreference } from '../types/preference';
+import type {
+  IPublicModelEngineConfig,
+  IPublicModelPreference,
+  IPublicTypeEngineOptions,
+} from '@etfma/types';
 
 const logger = new Logger({ bizName: 'Config' });
 

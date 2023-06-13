@@ -2,13 +2,14 @@ import { IPublicTypePlugin } from './plugin';
 import { IPublicPluginContext } from './plugin-context';
 import { IPluginContextOptions } from './plugin-context-options';
 import { IPublicTypePluginRegisterOptions } from './plugin-register-options';
-import { IPublicTypePreferenceValueType } from './preference-value-type';
+import { IPublicTypePreferenceValueType } from '../preference-value-type';
+import { IPluginRuntime } from './plugin-runtime';
 
-interface ILowCodePluginManagerPluginAccessor {
-  [pluginName: string]: ILowCodePluginRuntime | any;
+interface IPluginManagerPluginAccessor {
+  [pluginName: string]: IPluginRuntime | any;
 }
 
-export interface ILowCodePluginManagerCore {
+export interface IPluginManagerCore {
   register(
     pluginModel: IPublicTypePlugin,
     pluginOptions?: any,
@@ -17,8 +18,8 @@ export interface ILowCodePluginManagerCore {
   init(
     pluginPreference?: Map<string, Record<string, IPublicTypePreferenceValueType>>,
   ): Promise<void>;
-  get(pluginName: string): ILowCodePluginRuntime | undefined;
-  getAll(): ILowCodePluginRuntime[];
+  get(pluginName: string): IPluginRuntime | undefined;
+  getAll(): IPluginRuntime[];
   has(pluginName: string): boolean;
   delete(pluginName: string): any;
   setDisabled(pluginName: string, flag: boolean): void;
@@ -26,4 +27,13 @@ export interface ILowCodePluginManagerCore {
   _getLowCodePluginContext(options: IPluginContextOptions): IPublicPluginContext;
 }
 
-export type ILowCodePluginManager = ILowCodePluginManagerCore & ILowCodePluginManagerPluginAccessor;
+export type IPluginManager = IPluginManagerCore & IPluginManagerPluginAccessor;
+
+export interface IPluginPreferenceMananger {
+  getPreferenceValue: (
+    key: string,
+    defaultValue?: IPublicTypePreferenceValueType,
+  ) => IPublicTypePreferenceValueType | undefined;
+}
+
+export type PluginOptionsType = string | number | boolean | object;

@@ -1,8 +1,15 @@
-import { IPublicApiSkeleton, IPublicApiEvent, IPublicApiGlobal, IPublicApiCommon } from './api';
-import { IPublicApiLogger } from './api/logger';
-import { IPublicApiMaterial } from './api/material';
-import { IPluginPreferenceMananger, IPublicApiPlugins } from './api/plugins';
-import { IPublicModelEngineConfig } from './engine-config';
+import {
+  IPublicApiLogger,
+  IPublicApiMaterial,
+  IPublicApiPlugins,
+  IPublicApiSkeleton,
+  IPublicApiEvent,
+  IPublicApiGlobal,
+  IPublicApiCommon,
+} from '../api';
+import { IPublicModelEngineConfig } from '../engine-config';
+import { IPluginPreferenceMananger } from './plugin-manager';
+import { IPublicTypePluginMeta } from './plugin-meta';
 
 export interface IPublicModelPluginContext {
   /**
@@ -55,7 +62,7 @@ export interface IPublicModelPluginContext {
   get pluginEvent(): IPublicApiEvent;
 }
 
-export interface ILowCodePluginContextPrivate {
+export interface IPluginContextPrivate {
   set skeleton(skeleton: IPublicApiSkeleton);
   set event(event: IPublicApiEvent);
   set config(config: IPublicModelEngineConfig);
@@ -66,4 +73,12 @@ export interface ILowCodePluginContextPrivate {
   set logger(plugins: IPublicApiLogger);
 }
 
-export type IPublicPluginContext = ILowCodePluginContextPrivate & IPublicModelPluginContext;
+export interface IPluginContextApiAssembler {
+  assembleApis(
+    context: IPluginContextPrivate,
+    pluginName: string,
+    meta: IPublicTypePluginMeta,
+  ): void;
+}
+
+export type IPublicPluginContext = IPluginContextPrivate & IPublicModelPluginContext;

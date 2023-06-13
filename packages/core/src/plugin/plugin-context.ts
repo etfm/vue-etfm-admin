@@ -1,25 +1,24 @@
 import { EngineConfig, engineConfig } from '../config/config';
 import { Logger } from '@etfma/shared';
-import {
-  IPluginContextOptions,
-  ILowCodePluginPreferenceDeclaration,
-  PreferenceValueType,
-  IPluginPreferenceMananger,
-  ILowCodePluginContextApiAssembler,
-  ILowCodePluginContextPrivate,
-} from './plugin-types';
 import { isValidPreferenceKey } from './plugin-utils';
-import { IPublicApiEditor, IPublicApiEvent, IPublicApiSkeleton } from '../types/api';
-import { IPublicApiGlobal } from '../types/api/global';
-import { IPublicModelPluginContext } from '../types/plugin-context';
-import { IPublicApiPlugins } from '../types/api/plugins';
-import { IPublicApiMaterial } from '../types/api/material';
 import { createModuleEventBus } from '../core/event-bus';
-import { IPublicApiCommon } from '../types/api/common';
+import type {
+  IPluginContextApiAssembler,
+  IPluginContextOptions,
+  IPluginPreferenceMananger,
+  IPublicApiCommon,
+  IPublicApiEditor,
+  IPublicApiEvent,
+  IPublicApiGlobal,
+  IPublicApiMaterial,
+  IPublicApiPlugins,
+  IPublicApiSkeleton,
+  IPublicPluginContext,
+  IPublicTypePluginDeclaration,
+  IPublicTypePreferenceValueType,
+} from '@etfma/types';
 
-export default class PluginContext
-  implements IPublicModelPluginContext, ILowCodePluginContextPrivate
-{
+export default class PluginContext implements IPublicPluginContext {
   skeleton: IPublicApiSkeleton;
   event: IPublicApiEvent;
   config: EngineConfig;
@@ -32,10 +31,7 @@ export default class PluginContext
   pluginEvent: IPublicApiEvent;
   common: IPublicApiCommon;
 
-  constructor(
-    options: IPluginContextOptions,
-    contextApiAssembler: ILowCodePluginContextApiAssembler,
-  ) {
+  constructor(options: IPluginContextOptions, contextApiAssembler: IPluginContextApiAssembler) {
     const { pluginName = 'anonymous', meta = {} } = options;
     contextApiAssembler.assembleApis(this, pluginName, meta);
     this.pluginEvent = createModuleEventBus(pluginName, 200);
@@ -45,14 +41,11 @@ export default class PluginContext
     }
   }
 
-  setPreference(
-    pluginName: string,
-    preferenceDeclaration: ILowCodePluginPreferenceDeclaration,
-  ): void {
+  setPreference(pluginName: string, preferenceDeclaration: IPublicTypePluginDeclaration): void {
     const getPreferenceValue = (
       key: string,
-      defaultValue?: PreferenceValueType,
-    ): PreferenceValueType | undefined => {
+      defaultValue?: IPublicTypePreferenceValueType,
+    ): IPublicTypePreferenceValueType | undefined => {
       if (!isValidPreferenceKey(key, preferenceDeclaration)) {
         return undefined;
       }

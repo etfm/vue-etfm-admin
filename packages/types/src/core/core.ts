@@ -1,7 +1,5 @@
-/* eslint-disable max-len */
-import { EventEmitter } from 'events';
-import { IPublicApiEvent } from './api/event';
-import { Editor } from '../core/core';
+import type { EventEmitter } from 'events';
+import { IEventBus } from './event-bus';
 
 export type IPublicTypeEditorValueKey = (new (...args: any[]) => any) | symbol | string;
 
@@ -61,9 +59,7 @@ export interface IPublicModelEditor extends EventEmitter, EventConfig {
     options?: IPublicTypeEditorRegisterOptions,
   ) => void;
 
-  get eventBus(): IPublicApiEvent;
-
-  // setAssets(assets: any): void;
+  get eventBus(): IEventBus;
 }
 
 export interface EditorConfig {
@@ -119,19 +115,19 @@ export interface PluginConfig {
   pluginProps?: Record<string, unknown>;
 }
 
-export type PluginClass = ComponentType<PluginProps> & {
-  init?: (editor: IPublicModelEditor) => void;
-  defaultProps?: {
-    locale?: LocaleType;
-    messages?: I18nMessages;
-  };
-};
+export type PluginClass = any;
 
 export interface PluginProps {
-  engineEditor: Editor;
+  engineEditor: IEditor;
 }
 export interface PluginClassSet {
   [key: string]: PluginClass;
 }
 
 export type LocaleType = 'zh-CN' | 'zh-TW' | 'en-US' | 'ja-JP';
+
+export interface IEditor extends IPublicModelEditor {
+  config?: EditorConfig;
+
+  init(config?: EditorConfig): Promise<any>;
+}

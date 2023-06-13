@@ -28,36 +28,17 @@ const VALID_ENGINE_OPTIONS = {
     default: 'default',
     description: '设备类型',
   },
-  deviceClassName: {
-    type: 'string',
-    default: undefined,
-    description: '指定初始化的 deviceClassName，挂载到画布的顶层节点上',
-  },
+
   locale: {
     type: 'string',
     default: 'zh-CN',
     description: '语言',
-  },
-  renderEnv: {
-    type: 'string',
-    enum: ['react', 'rax', 'any string value'],
-    default: 'react',
-    description: '渲染器类型',
-  },
-  deviceMapper: {
-    type: 'object',
-    description: '设备类型映射器，处理设计器与渲染器中 device 的映射',
   },
   enableStrictPluginMode: {
     type: 'boolean',
     default: STRICT_PLUGIN_MODE_DEFAULT,
     description:
       '开启严格插件模式，默认值：STRICT_PLUGIN_MODE_DEFAULT , 严格模式下，插件将无法通过 engineOptions 传递自定义配置项',
-  },
-  loadingComponent: {
-    type: 'ComponentType',
-    default: undefined,
-    description: '自定义 loading 组件',
   },
   supportVariableGlobally: {
     type: 'boolean',

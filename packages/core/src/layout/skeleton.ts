@@ -1,13 +1,6 @@
 import { action, define } from '../obx';
-import {
-  DockConfig,
-  PanelConfig,
-  WidgetConfig,
-  PanelDockConfig,
-  isPanelDockConfig,
-  isPanelConfig,
-} from './types';
-import { WidgetContainer, Panel, isPanel, Widget, isWidget, IWidget, PanelDock } from './widget';
+import { PanelConfig, WidgetConfig, isPanelConfig } from './types';
+import { WidgetContainer, Panel, isPanel, Widget, isWidget, IWidget } from './widget';
 import { Area } from './area';
 import { isVNode } from 'vue';
 import { Logger, lodash } from '@etfma/shared';
@@ -53,11 +46,11 @@ export interface ISkeleton
   > {
   editor: IEditor;
 
-  readonly leftArea: Area<DockConfig | PanelDockConfig>;
+  readonly leftArea: Area<WidgetConfig | PanelConfig, Widget | Panel>;
 
-  readonly topArea: Area<DockConfig | PanelDockConfig>;
+  readonly topArea: Area<WidgetConfig | PanelConfig, Widget | Panel>;
 
-  readonly toolbar: Area<DockConfig | PanelDockConfig>;
+  readonly toolbar: Area<WidgetConfig | PanelConfig, Widget | Panel>;
 
   readonly leftFixedArea: Area<PanelConfig, Panel>;
 
@@ -90,7 +83,7 @@ export interface ISkeleton
   add(
     config: IPublicTypeSkeletonConfig,
     extraConfig?: Record<string, any>,
-  ): IWidget | Widget | Panel | PanelDock | undefined;
+  ): IWidget | Widget | Panel | undefined;
 
   toggleFloatStatus(panel: Panel): void;
   postEvent(event: SkeletonEvents, ...args: any[]): void;
@@ -101,11 +94,11 @@ export class Skeleton {
 
   private containers = new Map<string, WidgetContainer<any>>();
 
-  readonly leftArea: Area<DockConfig | PanelDockConfig>;
+  readonly leftArea: Area<WidgetConfig | PanelConfig, Widget | Panel>;
 
-  readonly topArea: Area<DockConfig | PanelDockConfig>;
+  readonly topArea: Area<WidgetConfig | PanelConfig, Widget | Panel>;
 
-  readonly toolbar: Area<DockConfig | PanelDockConfig>;
+  readonly toolbar: Area<WidgetConfig | PanelConfig, Widget | Panel>;
 
   readonly leftFixedArea: Area<PanelConfig, Panel>;
 
@@ -127,7 +120,7 @@ export class Skeleton {
         if (isWidget(config)) {
           return config;
         }
-        return this.createWidget(config);
+        return this.createWidget(config) as Widget;
       },
       false,
     );
@@ -138,7 +131,7 @@ export class Skeleton {
         if (isWidget(config)) {
           return config;
         }
-        return this.createWidget(config);
+        return this.createWidget(config) as Widget;
       },
       false,
     );
@@ -149,7 +142,7 @@ export class Skeleton {
         if (isWidget(config)) {
           return config;
         }
-        return this.createWidget(config);
+        return this.createWidget(config) as Widget;
       },
       false,
     );
@@ -315,9 +308,7 @@ export class Skeleton {
 
     config = this.parseConfig(config);
     let widget: IWidget;
-    if (isPanelDockConfig(config)) {
-      widget = new PanelDock(this, config);
-    } else if (isPanelConfig(config)) {
+    if (isPanelConfig(config)) {
       widget = this.createPanel(config);
     } else {
       widget = new Widget(this, config as WidgetConfig);
@@ -409,15 +400,15 @@ export class Skeleton {
     switch (area) {
       case 'leftArea':
       case 'left':
-        return this.leftArea.add(parsedConfig as PanelDockConfig);
+        return this.leftArea.add(parsedConfig as WidgetConfig);
       case 'rightArea':
       case 'right':
         return this.rightArea.add(parsedConfig as PanelConfig);
       case 'topArea':
       case 'top':
-        return this.topArea.add(parsedConfig as PanelDockConfig);
+        return this.topArea.add(parsedConfig as WidgetConfig);
       case 'toolbar':
-        return this.toolbar.add(parsedConfig as PanelDockConfig);
+        return this.toolbar.add(parsedConfig as WidgetConfig);
       case 'mainArea':
       case 'main':
       case 'center':

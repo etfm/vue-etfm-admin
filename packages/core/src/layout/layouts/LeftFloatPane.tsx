@@ -15,18 +15,11 @@ export const LeftFloatPane = observer(
       },
     },
     setup(props) {
-      let dispose: () => void;
       let focusing: Focusable;
 
       const shell = ref<HTMLElement | null>(null);
 
       onMounted(() => {
-        props.area.skeleton.editor.eventBus.on('designer.drag', triggerClose);
-
-        dispose = () => {
-          props.area.skeleton.editor.eventBus.removeListener('designer.drag', triggerClose);
-        };
-
         focusing = focusTracker.create({
           range: (e) => {
             const target = e.target as HTMLElement;
@@ -56,10 +49,7 @@ export const LeftFloatPane = observer(
             if (document.querySelector('.lc-workbench-body')?.contains(target)) {
               return true;
             }
-            const docks = props.area.current?.getAssocDocks();
-            if (docks && docks?.length) {
-              return docks.some((dock) => (dock.getDOMNode() as any)?.$el?.contains(target));
-            }
+
             return false;
           },
           onEsc: () => {
@@ -93,22 +83,8 @@ export const LeftFloatPane = observer(
         onEffect();
       });
 
-      const triggerClose = (e: any) => {
-        if (!props.area.visible) return;
-        // 当 MouseEvent 的 target 为「插入占位符」时，不关闭当前 panel
-        if (e.originalEvent?.target?.classList.contains('insertion')) return;
-        // 假如当前操作 target 祖先节点中有属性 data-keep-visible-while-dragging="true" 代表该 target 所属 panel
-        // 不希望 target 在 panel 范围内拖拽时关闭 panel
-        const panelElem = e.originalEvent?.target.closest(
-          'div[data-keep-visible-while-dragging="true"]',
-        );
-        if (panelElem) return;
-        props.area.setVisible(false);
-      };
-
       onUnmounted(() => {
         focusing?.purge();
-        dispose?.();
       });
 
       return {

@@ -1,6 +1,5 @@
 import { EventEmitter } from 'events';
 import { engineConfig } from '../config/config';
-import { globalLocale } from '../intl';
 import { observable, define } from '../obx';
 import {
   EditorConfig,
@@ -8,14 +7,12 @@ import {
   IPublicTypeEditorGetResult,
   IPublicTypeEditorValueKey,
 } from '../types/core';
-import { EventBus, IEventBus } from './event-bus';
+import { EventBus } from './event-bus';
 
 const keyBlacklist = ['skeleton', 'plugins', 'material', 'innerPlugins'];
 
 export interface IEditor extends IPublicModelEditor {
   config?: EditorConfig;
-
-  eventBus: IEventBus;
 
   init(config?: EditorConfig): Promise<any>;
 }
@@ -25,10 +22,6 @@ export class Editor extends EventEmitter implements IEditor {
    * Ioc Container
    */
   context = new Map<IPublicTypeEditorValueKey, any>();
-
-  get locale() {
-    return globalLocale.getLocale();
-  }
 
   config?: EditorConfig;
 

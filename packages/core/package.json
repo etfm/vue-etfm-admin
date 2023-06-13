@@ -46,6 +46,7 @@
     "access": "public"
   },
   "devDependencies": {
+    "@etfma/types": "workspace:^0.0.0",
     "@types/events": "^3.0.0",
     "semver": "^7.5.1",
     "strict-event-emitter-types": "^2.0.0"

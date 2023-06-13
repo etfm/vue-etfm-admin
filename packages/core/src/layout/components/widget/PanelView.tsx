@@ -3,7 +3,6 @@ import { Panel } from '../../widget';
 import { SkeletonEvents } from '../../skeleton';
 import { observer } from '../../../obx';
 import classNames from 'classnames';
-import { PanelOperationRow } from './PanelOperationRow';
 import { DraggableLineView } from './DraggableLineView';
 
 /// 需要保留 不带任何组件
@@ -68,7 +67,6 @@ export const PanelView = observer(
           id={panelName}
           data-keep-visible-while-dragging={this.panel.config.props?.keepVisibleWhileDragging}
         >
-          {!this.hideOperationRow && <PanelOperationRow panel={this.panel} />}
           <div class="lc-panel-body">{this.panel.body}</div>
           {!this.hideDragLine && <DraggableLineView panel={this.panel} />}
         </div>

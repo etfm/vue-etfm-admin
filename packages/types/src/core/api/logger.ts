@@ -1,6 +1,5 @@
 export type LoggerLevel = 'debug' | 'log' | 'info' | 'warn' | 'error';
 export interface ILoggerOptions {
-  level?: LoggerLevel;
   bizName?: string;
 }
 

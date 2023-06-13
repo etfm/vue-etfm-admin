@@ -1,11 +1,11 @@
-import { IWidget, Panel, PanelDock, Widget } from '../layout/widget';
+import { IWidget, Panel, Widget } from '../layout/widget';
 import { IPublicModelSkeletonItem } from '../types/skeleton-item';
 import { skeletonItemSymbol } from './symbols';
 
 export class SkeletonItem implements IPublicModelSkeletonItem {
-  private [skeletonItemSymbol]: IWidget | Widget | Panel | PanelDock;
+  private [skeletonItemSymbol]: IWidget | Widget | Panel;
 
-  constructor(skeletonItem: IWidget | Widget | Panel | PanelDock) {
+  constructor(skeletonItem: IWidget | Widget | Panel) {
     this[skeletonItemSymbol] = skeletonItem;
   }
 

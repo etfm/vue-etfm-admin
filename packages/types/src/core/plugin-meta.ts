@@ -1,4 +1,3 @@
-import { ILowCodePluginPreferenceDeclaration } from '../plugin';
 import { IPublicTypePluginDeclaration } from './plugin-declaration';
 
 export interface IPublicTypePluginMeta {
@@ -13,7 +12,7 @@ export interface IPublicTypePluginMeta {
     /** e.g. '^1.0.0' */
     lowcodeEngine?: string;
   };
-  preferenceDeclaration?: ILowCodePluginPreferenceDeclaration;
+  preferenceDeclaration?: IPublicTypePluginDeclaration;
 
   /**
    * use 'common' as event prefix when eventPrefix is not set.

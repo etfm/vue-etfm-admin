@@ -1,14 +1,6 @@
+import type { RegKeyType } from '../../common';
 import { IPublicTypeEditorGetResult } from '../core';
-
-export declare type RegKeyType = KeyType | undefined;
-export interface RegisterOptions {
-  /** default: true */
-  singleton?: boolean;
-  /** if data a class, auto new a instance.
-   *  if data a function, auto run(lazy).
-   *  default: true */
-  autoNew?: boolean;
-}
+import type { RegisterOptions } from 'power-di';
 
 export interface IPublicApiGlobal {
   get<T = undefined, KeyOrType = any>(

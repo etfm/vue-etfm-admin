@@ -1,4 +1,4 @@
-import { IPublicApiSkeleton, IPublicApiEvent } from './api';
+import { IPublicApiSkeleton, IPublicApiEvent, IPublicApiGlobal, IPublicApiCommon } from './api';
 import { IPublicApiLogger } from './api/logger';
 import { IPublicApiMaterial } from './api/material';
 import { IPluginPreferenceMananger, IPublicApiPlugins } from './api/plugins';
@@ -54,3 +54,16 @@ export interface IPublicModelPluginContext {
    */
   get pluginEvent(): IPublicApiEvent;
 }
+
+export interface ILowCodePluginContextPrivate {
+  set skeleton(skeleton: IPublicApiSkeleton);
+  set event(event: IPublicApiEvent);
+  set config(config: IPublicModelEngineConfig);
+  set global(global: IPublicApiGlobal);
+  set common(common: IPublicApiCommon);
+  set material(material: IPublicApiMaterial);
+  set plugins(plugins: IPublicApiPlugins);
+  set logger(plugins: IPublicApiLogger);
+}
+
+export type IPublicPluginContext = ILowCodePluginContextPrivate & IPublicModelPluginContext;

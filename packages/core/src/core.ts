@@ -54,7 +54,6 @@ const pluginContextApiAssembler: ILowCodePluginContextApiAssembler = {
     context.config = config;
     context.common = common;
     context.global = global;
-    context.editor = editor;
     context.plugins = plugins;
     context.logger = new Logger({ bizName: `plugin:${pluginName}` });
   },
@@ -65,7 +64,7 @@ plugins = new Plugins(innerPlugins).toProxy();
 editor.set('innerPlugins', innerPlugins);
 editor.set('plugins', plugins);
 
-export { skeleton, plugins, material, config, event, logger, global, editor, common };
+export { skeleton, plugins, material, config, event, logger, global, common };
 export const __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED = {
   symbols,
   classes,

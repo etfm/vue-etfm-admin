@@ -1,15 +1,5 @@
 import { engineConfig } from '../config/config';
 import { Logger } from '@etfma/shared';
-import {
-  ILowCodePluginManager,
-  ILowCodeRegisterOptions,
-  IPluginContextOptions,
-  PreferenceValueType,
-  PluginPreference,
-  isLowCodeRegisterOptions,
-  ILowCodePluginContextApiAssembler,
-  ILowCodePluginRuntime,
-} from './plugin-types';
 import { filterValidOptions } from './plugin-utils';
 import { LowCodePluginRuntime } from './plugin';
 import LowCodePluginContext from './plugin-context';
@@ -238,4 +228,8 @@ export class PluginManager implements ILowCodePluginManager {
     this.plugins = [];
     this.pluginsMap.clear();
   }
+}
+
+export function isLowCodeRegisterOptions(opts: any): opts is ILowCodeRegisterOptions {
+  return opts && ('autoInit' in opts || 'override' in opts);
 }

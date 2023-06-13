@@ -4,7 +4,6 @@ import { PanelConfig } from '../types';
 import { PanelView } from '../components/widget';
 import { ISkeleton } from '../skeleton';
 import { IWidget } from './widget';
-import { isPanelDock, PanelDock } from './panel-dock';
 import { createElement } from '../../utils';
 import { uniqueId } from '../../utils/unique-id';
 import { getEvent } from '../../shell';
@@ -20,6 +19,8 @@ export class Panel implements IWidget {
   inited = false;
 
   _actived = false;
+
+  readonly isPanel = true;
 
   private emitter: IEventBus = createModuleEventBus('Panel');
 
@@ -37,8 +38,6 @@ export class Panel implements IWidget {
     }
     return false;
   }
-
-  readonly isPanel = true;
 
   get body() {
     const { content, contentProps } = this.config;
@@ -203,12 +202,6 @@ export class Panel implements IWidget {
 
   show() {
     this.setActive(true);
-  }
-
-  getAssocDocks(): PanelDock[] {
-    return this.skeleton.widgets.filter((item) => {
-      return isPanelDock(item) && item.panelName === this.name;
-    }) as any;
   }
 }
 

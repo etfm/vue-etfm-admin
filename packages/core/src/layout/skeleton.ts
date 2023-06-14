@@ -1,21 +1,26 @@
 import { action, define } from '../obx';
-import { PanelConfig, WidgetConfig, isPanelConfig } from './types';
-import { WidgetContainer, Panel, isPanel, Widget, isWidget, IWidget } from './widget';
+import { WidgetContainer, Panel, isPanel, Widget, isWidget, isPanelConfig } from './widget';
 import { Area } from './area';
 import { isVNode } from 'vue';
 import { Logger, lodash } from '@etfma/shared';
-import { Editor, IEditor } from '../editor';
-import { EditorConfig, PluginClassSet } from '../types/core';
-import { IPublicApiSkeleton, IWidgetBaseConfig, IWidgetConfigArea } from '../types/api';
+import { Editor } from '../editor';
+
+import { engineConfig } from '../config';
 import {
+  EditorConfig,
   IPublicTypeSkeletonConfig,
   IPublicTypeWidgetBaseConfig,
-} from '../types/widget-base-config';
-import { engineConfig } from '../config';
+  IPublicTypeWidgetConfigArea,
+  ISkeleton,
+  IWidget,
+  PanelConfig,
+  SkeletonEvents,
+  WidgetConfig,
+} from '@etfma/types';
 
 const logger = new Logger({ bizName: 'skeleton' });
 
-export class Skeleton {
+export class Skeleton implements ISkeleton {
   private panels = new Map<string, Panel>();
 
   private containers = new Map<string, WidgetContainer<any>>();
@@ -207,8 +212,8 @@ export class Skeleton {
     Object.keys(plugins).forEach((area) => {
       plugins[area].forEach((item) => {
         const { pluginKey, props = {}, pluginProps } = item;
-        const config: Partial<IWidgetBaseConfig> = {
-          area: area as IWidgetConfigArea,
+        const config: Partial<IPublicTypeWidgetBaseConfig> = {
+          area: area as IPublicTypeWidgetConfigArea,
           type: 'Widget',
           name: pluginKey,
           contentProps: pluginProps,
@@ -218,7 +223,7 @@ export class Skeleton {
         if (panelProps) {
           config.panelProps = panelProps;
         }
-        this.add(config as IWidgetBaseConfig);
+        this.add(config as IPublicTypeWidgetBaseConfig);
       });
     });
   }

@@ -1,9 +1,9 @@
 import { defineComponent, PropType, onMounted, onUpdated } from 'vue';
 import { Panel } from '../../widget';
-import { SkeletonEvents } from '../../skeleton';
 import { observer } from '../../../obx';
 import classNames from 'classnames';
 import { DraggableLineView } from './DraggableLineView';
+import { SkeletonEvents } from '@etfma/types';
 
 /// 需要保留 不带任何组件
 export const PanelView = observer(

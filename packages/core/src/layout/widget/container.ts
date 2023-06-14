@@ -1,22 +1,14 @@
 import { define, observable } from '../../obx';
 import { isPanel } from './panel';
 import { hasOwnProperty } from '../../utils';
-import { IContainer } from '@etfma/types';
-
-export interface WidgetItem {
-  name: string;
-}
-
-export interface Activeable {
-  setActive(flag: boolean): void;
-}
+import type { Activeable, IContainer, WidgetItem } from '@etfma/types';
 
 function isActiveable(obj: any): obj is Activeable {
   return obj && obj.setActive;
 }
 
 export class WidgetContainer<T extends WidgetItem = any, G extends WidgetItem = any>
-  implements IContainer
+  implements IContainer<T, G>
 {
   items: T[] = [];
 

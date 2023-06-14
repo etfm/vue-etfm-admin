@@ -1,5 +1,5 @@
 import { App, createApp } from 'vue';
-import { Editor, commonEvent } from './core/core';
+import { Editor, commonEvent } from './editor';
 import { globalContext } from './di';
 
 import { Skeleton as InnerSkeleton } from './layout';
@@ -15,7 +15,7 @@ import {
   PluginPreference,
 } from './plugin';
 import { IPublicTypeEngineOptions } from './types/engine-options';
-import { engineConfig } from './config/config';
+import { engineConfig } from './config';
 import { IPublicTypePluginMeta } from './types/plugin-meta';
 
 import symbols from './symbols';

@@ -1,28 +1,30 @@
 import { observable, define } from '../../obx';
 import { WidgetContainer } from './container';
-import { PanelConfig } from '../types';
 import { PanelView } from '../components/widget';
-import { ISkeleton } from '../skeleton';
-import { IWidget } from './widget';
 import { createElement } from '../../utils';
 import { uniqueId } from '../../utils/unique-id';
 import { getEvent } from '../../shell';
-import { IEventBus, createModuleEventBus } from '../../core/event-bus';
+import { createModuleEventBus } from '../../event-bus';
+import type { IEventBus, IPanel, PanelConfig, ISkeleton } from '@etfma/types';
 
-export class Panel implements IWidget {
+export class Panel implements IPanel {
   readonly isWidget = true;
 
   readonly name: string;
 
   readonly id: string;
 
-  inited = false;
-
-  _actived = false;
-
   readonly isPanel = true;
 
   private emitter: IEventBus = createModuleEventBus('Panel');
+
+  private container?: WidgetContainer<Panel, PanelConfig>;
+
+  public parent?: WidgetContainer;
+
+  inited = false;
+
+  _actived = false;
 
   get actived(): boolean {
     return this._actived;
@@ -57,10 +59,6 @@ export class Panel implements IWidget {
       area,
     });
   }
-
-  private container?: WidgetContainer<Panel, PanelConfig>;
-
-  public parent?: WidgetContainer;
 
   constructor(readonly skeleton: ISkeleton, readonly config: PanelConfig) {
     this.makeObservable();
@@ -207,4 +205,8 @@ export class Panel implements IWidget {
 
 export function isPanel(obj: any): obj is Panel {
   return obj && obj.isPanel;
+}
+
+export function isPanelConfig(obj: any): obj is PanelConfig {
+  return obj && obj.type === 'Panel';
 }

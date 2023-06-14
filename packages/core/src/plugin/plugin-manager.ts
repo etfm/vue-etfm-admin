@@ -1,4 +1,4 @@
-import { engineConfig } from '../config/config';
+import { engineConfig } from '../config';
 import { Logger } from '@etfma/shared';
 import { filterValidOptions } from './plugin-utils';
 import { LowCodePluginRuntime } from './plugin';

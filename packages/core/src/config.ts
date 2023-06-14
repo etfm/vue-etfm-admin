@@ -1,5 +1,5 @@
 import { Logger, lodash } from '@etfma/shared';
-import Preference from '../utils/preference';
+import Preference from './utils/preference';
 import type {
   IPublicModelEngineConfig,
   IPublicModelPreference,

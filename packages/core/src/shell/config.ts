@@ -1,4 +1,4 @@
-import { IEngineConfig } from '../config/config';
+import { IEngineConfig } from '../config';
 import { IPublicTypeDisposable } from '../types/disposable';
 import { IPublicModelEngineConfig } from '../types/engine-config';
 import { IPublicModelPreference } from '../types/preference';

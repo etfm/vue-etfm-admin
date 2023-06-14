@@ -1,30 +1,8 @@
 import { define, observable } from '../../obx';
-import { WidgetConfig } from '../types';
-import { ISkeleton } from '../skeleton';
 import { WidgetView } from '../components/widget';
 import { createElement, uniqueId } from '../../utils';
 import { getEvent } from '../../shell';
-import { IPublicTypeWidgetBaseConfig } from '../../types/widget-base-config';
-
-export interface IWidget {
-  readonly name: string;
-  readonly content: any;
-  readonly align?: string;
-  readonly isWidget: true;
-  readonly visible: boolean;
-  readonly disabled?: boolean;
-  readonly body: any;
-  readonly skeleton: ISkeleton;
-  readonly config: IPublicTypeWidgetBaseConfig;
-
-  getName(): string;
-  getContent(): any;
-  show(): void;
-  hide(): void;
-  toggle(): void;
-  enable?(): void;
-  disable?(): void;
-}
+import type { ISkeleton, IWidget, WidgetConfig } from '@etfma/types';
 
 export class Widget implements IWidget {
   readonly isWidget = true;
@@ -143,4 +121,8 @@ export class Widget implements IWidget {
 
 export function isWidget(obj: any): obj is IWidget {
   return obj && obj.isWidget;
+}
+
+export function isWidgetConfig(obj: any): obj is WidgetConfig {
+  return obj && obj.type === 'Widget';
 }

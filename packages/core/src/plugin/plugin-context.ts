@@ -1,7 +1,7 @@
-import { EngineConfig, engineConfig } from '../config/config';
+import { EngineConfig, engineConfig } from '../config';
 import { Logger } from '@etfma/shared';
 import { isValidPreferenceKey } from './plugin-utils';
-import { createModuleEventBus } from '../core/event-bus';
+import { createModuleEventBus } from '../event-bus';
 import type {
   IPluginContextApiAssembler,
   IPluginContextOptions,

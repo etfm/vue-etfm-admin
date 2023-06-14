@@ -1,30 +1,11 @@
-import { VNode } from 'vue';
-import { IWidget } from './widget/widget';
-import { IWidgetBaseConfig } from '../types/api';
-import { IPublicTypeWidgetBaseConfig } from '../types/widget-base-config';
+import type { VNode } from 'vue';
+import { IPublicTypeWidgetBaseConfig } from './widget-base-config';
+import { IWidget } from './widget';
 
-export interface WidgetConfig extends IWidgetBaseConfig {
-  type: 'Widget';
-  props?: {
-    align?: 'left' | 'right' | 'bottom' | 'center' | 'top';
-    onInit?: (widget: IWidget) => void;
-  };
-  content?: any; // children
-}
-
-export function isWidgetConfig(obj: any): obj is WidgetConfig {
-  return obj && obj.type === 'Widget';
-}
-
-// 窗格扩展
 export interface PanelConfig extends IPublicTypeWidgetBaseConfig {
   type: 'Panel';
   content?: string | VNode | PanelConfig[]; // as children
   props?: PanelProps;
-}
-
-export function isPanelConfig(obj: any): obj is PanelConfig {
-  return obj && obj.type === 'Panel';
 }
 
 export interface PanelProps {
@@ -40,3 +21,5 @@ export interface PanelProps {
   keepVisibleWhileDragging?: boolean; // 是否在该 panel 范围内拖拽时保持 visible 状态
   canSetFixed?: boolean;
 }
+
+export interface IPanel extends IWidget {}

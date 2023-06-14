@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events';
-import { engineConfig } from '../config/config';
-import { observable, define } from '../obx';
+import { engineConfig } from './config';
+import { observable, define } from './obx';
 import { EventBus } from './event-bus';
 import type {
   EditorConfig,

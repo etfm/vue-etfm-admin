@@ -1,6 +1,7 @@
 import { define, observable } from '../../obx';
 import { isPanel } from './panel';
 import { hasOwnProperty } from '../../utils';
+import { IContainer } from '@etfma/types';
 
 export interface WidgetItem {
   name: string;
@@ -14,7 +15,9 @@ function isActiveable(obj: any): obj is Activeable {
   return obj && obj.setActive;
 }
 
-export class WidgetContainer<T extends WidgetItem = any, G extends WidgetItem = any> {
+export class WidgetContainer<T extends WidgetItem = any, G extends WidgetItem = any>
+  implements IContainer
+{
   items: T[] = [];
 
   private maps: { [name: string]: T } = {};

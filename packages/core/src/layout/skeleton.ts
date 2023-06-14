@@ -4,90 +4,16 @@ import { WidgetContainer, Panel, isPanel, Widget, isWidget, IWidget } from './wi
 import { Area } from './area';
 import { isVNode } from 'vue';
 import { Logger, lodash } from '@etfma/shared';
-import { Editor, IEditor } from '../core/core';
+import { Editor, IEditor } from '../editor';
 import { EditorConfig, PluginClassSet } from '../types/core';
 import { IPublicApiSkeleton, IWidgetBaseConfig, IWidgetConfigArea } from '../types/api';
 import {
   IPublicTypeSkeletonConfig,
   IPublicTypeWidgetBaseConfig,
 } from '../types/widget-base-config';
-import { engineConfig } from '../config/config';
+import { engineConfig } from '../config';
 
 const logger = new Logger({ bizName: 'skeleton' });
-
-export enum SkeletonEvents {
-  PANEL_DOCK_ACTIVE = 'skeleton.panel-dock.active',
-  PANEL_DOCK_UNACTIVE = 'skeleton.panel-dock.unactive',
-  PANEL_SHOW = 'skeleton.panel.show',
-  PANEL_HIDE = 'skeleton.panel.hide',
-  WIDGET_SHOW = 'skeleton.widget.show',
-  WIDGET_HIDE = 'skeleton.widget.hide',
-  WIDGET_DISABLE = 'skeleton.widget.disable',
-  WIDGET_ENABLE = 'skeleton.widget.enable',
-}
-
-export interface ISkeleton
-  extends Omit<
-    IPublicApiSkeleton,
-    | 'showPanel'
-    | 'hidePanel'
-    | 'showWidget'
-    | 'enableWidget'
-    | 'hideWidget'
-    | 'disableWidget'
-    | 'showArea'
-    | 'onShowPanel'
-    | 'onHidePanel'
-    | 'onShowWidget'
-    | 'onHideWidget'
-    | 'remove'
-    | 'hideArea'
-    | 'add'
-  > {
-  editor: IEditor;
-
-  readonly leftArea: Area<WidgetConfig | PanelConfig, Widget | Panel>;
-
-  readonly topArea: Area<WidgetConfig | PanelConfig, Widget | Panel>;
-
-  readonly toolbar: Area<WidgetConfig | PanelConfig, Widget | Panel>;
-
-  readonly leftFixedArea: Area<PanelConfig, Panel>;
-
-  readonly leftFloatArea: Area<PanelConfig, Panel>;
-
-  readonly rightArea: Area<PanelConfig, Panel>;
-
-  readonly mainArea: Area<WidgetConfig | PanelConfig, Widget | Panel>;
-
-  readonly bottomArea: Area<PanelConfig, Panel>;
-
-  readonly widgets: IWidget[];
-
-  getPanel(name: string): Panel | undefined;
-
-  getWidget(name: string): IWidget | undefined;
-
-  buildFromConfig(config?: EditorConfig, components?: PluginClassSet): void;
-
-  createContainer(
-    name: string,
-    handle: (item: any) => any,
-    exclusive?: boolean,
-    checkVisible?: () => boolean,
-    defaultSetCurrent?: boolean,
-  ): WidgetContainer;
-
-  createPanel(config: PanelConfig): Panel;
-
-  add(
-    config: IPublicTypeSkeletonConfig,
-    extraConfig?: Record<string, any>,
-  ): IWidget | Widget | Panel | undefined;
-
-  toggleFloatStatus(panel: Panel): void;
-  postEvent(event: SkeletonEvents, ...args: any[]): void;
-}
 
 export class Skeleton {
   private panels = new Map<string, Panel>();

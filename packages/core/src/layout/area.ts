@@ -1,20 +1,9 @@
+import type { IArea, IPublicTypeWidgetBaseConfig, ISkeleton, IWidget } from '@etfma/types';
 import { observable, define } from '../obx';
 import { WidgetContainer } from './widget';
-import { ISkeleton } from './skeleton';
-import { IWidget } from './widget/widget';
 import { Logger } from '@etfma/shared';
-import { IPublicTypeWidgetBaseConfig } from '../types/widget-base-config';
 
 const logger = new Logger({ bizName: 'skeleton:area' });
-
-export interface IArea<C, T> {
-  isEmpty(): boolean;
-  add(config: T | C): T;
-  remove(config: T | string): number;
-  setVisible(flag: boolean): void;
-  hide(): void;
-  show(): void;
-}
 
 export class Area<C extends IPublicTypeWidgetBaseConfig = any, T extends IWidget = IWidget>
   implements IArea<C, T>

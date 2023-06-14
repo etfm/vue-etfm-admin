@@ -1,3 +1,3 @@
 module.exports = {
-  extends: ['@vben/eslint-config/strict'],
+  extends: ['@etfma/eslint'],
 };

@@ -1,9 +1,9 @@
 import classNames from 'classnames';
 import { defineComponent, PropType, onUpdated } from 'vue';
 import { Area } from '../area';
-import { PanelConfig } from '../types';
 import { Panel } from '../widget';
 import { observer } from '../../obx';
+import { PanelConfig } from '@etfma/types';
 
 export const LeftFixedPane = observer(
   defineComponent({

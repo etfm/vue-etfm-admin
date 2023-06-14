@@ -7,3 +7,4 @@ export * from './menu';
 export * from './locale';
 export * from './element-ui';
 export * from './core';
+export * from './common';

@@ -11,7 +11,7 @@ import { RightArea } from './RightArea';
 import { MainArea } from './MainArea';
 import { BottomArea } from './BottomArea';
 import { observer } from '../../obx';
-import { EditorConfig } from '../../types/core';
+import { EditorConfig } from '@etfma/types';
 
 export const Workbench = observer(
   defineComponent({

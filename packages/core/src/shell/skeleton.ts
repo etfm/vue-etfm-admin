@@ -1,9 +1,12 @@
-import { ISkeleton, SkeletonEvents } from '../layout/skeleton';
-import { IPublicApiSkeleton } from '../types/api';
-import { IPublicTypeDisposable } from '../types/disposable';
-import { IPublicModelSkeletonItem } from '../types/skeleton-item';
-import { IPublicTypeSkeletonConfig } from '../types/widget-base-config';
-import { IPublicTypeWidgetConfigArea } from '../types/widget-config-area';
+import {
+  IPublicApiSkeleton,
+  IPublicModelSkeletonItem,
+  IPublicTypeDisposable,
+  IPublicTypeSkeletonConfig,
+  IPublicTypeWidgetConfigArea,
+  ISkeleton,
+  SkeletonEvents,
+} from '@etfma/types';
 import { SkeletonItem } from './skeleton-item';
 import { skeletonSymbol } from './symbols';
 

@@ -1,6 +1,5 @@
 import { App, createApp } from 'vue';
 import { Editor, commonEvent } from './editor';
-import { globalContext } from './di';
 
 import { Skeleton as InnerSkeleton } from './layout';
 
@@ -8,19 +7,21 @@ import { Skeleton, Material, Event, Global, Plugins, Config } from './shell';
 import { lodash, Logger } from '@etfma/shared';
 
 import jsonPkg from '../../../package.json';
-import {
-  ILowCodePluginContextApiAssembler,
-  ILowCodePluginContextPrivate,
-  PluginManager,
-  PluginPreference,
-} from './plugin';
-import { IPublicTypeEngineOptions } from './types/engine-options';
+
 import { engineConfig } from './config';
-import { IPublicTypePluginMeta } from './types/plugin-meta';
 
 import symbols from './symbols';
 import classes from './classes';
 import { Common } from './shell/common';
+import { globalContext } from './ioc-context';
+import {
+  IPluginContextApiAssembler,
+  IPluginContextPrivate,
+  IPluginPreference,
+  IPublicTypeEngineOptions,
+  IPublicTypePluginMeta,
+} from '@etfma/types';
+import { PluginManager } from './plugin';
 
 const global = new Global(globalContext);
 
@@ -41,9 +42,9 @@ const logger = new Logger({ bizName: 'common' });
 const common = new Common(innerSkeleton);
 let plugins: Plugins;
 
-const pluginContextApiAssembler: ILowCodePluginContextApiAssembler = {
+const pluginContextApiAssembler: IPluginContextApiAssembler = {
   assembleApis: (
-    context: ILowCodePluginContextPrivate,
+    context: IPluginContextPrivate,
     pluginName: string,
     meta: IPublicTypePluginMeta,
   ) => {
@@ -79,7 +80,7 @@ engineConfig.set('ENGINE_VERSION', version);
 export async function init(
   container?: HTMLElement,
   options?: IPublicTypeEngineOptions,
-  pluginPreference?: PluginPreference,
+  pluginPreference?: IPluginPreference,
 ) {
   await destroy();
   let engineOptions: IPublicTypeEngineOptions | HTMLElement | undefined | null = null;

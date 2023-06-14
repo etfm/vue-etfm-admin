@@ -1,7 +1,9 @@
+import {
+  IPublicModelEngineConfig,
+  IPublicModelPreference,
+  IPublicTypeDisposable,
+} from '@etfma/types';
 import { IEngineConfig } from '../config';
-import { IPublicTypeDisposable } from '../types/disposable';
-import { IPublicModelEngineConfig } from '../types/engine-config';
-import { IPublicModelPreference } from '../types/preference';
 import { configSymbol } from './symbols';
 
 export class Config implements IPublicModelEngineConfig {

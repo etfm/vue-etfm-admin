@@ -1,16 +1,18 @@
+import {
+  IPluginManager,
+  IPublicApiPlugins,
+  IPublicModelPluginInstance,
+  IPublicTypePlugin,
+  IPublicTypePluginRegisterOptions,
+  IPublicTypePreferenceValueType,
+} from '@etfma/types';
 import { PluginInstance as ShellPluginInstance } from './plugin-instance';
-import { ILowCodePluginManager } from '../plugin';
-import { IPublicApiPlugins } from '../types/api/plugins';
-import { IPublicTypePlugin } from '../types/plugin';
-import { IPublicModelPluginInstance } from '../types/plugin-instance';
-import { IPublicTypePluginRegisterOptions } from '../types/plugin-register-options';
-import { IPublicTypePreferenceValueType } from '../types/preference-value-type';
 import { pluginsSymbol } from './symbols';
 
 export class Plugins implements IPublicApiPlugins {
-  private readonly [pluginsSymbol]: ILowCodePluginManager;
+  private readonly [pluginsSymbol]: IPluginManager;
 
-  constructor(plugins: ILowCodePluginManager) {
+  constructor(plugins: IPluginManager) {
     this[pluginsSymbol] = plugins;
   }
 

@@ -1,5 +1,5 @@
-import { IWidget, Panel, Widget } from '../layout/widget';
-import { IPublicModelSkeletonItem } from './skeleton-item';
+import { IPublicModelSkeletonItem, IWidget } from '@etfma/types';
+import { Panel, Widget } from '../layout/widget';
 import { skeletonItemSymbol } from './symbols';
 
 export class SkeletonItem implements IPublicModelSkeletonItem {

@@ -1,9 +1,9 @@
-import type { ILowCodePluginPreferenceDeclaration } from './plugin-types';
 import { lodash } from '@etfma/shared';
+import { IPublicTypePluginDeclaration } from '@etfma/types';
 
 export function isValidPreferenceKey(
   key: string,
-  preferenceDeclaration: ILowCodePluginPreferenceDeclaration,
+  preferenceDeclaration: IPublicTypePluginDeclaration,
 ): boolean {
   if (!preferenceDeclaration || !Array.isArray(preferenceDeclaration.properties)) {
     return false;
@@ -13,10 +13,7 @@ export function isValidPreferenceKey(
   });
 }
 
-export function filterValidOptions(
-  opts: any,
-  preferenceDeclaration: ILowCodePluginPreferenceDeclaration,
-) {
+export function filterValidOptions(opts: any, preferenceDeclaration: IPublicTypePluginDeclaration) {
   if (!opts || !lodash.isPlainObject(opts)) return opts;
   const filteredOpts = {} as any;
   Object.keys(opts).forEach((key) => {

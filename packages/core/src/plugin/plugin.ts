@@ -1,11 +1,17 @@
 import { Logger } from '@etfma/shared';
+import {
+  IPluginManager,
+  IPluginRuntime,
+  IPublicTypePluginConfig,
+  IPublicTypePluginMeta,
+} from '@etfma/types';
 
-export class LowCodePluginRuntime implements ILowCodePluginRuntime {
+export class LowCodePluginRuntime implements IPluginRuntime {
   config: IPublicTypePluginConfig;
 
   logger: Logger;
 
-  private manager: ILowCodePluginManager;
+  private manager: IPluginManager;
 
   private _inited: boolean;
 
@@ -20,7 +26,7 @@ export class LowCodePluginRuntime implements ILowCodePluginRuntime {
 
   constructor(
     pluginName: string,
-    manager: ILowCodePluginManager,
+    manager: IPluginManager,
     config: IPublicTypePluginConfig,
     meta: IPublicTypePluginMeta,
   ) {

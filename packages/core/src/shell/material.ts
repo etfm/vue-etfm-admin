@@ -1,7 +1,4 @@
-import { IPublicApiMaterial } from '../types/api/material';
-import { IPublicModelEditor } from '../types/core';
-import { IPublicTypeDisposable } from '../types/disposable';
-
+import { IPublicModelEditor, IPublicTypeDisposable } from '@etfma/types';
 import { editorSymbol } from './symbols';
 
 export class Material implements IPublicApiMaterial {

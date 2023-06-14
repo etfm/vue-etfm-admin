@@ -1,11 +1,10 @@
-import { ILowCodePluginRuntime } from '../plugin';
-import { IPublicModelPluginInstance } from '../types/plugin-instance';
+import { IPluginRuntime, IPublicModelPluginInstance } from '@etfma/types';
 import { pluginInstanceSymbol } from './symbols';
 
 export class PluginInstance implements IPublicModelPluginInstance {
-  private readonly [pluginInstanceSymbol]: ILowCodePluginRuntime;
+  private readonly [pluginInstanceSymbol]: IPluginRuntime;
 
-  constructor(pluginInstance: ILowCodePluginRuntime) {
+  constructor(pluginInstance: IPluginRuntime) {
     this[pluginInstanceSymbol] = pluginInstance;
   }
 

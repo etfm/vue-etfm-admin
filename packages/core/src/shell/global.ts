@@ -1,7 +1,6 @@
-import { IPublicApiGlobal, RegKeyType, RegisterOptions } from '../types/api';
+import { IPublicApiGlobal, IPublicTypeEditorGetResult, RegKeyType } from '@etfma/types';
+import { IocContext, RegisterOptions } from '../ioc-context';
 import { globalSymbol } from './symbols';
-import { IocContext } from '../di';
-import { IPublicTypeEditorGetResult } from '../types/core';
 
 export class Global implements IPublicApiGlobal {
   private readonly [globalSymbol]: IocContext;

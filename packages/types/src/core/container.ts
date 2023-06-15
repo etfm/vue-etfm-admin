@@ -1,23 +1,25 @@
-export interface WidgetItem {
-  name: string;
-}
+import { AreaWidgetConfig } from './area';
+import { IPanel } from './panel';
+import { IWidget } from './widget';
 
 export interface Activeable {
   setActive(flag: boolean): void;
 }
 
-export interface IContainer<T extends WidgetItem, G extends WidgetItem = any> {
+export interface IContainer {
   [key: string]: any;
-  items: T[];
-  current: (T & Activeable) | null;
+  items: WidgetItem[];
+  current: (WidgetItem & Activeable) | null;
   visible: boolean;
-  active: (nameOrItem?: T | string | null) => void;
-  unactive: (nameOrItem?: T | string | null) => void;
+  active: (nameOrItem?: WidgetItem | string | null) => void;
+  unactive: (nameOrItem?: WidgetItem | string | null) => void;
   unactiveAll: () => void;
-  add: (item: T | G) => T;
-  get: (name: string) => T | null;
-  getAt: (index: number) => T | null;
+  add: (item: AreaWidgetConfig) => WidgetItem;
+  get: (name: string) => WidgetItem | null;
+  getAt: (index: number) => WidgetItem | null;
   has: (name: string) => boolean;
-  indexOf: (item: T) => number;
-  remove: (item: string | T) => number;
+  indexOf: (item: WidgetItem) => number;
+  remove: (item: string | WidgetItem) => number;
 }
+
+export type WidgetItem = IPanel | IWidget;

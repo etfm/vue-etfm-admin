@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import { defineComponent, PropType } from 'vue';
 import { Area } from '../area';
-import { Panel, Widget } from '../widget';
 import { observer } from '../../obx';
 
 export const MainArea = observer(
@@ -9,7 +8,7 @@ export const MainArea = observer(
     name: 'MainArea',
     props: {
       area: {
-        type: Object as PropType<Area<any, Panel | Widget>>,
+        type: Object as PropType<Area>,
         required: true,
       },
     },

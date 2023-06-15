@@ -1,20 +1,18 @@
 import { define, observable } from '../../obx';
 import { isPanel } from './panel';
 import { hasOwnProperty } from '../../utils';
-import type { Activeable, IContainer, WidgetItem } from '@etfma/types';
+import type { Activeable, AreaWidgetConfig, IContainer, WidgetItem } from '@etfma/types';
 
 function isActiveable(obj: any): obj is Activeable {
   return obj && obj.setActive;
 }
 
-export class WidgetContainer<T extends WidgetItem = any, G extends WidgetItem = any>
-  implements IContainer<T, G>
-{
-  items: T[] = [];
+export class WidgetContainer implements IContainer {
+  items: WidgetItem[] = [];
 
-  private maps: { [name: string]: T } = {};
+  private maps: { [name: string]: WidgetItem } = {};
 
-  _current: (T & Activeable) | null = null;
+  _current: (WidgetItem & Activeable) | null = null;
 
   get current() {
     return this._current;
@@ -27,7 +25,7 @@ export class WidgetContainer<T extends WidgetItem = any, G extends WidgetItem = 
   // eslint-disable-next-line no-useless-constructor
   constructor(
     readonly name: string,
-    private handle: (item: T | G) => T,
+    private handle: (item: AreaWidgetConfig) => WidgetItem,
     private exclusive: boolean = false,
     private checkVisible: () => boolean = () => true,
     private defaultSetCurrent: boolean = false,
@@ -43,7 +41,7 @@ export class WidgetContainer<T extends WidgetItem = any, G extends WidgetItem = 
     });
   }
 
-  active(nameOrItem?: T | string | null) {
+  active(nameOrItem?: WidgetItem | string | null) {
     let item: any = nameOrItem;
     if (nameOrItem && typeof nameOrItem === 'string') {
       item = this.get(nameOrItem);
@@ -67,7 +65,7 @@ export class WidgetContainer<T extends WidgetItem = any, G extends WidgetItem = 
     }
   }
 
-  unactive(nameOrItem?: T | string | null) {
+  unactive(nameOrItem?: WidgetItem | string | null) {
     let item: any = nameOrItem;
     if (nameOrItem && typeof nameOrItem === 'string') {
       item = this.get(nameOrItem);
@@ -87,39 +85,39 @@ export class WidgetContainer<T extends WidgetItem = any, G extends WidgetItem = 
     Object.keys(this.maps).forEach((name) => this.unactive(name));
   }
 
-  add(item: T | G): T {
-    item = this.handle(item);
+  add(item: AreaWidgetConfig): WidgetItem {
+    const widgetItem = this.handle(item);
 
-    const origin = this.get(item.name);
+    const origin = this.get(widgetItem.name);
 
-    if (origin === item) {
+    if (origin === widgetItem) {
       return origin;
     }
     const i = origin ? this.items.indexOf(origin) : -1;
     if (i > -1) {
-      this.items[i] = item;
+      this.items[i] = widgetItem;
     } else {
-      this.items.push(item);
+      this.items.push(widgetItem);
     }
-    this.maps[item.name] = item;
-    if (isPanel(item)) {
-      item.setParent(this);
+    this.maps[widgetItem.name] = widgetItem;
+    if (isPanel(widgetItem)) {
+      widgetItem.setParent(this);
     }
     if (this.defaultSetCurrent) {
-      const shouldHiddenWhenInit = (item as any).config?.props?.hiddenWhenInit;
+      const shouldHiddenWhenInit = widgetItem.config?.props?.hiddenWhenInit;
       if (!this._current && !shouldHiddenWhenInit) {
-        this.active(item);
+        this.active(widgetItem);
       }
     }
 
-    return item;
+    return widgetItem;
   }
 
-  get(name: string): T | null {
+  get(name: string): WidgetItem | null {
     return this.maps[name] || null;
   }
 
-  getAt(index: number): T | null {
+  getAt(index: number): WidgetItem | null {
     return this.items[index] || null;
   }
 
@@ -127,14 +125,14 @@ export class WidgetContainer<T extends WidgetItem = any, G extends WidgetItem = 
     return hasOwnProperty(this.maps, name);
   }
 
-  indexOf(item: T): number {
+  indexOf(item: WidgetItem): number {
     return this.items.indexOf(item);
   }
 
   /**
    * return indexOf the deletion
    */
-  remove(item: string | T): number {
+  remove(item: string | WidgetItem): number {
     const thing = typeof item === 'string' ? this.get(item) : item;
     if (!thing) {
       return -1;

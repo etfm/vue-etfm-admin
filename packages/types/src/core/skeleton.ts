@@ -1,7 +1,7 @@
 import { IPublicApiSkeleton } from './api/skeleton';
 import { IArea } from './area';
 import { IContainer } from './container';
-import { EditorConfig, IEditor, PluginClassSet } from './core';
+import { IEditor } from './core';
 import { IPanel, PanelConfig } from './panel';
 import { IWidget, WidgetConfig } from './widget';
 import { IPublicTypeSkeletonConfig } from './widget-base-config';
@@ -37,29 +37,27 @@ export interface ISkeleton
   > {
   editor: IEditor;
 
-  readonly leftArea: IArea<WidgetConfig | PanelConfig, IWidget | IPanel>;
+  readonly leftArea: IArea;
 
-  readonly topArea: IArea<WidgetConfig | PanelConfig, IWidget | IPanel>;
+  readonly topArea: IArea;
 
-  readonly toolbar: IArea<WidgetConfig | PanelConfig, IWidget | IPanel>;
+  readonly toolbar: IArea;
 
-  readonly leftFixedArea: IArea<PanelConfig, IPanel>;
+  readonly leftFixedArea: IArea;
 
-  readonly leftFloatArea: IArea<PanelConfig, IPanel>;
+  readonly leftFloatArea: IArea;
 
-  readonly rightArea: IArea<PanelConfig, IPanel>;
+  readonly rightArea: IArea;
 
-  readonly mainArea: IArea<WidgetConfig | PanelConfig, IWidget | IPanel>;
+  readonly mainArea: IArea;
 
-  readonly bottomArea: IArea<PanelConfig, IPanel>;
+  readonly bottomArea: IArea;
 
   readonly widgets: IWidget[];
 
   getPanel(name: string): IPanel | undefined;
 
   getWidget(name: string): IWidget | undefined;
-
-  buildFromConfig(config?: EditorConfig, components?: PluginClassSet): void;
 
   createContainer(
     name: string,

@@ -1,11 +1,10 @@
 import { observable, define } from '../../obx';
-import { WidgetContainer } from './container';
 import { PanelView } from '../components/widget';
 import { createElement } from '../../utils';
 import { uniqueId } from '../../utils/unique-id';
 import { getEvent } from '../../shell';
 import { createModuleEventBus } from '../../event-bus';
-import type { IEventBus, IPanel, PanelConfig, ISkeleton } from '@etfma/types';
+import type { IEventBus, IPanel, PanelConfig, ISkeleton, IContainer } from '@etfma/types';
 
 export class Panel implements IPanel {
   readonly isWidget = true;
@@ -18,9 +17,9 @@ export class Panel implements IPanel {
 
   private emitter: IEventBus = createModuleEventBus('Panel');
 
-  private container?: WidgetContainer<Panel, PanelConfig>;
+  private container?: IContainer;
 
-  public parent?: WidgetContainer;
+  public parent?: IContainer;
 
   inited = false;
 
@@ -100,7 +99,7 @@ export class Panel implements IPanel {
     });
   }
 
-  setParent(parent: WidgetContainer) {
+  setParent(parent: IContainer) {
     if (parent === this.parent) {
       return;
     }
@@ -110,19 +109,19 @@ export class Panel implements IPanel {
     this.parent = parent;
   }
 
-  add(item: Panel | PanelConfig) {
+  add(item: PanelConfig) {
     return this.container?.add(item);
   }
 
-  getPane(name: string): Panel | null {
+  getPane(name: string): IPanel | null {
     return this.container?.get(name) || null;
   }
 
-  remove(item: Panel | string) {
+  remove(item: IPanel | string) {
     return this.container?.remove(item);
   }
 
-  active(item?: Panel | string | null) {
+  active(item?: IPanel | string | null) {
     if (item) {
       this.container?.active(item);
     } else {

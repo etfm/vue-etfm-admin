@@ -2,28 +2,15 @@ import { EventEmitter } from 'events';
 import { engineConfig } from './config';
 import { observable, define } from './obx';
 import { EventBus } from './event-bus';
-import type {
-  EditorConfig,
-  IPublicModelEditor,
-  IPublicTypeEditorGetResult,
-  IPublicTypeEditorValueKey,
-} from '@etfma/types';
+import type { IEditor, IPublicTypeEditorGetResult, IPublicTypeEditorValueKey } from '@etfma/types';
 
 const keyBlacklist = ['skeleton', 'plugins', 'material', 'innerPlugins'];
-
-export interface IEditor extends IPublicModelEditor {
-  config?: EditorConfig;
-
-  init(config?: EditorConfig): Promise<any>;
-}
 
 export class Editor extends EventEmitter implements IEditor {
   /**
    * Ioc Container
    */
   context = new Map<IPublicTypeEditorValueKey, any>();
-
-  config?: EditorConfig;
 
   eventBus: EventBus;
 
@@ -98,24 +85,7 @@ export class Editor extends EventEmitter implements IEditor {
     this.notifyGot(key || data);
   }
 
-  async init(config?: EditorConfig): Promise<any> {
-    this.config = config || {};
-
-    this.emit('editor.beforeInit');
-
-    try {
-      this.emit('editor.afterInit');
-
-      return true;
-    } catch (err) {
-      console.error(err);
-    }
-  }
-
   destroy(): void {
-    if (!this.config) {
-      return;
-    }
     try {
     } catch (err) {
       console.warn(err);

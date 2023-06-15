@@ -1,13 +1,17 @@
-import type { IArea, IPublicTypeWidgetBaseConfig, ISkeleton, IWidget } from '@etfma/types';
+import type {
+  Activeable,
+  AreaWidgetConfig,
+  IArea,
+  IContainer,
+  ISkeleton,
+  WidgetItem,
+} from '@etfma/types';
 import { observable, define } from '../obx';
-import { WidgetContainer } from './widget';
 import { Logger } from '@etfma/shared';
 
 const logger = new Logger({ bizName: 'skeleton:area' });
 
-export class Area<C extends IPublicTypeWidgetBaseConfig = any, T extends IWidget = IWidget>
-  implements IArea<C, T>
-{
+export class Area implements IArea {
   _visible = true;
 
   get visible() {
@@ -24,13 +28,13 @@ export class Area<C extends IPublicTypeWidgetBaseConfig = any, T extends IWidget
     return null;
   }
 
-  readonly container: WidgetContainer<T, C>;
-  private lastCurrent: T | null = null;
+  readonly container: IContainer;
+  private lastCurrent: (WidgetItem & Activeable) | null = null;
 
   constructor(
     readonly skeleton: ISkeleton,
     readonly name: string,
-    handle: (item: T | C) => T,
+    handle: (item: AreaWidgetConfig) => WidgetItem,
     private exclusive?: boolean,
     defaultSetCurrent = false,
   ) {
@@ -56,7 +60,7 @@ export class Area<C extends IPublicTypeWidgetBaseConfig = any, T extends IWidget
     return this.container.items.length < 1;
   }
 
-  add(config: T | C): T {
+  add(config: AreaWidgetConfig): WidgetItem {
     const item = this.container.get(config.name);
 
     if (item) {
@@ -66,7 +70,7 @@ export class Area<C extends IPublicTypeWidgetBaseConfig = any, T extends IWidget
     return this.container.add(config);
   }
 
-  remove(config: T | string): number {
+  remove(config: WidgetItem | string): number {
     return this.container.remove(config);
   }
 

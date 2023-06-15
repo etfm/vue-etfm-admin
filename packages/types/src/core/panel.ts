@@ -20,6 +20,7 @@ export interface PanelProps {
   enableDrag?: boolean; // 是否开启通过 drag 调整 宽度
   keepVisibleWhileDragging?: boolean; // 是否在该 panel 范围内拖拽时保持 visible 状态
   canSetFixed?: boolean;
+  hiddenWhenInit?: boolean;
 }
 
 export interface IPanel extends IWidget {}

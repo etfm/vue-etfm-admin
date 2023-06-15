@@ -7,10 +7,10 @@ import { Editor } from '../editor';
 
 import { engineConfig } from '../config';
 import {
-  EditorConfig,
+  AreaWidgetConfig,
+  IContainer,
   IPublicTypeSkeletonConfig,
   IPublicTypeWidgetBaseConfig,
-  IPublicTypeWidgetConfigArea,
   ISkeleton,
   IWidget,
   PanelConfig,
@@ -23,23 +23,23 @@ const logger = new Logger({ bizName: 'skeleton' });
 export class Skeleton implements ISkeleton {
   private panels = new Map<string, Panel>();
 
-  private containers = new Map<string, WidgetContainer<any>>();
+  private containers = new Map<string, IContainer>();
 
-  readonly leftArea: Area<WidgetConfig | PanelConfig, Widget | Panel>;
+  readonly leftArea: Area;
 
-  readonly topArea: Area<WidgetConfig | PanelConfig, Widget | Panel>;
+  readonly topArea: Area;
 
-  readonly toolbar: Area<WidgetConfig | PanelConfig, Widget | Panel>;
+  readonly toolbar: Area;
 
-  readonly leftFixedArea: Area<PanelConfig, Panel>;
+  readonly leftFixedArea: Area;
 
-  readonly leftFloatArea: Area<PanelConfig, Panel>;
+  readonly leftFloatArea: Area;
 
-  readonly rightArea: Area<PanelConfig, Panel>;
+  readonly rightArea: Area;
 
-  readonly mainArea: Area<WidgetConfig | PanelConfig, Widget | Panel>;
+  readonly mainArea: Area;
 
-  readonly bottomArea: Area<PanelConfig, Panel>;
+  readonly bottomArea: Area;
 
   readonly widgets: IWidget[] = [];
 
@@ -51,7 +51,7 @@ export class Skeleton implements ISkeleton {
         if (isWidget(config)) {
           return config;
         }
-        return this.createWidget(config) as Widget;
+        return this.createWidget(config);
       },
       false,
     );
@@ -62,7 +62,7 @@ export class Skeleton implements ISkeleton {
         if (isWidget(config)) {
           return config;
         }
-        return this.createWidget(config) as Widget;
+        return this.createWidget(config);
       },
       false,
     );
@@ -73,7 +73,7 @@ export class Skeleton implements ISkeleton {
         if (isWidget(config)) {
           return config;
         }
-        return this.createWidget(config) as Widget;
+        return this.createWidget(config);
       },
       false,
     );
@@ -84,7 +84,7 @@ export class Skeleton implements ISkeleton {
         if (isPanel(config)) {
           return config;
         }
-        return this.createPanel(config);
+        return this.createPanel(config as PanelConfig);
       },
       true,
       true,
@@ -97,7 +97,7 @@ export class Skeleton implements ISkeleton {
           return config;
         }
 
-        return this.createPanel(config);
+        return this.createPanel(config as PanelConfig);
       },
       true,
       true,
@@ -109,7 +109,7 @@ export class Skeleton implements ISkeleton {
         if (isPanel(config)) {
           return config;
         }
-        return this.createPanel(config);
+        return this.createPanel(config as PanelConfig);
       },
       false,
       true,
@@ -119,9 +119,9 @@ export class Skeleton implements ISkeleton {
       'mainArea',
       (config) => {
         if (isWidget(config)) {
-          return config as Widget;
+          return config;
         }
-        return this.createWidget(config) as Widget;
+        return this.createWidget(config);
       },
       true,
       true,
@@ -133,7 +133,7 @@ export class Skeleton implements ISkeleton {
         if (isPanel(config)) {
           return config;
         }
-        return this.createPanel(config);
+        return this.createPanel(config as PanelConfig);
       },
       true,
     );
@@ -182,57 +182,21 @@ export class Skeleton implements ISkeleton {
     const isFloat = panel?.parent?.name === 'leftFloatArea';
     if (isFloat) {
       this.leftFloatArea.remove(panel);
-      this.leftFixedArea.add(panel);
+      this.leftFixedArea.add(panel as unknown as AreaWidgetConfig);
       this.leftFixedArea.container.active(panel);
     } else {
       this.leftFixedArea.remove(panel);
-      this.leftFloatArea.add(panel);
+      this.leftFloatArea.add(panel as unknown as AreaWidgetConfig);
       this.leftFloatArea.container.active(panel);
     }
     engineConfig.getPreference().set(`${panel.name}-pinned-status-isFloat`, !isFloat, 'skeleton');
-  }
-
-  buildFromConfig(config?: EditorConfig) {
-    if (config) {
-      this.editor.init(config);
-    }
-    this.setupPlugins();
-  }
-
-  private setupPlugins() {
-    const { config } = this.editor;
-    if (!config) {
-      return;
-    }
-
-    const { plugins } = config;
-    if (!plugins) {
-      return;
-    }
-    Object.keys(plugins).forEach((area) => {
-      plugins[area].forEach((item) => {
-        const { pluginKey, props = {}, pluginProps } = item;
-        const config: Partial<IPublicTypeWidgetBaseConfig> = {
-          area: area as IPublicTypeWidgetConfigArea,
-          type: 'Widget',
-          name: pluginKey,
-          contentProps: pluginProps,
-        };
-        const { panelProps, ...restProps } = props;
-        config.props = restProps;
-        if (panelProps) {
-          config.panelProps = panelProps;
-        }
-        this.add(config as IPublicTypeWidgetBaseConfig);
-      });
-    });
   }
 
   postEvent(event: SkeletonEvents, ...args: any[]) {
     this.editor.eventBus.emit(event, ...args);
   }
 
-  createWidget(config: IPublicTypeWidgetBaseConfig | IWidget) {
+  createWidget(config: AreaWidgetConfig | IWidget) {
     if (isWidget(config)) {
       return config;
     }
@@ -283,7 +247,7 @@ export class Skeleton implements ISkeleton {
     return container;
   }
 
-  private parseConfig(config: IPublicTypeWidgetBaseConfig) {
+  private parseConfig(config: AreaWidgetConfig) {
     if (config.parsed) {
       return config;
     }
@@ -309,7 +273,7 @@ export class Skeleton implements ISkeleton {
     return restConfig;
   }
 
-  add(config: IPublicTypeSkeletonConfig, extraConfig?: Record<string, any>) {
+  add(config: AreaWidgetConfig, extraConfig?: Record<string, any>) {
     const parsedConfig = {
       ...this.parseConfig(config),
       ...extraConfig,

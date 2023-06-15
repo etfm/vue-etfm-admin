@@ -2,7 +2,6 @@ import { observer } from '../../obx';
 import classNames from 'classnames';
 import { defineComponent, PropType, onMounted, ref, unref, onUnmounted, onUpdated } from 'vue';
 import { Area } from '../area';
-import { Panel } from '../widget';
 import { Focusable, focusTracker } from '../../utils';
 
 export const LeftFloatPane = observer(
@@ -10,7 +9,7 @@ export const LeftFloatPane = observer(
     name: 'LeftFloatPane',
     props: {
       area: {
-        type: Object as PropType<Area<any, Panel>>,
+        type: Object as PropType<Area>,
         required: true,
       },
     },

@@ -11,7 +11,6 @@ import { RightArea } from './RightArea';
 import { MainArea } from './MainArea';
 import { BottomArea } from './BottomArea';
 import { observer } from '../../obx';
-import { EditorConfig } from '@etfma/types';
 
 export const Workbench = observer(
   defineComponent({
@@ -21,13 +20,9 @@ export const Workbench = observer(
         type: Object as PropType<Skeleton>,
         required: true,
       },
-      config: {
-        type: Object as PropType<EditorConfig>,
-      },
     },
     setup(props) {
-      const { config, skeleton } = props;
-      skeleton.buildFromConfig(config);
+      const { skeleton } = props;
 
       return {
         skeleton,

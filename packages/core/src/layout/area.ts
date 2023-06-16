@@ -1,8 +1,8 @@
 import type {
   Activeable,
-  AreaWidgetConfig,
   IArea,
   IContainer,
+  IPublicTypeWidgetBaseConfig,
   ISkeleton,
   WidgetItem,
 } from '@etfma/types';
@@ -34,7 +34,7 @@ export class Area implements IArea {
   constructor(
     readonly skeleton: ISkeleton,
     readonly name: string,
-    handle: (item: AreaWidgetConfig) => WidgetItem,
+    handle: (item: IPublicTypeWidgetBaseConfig) => WidgetItem,
     private exclusive?: boolean,
     defaultSetCurrent = false,
   ) {
@@ -60,7 +60,7 @@ export class Area implements IArea {
     return this.container.items.length < 1;
   }
 
-  add(config: AreaWidgetConfig): WidgetItem {
+  add(config: IPublicTypeWidgetBaseConfig): WidgetItem {
     const item = this.container.get(config.name);
 
     if (item) {

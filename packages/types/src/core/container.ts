@@ -1,6 +1,6 @@
-import { AreaWidgetConfig } from './area';
 import { IPanel } from './panel';
 import { IWidget } from './widget';
+import { IPublicTypeWidgetBaseConfig } from './widget-base-config';
 
 export interface Activeable {
   setActive(flag: boolean): void;
@@ -14,7 +14,7 @@ export interface IContainer {
   active: (nameOrItem?: WidgetItem | string | null) => void;
   unactive: (nameOrItem?: WidgetItem | string | null) => void;
   unactiveAll: () => void;
-  add: (item: AreaWidgetConfig) => WidgetItem;
+  add: (item: IPublicTypeWidgetBaseConfig) => WidgetItem;
   get: (name: string) => WidgetItem | null;
   getAt: (index: number) => WidgetItem | null;
   has: (name: string) => boolean;

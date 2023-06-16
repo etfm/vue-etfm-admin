@@ -7,9 +7,7 @@ import { Editor } from '../editor';
 
 import { engineConfig } from '../config';
 import {
-  AreaWidgetConfig,
   IContainer,
-  IPublicTypeSkeletonConfig,
   IPublicTypeWidgetBaseConfig,
   ISkeleton,
   IWidget,
@@ -154,7 +152,6 @@ export class Skeleton implements ISkeleton {
    * @memberof Skeleton
    */
   setupEvents() {
-    // adjust pinned status when panel shown
     this.editor.on('skeleton.panel.show', (panelName, panel) => {
       const panelNameKey = `${panelName}-pinned-status-isFloat`;
       const isInFloatAreaPreferenceExists = engineConfig
@@ -182,11 +179,11 @@ export class Skeleton implements ISkeleton {
     const isFloat = panel?.parent?.name === 'leftFloatArea';
     if (isFloat) {
       this.leftFloatArea.remove(panel);
-      this.leftFixedArea.add(panel as unknown as AreaWidgetConfig);
+      this.leftFixedArea.add(panel as unknown as PanelConfig);
       this.leftFixedArea.container.active(panel);
     } else {
       this.leftFixedArea.remove(panel);
-      this.leftFloatArea.add(panel as unknown as AreaWidgetConfig);
+      this.leftFloatArea.add(panel as unknown as PanelConfig);
       this.leftFloatArea.container.active(panel);
     }
     engineConfig.getPreference().set(`${panel.name}-pinned-status-isFloat`, !isFloat, 'skeleton');
@@ -196,7 +193,7 @@ export class Skeleton implements ISkeleton {
     this.editor.eventBus.emit(event, ...args);
   }
 
-  createWidget(config: AreaWidgetConfig | IWidget) {
+  createWidget(config: IPublicTypeWidgetBaseConfig | IWidget) {
     if (isWidget(config)) {
       return config;
     }
@@ -247,7 +244,7 @@ export class Skeleton implements ISkeleton {
     return container;
   }
 
-  private parseConfig(config: AreaWidgetConfig) {
+  private parseConfig(config: IPublicTypeWidgetBaseConfig) {
     if (config.parsed) {
       return config;
     }
@@ -273,7 +270,7 @@ export class Skeleton implements ISkeleton {
     return restConfig;
   }
 
-  add(config: AreaWidgetConfig, extraConfig?: Record<string, any>) {
+  add(config: IPublicTypeWidgetBaseConfig, extraConfig?: Record<string, any>) {
     const parsedConfig = {
       ...this.parseConfig(config),
       ...extraConfig,

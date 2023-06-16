@@ -17,21 +17,4 @@ export interface IPublicTypeWidgetBaseConfig {
   [extra: string]: any;
 }
 
-export interface IPublicTypePanelDockPanelProps {
-  [key: string]: any;
-
-  /** 是否隐藏面板顶部条 */
-  hideTitleBar?: boolean;
-
-  width?: number;
-
-  height?: number;
-
-  maxWidth?: number;
-
-  maxHeight?: number;
-
-  area?: IPublicTypeWidgetConfigArea;
-}
-
 export type IPublicTypeSkeletonConfig = IPublicTypeWidgetBaseConfig;

@@ -1,7 +1,7 @@
 import { define, observable } from '../../obx';
 import { isPanel } from './panel';
 import { hasOwnProperty } from '../../utils';
-import type { Activeable, AreaWidgetConfig, IContainer, WidgetItem } from '@etfma/types';
+import type { Activeable, IContainer, IPublicTypeWidgetBaseConfig, WidgetItem } from '@etfma/types';
 
 function isActiveable(obj: any): obj is Activeable {
   return obj && obj.setActive;
@@ -25,7 +25,7 @@ export class WidgetContainer implements IContainer {
   // eslint-disable-next-line no-useless-constructor
   constructor(
     readonly name: string,
-    private handle: (item: AreaWidgetConfig) => WidgetItem,
+    private handle: (item: IPublicTypeWidgetBaseConfig) => WidgetItem,
     private exclusive: boolean = false,
     private checkVisible: () => boolean = () => true,
     private defaultSetCurrent: boolean = false,
@@ -85,7 +85,7 @@ export class WidgetContainer implements IContainer {
     Object.keys(this.maps).forEach((name) => this.unactive(name));
   }
 
-  add(item: AreaWidgetConfig): WidgetItem {
+  add(item: IPublicTypeWidgetBaseConfig): WidgetItem {
     const widgetItem = this.handle(item);
 
     const origin = this.get(widgetItem.name);

@@ -3,7 +3,7 @@ import { IArea } from './area';
 import { IContainer } from './container';
 import { IEditor } from './core';
 import { IPanel, PanelConfig } from './panel';
-import { IWidget, WidgetConfig } from './widget';
+import { IWidget } from './widget';
 import { IPublicTypeSkeletonConfig } from './widget-base-config';
 
 export enum SkeletonEvents {

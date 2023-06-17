@@ -194,9 +194,7 @@ function normalizeArea(
   | 'mainArea'
   | 'bottomArea'
   | 'leftFixedArea'
-  | 'leftFloatArea'
-  | 'stages'
-  | 'subTopArea' {
+  | 'leftFloatArea' {
   switch (area) {
     case 'leftArea':
     case 'left':

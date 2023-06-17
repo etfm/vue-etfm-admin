@@ -52,6 +52,7 @@ export class Panel implements IPanel {
 
   get content() {
     const area = this.config?.area || this.parent?.name;
+
     return createElement(PanelView, {
       panel: this,
       key: this.id,
@@ -64,7 +65,7 @@ export class Panel implements IPanel {
 
     const { name, content, props = {} } = config;
     this.name = name;
-    this.id = uniqueId(`pane:${name}$`);
+    this.id = uniqueId(`panel:${name}$`);
     if (Array.isArray(content)) {
       this.container = this.skeleton.createContainer(
         name,

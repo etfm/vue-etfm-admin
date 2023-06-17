@@ -1,4 +1,4 @@
-import { App, createApp } from 'vue';
+import { App, createApp, h } from 'vue';
 import { Editor, commonEvent } from './editor';
 
 import { Skeleton as InnerSkeleton } from './layout';
@@ -22,6 +22,8 @@ import {
   IPublicTypePluginMeta,
 } from '@etfma/types';
 import { PluginManager } from './plugin';
+
+export * from './types';
 
 const global = new Global(globalContext);
 
@@ -103,7 +105,7 @@ export async function init(
   const { Workbench } = common.skeletonCabin;
 
   app = createApp({
-    render: (h: any) =>
+    render: () =>
       h(Workbench, {
         skeleton: innerSkeleton,
         class: 'engine-main',

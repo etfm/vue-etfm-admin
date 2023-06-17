@@ -30,6 +30,7 @@ export const LeftArea = observer(
             top.push(content);
           }
         });
+
       return (
         <div
           class={classNames('lc-left-area', {

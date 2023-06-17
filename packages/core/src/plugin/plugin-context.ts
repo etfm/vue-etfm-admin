@@ -13,12 +13,12 @@ import type {
   IPublicApiMaterial,
   IPublicApiPlugins,
   IPublicApiSkeleton,
-  IPublicPluginContext,
+  IPublicModelPluginContext,
   IPublicTypePluginDeclaration,
   IPublicTypePreferenceValueType,
 } from '@etfma/types';
 
-export default class PluginContext implements IPublicPluginContext {
+export default class PluginContext implements IPublicModelPluginContext {
   skeleton: IPublicApiSkeleton;
   event: IPublicApiEvent;
   config: EngineConfig;

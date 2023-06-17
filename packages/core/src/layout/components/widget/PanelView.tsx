@@ -17,9 +17,6 @@ export const PanelView = observer(
       area: {
         type: String,
       },
-      hideOperationRow: {
-        type: Boolean,
-      },
       hideDragLine: {
         type: Boolean,
       },

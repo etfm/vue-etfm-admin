@@ -7,11 +7,9 @@
   --font-size-btn-large: @fontSize-3;
   --font-size-btn-medium: @fontSize-4;
   --font-size-btn-small: @fontSize-5;
-
   --global-border-radius: @global-border-radius;
   --input-border-radius: @input-border-radius;
   --popup-border-radius: @popup-border-radius;
-
   --left-area-width: 48px;
   --right-area-width: 300px;
   --top-area-height: 48px;
@@ -30,11 +28,11 @@
 
 html,
 body {
+  position: relative;
   height: 100%;
-  overflow: hidden;
   padding: 0;
   margin: 0;
-  position: relative;
+  overflow: hidden;
   font-family: var(--font-family);
   font-size: var(--font-size-text);
   color: var(--color-text);
@@ -46,14 +44,16 @@ body {
 }
 
 .lc-titled-panel {
+  position: relative;
   width: 100%;
   height: 100%;
-  position: relative;
   background-color: #fff;
   background-color: var(--color-pane-background);
+
   &.hidden {
     display: none;
   }
+
   .lc-panel-title {
     // background-color: var(--pane-title-bg-color,rgba(31,56,88,.04));
     display: flex;
@@ -63,26 +63,25 @@ body {
 
     .lc-help-tip {
       margin-left: 4px;
-      color: rgba(0, 0, 0, 0.4);
+      color: rgb(0 0 0 / 40%);
       cursor: pointer;
     }
   }
+
   > .lc-panel-title {
     height: 48px;
-    font-size: 16px;
     padding: 0 15px;
+    font-size: 16px;
+    font-weight: bold;
     // border-bottom: 1px solid var(--color-line-normal,rgba(31,56,88,.1));
     color: #0f1726;
-    font-weight: bold;
   }
 
   .lc-panel-body {
     position: absolute;
-    top: 48px;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    inset: 48px 0 0;
     overflow: visible;
+
     /*
     .my-tabs {
       width: 100%;
@@ -117,14 +116,16 @@ body {
     }
     */
   }
+
   .lc-outline-tree-container {
-    border-top: 1px solid var(--color-line-normal, rgba(31, 56, 88, 0.1));
+    border-top: 1px solid var(--color-line-normal, rgb(31 56 88 / 10%));
   }
 }
+
 .lc-panel {
-  height: 100%;
-  width: 100%;
   position: relative;
+  width: 100%;
+  height: 100%;
   background-color: #fff;
   background-color: var(--color-pane-background);
   // overflow: auto;
@@ -134,17 +135,18 @@ body {
 }
 
 .lc-workbench {
-  height: 100%;
   display: flex;
   flex-direction: column;
+  height: 100%;
   background-color: #edeff3;
+
   .lc-top-area {
-    height: var(--top-area-height);
-    background-color: var(--color-pane-background);
-    width: 100%;
     display: none;
-    margin-bottom: 2px;
+    width: 100%;
+    height: var(--top-area-height);
     padding: 8px 12px 8px 16px;
+    margin-bottom: 2px;
+    background-color: var(--color-pane-background);
 
     &.lc-area-visible {
       display: flex;
@@ -156,48 +158,54 @@ body {
     }
 
     .lc-top-area-center {
-      flex: 1;
       display: flex;
+      flex: 1;
       justify-content: center;
       margin: 0 8px;
     }
+
     .lc-top-area-right {
       display: flex;
       align-items: center;
+
       > * {
-        margin-left: 4px;
         margin-right: 4px;
+        margin-left: 4px;
       }
+
       .ve-quick-search-trigger {
         display: flex;
       }
     }
   }
+
   .lc-workbench-body {
-    flex: 1;
-    display: flex;
-    min-height: 0;
     position: relative;
+    display: flex;
+    flex: 1;
+    min-height: 0;
 
     .lc-tabs-title {
-      width: 100%;
-      height: 32px;
       position: relative;
       display: center;
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 32px;
       // background: rgba(31,56,88,0.04);
       border-bottom: 1px solid #edeff3;
+
       .lc-tab-title {
-        flex: 1;
-        height: 32px;
         display: flex;
+        flex: 1;
         align-items: center;
         justify-content: center;
-        border-bottom: 2px solid transparent;
-        cursor: pointer;
+        height: 32px;
         font-size: 12px;
+        cursor: pointer;
+        border-bottom: 2px solid transparent;
+
         &.actived {
           color: #0079f2;
           border-bottom-color: #0079f2;
@@ -207,34 +215,33 @@ body {
 
     .lc-tabs-content {
       position: absolute;
-      top: 32px;
-      bottom: 0;
-      left: 0;
-      right: 0;
+      inset: 32px 0 0;
     }
 
     .lc-pane-icon-close {
       position: absolute;
-      right: 16px;
       top: 14px;
-      height: auto;
+      right: 16px;
       z-index: 2;
+      height: auto;
+
       .next-icon {
         line-height: 1;
-        color: rgba(0, 0, 0, 0.6);
+        color: rgb(0 0 0 / 60%);
       }
     }
 
     .lc-pane-icon-fix,
     .lc-pane-icon-float {
       position: absolute;
-      right: 38px;
       top: 14px;
-      height: auto;
+      right: 38px;
       z-index: 2;
+      height: auto;
+
       svg {
+        color: rgb(0 0 0 / 60%);
         vertical-align: middle;
-        color: rgba(0, 0, 0, 0.6);
       }
     }
 
@@ -242,154 +249,182 @@ body {
       position: absolute;
       top: 0;
       bottom: 0;
-      width: var(--dock-pane-width);
       // min-width: var(--dock-fixed-pane-width);
       left: calc(var(--left-area-width) + 1px);
-      background-color: var(--color-pane-background);
-      box-shadow: 4px 6px 6px 0 rgba(31, 50, 88, 0.08);
       z-index: 820;
       display: none;
+      width: var(--dock-pane-width);
+      background-color: var(--color-pane-background);
+      box-shadow: 4px 6px 6px 0 rgb(31 50 88 / 8%);
       // padding-top: 36px;
       &.lc-area-visible {
         display: block;
       }
     }
+
     .lc-left-area {
-      height: 100%;
-      width: var(--left-area-width);
-      background-color: var(--color-pane-background);
       display: none;
-      flex-shrink: 0;
       flex-direction: column;
+      flex-shrink: 0;
       justify-content: space-between;
+      width: var(--left-area-width);
+      height: 100%;
       overflow: hidden;
+      background-color: var(--color-pane-background);
+
       &.lc-area-visible {
         display: flex;
       }
+
       .lc-left-area-top,
       .lc-left-area-bottom {
-        width: 100%;
         display: flex;
         flex-direction: column;
-        justify-content: flex-start;
         align-items: center;
+        justify-content: flex-start;
+        width: 100%;
+
         .lc-title {
-          flex-direction: column;
-          width: 46px;
-          height: 46px;
           display: flex;
+          flex-direction: column;
           align-items: center;
           justify-content: center;
+          width: 46px;
+          height: 46px;
 
           &.has-tip {
             cursor: pointer;
           }
+
           &.actived {
             color: #0079f2;
           }
+
           &.disabled {
             opacity: 0.4;
           }
+
           .lc-title-icon {
-            height: 20px;
             width: 20px;
+            height: 20px;
             margin: 0;
-            .next-icon:before {
+
+            .next-icon::before {
               line-height: 1 !important;
             }
           }
         }
       }
+
       .lc-left-area-top {
         padding-top: 12px;
       }
+
       .lc-left-area-bottom {
         padding-bottom: 12px;
       }
     }
+
     .lc-left-fixed-pane {
-      width: var(--dock-fixed-pane-width);
-      background-color: var(--color-pane-background);
-      height: 100%;
-      display: none;
-      flex-shrink: 0;
       position: relative;
       z-index: 820;
+      display: none;
+      flex-shrink: 0;
+      width: var(--dock-fixed-pane-width);
+      height: 100%;
+      background-color: var(--color-pane-background);
+
       &.lc-area-visible {
         display: block;
       }
     }
+
     .lc-left-area.lc-area-visible ~ .lc-left-fixed-pane {
       margin-left: 1px;
     }
+
     .lc-left-area.lc-area-visible ~ .lc-workbench-center {
       margin-left: 2px;
     }
+
     .lc-outline-pane {
       .lc-outline-tree .tree-node .tree-node-title {
         border-bottom: none;
       }
     }
+
     .lc-workbench-center {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
       z-index: 10;
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+
       .lc-toolbar {
         display: flex;
         height: var(--toolbar-height);
-        background-color: var(--color-pane-background);
         padding: 8px 16px;
+        background-color: var(--color-pane-background);
+
         .lc-toolbar-center {
           display: flex;
-          justify-content: center;
-          align-items: center;
           flex: 1;
+          align-items: center;
+          justify-content: center;
         }
       }
+
       .lc-main-area {
         flex: 1;
       }
+
       .lc-bottom-area {
+        display: none;
         height: var(--bottom-area-height);
         background-color: var(--color-pane-background);
-        display: none;
+
         &.lc-area-visible {
           display: block;
         }
       }
     }
+
     .lc-right-area {
-      height: 100%;
-      width: var(--right-area-width);
-      background-color: var(--color-pane-background);
+      position: relative;
       display: none;
       flex-shrink: 0;
+      width: var(--right-area-width);
+      height: 100%;
       margin-left: 2px;
-      position: relative;
+      background-color: var(--color-pane-background);
+
       > .lc-panel {
         position: absolute;
-        left: 0;
         top: 0;
+        left: 0;
       }
+
       &.lc-area-visible {
         display: block;
       }
+
       .lc-settings-tabs {
         > .next-tabs-nav-extra {
           top: 36px !important;
         }
+
         .lc-settings-tab-item {
           .next-tabs-tab-inner {
             font-size: 12px;
             line-height: 12px;
           }
         }
+
         .lc-title {
-          color: inherit;
           line-height: inherit !important;
+          color: inherit;
         }
       }
+
       .lc-settings-tabs-content {
         top: 66px;
       }

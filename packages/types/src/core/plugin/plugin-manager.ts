@@ -24,7 +24,7 @@ export interface IPluginManagerCore {
   delete(pluginName: string): any;
   setDisabled(pluginName: string, flag: boolean): void;
   dispose(): void;
-  _getLowCodePluginContext(options: IPluginContextOptions): IPublicPluginContext;
+  _getPluginContext(options: IPluginContextOptions): IPublicPluginContext;
 }
 
 export type IPluginManager = IPluginManagerCore & IPluginManagerPluginAccessor;

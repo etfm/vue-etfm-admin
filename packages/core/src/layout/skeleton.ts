@@ -1,4 +1,3 @@
-import { action, define } from '../obx';
 import { WidgetContainer, Panel, isPanel, Widget, isWidget, isPanelConfig } from './widget';
 import { Area } from './area';
 import { isVNode } from 'vue';
@@ -85,7 +84,6 @@ export class Skeleton implements ISkeleton {
         return this.createPanel(config as PanelConfig);
       },
       true,
-      true,
     );
     this.leftFloatArea = new Area(
       this,
@@ -98,7 +96,6 @@ export class Skeleton implements ISkeleton {
         return this.createPanel(config as PanelConfig);
       },
       true,
-      true,
     );
     this.rightArea = new Area(
       this,
@@ -107,10 +104,9 @@ export class Skeleton implements ISkeleton {
         if (isPanel(config)) {
           return config;
         }
-        return this.createPanel(config as PanelConfig);
+        return this.createWidget(config);
       },
       false,
-      true,
     );
     this.mainArea = new Area(
       this,
@@ -128,31 +124,24 @@ export class Skeleton implements ISkeleton {
       this,
       'bottomArea',
       (config) => {
-        if (isPanel(config)) {
+        if (isWidget(config)) {
           return config;
         }
-        return this.createPanel(config as PanelConfig);
+        return this.createWidget(config);
       },
-      true,
+      false,
     );
 
-    // this.setupPlugins()
     this.setupEvents();
-    this.makeObservable();
   }
 
-  makeObservable() {
-    define(this, {
-      toggleFloatStatus: action,
-    });
-  }
   /**
    * setup events
    *
    * @memberof Skeleton
    */
   setupEvents() {
-    this.editor.on('skeleton.panel.show', (panelName, panel) => {
+    this.editor.on(SkeletonEvents.PANEL_SHOW, (panelName, panel) => {
       const panelNameKey = `${panelName}-pinned-status-isFloat`;
       const isInFloatAreaPreferenceExists = engineConfig
         .getPreference()
@@ -204,8 +193,6 @@ export class Skeleton implements ISkeleton {
       widget = this.createPanel(config);
     } else {
       widget = new Widget(this, config as WidgetConfig);
-
-      console.log('skeleton:createWidget:', widget, config);
     }
     this.widgets.push(widget);
     return widget;
@@ -218,6 +205,7 @@ export class Skeleton implements ISkeleton {
   createPanel(config: PanelConfig) {
     const parsedConfig = this.parseConfig(config);
     const panel = new Panel(this, parsedConfig as PanelConfig);
+
     this.panels.set(panel.name, panel);
     logger.debug(
       `Panel created with name: ${panel.name} \nconfig:`,

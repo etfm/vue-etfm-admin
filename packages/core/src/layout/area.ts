@@ -67,6 +67,7 @@ export class Area implements IArea {
       logger.warn(`The ${config.name} has already been added to skeleton.`);
       return item;
     }
+
     return this.container.add(config);
   }
 

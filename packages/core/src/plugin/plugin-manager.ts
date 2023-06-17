@@ -50,7 +50,7 @@ export class PluginManager implements IPluginManager {
     this.contextApiAssembler = contextApiAssembler;
   }
 
-  _getLowCodePluginContext(options: IPluginContextOptions) {
+  _getPluginContext(options: IPluginContextOptions) {
     const { pluginName } = options;
     let context = this.pluginContextMap.get(pluginName);
     if (!context) {
@@ -96,7 +96,7 @@ export class PluginManager implements IPluginManager {
         `plugin ${pluginName} is trying to use ${eventPrefix} as event prefix, which is a reserved event prefix, please use another one`,
       );
     }
-    const ctx = this._getLowCodePluginContext({ pluginName, meta });
+    const ctx = this._getPluginContext({ pluginName, meta });
     const customFilterValidOptions = engineConfig.get(
       'customPluginFilterOptions',
       filterValidOptions,
@@ -104,7 +104,6 @@ export class PluginManager implements IPluginManager {
     const config = pluginModel(ctx, customFilterValidOptions(options, preferenceDeclaration!));
 
     // compat the legacy way to declare pluginName
-    // @ts-ignore
     pluginName = pluginName || config.name;
 
     ctx.setPreference(pluginName, preferenceDeclaration!);
@@ -144,9 +143,8 @@ export class PluginManager implements IPluginManager {
     }
     this.plugins.push(plugin);
     this.pluginsMap.set(pluginName, plugin);
-    logger.log(
-      `plugin registered with pluginName: ${pluginName}, config: ${config}, meta: ${meta}`,
-    );
+
+    logger.log(`plugin registered with pluginName: ${pluginName}, config:`, config, 'meta:', meta);
   }
 
   get(pluginName: string): IPluginRuntime | undefined {

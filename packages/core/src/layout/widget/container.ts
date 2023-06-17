@@ -46,6 +46,7 @@ export class WidgetContainer implements IContainer {
     if (nameOrItem && typeof nameOrItem === 'string') {
       item = this.get(nameOrItem);
     }
+
     if (!isActiveable(item)) {
       item = null;
     }
@@ -105,6 +106,7 @@ export class WidgetContainer implements IContainer {
     }
     if (this.defaultSetCurrent) {
       const shouldHiddenWhenInit = widgetItem.config?.props?.hiddenWhenInit;
+
       if (!this._current && !shouldHiddenWhenInit) {
         this.active(widgetItem);
       }

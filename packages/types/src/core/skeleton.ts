@@ -11,10 +11,13 @@ export enum SkeletonEvents {
   PANEL_DOCK_UNACTIVE = 'skeleton.panel-dock.unactive',
   PANEL_SHOW = 'skeleton.panel.show',
   PANEL_HIDE = 'skeleton.panel.hide',
+  PANEL_TOGGLE = '[skeleton.panel.toggle',
   WIDGET_SHOW = 'skeleton.widget.show',
   WIDGET_HIDE = 'skeleton.widget.hide',
   WIDGET_DISABLE = 'skeleton.widget.disable',
   WIDGET_ENABLE = 'skeleton.widget.enable',
+  AREA_SHOW = 'skeleton.area.show',
+  AREA_HIDE = 'skeleton.area.hide',
 }
 
 export interface ISkeleton

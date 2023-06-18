@@ -91,6 +91,34 @@ async function boostrap() {
             align: 'left',
           },
         });
+
+        skeleton.add({
+          area: 'leftFixedArea',
+          type: 'Panel',
+          name: 'logo',
+          content: 'logo',
+          contentProps: {
+            logo: 'https://img.alicdn.com/imgextra/i4/O1CN013w2bmQ25WAIha4Hx9_!!6000000007533-55-tps-137-26.svg',
+            href: 'https://lowcode-engine.cn',
+          },
+          props: {
+            align: 'left',
+          },
+        });
+
+        skeleton.add({
+          area: 'leftFixedArea',
+          type: 'Panel',
+          name: 'logo12',
+          content: 'logo',
+          contentProps: {
+            logo: 'https://img.alicdn.com/imgextra/i4/O1CN013w2bmQ25WAIha4Hx9_!!6000000007533-55-tps-137-26.svg',
+            href: 'https://lowcode-engine.cn',
+          },
+          props: {
+            align: 'left',
+          },
+        });
       },
     };
   };

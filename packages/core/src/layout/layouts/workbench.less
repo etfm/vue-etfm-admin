@@ -43,85 +43,6 @@ body {
   box-sizing: border-box;
 }
 
-.lc-titled-panel {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  background-color: #fff;
-  background-color: var(--color-pane-background);
-
-  &.hidden {
-    display: none;
-  }
-
-  .lc-panel-title {
-    // background-color: var(--pane-title-bg-color,rgba(31,56,88,.04));
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 0 15px;
-
-    .lc-help-tip {
-      margin-left: 4px;
-      color: rgb(0 0 0 / 40%);
-      cursor: pointer;
-    }
-  }
-
-  > .lc-panel-title {
-    height: 48px;
-    padding: 0 15px;
-    font-size: 16px;
-    font-weight: bold;
-    // border-bottom: 1px solid var(--color-line-normal,rgba(31,56,88,.1));
-    color: #0f1726;
-  }
-
-  .lc-panel-body {
-    position: absolute;
-    inset: 48px 0 0;
-    overflow: visible;
-
-    /*
-    .my-tabs {
-      width: 100%;
-      height: 100%;
-      position: relative;
-      .tabs-title {
-        display: flex;
-        height: var(--pane-title-height);
-        > .tab-title {
-          cursor: pointer;
-          padding: 0;
-          flex: 1;
-          min-width: 0;
-          justify-content: center;
-          border-bottom: 2px solid transparent;
-          &.actived {
-            cursor: default;
-            color: var(--color-text-avtived);
-            border-bottom-color: #3896ee;
-          }
-        }
-      }
-      .tabs-content {
-        position: absolute;
-        top: var(--pane-title-height);
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: calc(100% - var(--pane-title-height));
-        overflow: hidden;
-      }
-    }
-    */
-  }
-
-  .lc-outline-tree-container {
-    border-top: 1px solid var(--color-line-normal, rgb(31 56 88 / 10%));
-  }
-}
-
 .lc-panel {
   position: relative;
   width: 100%;
@@ -172,10 +93,6 @@ body {
         margin-right: 4px;
         margin-left: 4px;
       }
-
-      .ve-quick-search-trigger {
-        display: flex;
-      }
     }
   }
 
@@ -184,52 +101,6 @@ body {
     display: flex;
     flex: 1;
     min-height: 0;
-
-    .lc-tabs-title {
-      position: relative;
-      display: center;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      height: 32px;
-      // background: rgba(31,56,88,0.04);
-      border-bottom: 1px solid #edeff3;
-
-      .lc-tab-title {
-        display: flex;
-        flex: 1;
-        align-items: center;
-        justify-content: center;
-        height: 32px;
-        font-size: 12px;
-        cursor: pointer;
-        border-bottom: 2px solid transparent;
-
-        &.actived {
-          color: #0079f2;
-          border-bottom-color: #0079f2;
-        }
-      }
-    }
-
-    .lc-tabs-content {
-      position: absolute;
-      inset: 32px 0 0;
-    }
-
-    .lc-pane-icon-close {
-      position: absolute;
-      top: 14px;
-      right: 16px;
-      z-index: 2;
-      height: auto;
-
-      .next-icon {
-        line-height: 1;
-        color: rgb(0 0 0 / 60%);
-      }
-    }
 
     .lc-pane-icon-fix,
     .lc-pane-icon-float {
@@ -283,37 +154,6 @@ body {
         align-items: center;
         justify-content: flex-start;
         width: 100%;
-
-        .lc-title {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          width: 46px;
-          height: 46px;
-
-          &.has-tip {
-            cursor: pointer;
-          }
-
-          &.actived {
-            color: #0079f2;
-          }
-
-          &.disabled {
-            opacity: 0.4;
-          }
-
-          .lc-title-icon {
-            width: 20px;
-            height: 20px;
-            margin: 0;
-
-            .next-icon::before {
-              line-height: 1 !important;
-            }
-          }
-        }
       }
 
       .lc-left-area-top {
@@ -345,12 +185,6 @@ body {
 
     .lc-left-area.lc-area-visible ~ .lc-workbench-center {
       margin-left: 2px;
-    }
-
-    .lc-outline-pane {
-      .lc-outline-tree .tree-node .tree-node-title {
-        border-bottom: none;
-      }
     }
 
     .lc-workbench-center {
@@ -405,28 +239,6 @@ body {
 
       &.lc-area-visible {
         display: block;
-      }
-
-      .lc-settings-tabs {
-        > .next-tabs-nav-extra {
-          top: 36px !important;
-        }
-
-        .lc-settings-tab-item {
-          .next-tabs-tab-inner {
-            font-size: 12px;
-            line-height: 12px;
-          }
-        }
-
-        .lc-title {
-          line-height: inherit !important;
-          color: inherit;
-        }
-      }
-
-      .lc-settings-tabs-content {
-        top: 66px;
       }
     }
   }

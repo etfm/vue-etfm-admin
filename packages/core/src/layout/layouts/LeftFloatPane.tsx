@@ -66,13 +66,6 @@ export const LeftFloatPane = observer(
       const onEffect = () => {
         if (props.area.visible) {
           focusing?.active();
-          // 关闭当前fixed区域的面板
-          // TODO: 看看有没有更合适的地方
-          const fixedContainer = props.area?.skeleton?.leftFixedArea?.container;
-          const currentFixed = fixedContainer?.current;
-          if (currentFixed) {
-            fixedContainer.unactive(currentFixed);
-          }
         } else {
           focusing?.suspense();
         }
@@ -91,7 +84,7 @@ export const LeftFloatPane = observer(
       };
     },
     render() {
-      const width = this.area.current?.config.props?.width;
+      const width = this.area?.config?.props?.width;
 
       const style = width
         ? {
@@ -109,7 +102,7 @@ export const LeftFloatPane = observer(
           })}
           style={style}
         >
-          {this.area.container.items.map((panel) => panel.content)}
+          {this.area.container.items.map((item) => item.content)}
         </div>
       );
     },

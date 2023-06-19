@@ -9,11 +9,11 @@ export interface Activeable {
 export interface IContainer {
   [key: string]: any;
   items: WidgetItem[];
-  current: (WidgetItem & Activeable) | null;
+  // current: (WidgetItem & Activeable) | null;
   visible: boolean;
-  active: (nameOrItem?: WidgetItem | string | null) => void;
-  unactive: (nameOrItem?: WidgetItem | string | null) => void;
-  unactiveAll: () => void;
+  // active: (nameOrItem?: WidgetItem | string | null) => void;
+  // unactive: (nameOrItem?: WidgetItem | string | null) => void;
+  // unactiveAll: () => void;
   add: (item: IPublicTypeWidgetBaseConfig) => WidgetItem;
   get: (name: string) => WidgetItem | null;
   getAt: (index: number) => WidgetItem | null;

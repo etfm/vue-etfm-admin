@@ -18,7 +18,7 @@ export const LeftFixedPane = observer(
       });
     },
     render() {
-      const width = this.area.current?.config.props?.width;
+      const width = this.area?.config.props?.width;
       const style = width
         ? {
             width,
@@ -32,7 +32,7 @@ export const LeftFixedPane = observer(
           })}
           style={style}
         >
-          {this.area.container.items.map((panel) => panel.content)}
+          {this.area.container.items.map((item) => item.content)}
         </div>
       );
     },

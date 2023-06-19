@@ -94,7 +94,7 @@ async function boostrap() {
 
         skeleton.add({
           area: 'leftFixedArea',
-          type: 'Panel',
+          type: 'Widget',
           name: 'logo',
           content: 'logo',
           contentProps: {
@@ -108,7 +108,7 @@ async function boostrap() {
 
         skeleton.add({
           area: 'leftFixedArea',
-          type: 'Panel',
+          type: 'Widget',
           name: 'logo12',
           content: 'logo',
           contentProps: {

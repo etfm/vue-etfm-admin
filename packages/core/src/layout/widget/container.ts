@@ -1,89 +1,32 @@
 import { define, observable } from '../../obx';
-import { isPanel } from './panel';
 import { hasOwnProperty } from '../../utils';
-import type { Activeable, IContainer, IPublicTypeWidgetBaseConfig, WidgetItem } from '@etfma/types';
-
-function isActiveable(obj: any): obj is Activeable {
-  return obj && obj.setActive;
-}
+import type { IContainer, IPublicTypeWidgetBaseConfig, WidgetItem } from '@etfma/types';
 
 export class WidgetContainer implements IContainer {
   items: WidgetItem[] = [];
 
   private maps: { [name: string]: WidgetItem } = {};
 
-  _current: (WidgetItem & Activeable) | null = null;
-
-  get current() {
-    return this._current;
-  }
-
   get visible() {
     return this.checkVisible();
   }
 
-  // eslint-disable-next-line no-useless-constructor
   constructor(
     readonly name: string,
     private handle: (item: IPublicTypeWidgetBaseConfig) => WidgetItem,
     private exclusive: boolean = false,
     private checkVisible: () => boolean = () => true,
-    private defaultSetCurrent: boolean = false,
   ) {
+    console.log(name, '////////////////////');
+
     this.makeObservable();
   }
 
   makeObservable() {
     define(this, {
       items: observable.shallow,
-      _current: observable.ref,
       visible: observable.computed,
     });
-  }
-
-  active(nameOrItem?: WidgetItem | string | null) {
-    let item: any = nameOrItem;
-    if (nameOrItem && typeof nameOrItem === 'string') {
-      item = this.get(nameOrItem);
-    }
-
-    if (!isActiveable(item)) {
-      item = null;
-    }
-
-    if (this.exclusive) {
-      if (this._current === item) {
-        return;
-      }
-      if (this._current) {
-        this._current.setActive(false);
-      }
-      this._current = item;
-    }
-
-    if (item) {
-      item.setActive(true);
-    }
-  }
-
-  unactive(nameOrItem?: WidgetItem | string | null) {
-    let item: any = nameOrItem;
-    if (nameOrItem && typeof nameOrItem === 'string') {
-      item = this.get(nameOrItem);
-    }
-    if (!isActiveable(item)) {
-      item = null;
-    }
-    if (this._current === item) {
-      this._current = null;
-    }
-    if (item) {
-      item.setActive(false);
-    }
-  }
-
-  unactiveAll() {
-    Object.keys(this.maps).forEach((name) => this.unactive(name));
   }
 
   add(item: IPublicTypeWidgetBaseConfig): WidgetItem {
@@ -101,16 +44,6 @@ export class WidgetContainer implements IContainer {
       this.items.push(widgetItem);
     }
     this.maps[widgetItem.name] = widgetItem;
-    if (isPanel(widgetItem)) {
-      widgetItem.setParent(this);
-    }
-    if (this.defaultSetCurrent) {
-      const shouldHiddenWhenInit = widgetItem.config?.props?.hiddenWhenInit;
-
-      if (!this._current && !shouldHiddenWhenInit) {
-        this.active(widgetItem);
-      }
-    }
 
     return widgetItem;
   }
@@ -144,9 +77,7 @@ export class WidgetContainer implements IContainer {
       this.items.splice(i, 1);
     }
     delete this.maps[thing.name];
-    if (thing === this.current) {
-      this._current = null;
-    }
+
     return i;
   }
 }

@@ -50,7 +50,7 @@ export class Skeleton implements ISkeleton {
         }
         return this.createWidget(config);
       },
-      false,
+      true,
     );
     this.topArea = new Area(
       this,
@@ -61,7 +61,7 @@ export class Skeleton implements ISkeleton {
         }
         return this.createWidget(config);
       },
-      false,
+      true,
     );
     this.toolbar = new Area(
       this,
@@ -72,28 +72,28 @@ export class Skeleton implements ISkeleton {
         }
         return this.createWidget(config);
       },
-      false,
+      true,
     );
     this.leftFixedArea = new Area(
       this,
       'leftFixedArea',
       (config) => {
-        if (isPanel(config)) {
+        if (isWidget(config)) {
           return config;
         }
-        return this.createPanel(config as PanelConfig);
+        return this.createWidget(config as PanelConfig);
       },
-      true,
+      false,
     );
     this.leftFloatArea = new Area(
       this,
       'leftFloatArea',
       (config) => {
-        if (isPanel(config)) {
+        if (isWidget(config)) {
           return config;
         }
 
-        return this.createPanel(config as PanelConfig);
+        return this.createWidget(config as PanelConfig);
       },
       true,
     );
@@ -101,12 +101,12 @@ export class Skeleton implements ISkeleton {
       this,
       'rightArea',
       (config) => {
-        if (isPanel(config)) {
+        if (isWidget(config)) {
           return config;
         }
         return this.createWidget(config);
       },
-      false,
+      true,
     );
     this.mainArea = new Area(
       this,
@@ -118,7 +118,6 @@ export class Skeleton implements ISkeleton {
         return this.createWidget(config);
       },
       true,
-      true,
     );
     this.bottomArea = new Area(
       this,
@@ -129,7 +128,7 @@ export class Skeleton implements ISkeleton {
         }
         return this.createWidget(config);
       },
-      false,
+      true,
     );
 
     this.setupEvents();
@@ -188,12 +187,7 @@ export class Skeleton implements ISkeleton {
     }
 
     config = this.parseConfig(config);
-    let widget: IWidget;
-    if (isPanelConfig(config)) {
-      widget = this.createPanel(config);
-    } else {
-      widget = new Widget(this, config as WidgetConfig);
-    }
+    const widget: IWidget = new Widget(this, config as WidgetConfig);
     this.widgets.push(widget);
     return widget;
   }
@@ -225,9 +219,8 @@ export class Skeleton implements ISkeleton {
     handle: (item: any) => any,
     exclusive = false,
     checkVisible: () => boolean = () => true,
-    defaultSetCurrent = false,
   ) {
-    const container = new WidgetContainer(name, handle, exclusive, checkVisible, defaultSetCurrent);
+    const container = new WidgetContainer(name, handle, exclusive, checkVisible);
     this.containers.set(name, container);
     return container;
   }
@@ -263,8 +256,6 @@ export class Skeleton implements ISkeleton {
       ...this.parseConfig(config),
       ...extraConfig,
     };
-
-    console.log('skeleton:add:parsedConfig:', parsedConfig);
 
     let { area } = parsedConfig;
     if (!area) {

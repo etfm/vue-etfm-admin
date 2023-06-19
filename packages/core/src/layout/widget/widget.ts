@@ -53,6 +53,7 @@ export class Widget implements IWidget {
     const { props = {}, name } = config;
     this.name = name;
     this.align = props.align;
+
     if (props.onInit) {
       props.onInit.call(this, this);
     }
@@ -86,6 +87,14 @@ export class Widget implements IWidget {
     this.setVisible(true);
   }
 
+  isFloatArea(): boolean {
+    return this.config?.area === 'leftFloatArea';
+  }
+
+  isFixedArea(): boolean {
+    return this.config?.area === 'leftFixedArea';
+  }
+
   setVisible(flag: boolean) {
     if (flag === this._visible) {
       return;
@@ -101,7 +110,7 @@ export class Widget implements IWidget {
     this.setVisible(!this._visible);
   }
 
-  private setDisabled(flag: boolean) {
+  setDisabled(flag: boolean) {
     if (this._disabled === flag) return;
     this._disabled = flag;
   }

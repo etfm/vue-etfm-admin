@@ -1,5 +1,4 @@
 import type {
-  Activeable,
   IArea,
   IContainer,
   IPublicTypeWidgetBaseConfig,
@@ -12,41 +11,27 @@ import { Logger } from '@etfma/shared';
 const logger = new Logger({ bizName: 'skeleton:area' });
 
 export class Area implements IArea {
+  public config: IPublicTypeWidgetBaseConfig;
+
   _visible = true;
 
   get visible() {
-    if (this.exclusive) {
-      return this.container.current != null;
-    }
     return this._visible;
   }
 
-  get current() {
-    if (this.exclusive) {
-      return this.container.current;
-    }
-    return null;
-  }
-
   readonly container: IContainer;
-  private lastCurrent: (WidgetItem & Activeable) | null = null;
 
   constructor(
     readonly skeleton: ISkeleton,
     readonly name: string,
     handle: (item: IPublicTypeWidgetBaseConfig) => WidgetItem,
-    private exclusive?: boolean,
-    defaultSetCurrent = false,
+    exclusive?: boolean,
   ) {
     this.makeObservable();
 
-    this.container = skeleton.createContainer(
-      name,
-      handle,
-      exclusive,
-      () => this.visible,
-      defaultSetCurrent,
-    );
+    this._visible = exclusive ?? true;
+
+    this.container = skeleton.createContainer(name, handle, exclusive, () => this.visible);
   }
 
   makeObservable() {
@@ -61,6 +46,7 @@ export class Area implements IArea {
   }
 
   add(config: IPublicTypeWidgetBaseConfig): WidgetItem {
+    this.config = config;
     const item = this.container.get(config.name);
 
     if (item) {
@@ -76,16 +62,6 @@ export class Area implements IArea {
   }
 
   setVisible(flag: boolean) {
-    if (this.exclusive) {
-      const { current } = this.container;
-      if (flag && !current) {
-        this.container.active(this.lastCurrent || this.container.getAt(0));
-      } else if (current) {
-        this.lastCurrent = current;
-        this.container.unactive(current);
-      }
-      return;
-    }
     this._visible = flag;
   }
 

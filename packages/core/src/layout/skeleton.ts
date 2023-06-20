@@ -83,7 +83,7 @@ export class Skeleton implements ISkeleton {
         }
         return this.createWidget(config as PanelConfig);
       },
-      false,
+      true,
     );
     this.leftFloatArea = new Area(
       this,
@@ -95,7 +95,7 @@ export class Skeleton implements ISkeleton {
 
         return this.createWidget(config as PanelConfig);
       },
-      true,
+      false,
     );
     this.rightArea = new Area(
       this,

@@ -103,6 +103,7 @@ async function boostrap() {
           },
           props: {
             align: 'left',
+            enableDrag: true,
           },
         });
 

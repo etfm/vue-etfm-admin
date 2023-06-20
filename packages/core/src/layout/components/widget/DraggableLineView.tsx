@@ -1,12 +1,12 @@
 import { defineComponent, PropType, ref, unref } from 'vue';
-import { Panel } from '../../widget';
+import { Widget } from '../../widget';
 import { DraggableLine } from '../draggable-line';
 
 export const DraggableLineView = defineComponent({
   name: 'DraggableLineView',
   props: {
-    panel: {
-      type: Object as PropType<Panel>,
+    widget: {
+      type: Object as PropType<Widget>,
       required: true,
     },
   },
@@ -15,7 +15,7 @@ export const DraggableLineView = defineComponent({
     let defaultWidth: number;
 
     const getDefaultWidth = () => {
-      const configWidth = props.panel?.config.props?.width;
+      const configWidth = props.widget?.config.props?.width;
       if (configWidth) {
         return configWidth;
       }
@@ -40,12 +40,12 @@ export const DraggableLineView = defineComponent({
       }
 
       // 抛出事件，对于有些需要 panel 插件随着 度变化进行再次渲染的，由panel插件内部监听事件实现
-      const editor = props.panel.skeleton.editor;
+      const editor = props.widget.skeleton.editor;
       editor?.eventBus.emit('dockpane.drag', width);
     };
 
     const onDragChange = (type: 'start' | 'end') => {
-      const editor = props.panel.skeleton.editor;
+      const editor = props.widget.skeleton.editor;
       editor?.eventBus.emit('dockpane.dragchange', type);
       // builtinSimulator 屏蔽掉 鼠标事件
       editor?.eventBus.emit('designer.builtinSimulator.disabledEvents', type === 'start');
@@ -58,11 +58,8 @@ export const DraggableLineView = defineComponent({
     };
   },
   render() {
-    // left fixed 下不允许改变宽度
-    // 默认 关闭，通过配置开启
-    const enableDrag = this.panel.config.props?.enableDrag;
-    const isRightArea = this.panel.config?.area === 'rightArea';
-    if (isRightArea || !enableDrag || this.panel?.parent?.name === 'leftFixedArea') {
+    const isRightArea = this.widget.config?.area === 'rightArea';
+    if (isRightArea) {
       return null;
     }
     return (

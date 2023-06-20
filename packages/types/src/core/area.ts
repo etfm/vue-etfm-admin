@@ -9,5 +9,4 @@ export interface IArea {
   setVisible(flag: boolean): void;
   hide(): void;
   show(): void;
-  [x: string]: any;
 }

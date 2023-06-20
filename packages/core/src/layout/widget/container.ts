@@ -17,8 +17,6 @@ export class WidgetContainer implements IContainer {
     private exclusive: boolean = false,
     private checkVisible: () => boolean = () => true,
   ) {
-    console.log(name, '////////////////////');
-
     this.makeObservable();
   }
 

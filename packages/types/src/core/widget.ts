@@ -26,6 +26,7 @@ export interface WidgetConfig extends IPublicTypeWidgetBaseConfig {
   props?: {
     align?: 'left' | 'right' | 'bottom' | 'center' | 'top';
     onInit?: (widget: IWidget) => void;
+    [x: string]: any;
   };
   content?: any;
 }

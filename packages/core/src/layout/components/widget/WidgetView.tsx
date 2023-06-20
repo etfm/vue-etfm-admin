@@ -1,13 +1,15 @@
 import { defineComponent, onMounted, onUpdated, PropType } from 'vue';
 import { observer } from '../../../obx';
-import { IWidget, SkeletonEvents } from '@etfma/types';
+import { SkeletonEvents } from '@etfma/types';
+import { DraggableLineView } from './DraggableLineView';
+import { Widget } from '../../widget';
 
 export const WidgetView = observer(
   defineComponent({
     name: 'WidgetView',
     props: {
       widget: {
-        type: Object as PropType<IWidget>,
+        type: Object as PropType<Widget>,
         required: true,
       },
     },
@@ -59,7 +61,17 @@ export const WidgetView = observer(
       if (this.widget.disabled) {
         return <div class="lc-widget-disabled">{this.widget.body}</div>;
       }
-      return this.widget.body;
+      // return this.widget.body;
+      return (
+        <div
+          class="lc-widget"
+          id={this.widget.name}
+          data-keep-visible-while-dragging={this.widget.config.props?.keepVisibleWhileDragging}
+        >
+          {this.widget.body}
+          {this.widget.config.props?.enableDrag && <DraggableLineView widget={this.widget} />}
+        </div>
+      );
     },
   }),
 );

@@ -50,29 +50,11 @@ export class Skeleton implements IPublicApiSkeleton {
     if (!normalizeArea(area)) {
       return;
     }
-    skeleton[normalizeArea(area)].container?.remove(name);
+    skeleton[normalizeArea(area)]?.remove(name);
   }
 
   getAreaItems(areaName: IPublicTypeWidgetConfigArea): IPublicModelSkeletonItem[] {
-    return this[skeletonSymbol][normalizeArea(areaName)].container.items?.map(
-      (d) => new SkeletonItem(d),
-    );
-  }
-
-  /**
-   * 显示面板
-   * @param name
-   */
-  showPanel(name: string) {
-    this[skeletonSymbol].getPanel(name)?.show();
-  }
-
-  /**
-   * 隐藏面板
-   * @param name
-   */
-  hidePanel(name: string) {
-    this[skeletonSymbol].getPanel(name)?.hide();
+    return this[skeletonSymbol][normalizeArea(areaName)].items?.map((d) => new SkeletonItem(d));
   }
 
   /**
@@ -112,7 +94,7 @@ export class Skeleton implements IPublicApiSkeleton {
    * @param areaName name of area
    */
   showArea(areaName: string) {
-    (this[skeletonSymbol] as any)[areaName]?.show();
+    (this[skeletonSymbol] as any)[normalizeArea(areaName)]?.show();
   }
 
   /**
@@ -120,37 +102,35 @@ export class Skeleton implements IPublicApiSkeleton {
    * @param areaName name of area
    */
   hideArea(areaName: string) {
-    (this[skeletonSymbol] as any)[areaName]?.hide();
+    (this[skeletonSymbol] as any)[normalizeArea(areaName)]?.hide();
   }
 
   /**
-   * 监听 panel 显示事件
+   * 监听 area 显示事件
    * @param listener
    * @returns
    */
-  onShowPanel(listener: (...args: any[]) => void): IPublicTypeDisposable {
+  onShowArea(listener: (...args: any[]) => void): IPublicTypeDisposable {
     const { editor } = this[skeletonSymbol];
-    editor.eventBus.on(SkeletonEvents.PANEL_SHOW, (name: any, panel: any) => {
-      // 不泄漏 skeleton
-      const { skeleton, ...restPanel } = panel;
-      listener(name, restPanel);
+    editor.eventBus.on(SkeletonEvents.AREA_SHOW, (name: any, area: any) => {
+      const { skeleton, ...rest } = area;
+      listener(name, rest);
     });
-    return () => editor.eventBus.off(SkeletonEvents.PANEL_SHOW, listener);
+    return () => editor.eventBus.off(SkeletonEvents.AREA_SHOW, listener);
   }
 
   /**
-   * 监听 panel 隐藏事件
+   * 监听 widget 隐藏事件
    * @param listener
    * @returns
    */
-  onHidePanel(listener: (...args: any[]) => void): IPublicTypeDisposable {
+  onHideArea(listener: (...args: any[]) => void): IPublicTypeDisposable {
     const { editor } = this[skeletonSymbol];
-    editor.eventBus.on(SkeletonEvents.PANEL_HIDE, (name: any, panel: any) => {
-      // 不泄漏 skeleton
-      const { skeleton, ...restPanel } = panel;
-      listener(name, restPanel);
+    editor.eventBus.on(SkeletonEvents.AREA_HIDE, (name: any, area: any) => {
+      const { skeleton, ...rest } = area;
+      listener(name, rest);
     });
-    return () => editor.eventBus.off(SkeletonEvents.PANEL_HIDE, listener);
+    return () => editor.eventBus.off(SkeletonEvents.AREA_HIDE, listener);
   }
 
   /**
@@ -185,7 +165,7 @@ export class Skeleton implements IPublicApiSkeleton {
 }
 
 function normalizeArea(
-  area: IPublicTypeWidgetConfigArea | undefined,
+  area: IPublicTypeWidgetConfigArea | string | undefined,
 ):
   | 'leftArea'
   | 'rightArea'

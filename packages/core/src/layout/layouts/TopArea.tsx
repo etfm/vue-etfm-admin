@@ -17,7 +17,7 @@ export const TopArea = observer(
       const left: any[] = [];
       const center: any[] = [];
       const right: any[] = [];
-      this.area.container.items
+      this.area.items
         .slice()
         .sort((a, b) => {
           const index1 = a.config?.index || 0;

@@ -17,18 +17,6 @@ export interface IPublicApiSkeleton {
   remove(config: IPublicTypeWidgetBaseConfig): number | undefined;
 
   /**
-   * 显示面板
-   * @param name
-   */
-  showPanel(name: string): void;
-
-  /**
-   * 隐藏面板
-   * @param name
-   */
-  hidePanel(name: string): void;
-
-  /**
    * 显示 widget
    * @param name
    */
@@ -65,18 +53,18 @@ export interface IPublicApiSkeleton {
   hideArea(areaName: string): void;
 
   /**
-   * 监听 panel 显示事件
+   * 监听 area 显示事件
    * @param listener
    * @returns
    */
-  onShowPanel(listener: (...args: unknown[]) => void): () => void;
+  onShowArea(listener: (...args: unknown[]) => void): () => void;
 
   /**
-   * 监听 panel 隐藏事件
+   * 监听 area 隐藏事件
    * @param listener
    * @returns
    */
-  onHidePanel(listener: (...args: unknown[]) => void): () => void;
+  onHideArea(listener: (...args: unknown[]) => void): () => void;
 
   /**
    * 监听 widget 显示事件

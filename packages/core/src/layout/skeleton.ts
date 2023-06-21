@@ -1,4 +1,4 @@
-import { WidgetContainer, Panel, isPanel, Widget, isWidget, isPanelConfig } from './widget';
+import { Widget, isWidget } from './widget';
 import { Area } from './area';
 import { isVNode } from 'vue';
 import { Logger, lodash } from '@etfma/shared';
@@ -6,11 +6,9 @@ import { Editor } from '../editor';
 
 import { engineConfig } from '../config';
 import {
-  IContainer,
   IPublicTypeWidgetBaseConfig,
   ISkeleton,
   IWidget,
-  PanelConfig,
   SkeletonEvents,
   WidgetConfig,
 } from '@etfma/types';
@@ -18,10 +16,6 @@ import {
 const logger = new Logger({ bizName: 'skeleton' });
 
 export class Skeleton implements ISkeleton {
-  private panels = new Map<string, Panel>();
-
-  private containers = new Map<string, IContainer>();
-
   readonly leftArea: Area;
 
   readonly topArea: Area;
@@ -81,7 +75,7 @@ export class Skeleton implements ISkeleton {
         if (isWidget(config)) {
           return config;
         }
-        return this.createWidget(config as PanelConfig);
+        return this.createWidget(config);
       },
       true,
     );
@@ -93,7 +87,7 @@ export class Skeleton implements ISkeleton {
           return config;
         }
 
-        return this.createWidget(config as PanelConfig);
+        return this.createWidget(config);
       },
       false,
     );
@@ -134,47 +128,32 @@ export class Skeleton implements ISkeleton {
     this.setupEvents();
   }
 
-  /**
-   * setup events
-   *
-   * @memberof Skeleton
-   */
   setupEvents() {
-    this.editor.on(SkeletonEvents.PANEL_SHOW, (panelName, panel) => {
-      const panelNameKey = `${panelName}-pinned-status-isFloat`;
+    this.editor.on(SkeletonEvents.PANEL_SHOW, (name, widget: Widget) => {
+      const nameKey = `${name}-status-isFloat`;
       const isInFloatAreaPreferenceExists = engineConfig
         .getPreference()
-        ?.contains(panelNameKey, 'skeleton');
+        ?.contains(nameKey, 'skeleton');
       if (isInFloatAreaPreferenceExists) {
-        const isInFloatAreaFromPreference = engineConfig
-          .getPreference()
-          ?.get(panelNameKey, 'skeleton');
-        const isCurrentInFloatArea = panel?.isChildOfFloatArea();
+        const isInFloatAreaFromPreference = engineConfig.getPreference()?.get(nameKey, 'skeleton');
+        const isCurrentInFloatArea = widget?.isFloatArea();
         if (isInFloatAreaFromPreference !== isCurrentInFloatArea) {
-          this.toggleFloatStatus(panel);
+          this.toggleFloatStatus(widget);
         }
       }
     });
   }
 
-  /**
-   * set isFloat status for panel
-   *
-   * @param {*} panel
-   * @memberof Skeleton
-   */
-  toggleFloatStatus(panel: Panel) {
-    const isFloat = panel?.parent?.name === 'leftFloatArea';
+  toggleFloatStatus(widget: Widget) {
+    const isFloat = widget?.isFloatArea();
     if (isFloat) {
-      this.leftFloatArea.remove(panel);
-      this.leftFixedArea.add(panel as unknown as PanelConfig);
-      this.leftFixedArea.container.active(panel);
+      this.leftFloatArea.remove(widget);
+      this.leftFixedArea.add(widget as unknown as IPublicTypeWidgetBaseConfig);
     } else {
-      this.leftFixedArea.remove(panel);
-      this.leftFloatArea.add(panel as unknown as PanelConfig);
-      this.leftFloatArea.container.active(panel);
+      this.leftFixedArea.remove(widget);
+      this.leftFloatArea.add(widget as unknown as IPublicTypeWidgetBaseConfig);
     }
-    engineConfig.getPreference().set(`${panel.name}-pinned-status-isFloat`, !isFloat, 'skeleton');
+    engineConfig.getPreference().set(`${widget.name}-status-isFloat`, !isFloat, 'skeleton');
   }
 
   postEvent(event: SkeletonEvents, ...args: any[]) {
@@ -194,35 +173,6 @@ export class Skeleton implements ISkeleton {
 
   getWidget(name: string): IWidget | undefined {
     return this.widgets.find((widget) => widget.name === name);
-  }
-
-  createPanel(config: PanelConfig) {
-    const parsedConfig = this.parseConfig(config);
-    const panel = new Panel(this, parsedConfig as PanelConfig);
-
-    this.panels.set(panel.name, panel);
-    logger.debug(
-      `Panel created with name: ${panel.name} \nconfig:`,
-      config,
-      '\n current panels: ',
-      this.panels,
-    );
-    return panel;
-  }
-
-  getPanel(name: string): Panel | undefined {
-    return this.panels.get(name);
-  }
-
-  createContainer(
-    name: string,
-    handle: (item: any) => any,
-    exclusive = false,
-    checkVisible: () => boolean = () => true,
-  ) {
-    const container = new WidgetContainer(name, handle, exclusive, checkVisible);
-    this.containers.set(name, container);
-    return container;
   }
 
   private parseConfig(config: IPublicTypeWidgetBaseConfig) {
@@ -271,27 +221,27 @@ export class Skeleton implements ISkeleton {
     switch (area) {
       case 'leftArea':
       case 'left':
-        return this.leftArea.add(parsedConfig as WidgetConfig);
+        return this.leftArea.add(parsedConfig);
       case 'rightArea':
       case 'right':
-        return this.rightArea.add(parsedConfig as PanelConfig);
+        return this.rightArea.add(parsedConfig);
       case 'topArea':
       case 'top':
-        return this.topArea.add(parsedConfig as WidgetConfig);
+        return this.topArea.add(parsedConfig);
       case 'toolbar':
-        return this.toolbar.add(parsedConfig as WidgetConfig);
+        return this.toolbar.add(parsedConfig);
       case 'mainArea':
       case 'main':
       case 'center':
       case 'centerArea':
-        return this.mainArea.add(parsedConfig as PanelConfig);
+        return this.mainArea.add(parsedConfig);
       case 'bottomArea':
       case 'bottom':
-        return this.bottomArea.add(parsedConfig as PanelConfig);
+        return this.bottomArea.add(parsedConfig);
       case 'leftFixedArea':
-        return this.leftFixedArea.add(parsedConfig as PanelConfig);
+        return this.leftFixedArea.add(parsedConfig);
       case 'leftFloatArea':
-        return this.leftFloatArea.add(parsedConfig as PanelConfig);
+        return this.leftFloatArea.add(parsedConfig);
       default:
       // do nothing
     }

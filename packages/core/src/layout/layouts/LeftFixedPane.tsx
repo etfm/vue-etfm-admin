@@ -32,7 +32,7 @@ export const LeftFixedPane = observer(
           })}
           style={style}
         >
-          {this.area.container.items.map((item) => item.content)}
+          {this.area.items.map((item) => item.content)}
         </div>
       );
     },

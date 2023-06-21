@@ -1,8 +1,8 @@
-import { define, observable } from '../../obx';
-import { WidgetView } from '../components/widget';
-import { createElement, uniqueId } from '../../utils';
-import { getEvent } from '../../shell';
-import type { ISkeleton, IWidget, WidgetConfig } from '@etfma/types';
+import { define, observable } from '../obx';
+import { WidgetView } from './components/widget';
+import { createElement, uniqueId } from '../utils';
+import { getEvent } from '../shell';
+import { ISkeleton, IWidget, SkeletonEvents, WidgetConfig } from '@etfma/types';
 
 export class Widget implements IWidget {
   readonly isWidget = true;
@@ -101,8 +101,10 @@ export class Widget implements IWidget {
     }
     if (flag) {
       this._visible = true;
+      this.skeleton.postEvent(SkeletonEvents.WIDGET_SHOW, this.name, this);
     } else if (this.inited) {
       this._visible = false;
+      this.skeleton.postEvent(SkeletonEvents.WIDGET_HIDE, this.name, this);
     }
   }
 
@@ -113,6 +115,11 @@ export class Widget implements IWidget {
   setDisabled(flag: boolean) {
     if (this._disabled === flag) return;
     this._disabled = flag;
+    if (this._disabled) {
+      this.skeleton.postEvent(SkeletonEvents.WIDGET_DISABLE, this.name, this);
+    } else {
+      this.skeleton.postEvent(SkeletonEvents.WIDGET_ENABLE, this.name, this);
+    }
   }
 
   disable() {

@@ -20,7 +20,7 @@ export const Toolbar = observer(
       const left: any[] = [];
       const center: any[] = [];
       const right: any[] = [];
-      this.area.container.items.forEach((item) => {
+      this.area.items.forEach((item) => {
         if (item.align === 'center') {
           center.push(item.content);
         } else if (item.align === 'right') {

@@ -15,7 +15,7 @@ export const MainArea = observer(
     render() {
       return (
         <div class={classNames('lc-main-area engine-workspacepane')}>
-          {this.area.container.items.map((item) => item.content)}
+          {this.area.items.map((item) => item.content)}
         </div>
       );
     },

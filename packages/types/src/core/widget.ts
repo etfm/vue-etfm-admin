@@ -11,6 +11,7 @@ export interface IWidget {
   readonly body: any;
   readonly skeleton: ISkeleton;
   readonly config: IPublicTypeWidgetBaseConfig;
+  [x: string]: any;
 
   getName(): string;
   getContent(): any;

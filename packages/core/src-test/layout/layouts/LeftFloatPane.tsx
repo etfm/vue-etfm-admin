@@ -28,25 +28,18 @@ export const LeftFloatPane = observer(
             if (unref(shell)?.contains(target)) {
               return true;
             }
-            // 点击了 iframe 内容，算失焦
-            if (
-              (
-                document.querySelector('.lc-simulator-content-frame') as HTMLIFrameElement
-              )?.contentWindow?.document.documentElement.contains(target)
-            ) {
-              return false;
-            }
+
             // 点击设置区
             if (document.querySelector('.lc-right-area')?.contains(target)) {
               return false;
             }
             // 点击非编辑区域的popup/dialog,插件栏左侧等不触发失焦
             if (!document.querySelector('.lc-workbench')?.contains(target)) {
-              return true;
+              return false;
             }
             // 排除设置区，iframe 之后，都不算失焦
             if (document.querySelector('.lc-workbench-body')?.contains(target)) {
-              return true;
+              return false;
             }
 
             return false;

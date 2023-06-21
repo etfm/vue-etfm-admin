@@ -19,7 +19,7 @@ export const RightArea = observer(
             'lc-area-visible': this.area.visible,
           })}
         >
-          {this.area.container.items.map((item) => item.content)}
+          {this.area.items.map((item) => item.content)}
         </div>
       );
     },

@@ -1,10 +1,12 @@
-// import '@etfma/design';
-// import 'uno.css';
+import '@etfma/design';
+import 'uno.css';
 
 // import '@etfma/render';
 
 import { plugins, init, skeleton } from '@etfma/core';
 import type { IPublicPluginContext, IPublicTypePlugin } from '@etfma/core';
+import Workbench from '@/views/dashboard/workbench/index.vue';
+import { h } from 'vue';
 
 async function boostrap() {
   const buildSkeleton: IPublicTypePlugin = (ctx: IPublicPluginContext) => {
@@ -81,8 +83,8 @@ async function boostrap() {
         skeleton.add({
           area: 'mainArea',
           type: 'Widget',
-          name: 'logo',
-          content: 'logo',
+          name: 'mian',
+          content: h(Workbench),
           contentProps: {
             logo: 'https://img.alicdn.com/imgextra/i4/O1CN013w2bmQ25WAIha4Hx9_!!6000000007533-55-tps-137-26.svg',
             href: 'https://lowcode-engine.cn',
@@ -104,20 +106,6 @@ async function boostrap() {
           props: {
             align: 'left',
             enableDrag: true,
-          },
-        });
-
-        skeleton.add({
-          area: 'leftFixedArea',
-          type: 'Widget',
-          name: 'logo12',
-          content: 'logo',
-          contentProps: {
-            logo: 'https://img.alicdn.com/imgextra/i4/O1CN013w2bmQ25WAIha4Hx9_!!6000000007533-55-tps-137-26.svg',
-            href: 'https://lowcode-engine.cn',
-          },
-          props: {
-            align: 'left',
           },
         });
       },

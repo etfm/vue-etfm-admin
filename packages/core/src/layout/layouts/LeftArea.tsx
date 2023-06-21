@@ -15,7 +15,7 @@ export const LeftArea = observer(
     render() {
       const top: any[] = [];
       const bottom: any[] = [];
-      this.area.container.items
+      this.area.items
         .slice()
         .sort((a, b) => {
           const index1 = a.config?.index || 0;

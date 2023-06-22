@@ -1,5 +1,4 @@
 @use 'sass:map';
-
 @use 'config';
 @use 'function' as *;
 
@@ -18,8 +17,6 @@
 }
 
 @mixin set-css-color-type($colors, $type) {
-  @include set-css-var-value(('color', $type), map.get($colors, $type, 'base'));
-
   @each $i in (3, 5, 7, 8, 9) {
     @include set-css-var-value(
       ('color', $type, 'light', $i),
@@ -27,6 +24,7 @@
     );
   }
 
+  @include set-css-var-value(('color', $type), map.get($colors, $type, 'base'));
   @include set-css-var-value(('color', $type, 'dark-2'), map.get($colors, $type, 'dark-2'));
 }
 
@@ -43,6 +41,7 @@
 
 @mixin set-css-color-rgb($type) {
   $color: map.get($colors, $type, 'base');
+
   @include set-css-var-value(('color', $type, 'rgb'), #{red($color), green($color), blue($color)});
 }
 
@@ -53,5 +52,6 @@
 @mixin css-var-from-global($var, $gVar) {
   $varName: joinVarName($var);
   $gVarName: joinVarName($gVar);
+
   #{$varName}: var(#{$gVarName});
 }

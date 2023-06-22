@@ -34,9 +34,7 @@ export class Area implements IArea {
     exclusive?: boolean,
   ) {
     this.makeObservable();
-
     this._visible = exclusive ?? true;
-    // this.container = skeleton.createContainer(name, handle, exclusive, () => this.visible);
   }
 
   makeObservable() {

@@ -4,7 +4,6 @@ import { isVNode } from 'vue';
 import { Logger, lodash } from '@etfma/shared';
 import { Editor } from '../editor';
 
-import { engineConfig } from '../config';
 import {
   IPublicTypeWidgetBaseConfig,
   ISkeleton,
@@ -21,6 +20,8 @@ export class Skeleton implements ISkeleton {
   readonly topArea: Area;
 
   readonly toolbar: Area;
+
+  readonly toolbarTop: Area;
 
   readonly leftFixedArea: Area;
 
@@ -60,6 +61,17 @@ export class Skeleton implements ISkeleton {
     this.toolbar = new Area(
       this,
       'toolbar',
+      (config) => {
+        if (isWidget(config)) {
+          return config;
+        }
+        return this.createWidget(config);
+      },
+      true,
+    );
+    this.toolbarTop = new Area(
+      this,
+      'toolbarTop',
       (config) => {
         if (isWidget(config)) {
           return config;
@@ -124,36 +136,6 @@ export class Skeleton implements ISkeleton {
       },
       true,
     );
-
-    this.setupEvents();
-  }
-
-  setupEvents() {
-    this.editor.on(SkeletonEvents.PANEL_SHOW, (name, widget: Widget) => {
-      const nameKey = `${name}-status-isFloat`;
-      const isInFloatAreaPreferenceExists = engineConfig
-        .getPreference()
-        ?.contains(nameKey, 'skeleton');
-      if (isInFloatAreaPreferenceExists) {
-        const isInFloatAreaFromPreference = engineConfig.getPreference()?.get(nameKey, 'skeleton');
-        const isCurrentInFloatArea = widget?.isFloatArea();
-        if (isInFloatAreaFromPreference !== isCurrentInFloatArea) {
-          this.toggleFloatStatus(widget);
-        }
-      }
-    });
-  }
-
-  toggleFloatStatus(widget: Widget) {
-    const isFloat = widget?.isFloatArea();
-    if (isFloat) {
-      this.leftFloatArea.remove(widget);
-      this.leftFixedArea.add(widget as unknown as IPublicTypeWidgetBaseConfig);
-    } else {
-      this.leftFixedArea.remove(widget);
-      this.leftFloatArea.add(widget as unknown as IPublicTypeWidgetBaseConfig);
-    }
-    engineConfig.getPreference().set(`${widget.name}-status-isFloat`, !isFloat, 'skeleton');
   }
 
   postEvent(event: SkeletonEvents, ...args: any[]) {
@@ -209,9 +191,7 @@ export class Skeleton implements ISkeleton {
 
     let { area } = parsedConfig;
     if (!area) {
-      if (parsedConfig.type === 'Panel') {
-        area = 'leftFixedArea';
-      } else if (parsedConfig.type === 'Widget') {
+      if (parsedConfig.type === 'Widget') {
         area = 'mainArea';
       } else {
         area = 'leftArea';
@@ -230,6 +210,8 @@ export class Skeleton implements ISkeleton {
         return this.topArea.add(parsedConfig);
       case 'toolbar':
         return this.toolbar.add(parsedConfig);
+      case 'toolbarTop':
+        return this.toolbarTop.add(parsedConfig);
       case 'mainArea':
       case 'main':
       case 'center':

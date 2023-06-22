@@ -22,8 +22,10 @@ export default {
     },
   ],
   rules: {
-    'no-global-function-names': null,
-    'at-function-pattern': null,
+    'scss/dollar-variable-pattern': null,
+    'scss/no-global-function-names': null,
+    'scss/at-function-pattern': null,
+
     'function-name-case': null,
     'prettier/prettier': true,
     'at-rule-no-unknown': null,

@@ -9,6 +9,7 @@ export type IPublicTypeWidgetConfigArea =
   | 'topArea'
   | 'top'
   | 'toolbar'
+  | 'toolbarTop'
   | 'mainArea'
   | 'main'
   | 'center'

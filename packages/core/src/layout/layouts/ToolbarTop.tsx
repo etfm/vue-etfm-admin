@@ -3,9 +3,9 @@ import { defineComponent, PropType } from 'vue';
 import { Area } from '../area';
 import { observer } from '../../obx';
 
-export const Toolbar = observer(
+export const ToolbarTop = observer(
   defineComponent({
-    name: 'Toolbar',
+    name: 'ToolbarTop',
     props: {
       area: {
         type: Object as PropType<Area>,
@@ -21,7 +21,7 @@ export const Toolbar = observer(
       const center: any[] = [];
       const right: any[] = [];
       this.area.items.forEach((item) => {
-        const content = <div key={`toolbar-area-${item.name}`}>{item.content}</div>;
+        const content = <div key={`toolbar-top-area-${item.name}`}>{item.content}</div>;
         if (item.align === 'center') {
           center.push(content);
         } else if (item.align === 'right') {

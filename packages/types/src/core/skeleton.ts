@@ -57,6 +57,5 @@ export interface ISkeleton
     extraConfig?: Record<string, any>,
   ): IWidget | IPanel | undefined;
 
-  toggleFloatStatus(panel: IPanel): void;
   postEvent(event: SkeletonEvents, ...args: any[]): void;
 }

@@ -21,13 +21,7 @@ export const WidgetView = observer(
       }
       return (
         <>
-          <div
-            class="lc-widget"
-            id={this.widget.name}
-            data-keep-visible-while-dragging={this.widget.config.props?.keepVisibleWhileDragging}
-          >
-            {this.widget.body}
-          </div>
+          {this.widget.body}
           {this.widget.config.props?.enableDrag && <DraggableLineView widget={this.widget} />}
         </>
       );

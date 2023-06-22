@@ -11,6 +11,7 @@ import { RightArea } from './RightArea';
 import { MainArea } from './MainArea';
 import { BottomArea } from './BottomArea';
 import { observer } from '../../obx';
+import { ToolbarTop } from './ToolbarTop';
 
 export const Workbench = observer(
   defineComponent({
@@ -30,7 +31,7 @@ export const Workbench = observer(
     },
     render() {
       return (
-        <div class={classNames('lc-workbench', this.$attrs.class as any)}>
+        <div class={classNames('lc-workbench')}>
           <TopArea area={this.skeleton.topArea} />
           <div class="lc-workbench-body">
             <LeftArea area={this.skeleton.leftArea} />
@@ -38,6 +39,7 @@ export const Workbench = observer(
             <LeftFixedPane area={this.skeleton.leftFixedArea} />
             <div class="lc-workbench-center">
               <Toolbar area={this.skeleton.toolbar} />
+              <ToolbarTop area={this.skeleton.toolbarTop} />
               <MainArea area={this.skeleton.mainArea} />
               <BottomArea area={this.skeleton.bottomArea} />
             </div>

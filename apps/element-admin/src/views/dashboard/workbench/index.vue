@@ -1,10 +1,19 @@
 <script setup lang="ts">
   import { ElSwitch, ElDivider } from 'element-plus';
   import { reactive } from 'vue';
-
   import { skeleton } from '@etfma/core';
 
   const modelArea = reactive({
+    isLeft: true,
+    isHeader: true,
+    isRight: true,
+    isBottom: true,
+    isToolbar: true,
+    isLeftFixed: true,
+    isLeftFloat: false,
+  });
+
+  const modelWidget = reactive({
     isLeft: true,
     isHeader: true,
     isRight: true,
@@ -21,6 +30,30 @@
       skeleton.hideArea(name);
     }
   }
+
+  function handleWidget(e, name) {
+    if (e) {
+      skeleton.showWidget(name);
+    } else {
+      skeleton.hideWidget(name);
+    }
+  }
+
+  skeleton.onHideWidget(() => {
+    console.log('监听隐藏widget事件');
+  });
+
+  skeleton.onShowWidget(() => {
+    console.log('监听显示widget事件');
+  });
+
+  skeleton.onHideArea(() => {
+    console.log('监听隐藏Area事件');
+  });
+
+  skeleton.onShowArea(() => {
+    console.log('监听显示Area事件');
+  });
 </script>
 
 <template>
@@ -54,5 +87,8 @@
       LeftFloatPane:
       <ElSwitch v-model="modelArea.isLeftFloat" @change="(e) => handleArea(e, 'leftFloatArea')" />
     </div>
+    <ElDivider content-position="left">Widget操作</ElDivider>
+    widget显示隐藏：
+    <ElSwitch v-model="modelWidget.isLeft" @change="(e) => handleWidget(e, 'leftArea')" />
   </div>
 </template>

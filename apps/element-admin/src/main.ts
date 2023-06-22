@@ -1,8 +1,6 @@
 import '@etfma/design';
 import 'uno.css';
 
-// import '@etfma/render';
-
 import { plugins, init, skeleton } from '@etfma/core';
 import type { IPublicPluginContext, IPublicTypePlugin } from '@etfma/core';
 import Workbench from '@/views/dashboard/workbench/index.vue';
@@ -16,7 +14,7 @@ async function boostrap() {
         skeleton.add({
           area: 'topArea',
           type: 'Widget',
-          name: 'logo',
+          name: 'topArea',
           content: 'logo',
           contentProps: {
             logo: 'https://img.alicdn.com/imgextra/i4/O1CN013w2bmQ25WAIha4Hx9_!!6000000007533-55-tps-137-26.svg',
@@ -30,7 +28,7 @@ async function boostrap() {
         skeleton.add({
           area: 'leftArea',
           type: 'Widget',
-          name: 'logo',
+          name: 'leftArea',
           content: 'logo',
           contentProps: {
             logo: 'https://img.alicdn.com/imgextra/i4/O1CN013w2bmQ25WAIha4Hx9_!!6000000007533-55-tps-137-26.svg',
@@ -44,7 +42,7 @@ async function boostrap() {
         skeleton.add({
           area: 'rightArea',
           type: 'Widget',
-          name: 'logo',
+          name: 'rightArea',
           content: 'logo',
           contentProps: {
             logo: 'https://img.alicdn.com/imgextra/i4/O1CN013w2bmQ25WAIha4Hx9_!!6000000007533-55-tps-137-26.svg',
@@ -58,7 +56,7 @@ async function boostrap() {
         skeleton.add({
           area: 'bottomArea',
           type: 'Widget',
-          name: 'logo',
+          name: 'bottomArea',
           content: 'logo',
           contentProps: {
             logo: 'https://img.alicdn.com/imgextra/i4/O1CN013w2bmQ25WAIha4Hx9_!!6000000007533-55-tps-137-26.svg',
@@ -69,8 +67,22 @@ async function boostrap() {
         skeleton.add({
           area: 'toolbar',
           type: 'Widget',
-          name: 'logo',
+          name: 'toolbar',
           content: 'logo',
+          contentProps: {
+            logo: 'https://img.alicdn.com/imgextra/i4/O1CN013w2bmQ25WAIha4Hx9_!!6000000007533-55-tps-137-26.svg',
+            href: 'https://lowcode-engine.cn',
+          },
+          props: {
+            align: 'left',
+          },
+        });
+
+        skeleton.add({
+          area: 'toolbarTop',
+          type: 'Widget',
+          name: 'toolbarTop',
+          content: '1212',
           contentProps: {
             logo: 'https://img.alicdn.com/imgextra/i4/O1CN013w2bmQ25WAIha4Hx9_!!6000000007533-55-tps-137-26.svg',
             href: 'https://lowcode-engine.cn',
@@ -83,7 +95,7 @@ async function boostrap() {
         skeleton.add({
           area: 'mainArea',
           type: 'Widget',
-          name: 'mian',
+          name: 'mainArea',
           content: h(Workbench),
           contentProps: {
             logo: 'https://img.alicdn.com/imgextra/i4/O1CN013w2bmQ25WAIha4Hx9_!!6000000007533-55-tps-137-26.svg',
@@ -97,8 +109,8 @@ async function boostrap() {
         skeleton.add({
           area: 'leftFixedArea',
           type: 'Widget',
-          name: 'logo',
-          content: 'logo',
+          name: 'leftFixedArea',
+          content: h('div', 'logologologologologologologologologol'),
           contentProps: {
             logo: 'https://img.alicdn.com/imgextra/i4/O1CN013w2bmQ25WAIha4Hx9_!!6000000007533-55-tps-137-26.svg',
             href: 'https://lowcode-engine.cn',

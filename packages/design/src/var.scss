@@ -1,0 +1,9 @@
+@use 'common/var' as *;
+@use 'mixins/var' as *;
+@use '_shared' as *;
+
+:root {
+  color-scheme: light;
+
+  @include set-css-var-value('color-white', $colors-white);
+}

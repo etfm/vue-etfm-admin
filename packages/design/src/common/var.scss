@@ -3,7 +3,7 @@
 
 $types: primary, success, warning, danger, error, info;
 $colors: () !default;
-$colors: map-merge(
+$colors: map.merge(
   (
     'white': #fff,
     'black': #000,
@@ -28,27 +28,26 @@ $colors: map-merge(
   ),
   $colors
 );
-$colors-white: map-get($colors, 'white') !default;
-$colors-black: map-get($colors, 'black') !default;
-$colors-primary: map-get($colors, 'primary', 'base') !default;
-$colors-success: map-get($colors, 'success', 'base') !default;
-$colors-warning: map-get($colors, 'warning', 'base') !default;
-$colors-danger: map-get($colors, 'danger', 'base') !default;
-$colors-error: map-get($colors, 'error', 'base') !default;
-$colors-info: map-get($colors, 'info', 'base') !default;
+$colors-white: map.get($colors, 'white') !default;
+$colors-black: map.get($colors, 'black') !default;
+$colors-primary: map.get($colors, 'primary', 'base') !default;
+$colors-success: map.get($colors, 'success', 'base') !default;
+$colors-warning: map.get($colors, 'warning', 'base') !default;
+$colors-danger: map.get($colors, 'danger', 'base') !default;
+$colors-error: map.get($colors, 'error', 'base') !default;
+$colors-info: map.get($colors, 'info', 'base') !default;
 
 // https://sass-lang.com/documentation/values/maps#immutability
-// mix colors with white/black to generate light/dark level
-@mixin set-color-mix-level($type, $number, $mode: 'light', $mix-color: $color-white) {
-  $colors: map-merge(
+@mixin set-color-mix-level($type, $number, $mode: 'light', $mix-color: $colors-white) {
+  $colors: map.deep-merge(
     (
       $type: (
-        '#{ $mode }-#{ $number }':
-          mix($mix-color, map-get($colors, $type, 'base'), math.percentage(math.div($number / 10))),
+        '#{$mode}-#{$number}':
+          mix($mix-color, map.get($colors, $type, 'base'), math.percentage(math.div($number, 10))),
       ),
     ),
     $colors
-  );
+  ) !global;
 }
 
 // $colors.primary.light-i
@@ -64,7 +63,7 @@ $colors-info: map-get($colors, 'info', 'base') !default;
 // 90% ecf5ff
 @each $type in $types {
   @for $i from 1 through 9 {
-    @include set-color-mix-level($type, $i, 'light', $color-white);
+    @include set-color-mix-level($type, $i, 'light', $colors-white);
   }
 }
 
@@ -74,7 +73,7 @@ $colors-info: map-get($colors, 'info', 'base') !default;
 
 // text
 $text-color: () !default;
-$text-color: map-merge(
+$text-color: map.merge(
   (
     'primary': #303133,
     'regular': #606266,
@@ -107,7 +106,7 @@ $font-size: map.merge(
 
 // border
 $border-color: () !default;
-$border-color: map-merge(
+$border-color: map.merge(
   (
     '': #dcdfe6,
     'light': #e4e7ed,
@@ -119,7 +118,7 @@ $border-color: map-merge(
   $border-color
 );
 $border-radius: () !default;
-$border-radius: map-merge(
+$border-radius: map.merge(
   (
     'base': 4px,
     'small': 2px,
@@ -131,7 +130,7 @@ $border-radius: map-merge(
 
 // fill
 $fill-color: () !default;
-$fill-color: map-merge(
+$fill-color: map.merge(
   (
     '': #f0f2f5,
     'light': #f5f7fa,
@@ -146,7 +145,7 @@ $fill-color: map-merge(
 
 // Background
 $bg-color: () !default;
-$bg-color: map-merge(
+$bg-color: map.merge(
   (
     '': #fff,
     'page': #f2f3f5,

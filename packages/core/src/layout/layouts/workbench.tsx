@@ -1,6 +1,7 @@
 import { defineComponent, PropType } from 'vue';
 import { Skeleton } from '../skeleton';
 import './workbench.less';
+import '../../styles/index.scss';
 import classNames from 'classnames';
 import { TopArea } from './TopArea';
 import { LeftArea } from './LeftArea';

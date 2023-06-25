@@ -1,4 +1,5 @@
 @use './mixins/function' as *;
+@use './common/var.scss' as *;
 @forward './mixins/config';
 @forward './mixins/function';
 @forward './mixins/_var';

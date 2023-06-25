@@ -4,3 +4,5 @@ import 'modern-normalize';
 import './common/global.scss';
 // /** 元素进入动画 */
 import './common/entry.scss';
+
+import './var.scss';

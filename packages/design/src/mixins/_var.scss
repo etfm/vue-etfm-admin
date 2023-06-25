@@ -1,8 +1,7 @@
 @use 'sass:map';
 @use 'config';
 @use 'function' as *;
-
-// set css var value, because we need translate value to string
+@use '../common/var'; // set css var value, because we need translate value to string
 // for example:
 // @include set-css-var-value(('color', 'primary'), red);
 // --el-color-primary: red;

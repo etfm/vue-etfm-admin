@@ -2,8 +2,38 @@
 @use 'mixins/var' as *;
 @use '_shared' as *;
 
+// 字体大小相关
 :root {
+  @include set-component-css-var('font-size', $font-size);
+  @include set-component-css-var('font-family', $font-family);
+
+  // --el-border-radius-#{$type}
+  @include set-component-css-var('border-radius', $border-radius);
+}
+
+// 颜色相关
+:root {
+  // --el-color-#{$type}
+  // --el-color-#{$type}-light-{$i}
+  @each $type in (primary, success, warning, danger, error, info) {
+    @include set-css-color-type($colors, $type);
+  }
+
   color-scheme: light;
 
   @include set-css-var-value('color-white', $colors-white);
+  @include set-css-var-value('color-black', $colors-black);
+
+  // color-scheme
+  // Background --el-bg-color-#{$type}
+  @include set-component-css-var('bg-color', $bg-color);
+
+  // --el-text-color-#{$type}
+  @include set-component-css-var('text-color', $text-color);
+
+  // --el-border-color-#{$type}
+  @include set-component-css-var('border-color', $border-color);
+
+  // Fill --el-fill-color-#{$type}
+  @include set-component-css-var('fill-color', $fill-color);
 }

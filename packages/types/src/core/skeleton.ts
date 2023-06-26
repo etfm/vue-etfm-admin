@@ -38,9 +38,9 @@ export interface ISkeleton
 
   readonly toolbar: IArea;
 
-  readonly leftFixedArea: IArea;
+  readonly fixedArea: IArea;
 
-  readonly leftFloatArea: IArea;
+  readonly floatArea: IArea;
 
   readonly rightArea: IArea;
 

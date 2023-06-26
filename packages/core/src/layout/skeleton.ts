@@ -23,9 +23,9 @@ export class Skeleton implements ISkeleton {
 
   readonly toolbarTop: Area;
 
-  readonly leftFixedArea: Area;
+  readonly fixedArea: Area;
 
-  readonly leftFloatArea: Area;
+  readonly floatArea: Area;
 
   readonly rightArea: Area;
 
@@ -80,9 +80,9 @@ export class Skeleton implements ISkeleton {
       },
       true,
     );
-    this.leftFixedArea = new Area(
+    this.fixedArea = new Area(
       this,
-      'leftFixedArea',
+      'fixedArea',
       (config) => {
         if (isWidget(config)) {
           return config;
@@ -91,9 +91,9 @@ export class Skeleton implements ISkeleton {
       },
       true,
     );
-    this.leftFloatArea = new Area(
+    this.floatArea = new Area(
       this,
-      'leftFloatArea',
+      'floatArea',
       (config) => {
         if (isWidget(config)) {
           return config;
@@ -220,12 +220,12 @@ export class Skeleton implements ISkeleton {
       case 'bottomArea':
       case 'bottom':
         return this.bottomArea.add(parsedConfig);
-      case 'leftFixedArea':
-        return this.leftFixedArea.add(parsedConfig);
-      case 'leftFloatArea':
-        return this.leftFloatArea.add(parsedConfig);
+      case 'fixedArea':
+        return this.fixedArea.add(parsedConfig);
+      case 'floatArea':
+        return this.floatArea.add(parsedConfig);
       default:
-      // do nothing
+        logger.warn(`The ${config.name} not found.`);
     }
   }
 }

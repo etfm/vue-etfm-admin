@@ -1,0 +1,14 @@
+@use '@etfma/design/shared' as *;
+
+@include b('widget') {
+  @include m('disabled') {
+    pointer-events: none;
+    opacity: 0.4;
+  }
+}
+
+@include b('draggable-line') {
+  @include m('right') {
+    right: -2px;
+  }
+}

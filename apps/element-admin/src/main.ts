@@ -7,7 +7,7 @@ import Workbench from '@/views/dashboard/workbench/index.vue';
 import { h } from 'vue';
 
 async function boostrap() {
-  const buildSkeleton: IPublicTypePlugin = (ctx: IPublicPluginContext) => {
+  const buildSkeleton: IPublicTypePlugin = (_: IPublicPluginContext) => {
     return {
       name: 'TextPlugin',
       init() {
@@ -107,7 +107,7 @@ async function boostrap() {
         });
 
         skeleton.add({
-          area: 'leftFixedArea',
+          area: 'fixedArea',
           type: 'Widget',
           name: 'leftFixedArea',
           content: h('div', 'logologologologologologologologologol'),

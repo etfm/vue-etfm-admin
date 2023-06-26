@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import { defineComponent, PropType, onMounted, onUnmounted, ref, unref } from 'vue';
-import './index.less';
+import './index.scss';
+import { useNamespace } from '@etfma/hooks';
 
 export interface DraggableLineProps {
   onDrag: (l: number, e: any) => any;
@@ -38,6 +39,8 @@ export const DraggableLine = defineComponent({
     },
   },
   setup(props) {
+    const ns = useNamespace('draggable-line');
+
     let startDrag = false;
     let offset = 0;
     let currentOffset = 0;
@@ -132,10 +135,12 @@ export const DraggableLine = defineComponent({
       shell,
       onStartMove,
       getParent,
+      ns,
     };
   },
 
   render() {
+    const { ns } = this;
     return (
       <div
         ref={(ref) => {
@@ -143,8 +148,8 @@ export const DraggableLine = defineComponent({
         }}
         class={classNames(
           this.position === 'left' || this.position === 'right'
-            ? 'lc-draggable-line-vertical'
-            : 'lc-draggable-line-horizontal',
+            ? ns.e('vertical')
+            : ns.e('horizontal'),
         )}
         onMousedown={(e) => this.onStartMove(e)}
       />

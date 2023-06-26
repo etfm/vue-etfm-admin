@@ -3,10 +3,11 @@ import classNames from 'classnames';
 import { defineComponent, PropType, onMounted, ref, unref, onUnmounted, onUpdated } from 'vue';
 import { Area } from '../area';
 import { Focusable, focusTracker } from '../../utils';
+import { useNamespace } from '@etfma/hooks';
 
-export const LeftFloatPane = observer(
+export const FloatArea = observer(
   defineComponent({
-    name: 'LeftFloatPane',
+    name: 'FloatArea',
     props: {
       area: {
         type: Object as PropType<Area>,
@@ -14,6 +15,7 @@ export const LeftFloatPane = observer(
       },
     },
     setup(props) {
+      const ns = useNamespace('float-area');
       let focusing: Focusable;
 
       const shell = ref<HTMLElement | null>(null);
@@ -29,20 +31,20 @@ export const LeftFloatPane = observer(
               return true;
             }
             // 点击设置区
-            if (document.querySelector('.lc-right-area')?.contains(target)) {
+            if (document.querySelector(`.${ns.namespace.value}-right-area`)?.contains(target)) {
               return false;
             }
 
             // 点击左侧不算失焦
-            if (document.querySelector('.lc-left-area')?.contains(target)) {
+            if (document.querySelector(`.${ns.namespace.value}-left-area`)?.contains(target)) {
               return true;
             }
 
-            if (!document.querySelector('.lc-workbench')?.contains(target)) {
+            if (!document.querySelector(`.${ns.namespace.value}-workbench`)?.contains(target)) {
               return true;
             }
 
-            if (document.querySelector('.lc-workbench-body')?.contains(target)) {
+            if (document.querySelector(`.${ns.namespace.value}-workbench-body`)?.contains(target)) {
               return false;
             }
 
@@ -77,10 +79,12 @@ export const LeftFloatPane = observer(
 
       return {
         shell,
+        ns,
       };
     },
     render() {
-      const width = this.area?.config?.props?.width;
+      const { ns, area } = this;
+      const width = area?.config?.props?.width;
 
       const style = width
         ? {
@@ -93,12 +97,12 @@ export const LeftFloatPane = observer(
           ref={(ref) => {
             this.shell = ref as any;
           }}
-          class={classNames('lc-left-float-pane', {
-            'lc-area-visible': this.area.visible,
+          class={classNames(ns.b(), {
+            [ns.is('visible')]: area.visible,
           })}
           style={style}
         >
-          {this.area.items.map((item) => item.content)}
+          {area.items.map((item) => item.content)}
         </div>
       );
     },

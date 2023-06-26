@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import { defineComponent, PropType } from 'vue';
 import { Area } from '../area';
 import { observer } from '../../obx';
+import { useNamespace } from '@etfma/hooks';
 
 export const Toolbar = observer(
   defineComponent({
@@ -12,16 +13,22 @@ export const Toolbar = observer(
         required: true,
       },
     },
+    setup() {
+      const ns = useNamespace('toolbar');
+
+      return { ns };
+    },
     render() {
-      if (this.area.isEmpty()) {
+      const { ns, area } = this;
+      if (area.isEmpty()) {
         return null;
       }
 
       const left: any[] = [];
       const center: any[] = [];
       const right: any[] = [];
-      this.area.items.forEach((item) => {
-        const content = <div key={`toolbar-area-${item.name}`}>{item.content}</div>;
+      area.items.forEach((item) => {
+        const content = <div key={ns.b(`${item.align}-${item.name}`)}>{item.content}</div>;
         if (item.align === 'center') {
           center.push(content);
         } else if (item.align === 'right') {
@@ -33,13 +40,13 @@ export const Toolbar = observer(
 
       return (
         <div
-          class={classNames('lc-toolbar', {
-            'lc-area-visible': this.area.visible,
+          class={classNames(ns.b(), {
+            [ns.is('visible')]: area.visible,
           })}
         >
-          <div class="lc-toolbar-left">{left}</div>
-          <div class="lc-toolbar-center">{center}</div>
-          <div class="lc-toolbar-right">{right}</div>
+          <div class={classNames(ns.b('left'))}>{left}</div>
+          <div class={classNames(ns.b('center'))}>{center}</div>
+          <div class={classNames(ns.b('right'))}>{right}</div>
         </div>
       );
     },

@@ -352,6 +352,12 @@ importers:
 
   packages/core:
     dependencies:
+      '@etfma/design':
+        specifier: workspace:^0.0.0
+        version: link:../design
+      '@etfma/hooks':
+        specifier: workspace:^0.0.0
+        version: link:../hooks
       '@etfma/shared':
         specifier: workspace:*
         version: link:../shared
@@ -5183,6 +5189,7 @@ packages:
     resolution: {integrity: sha512-6TDAlDPZxUFCv+fuOkIoXT/V/f3Qbq8e37p+YOiYrUv3v9cc3/6x78VdfPgFVaB9dZYeLUfKgHRebpkm/oP2VQ==}
     engines: {node: '>=0.10.0'}
     hasBin: true
+    requiresBuild: true
     dev: true
 
   /immutable@4.3.0:

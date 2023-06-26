@@ -1,18 +1,18 @@
 import { defineComponent, PropType } from 'vue';
 import { Skeleton } from '../skeleton';
-import './workbench.less';
 import '../../styles/index.scss';
 import classNames from 'classnames';
 import { TopArea } from './TopArea';
 import { LeftArea } from './LeftArea';
-import { LeftFloatPane } from './LeftFloatPane';
-import { LeftFixedPane } from './LeftFixedPane';
+import { FloatArea } from './FloatArea';
+import { FixedArea } from './FixedArea';
 import { Toolbar } from './Toolbar';
 import { RightArea } from './RightArea';
 import { MainArea } from './MainArea';
 import { BottomArea } from './BottomArea';
 import { observer } from '../../obx';
 import { ToolbarTop } from './ToolbarTop';
+import { useNamespace } from '@etfma/hooks';
 
 export const Workbench = observer(
   defineComponent({
@@ -23,28 +23,29 @@ export const Workbench = observer(
         required: true,
       },
     },
-    setup(props) {
-      const { skeleton } = props;
+    setup() {
+      const ns = useNamespace('workbench');
 
       return {
-        skeleton,
+        ns,
       };
     },
     render() {
+      const { ns, skeleton } = this;
       return (
-        <div class={classNames('lc-workbench')}>
-          <TopArea area={this.skeleton.topArea} />
-          <div class="lc-workbench-body">
-            <LeftArea area={this.skeleton.leftArea} />
-            <LeftFloatPane area={this.skeleton.leftFloatArea} />
-            <LeftFixedPane area={this.skeleton.leftFixedArea} />
-            <div class="lc-workbench-center">
-              <Toolbar area={this.skeleton.toolbar} />
-              <ToolbarTop area={this.skeleton.toolbarTop} />
-              <MainArea area={this.skeleton.mainArea} />
-              <BottomArea area={this.skeleton.bottomArea} />
+        <div class={classNames(ns.b())}>
+          <TopArea area={skeleton.topArea} />
+          <div class={classNames(ns.b('body'))}>
+            <LeftArea area={skeleton.leftArea} />
+            <FloatArea area={skeleton.floatArea} />
+            <FixedArea area={skeleton.fixedArea} />
+            <div class={classNames(ns.b('center'))}>
+              <Toolbar area={skeleton.toolbar} />
+              <ToolbarTop area={skeleton.toolbarTop} />
+              <MainArea area={skeleton.mainArea} />
+              <BottomArea area={skeleton.bottomArea} />
             </div>
-            <RightArea area={this.skeleton.rightArea} />
+            <RightArea area={skeleton.rightArea} />
           </div>
         </div>
       );

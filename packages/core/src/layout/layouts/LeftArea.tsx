@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import { defineComponent, PropType } from 'vue';
 import { Area } from '../area';
 import { observer } from '../../obx';
+import { useNamespace } from '@etfma/hooks';
 
 export const LeftArea = observer(
   defineComponent({
@@ -12,10 +13,18 @@ export const LeftArea = observer(
         required: true,
       },
     },
+    setup() {
+      const ns = useNamespace('left-area');
+
+      return {
+        ns,
+      };
+    },
     render() {
+      const { ns, area } = this;
       const top: any[] = [];
       const bottom: any[] = [];
-      this.area.items
+      area.items
         .slice()
         .sort((a, b) => {
           const index1 = a.config?.index || 0;
@@ -23,7 +32,7 @@ export const LeftArea = observer(
           return index1 === index2 ? 0 : index1 > index2 ? 1 : -1;
         })
         .forEach((item) => {
-          const content = <div key={`left-area-${item.name}`}>{item.content}</div>;
+          const content = <div key={ns.b(`${item.align}-${item.name}`)}>{item.content}</div>;
           if (item.align === 'bottom') {
             bottom.push(content);
           } else {
@@ -33,12 +42,12 @@ export const LeftArea = observer(
 
       return (
         <div
-          class={classNames('lc-left-area', {
-            'lc-area-visible': this.area.visible,
+          class={classNames(ns.b(), {
+            [ns.is('visible')]: area.visible,
           })}
         >
-          <div class="lc-left-area-top">{top}</div>
-          <div class="lc-left-area-bottom">{bottom}</div>
+          <div class={classNames(ns.b('top'))}>{top}</div>
+          <div class={classNames(ns.b('bottom'))}>{bottom}</div>
         </div>
       );
     },

@@ -1,6 +1,9 @@
 import { defineComponent, PropType, ref, unref } from 'vue';
 import { Widget } from '../../widget';
 import { DraggableLine } from '../draggable-line';
+import { useNamespace } from '@etfma/hooks';
+import classNames from 'classnames';
+import './index.scss';
 
 export const DraggableLineView = defineComponent({
   name: 'DraggableLineView',
@@ -11,6 +14,7 @@ export const DraggableLineView = defineComponent({
     },
   },
   setup(props) {
+    const ns = useNamespace('draggable-line');
     const shell = ref();
     let defaultWidth: number;
 
@@ -55,9 +59,11 @@ export const DraggableLineView = defineComponent({
       onDrag,
       onDragChange,
       shell,
+      ns,
     };
   },
   render() {
+    const { ns } = this;
     const isRightArea = this.widget.config?.area === 'rightArea';
     if (isRightArea) {
       return null;
@@ -68,7 +74,7 @@ export const DraggableLineView = defineComponent({
           this.shell = ref as any;
         }}
         position="right"
-        class="lc-engine-slate-draggable-line-right"
+        class={classNames(ns.b(), ns.m('right'))}
         onDrag={(e) => this.onDrag(e)}
         onDragStart={() => this.onDragChange('start')}
         onDragEnd={() => this.onDragChange('end')}

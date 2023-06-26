@@ -1,24 +1,28 @@
 import classNames from 'classnames';
-import { defineComponent, PropType, onUpdated } from 'vue';
+import { defineComponent, PropType } from 'vue';
 import { Area } from '../area';
 import { observer } from '../../obx';
+import { useNamespace } from '@etfma/hooks';
 
-export const LeftFixedPane = observer(
+export const FixedArea = observer(
   defineComponent({
-    name: 'LeftFixedPane',
+    name: 'FixedArea',
     props: {
       area: {
         type: Object as PropType<Area>,
         required: true,
       },
     },
-    setup(props) {
-      onUpdated(() => {
-        props.area.skeleton.editor.get('designer')?.touchOffsetObserver();
-      });
+    setup() {
+      const ns = useNamespace('fixed-area');
+
+      return {
+        ns,
+      };
     },
     render() {
-      const width = this.area?.config.props?.width;
+      const { area, ns } = this;
+      const width = area?.config.props?.width;
       const style = width
         ? {
             width,
@@ -27,12 +31,12 @@ export const LeftFixedPane = observer(
 
       return (
         <div
-          class={classNames('lc-left-fixed-pane', {
-            'lc-area-visible': this.area.visible,
+          class={classNames(ns.b(), {
+            [ns.is('visible')]: area.visible,
           })}
           style={style}
         >
-          {this.area.items.map((item) => item.content)}
+          {area.items.map((item) => item.content)}
         </div>
       );
     },

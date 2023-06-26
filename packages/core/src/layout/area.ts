@@ -25,8 +25,6 @@ export class Area implements IArea {
     return this._visible;
   }
 
-  // readonly container: IContainer;
-
   constructor(
     readonly skeleton: ISkeleton,
     readonly name: string,

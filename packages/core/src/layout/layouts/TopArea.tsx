@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import { defineComponent, PropType } from 'vue';
 import { Area } from '../area';
 import { observer } from '../../obx';
+import { useNamespace } from '@etfma/hooks';
 
 export const TopArea = observer(
   defineComponent({
@@ -12,12 +13,17 @@ export const TopArea = observer(
         required: true,
       },
     },
-    setup() {},
+    setup() {
+      const ns = useNamespace('top-area');
+
+      return { ns };
+    },
     render() {
+      const { ns, area } = this;
       const left: any[] = [];
       const center: any[] = [];
       const right: any[] = [];
-      this.area.items
+      area.items
         .slice()
         .sort((a, b) => {
           const index1 = a.config?.index || 0;
@@ -25,7 +31,7 @@ export const TopArea = observer(
           return index1 === index2 ? 0 : index1 > index2 ? 1 : -1;
         })
         .forEach((item) => {
-          const content = <div key={`top-area-${item.name}`}>{item.content}</div>;
+          const content = <div key={ns.b(`${item.align}-${item.name}`)}>{item.content}</div>;
           if (item.align === 'center') {
             center.push(content);
           } else if (item.align === 'left') {
@@ -37,13 +43,13 @@ export const TopArea = observer(
 
       return (
         <div
-          class={classNames('lc-top-area engine-actionpane', {
-            'lc-area-visible': this.area.visible,
+          class={classNames(ns.b(), {
+            [ns.is('visible')]: this.area.visible,
           })}
         >
-          <div class="lc-top-area-left">{left}</div>
-          <div class="lc-top-area-center">{center}</div>
-          <div class="lc-top-area-right">{right}</div>
+          <div class={classNames(ns.b('left'))}>{left}</div>
+          <div class={classNames(ns.b('center'))}>{center}</div>
+          <div class={classNames(ns.b('right'))}>{right}</div>
         </div>
       );
     },

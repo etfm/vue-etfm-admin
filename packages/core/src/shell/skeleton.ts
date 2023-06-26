@@ -173,8 +173,8 @@ function normalizeArea(
   | 'toolbar'
   | 'mainArea'
   | 'bottomArea'
-  | 'leftFixedArea'
-  | 'leftFloatArea' {
+  | 'fixedArea'
+  | 'floatArea' {
   switch (area) {
     case 'leftArea':
     case 'left':
@@ -195,10 +195,10 @@ function normalizeArea(
     case 'bottomArea':
     case 'bottom':
       return 'bottomArea';
-    case 'leftFixedArea':
-      return 'leftFixedArea';
-    case 'leftFloatArea':
-      return 'leftFloatArea';
+    case 'fixedArea':
+      return 'fixedArea';
+    case 'floatArea':
+      return 'floatArea';
     default:
       throw new Error(`${area} not supported`);
   }

@@ -47,20 +47,20 @@
     }
   }
 
-  skeleton.onHideWidget(() => {
-    console.log('监听隐藏widget事件');
+  skeleton.onHideWidget((name) => {
+    console.log('监听隐藏widget事件', name);
   });
 
-  skeleton.onShowWidget(() => {
-    console.log('监听显示widget事件');
+  skeleton.onShowWidget((name) => {
+    console.log('监听显示widget事件', name);
   });
 
-  skeleton.onHideArea(() => {
-    console.log('监听隐藏Area事件');
+  skeleton.onHideArea((name) => {
+    console.log('监听隐藏Area事件', name);
   });
 
-  skeleton.onShowArea(() => {
-    console.log('监听显示Area事件');
+  skeleton.onShowArea((name) => {
+    console.log('监听显示Area事件', name);
   });
 </script>
 
@@ -88,12 +88,12 @@
       <ElSwitch v-model="modelArea.isToolbar" @change="(e) => handleArea(e, 'toolbar')" />
     </div>
     <div>
-      LeftFixedPane:
-      <ElSwitch v-model="modelArea.isLeftFixed" @change="(e) => handleArea(e, 'leftFixedArea')" />
+      FixedPane:
+      <ElSwitch v-model="modelArea.isLeftFixed" @change="(e) => handleArea(e, 'fixedArea')" />
     </div>
     <div>
-      LeftFloatPane:
-      <ElSwitch v-model="modelArea.isLeftFloat" @change="(e) => handleArea(e, 'leftFloatArea')" />
+      FloatPane:
+      <ElSwitch v-model="modelArea.isLeftFloat" @change="(e) => handleArea(e, 'floatArea')" />
     </div>
     <ElDivider content-position="left">Widget操作</ElDivider>
     widget显示隐藏：

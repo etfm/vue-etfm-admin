@@ -2,6 +2,9 @@ import { defineComponent, PropType } from 'vue';
 import { observer } from '../../../obx';
 import { DraggableLineView } from './DraggableLineView';
 import { Widget } from '../../widget';
+import { useNamespace } from '@etfma/hooks';
+import classnames from 'classnames';
+import './index.scss';
 
 export const WidgetView = observer(
   defineComponent({
@@ -12,12 +15,20 @@ export const WidgetView = observer(
         required: true,
       },
     },
+    setup() {
+      const ns = useNamespace('widget');
+
+      return {
+        ns,
+      };
+    },
     render() {
+      const { ns } = this;
       if (!this.widget.visible) {
         return null;
       }
       if (this.widget.disabled) {
-        return <div class="lc-widget-disabled">{this.widget.body}</div>;
+        return <div class={classnames(ns.b(), ns.m('disabled'))}>{this.widget.body}</div>;
       }
       return (
         <>

@@ -1,0 +1,21 @@
+@use '@etfma/design/shared' as *;
+
+@include b('workbench') {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: #edeff3;
+
+  @include b('workbench-body') {
+    position: relative;
+    display: flex;
+    flex: 1;
+  }
+
+  @include b('workbench-center') {
+    z-index: 10;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+  }
+}

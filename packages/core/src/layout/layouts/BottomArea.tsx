@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import { defineComponent, PropType } from 'vue';
 import { Area } from '../area';
 import { observer } from '../../obx';
+import { useNamespace } from '@etfma/hooks';
 
 export const BottomArea = observer(
   defineComponent({
@@ -12,17 +13,24 @@ export const BottomArea = observer(
         required: true,
       },
     },
+    setup() {
+      const ns = useNamespace('bottom-area');
+      return {
+        ns,
+      };
+    },
     render() {
-      if (this.area.isEmpty()) {
+      const { ns, area } = this;
+      if (area.isEmpty()) {
         return null;
       }
       return (
         <div
-          class={classNames('lc-bottom-area', {
-            'lc-area-visible': this.area.visible,
+          class={classNames(ns.b(), {
+            [ns.is('visible')]: area.visible,
           })}
         >
-          {this.area.items.map((item) => item.content)}
+          {area.items.map((item) => item.content)}
         </div>
       );
     },

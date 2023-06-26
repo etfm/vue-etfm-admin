@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import { defineComponent, PropType } from 'vue';
 import { Area } from '../area';
 import { observer } from '../../obx';
+import { useNamespace } from '@etfma/hooks';
 
 export const MainArea = observer(
   defineComponent({
@@ -12,12 +13,13 @@ export const MainArea = observer(
         required: true,
       },
     },
+    setup() {
+      const ns = useNamespace('main-area');
+      return { ns };
+    },
     render() {
-      return (
-        <div class={classNames('lc-main-area engine-workspacepane')}>
-          {this.area.items.map((item) => item.content)}
-        </div>
-      );
+      const { ns, area } = this;
+      return <div class={classNames(ns.b())}>{area.items.map((item) => item.content)}</div>;
     },
   }),
 );

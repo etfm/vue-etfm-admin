@@ -16,5 +16,5 @@ export type IPublicTypeWidgetConfigArea =
   | 'centerArea'
   | 'bottomArea'
   | 'bottom'
-  | 'leftFixedArea'
-  | 'leftFloatArea';
+  | 'fixedArea'
+  | 'floatArea';

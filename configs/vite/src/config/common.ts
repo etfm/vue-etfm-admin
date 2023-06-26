@@ -14,13 +14,6 @@ const commonConfig: UserConfig = {
     reportCompressedSize: false,
     chunkSizeWarningLimit: 1500,
   },
-  css: {
-    preprocessorOptions: {
-      scss: {
-        additionalData: `@use '@/styles/index.scss' as *;`,
-      },
-    },
-  },
   plugins: [
     vue(),
     vueJsx(),

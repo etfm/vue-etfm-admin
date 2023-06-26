@@ -2,6 +2,14 @@
   import { ElSwitch, ElDivider } from 'element-plus';
   import { reactive } from 'vue';
   import { skeleton } from '@etfma/core';
+  import { useNamespace } from '@etfma/hooks';
+
+  defineOptions({
+    name: 'workbench',
+    inheritAttrs: false,
+  });
+
+  const ns = useNamespace('workbench');
 
   const modelArea = reactive({
     isLeft: true,
@@ -57,7 +65,7 @@
 </script>
 
 <template>
-  <div class="bg-white p-5 m-5">
+  <div class="bg-white p-5 m-5" :class="[ns.b()]">
     <ElDivider content-position="left">Area操作</ElDivider>
     <div>
       左侧菜单栏：
@@ -92,3 +100,10 @@
     <ElSwitch v-model="modelWidget.isLeft" @change="(e) => handleWidget(e, 'leftArea')" />
   </div>
 </template>
+<style scoped lang="scss">
+  @include b('workbench') {
+    display: block;
+    flex-direction: column;
+    align-items: center;
+  }
+</style>

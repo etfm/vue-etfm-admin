@@ -1,9 +1,16 @@
-import { defineApplicationConfig } from '@etfma/vite'
+import { defineApplicationConfig } from '@etfma/vite';
 
 export default defineApplicationConfig({
   overrides: {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `@use '@/styles/index.scss' as *;`,
+        },
+      },
+    },
     optimizeDeps: {
-      include: []
+      include: [],
     },
     server: {
       proxy: {
@@ -11,7 +18,7 @@ export default defineApplicationConfig({
           target: 'http://localhost:3000',
           changeOrigin: true,
           ws: true,
-          rewrite: (path) => path.replace(new RegExp(`^/basic-api`), '')
+          rewrite: (path) => path.replace(new RegExp(`^/basic-api`), ''),
           // only https
           // secure: false
         },
@@ -19,9 +26,9 @@ export default defineApplicationConfig({
           target: 'http://localhost:3300/upload',
           changeOrigin: true,
           ws: true,
-          rewrite: (path) => path.replace(new RegExp(`^/upload`), '')
-        }
-      }
-    }
-  }
-})
+          rewrite: (path) => path.replace(new RegExp(`^/upload`), ''),
+        },
+      },
+    },
+  },
+});

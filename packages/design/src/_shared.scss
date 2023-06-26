@@ -1,9 +1,10 @@
 @use './mixins/function' as *;
-@use './common/var.scss' as *;
+@use './common/var' as *;
+@use './mixins/config' as *;
 @forward './mixins/config';
 @forward './mixins/function';
 @forward './mixins/_var';
-@use './mixins/config' as *;
+@forward './common/var';
 
 @mixin res($key, $map: $breakpoints) {
   @if map-has-key($map, $key) {

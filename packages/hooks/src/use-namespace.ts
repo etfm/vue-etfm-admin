@@ -1,12 +1,8 @@
-/**
- * @see 改自 https://github.com/element-plus/element-plus/blob/dev/packages/hooks/use-namespace/index.ts
- * 去除了namespace,增加了cssModule
- */
-import { computed, inject, ref, unref, useCssModule } from 'vue';
+import { computed, inject, ref, unref } from 'vue';
 
 import type { InjectionKey, Ref } from 'vue';
 
-export const defaultNamespace = 'el';
+export const defaultNamespace = 'etfma';
 const statePrefix = 'is-';
 
 const _bem = (
@@ -16,7 +12,6 @@ const _bem = (
   element: string,
   modifier: string,
 ) => {
-  const $style = useCssModule();
   let cls = `${namespace}-${block}`;
   if (blockSuffix) {
     cls += `-${blockSuffix}`;
@@ -27,7 +22,7 @@ const _bem = (
   if (modifier) {
     cls += `--${modifier}`;
   }
-  return $style[cls];
+  return cls;
 };
 
 export const namespaceContextKey: InjectionKey<Ref<string | undefined>> =

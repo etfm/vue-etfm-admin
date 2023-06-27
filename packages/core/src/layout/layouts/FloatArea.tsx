@@ -16,11 +16,17 @@ export const FloatArea = observer(
     },
     setup(props) {
       const ns = useNamespace('float-area');
+      const left = ref<number>(0);
       let focusing: Focusable;
 
       const shell = ref<HTMLElement | null>(null);
 
       onMounted(() => {
+        console.log(document.querySelector(`.${ns.namespace.value}-aside-area`)?.clientWidth);
+
+        const aside = document.querySelector(`.${ns.namespace.value}-aside-area`);
+        left.value = aside?.clientWidth ?? 0;
+
         focusing = focusTracker.create({
           range: (e) => {
             const target = e.target as HTMLElement;
@@ -30,13 +36,9 @@ export const FloatArea = observer(
             if (unref(shell)?.contains(target)) {
               return true;
             }
-            // 点击设置区
-            if (document.querySelector(`.${ns.namespace.value}-right-area`)?.contains(target)) {
-              return false;
-            }
 
             // 点击左侧不算失焦
-            if (document.querySelector(`.${ns.namespace.value}-left-area`)?.contains(target)) {
+            if (aside?.contains(target)) {
               return true;
             }
 
@@ -80,10 +82,11 @@ export const FloatArea = observer(
       return {
         shell,
         ns,
+        left,
       };
     },
     render() {
-      const { ns, area } = this;
+      const { ns, area, left } = this;
       const width = area?.config?.props?.width;
 
       const style = width
@@ -100,7 +103,7 @@ export const FloatArea = observer(
           class={classNames(ns.b(), {
             [ns.is('visible')]: area.visible,
           })}
-          style={style}
+          style={{ ...style, left: `${left}px` }}
         >
           {area.items.map((item) => item.content)}
         </div>

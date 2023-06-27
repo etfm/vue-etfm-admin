@@ -88,11 +88,11 @@ export class Widget implements IWidget {
   }
 
   isFloatArea(): boolean {
-    return this.config?.area === 'leftFloatArea';
+    return this.config?.area === 'float';
   }
 
   isFixedArea(): boolean {
-    return this.config?.area === 'leftFixedArea';
+    return this.config?.area === 'fixed';
   }
 
   setVisible(flag: boolean) {

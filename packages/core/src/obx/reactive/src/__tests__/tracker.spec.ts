@@ -1,8 +1,9 @@
 import { Tracker, observable } from '..';
+import { test, expect, vi } from 'vitest';
 
 test('base tracker', () => {
   const obs = observable<any>({});
-  const fn = jest.fn();
+  const fn = vi.fn();
   const view = () => {
     fn(obs.value);
   };
@@ -20,7 +21,7 @@ test('base tracker', () => {
 
 test('nested tracker', () => {
   const obs = observable<any>({});
-  const fn = jest.fn();
+  const fn = vi.fn();
   const view = () => {
     obs.value = obs.value || 321;
     fn(obs.value);
@@ -45,7 +46,7 @@ test('tracker recollect dependencies', () => {
     bb: 'bbb',
     cc: 'ccc',
   });
-  const fn = jest.fn();
+  const fn = vi.fn();
   const view = () => {
     fn();
     if (obs.aa === 'aaa') {
@@ -75,10 +76,10 @@ test('shared scheduler with multi tracker(mock react strict mode)', () => {
     tracker2.track(component);
   };
 
-  const scheduler1 = jest.fn(() => {
+  const scheduler1 = vi.fn(() => {
     tracker2.track(component);
   });
-  const scheduler2 = jest.fn(() => {
+  const scheduler2 = vi.fn(() => {
     tracker1.track(component);
   });
   const tracker1 = new Tracker(scheduler1, 'tracker1');

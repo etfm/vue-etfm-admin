@@ -51,7 +51,7 @@ $color-info: map.get($colors, 'info', 'base') !default;
 }
 
 // $colors.primary.light-i
-// --el-color-primary-light-i
+// --etfma-color-primary-light-i
 // 10% 53a8ff
 // 20% 66b1ff
 // 30% 79bbff
@@ -175,4 +175,15 @@ $box-shadow: map.merge(
     ),
   ),
   $box-shadow
+);
+
+// Float-Area
+$float-area: () !default;
+$float-area: map.merge(
+  (
+    'box-shadow': (
+      4px 6px 6px 0 rgb(31 50 88 / 8%),
+    ),
+  ),
+  $float-area
 );

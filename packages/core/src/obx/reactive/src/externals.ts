@@ -1,4 +1,14 @@
-import { isValid, isFn, isMap, isWeakMap, isSet, isWeakSet, isPlainObj, isArr } from './checkers';
+import {
+  isValid,
+  isFn,
+  isMap,
+  isWeakMap,
+  isSet,
+  isWeakSet,
+  isPlainObj,
+  isArr,
+  isPrototype,
+} from './checkers';
 import { ProxyRaw, MakeObModelSymbol, DependencyCollected, ObModelSymbol } from './environment';
 import { getDataNode } from './tree';
 import { Annotation } from './types';
@@ -48,7 +58,7 @@ export const isSupportObservable = (target: any) => {
 
 export const markRaw = <T>(target: T): T => {
   if (!target) return;
-  if (isFn(target)) {
+  if (isFn(target) && isPrototype(target)) {
     target.prototype[RAW_TYPE] = true;
   } else {
     target[RAW_TYPE] = true;
@@ -58,7 +68,8 @@ export const markRaw = <T>(target: T): T => {
 
 export const markObservable = <T>(target: T): T => {
   if (!target) return;
-  if (isFn(target)) {
+
+  if (isFn(target) && isPrototype(target)) {
     target.prototype[OBSERVABLE_TYPE] = true;
   } else {
     target[OBSERVABLE_TYPE] = true;

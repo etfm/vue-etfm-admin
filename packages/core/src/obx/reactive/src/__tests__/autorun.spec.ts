@@ -1,6 +1,7 @@
 import { observable, reaction, autorun } from '..';
 import { batch } from '../batch';
 import { define } from '../model';
+import { test, vi, expect } from 'vitest';
 
 const sleep = (duration = 100) => new Promise((resolve) => setTimeout(resolve, duration));
 
@@ -10,7 +11,7 @@ test('autorun', () => {
       bb: 123,
     },
   });
-  const handler = jest.fn();
+  const handler = vi.fn();
   const dispose = autorun(() => {
     handler(obs.aa.bb);
   });
@@ -29,7 +30,7 @@ test('reaction', () => {
       bb: 123,
     },
   });
-  const handler = jest.fn();
+  const handler = vi.fn();
   const dispose = reaction(() => {
     return obs.aa.bb;
   }, handler);
@@ -48,7 +49,7 @@ test('reaction fireImmediately', () => {
       bb: 123,
     },
   });
-  const handler = jest.fn();
+  const handler = vi.fn();
   const dispose = reaction(
     () => {
       return obs.aa.bb;
@@ -75,7 +76,7 @@ test('reaction untrack handler', () => {
       cc: 123,
     },
   });
-  const handler = jest.fn();
+  const handler = vi.fn();
   const dispose = reaction(
     () => {
       return obs.aa.bb;
@@ -97,7 +98,7 @@ test('reaction dirty check', () => {
   define(obs, {
     aa: observable.ref,
   });
-  const handler = jest.fn();
+  const handler = vi.fn();
   reaction(() => {
     return obs.aa;
   }, handler);
@@ -116,7 +117,7 @@ test('reaction with shallow equals', () => {
   define(obs, {
     aa: observable.ref,
   });
-  const handler = jest.fn();
+  const handler = vi.fn();
   reaction(() => {
     return obs.aa;
   }, handler);
@@ -132,7 +133,7 @@ test('reaction with deep equals', () => {
   define(obs, {
     aa: observable.ref,
   });
-  const handler = jest.fn();
+  const handler = vi.fn();
   reaction(
     () => {
       return obs.aa;
@@ -157,7 +158,7 @@ test('autorun direct recursive react', () => {
 test('autorun direct recursive react with if', () => {
   const obs1 = observable<any>({});
   const obs2 = observable<any>({});
-  const fn = jest.fn();
+  const fn = vi.fn();
   autorun(() => {
     if (!obs1.value) {
       obs1.value = '111';
@@ -221,7 +222,7 @@ test('autorun indirect alive recursive react', () => {
 test('autorun direct recursive react with head track', () => {
   const obs1 = observable<any>({});
   const obs2 = observable<any>({});
-  const fn = jest.fn();
+  const fn = vi.fn();
   autorun(() => {
     const obs2Value = obs2.value;
     if (!obs1.value) {
@@ -239,7 +240,7 @@ test('autorun.memo', () => {
   const obs = observable<any>({
     bb: 0,
   });
-  const fn = jest.fn();
+  const fn = vi.fn();
   autorun(() => {
     const value = autorun.memo(() => ({
       aa: 0,
@@ -262,7 +263,7 @@ test('autorun.memo with observable', () => {
   const obs1 = observable({
     aa: 0,
   });
-  const fn = jest.fn();
+  const fn = vi.fn();
   const dispose = autorun(() => {
     const obs2 = autorun.memo(() =>
       observable({
@@ -288,7 +289,7 @@ test('autorun.memo with observable and effect', async () => {
   const obs1 = observable({
     aa: 0,
   });
-  const fn = jest.fn();
+  const fn = vi.fn();
   const dispose = autorun(() => {
     const obs2 = autorun.memo(() =>
       observable({
@@ -320,7 +321,7 @@ test('autorun.memo with deps', () => {
     bb: 0,
     cc: 0,
   });
-  const fn = jest.fn();
+  const fn = vi.fn();
   autorun(() => {
     const value = autorun.memo(
       () => ({
@@ -350,7 +351,7 @@ test('autorun.memo with deps and dispose', () => {
     bb: 0,
     cc: 0,
   });
-  const fn = jest.fn();
+  const fn = vi.fn();
   const dispose = autorun(() => {
     const value = autorun.memo(
       () => ({
@@ -379,7 +380,7 @@ test('autorun.memo with invalid params', () => {
   const obs = observable<any>({
     bb: 0,
   });
-  const fn = jest.fn();
+  const fn = vi.fn();
   autorun(() => {
     const value = autorun.memo({ aa: 0 } as any);
     fn(obs.bb, value);
@@ -400,7 +401,7 @@ test('autorun no memo', () => {
   const obs = observable<any>({
     bb: 0,
   });
-  const fn = jest.fn();
+  const fn = vi.fn();
   autorun(() => {
     const value = {
       aa: 0,
@@ -423,9 +424,9 @@ test('autorun.effect', async () => {
   const obs = observable<any>({
     bb: 0,
   });
-  const fn = jest.fn();
-  const effect = jest.fn();
-  const disposer = jest.fn();
+  const fn = vi.fn();
+  const effect = vi.fn();
+  const disposer = vi.fn();
   const dispose = autorun(() => {
     autorun.effect(() => {
       effect();
@@ -454,9 +455,9 @@ test('autorun.effect dispose when autorun dispose', async () => {
   const obs = observable<any>({
     bb: 0,
   });
-  const fn = jest.fn();
-  const effect = jest.fn();
-  const disposer = jest.fn();
+  const fn = vi.fn();
+  const effect = vi.fn();
+  const disposer = vi.fn();
   const dispose = autorun(() => {
     autorun.effect(() => {
       effect();
@@ -482,8 +483,8 @@ test('autorun.effect with deps', async () => {
     bb: 0,
     cc: 0,
   });
-  const fn = jest.fn();
-  const effect = jest.fn();
+  const fn = vi.fn();
+  const effect = vi.fn();
   const dispose = autorun(() => {
     autorun.effect(() => {
       effect();
@@ -514,8 +515,8 @@ test('autorun.effect with default deps', async () => {
   const obs = observable<any>({
     bb: 0,
   });
-  const fn = jest.fn();
-  const effect = jest.fn();
+  const fn = vi.fn();
+  const effect = vi.fn();
   const dispose = autorun(() => {
     autorun.effect(() => {
       effect();
@@ -548,7 +549,7 @@ test('autorun dispose in batch', () => {
   const obs = observable({
     value: 123,
   });
-  const handler = jest.fn();
+  const handler = vi.fn();
   const dispose = autorun(() => {
     handler(obs.value);
   });
@@ -568,7 +569,7 @@ test('set value by computed depend', () => {
   const comp2 = observable.computed(() => {
     return obs.aa?.cc;
   });
-  const handler = jest.fn();
+  const handler = vi.fn();
   autorun(() => {
     handler(comp1.value, comp2.value);
   });
@@ -582,7 +583,7 @@ test('set value by computed depend', () => {
 });
 
 test('delete value by computed depend', () => {
-  const handler = jest.fn();
+  const handler = vi.fn();
   const obs = observable({
     a: {
       b: 1,
@@ -605,7 +606,7 @@ test('delete value by computed depend', () => {
 });
 
 test('set Set value by computed depend', () => {
-  const handler = jest.fn();
+  const handler = vi.fn();
   const obs = observable({
     set: new Set(),
   });
@@ -625,7 +626,7 @@ test('set Set value by computed depend', () => {
 });
 
 test('delete Set by computed depend', () => {
-  const handler = jest.fn();
+  const handler = vi.fn();
   const obs = observable({
     set: new Set([1]),
   });
@@ -645,7 +646,7 @@ test('delete Set by computed depend', () => {
 });
 
 test('set Map value by computed depend', () => {
-  const handler = jest.fn();
+  const handler = vi.fn();
   const obs = observable({
     map: new Map(),
   });
@@ -665,7 +666,7 @@ test('set Map value by computed depend', () => {
 });
 
 test('delete Map by computed depend', () => {
-  const handler = jest.fn();
+  const handler = vi.fn();
   const obs = observable({
     map: new Map([[1, 1]]),
   });
@@ -690,7 +691,7 @@ test('autorun recollect dependencies', () => {
     bb: 'bbb',
     cc: 'ccc',
   });
-  const fn = jest.fn();
+  const fn = vi.fn();
   autorun(() => {
     fn();
     if (obs.aa === 'aaa') {
@@ -709,10 +710,10 @@ test('reaction recollect dependencies', () => {
     bb: 'bbb',
     cc: 'ccc',
   });
-  const fn1 = jest.fn();
-  const fn2 = jest.fn();
-  const trigger1 = jest.fn();
-  const trigger2 = jest.fn();
+  const fn1 = vi.fn();
+  const fn2 = vi.fn();
+  const trigger1 = vi.fn();
+  const trigger2 = vi.fn();
   reaction(() => {
     fn1();
     if (obs.aa === 'aaa') {

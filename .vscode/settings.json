@@ -111,6 +111,5 @@
     ".eslintrc.js": ".eslintignore,.prettierignore,.stylelintignore,.commitlintrc.js,.prettierrc.js,.stylelintrc.js,.lintstagedrc"
   },
   "terminal.integrated.scrollback": 10000,
-  "editor.formatOnSave": true,
-  "testing.automaticallyOpenPeekView": "never"
+  "editor.formatOnSave": true
 }

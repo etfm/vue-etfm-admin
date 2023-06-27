@@ -7,7 +7,7 @@
   @include set-component-css-var('font-size', $font-size);
   @include set-component-css-var('font-family', $font-family);
 
-  // --el-border-radius-#{$type}
+  // --etfma-border-radius-#{$type}
   @include set-component-css-var('border-radius', $border-radius);
 }
 
@@ -23,15 +23,18 @@
   @include set-css-var-value('color-black', $color-black);
 
   // color-scheme
-  // Background --el-bg-color-#{$type}
+  // Background --etfma-bg-color-#{$type}
   @include set-component-css-var('bg-color', $bg-color);
 
-  // --el-text-color-#{$type}
+  // --etfma-text-color-#{$type}
   @include set-component-css-var('text-color', $text-color);
 
-  // --el-border-color-#{$type}
+  // --etfma-border-color-#{$type}
   @include set-component-css-var('border-color', $border-color);
 
-  // Fill --el-fill-color-#{$type}
+  // Fill --etfma-fill-color-#{$type}
   @include set-component-css-var('fill-color', $fill-color);
+
+  // --etfma-box-shadow-#{$type}
+  @include set-component-css-var('box-shadow', $box-shadow);
 }

@@ -4,13 +4,13 @@ export interface IPublicTypePluginMeta {
   /**
    * define dependencies which the plugin depends on
    */
-  dependencies?: string[];
+  dependencies?: string | string[];
   /**
    * specify which engine version is compatible with the plugin
    */
   engines?: {
     /** e.g. '^1.0.0' */
-    lowcodeEngine?: string;
+    version?: string;
   };
   preferenceDeclaration?: IPublicTypePluginDeclaration;
 

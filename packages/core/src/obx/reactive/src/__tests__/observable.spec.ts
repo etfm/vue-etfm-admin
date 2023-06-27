@@ -1,5 +1,6 @@
 import { observable } from '..';
 import { contains } from '../externals';
+import { test, expect } from 'vitest';
 
 test('array mutation', () => {
   const arr = observable([1, 2, 3, 4]);

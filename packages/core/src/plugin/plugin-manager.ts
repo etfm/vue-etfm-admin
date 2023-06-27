@@ -1,8 +1,8 @@
 import { engineConfig } from '../config';
 import { Logger } from '@etfma/shared';
 import { filterValidOptions } from './plugin-utils';
-import { LowCodePluginRuntime } from './plugin';
-import LowCodePluginContext from './plugin-context';
+import { PluginRuntime } from './plugin';
+import PluginContext from './plugin-context';
 import sequencify from './sequencify';
 import semverSatisfies from 'semver/functions/satisfies';
 import {
@@ -40,7 +40,7 @@ export class PluginManager implements IPluginManager {
   private plugins: IPluginRuntime[] = [];
 
   pluginsMap: Map<string, IPluginRuntime> = new Map();
-  pluginContextMap: Map<string, LowCodePluginContext> = new Map();
+  pluginContextMap: Map<string, PluginContext> = new Map();
 
   private pluginPreference?: IPluginPreference = new Map();
 
@@ -54,7 +54,7 @@ export class PluginManager implements IPluginManager {
     const { pluginName } = options;
     let context = this.pluginContextMap.get(pluginName);
     if (!context) {
-      context = new LowCodePluginContext(options, this.contextApiAssembler);
+      context = new PluginContext(options, this.contextApiAssembler);
       this.pluginContextMap.set(pluginName, context);
     }
     return context;
@@ -81,7 +81,7 @@ export class PluginManager implements IPluginManager {
     registerOptions?: IPublicTypePluginRegisterOptions,
   ): Promise<void> {
     // registerOptions maybe in the second place
-    if (isLowCodeRegisterOptions(options)) {
+    if (isRegisterOptions(options)) {
       registerOptions = options;
       options = {};
     }
@@ -101,10 +101,8 @@ export class PluginManager implements IPluginManager {
       'customPluginFilterOptions',
       filterValidOptions,
     );
-    const config = pluginModel(ctx, customFilterValidOptions(options, preferenceDeclaration!));
 
-    // compat the legacy way to declare pluginName
-    pluginName = pluginName || config.name;
+    const config = pluginModel(ctx, customFilterValidOptions(options, preferenceDeclaration!));
 
     ctx.setPreference(pluginName, preferenceDeclaration!);
 
@@ -127,16 +125,16 @@ export class PluginManager implements IPluginManager {
       }
     }
 
-    const engineVersionExp = engines && engines.lowcodeEngine;
+    const engineVersionExp = engines && engines.version;
     if (engineVersionExp && !this.isEngineVersionMatched(engineVersionExp)) {
       throw new Error(
         `plugin ${pluginName} skipped, engine check failed, current engine version is ${engineConfig.get(
           'ENGINE_VERSION',
-        )}, meta.engines.lowcodeEngine is ${engineVersionExp}`,
+        )}, meta.engines.version is ${engineVersionExp}`,
       );
     }
 
-    const plugin = new LowCodePluginRuntime(pluginName, this, config, meta);
+    const plugin = new PluginRuntime(pluginName, this, config, meta);
     // support initialization of those plugins which registered after normal initialization by plugin-manager
     if (registerOptions?.autoInit) {
       await plugin.init();
@@ -183,7 +181,7 @@ export class PluginManager implements IPluginManager {
     for (const pluginName of sequence) {
       try {
         await this.pluginsMap.get(pluginName)!.init();
-      } catch (e) /* istanbul ignore next */ {
+      } catch (e) {
         logger.error(
           `Failed to init plugin:${pluginName}, it maybe affect those plugins which depend on this.`,
         );
@@ -226,7 +224,6 @@ export class PluginManager implements IPluginManager {
     });
   }
 
-  /* istanbul ignore next */
   setDisabled(pluginName: string, flag = true) {
     logger.warn(`plugin:${pluginName} has been set disable:${flag}`);
     this.pluginsMap.get(pluginName)?.setDisabled(flag);
@@ -239,6 +236,6 @@ export class PluginManager implements IPluginManager {
   }
 }
 
-export function isLowCodeRegisterOptions(opts: any): opts is IPublicTypePluginRegisterOptions {
+export function isRegisterOptions(opts: any): opts is IPublicTypePluginRegisterOptions {
   return opts && ('autoInit' in opts || 'override' in opts);
 }

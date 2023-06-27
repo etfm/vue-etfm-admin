@@ -11,7 +11,7 @@ import { IPublicModelEngineConfig } from '../engine-config';
 import { IPluginPreferenceMananger } from './plugin-manager';
 import { IPublicTypePluginMeta } from './plugin-meta';
 
-export interface IPublicPluginContext {
+export interface IPublicModelPluginContext {
   /**
    * 可通过该对象读取插件初始化配置
    * by using this, init options can be accessed from inside plugin
@@ -81,4 +81,4 @@ export interface IPluginContextApiAssembler {
   ): void;
 }
 
-export type IPublicModelPluginContext = IPluginContextPrivate & IPublicPluginContext;
+export type IPublicPluginContext = IPluginContextPrivate & IPublicModelPluginContext;

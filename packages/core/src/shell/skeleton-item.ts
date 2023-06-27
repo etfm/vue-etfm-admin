@@ -1,11 +1,11 @@
 import { IPublicModelSkeletonItem, IWidget } from '@etfma/types';
-import { Panel, Widget } from '../layout/widget';
+import { Widget } from '../layout/widget';
 import { skeletonItemSymbol } from './symbols';
 
 export class SkeletonItem implements IPublicModelSkeletonItem {
-  private [skeletonItemSymbol]: IWidget | Widget | Panel;
+  private [skeletonItemSymbol]: IWidget | Widget;
 
-  constructor(skeletonItem: IWidget | Widget | Panel) {
+  constructor(skeletonItem: IWidget | Widget) {
     this[skeletonItemSymbol] = skeletonItem;
   }
 

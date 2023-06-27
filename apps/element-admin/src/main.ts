@@ -3,7 +3,7 @@ import 'uno.css';
 
 import { plugins, init, skeleton } from '@etfma/core';
 import type { IPublicPluginContext, IPublicTypePlugin } from '@etfma/core';
-import Workbench from '@/views/dashboard/workbench/index.vue';
+import Analysis from '@/views/dashboard/analysis/index.vue';
 import { h } from 'vue';
 
 async function boostrap() {
@@ -12,7 +12,7 @@ async function boostrap() {
       name: 'TextPlugin',
       init() {
         skeleton.add({
-          area: 'topArea',
+          area: 'header',
           type: 'Widget',
           name: 'topArea',
           content: 'logo',
@@ -26,7 +26,7 @@ async function boostrap() {
         });
 
         skeleton.add({
-          area: 'leftArea',
+          area: 'aside',
           type: 'Widget',
           name: 'leftArea',
           content: 'logo',
@@ -40,21 +40,7 @@ async function boostrap() {
         });
 
         skeleton.add({
-          area: 'rightArea',
-          type: 'Widget',
-          name: 'rightArea',
-          content: 'logo',
-          contentProps: {
-            logo: 'https://img.alicdn.com/imgextra/i4/O1CN013w2bmQ25WAIha4Hx9_!!6000000007533-55-tps-137-26.svg',
-            href: 'https://lowcode-engine.cn',
-          },
-          props: {
-            align: 'left',
-          },
-        });
-
-        skeleton.add({
-          area: 'bottomArea',
+          area: 'footer',
           type: 'Widget',
           name: 'bottomArea',
           content: 'logo',
@@ -79,7 +65,7 @@ async function boostrap() {
         });
 
         skeleton.add({
-          area: 'toolbarTop',
+          area: 'breadcrumb',
           type: 'Widget',
           name: 'toolbarTop',
           content: '1212',
@@ -93,10 +79,10 @@ async function boostrap() {
         });
 
         skeleton.add({
-          area: 'mainArea',
+          area: 'main',
           type: 'Widget',
           name: 'mainArea',
-          content: h(Workbench),
+          content: h(Analysis),
           contentProps: {
             logo: 'https://img.alicdn.com/imgextra/i4/O1CN013w2bmQ25WAIha4Hx9_!!6000000007533-55-tps-137-26.svg',
             href: 'https://lowcode-engine.cn',
@@ -107,7 +93,7 @@ async function boostrap() {
         });
 
         skeleton.add({
-          area: 'fixedArea',
+          area: 'float',
           type: 'Widget',
           name: 'leftFixedArea',
           content: h('div', 'logologologologologologologologologol'),

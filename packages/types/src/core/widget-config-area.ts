@@ -2,19 +2,11 @@
  * 所有可能的停靠位置
  */
 export type IPublicTypeWidgetConfigArea =
-  | 'leftArea'
-  | 'left'
-  | 'rightArea'
-  | 'right'
-  | 'topArea'
-  | 'top'
+  | 'aside'
+  | 'header'
   | 'toolbar'
-  | 'toolbarTop'
-  | 'mainArea'
+  | 'breadcrumb'
   | 'main'
-  | 'center'
-  | 'centerArea'
-  | 'bottomArea'
-  | 'bottom'
-  | 'fixedArea'
-  | 'floatArea';
+  | 'footer'
+  | 'fixed'
+  | 'float';

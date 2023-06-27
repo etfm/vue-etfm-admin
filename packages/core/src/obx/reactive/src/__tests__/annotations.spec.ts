@@ -3,13 +3,14 @@ import { autorun, reaction } from '../autorun';
 import { observe } from '../observe';
 import { isObservable } from '../externals';
 import { untracked } from '../untracked';
+import { test, expect, vi } from 'vitest';
 
 test('observable annotation', () => {
   const obs = observable<any>({
     aa: 111,
   });
-  const handler = jest.fn();
-  const handler1 = jest.fn();
+  const handler = vi.fn();
+  const handler1 = vi.fn();
   observe(obs, handler1);
   reaction(() => {
     handler(obs.aa);
@@ -24,8 +25,8 @@ test('shallow annotation', () => {
   const obs = observable.shallow<any>({
     aa: 111,
   });
-  const handler = jest.fn();
-  const handler1 = jest.fn();
+  const handler = vi.fn();
+  const handler1 = vi.fn();
   observe(obs, handler1);
   reaction(() => {
     handler(obs.aa);
@@ -42,8 +43,8 @@ test('shallow annotation', () => {
 
 test('box annotation', () => {
   const obs = observable.box(123);
-  const handler = jest.fn();
-  const handler1 = jest.fn();
+  const handler = vi.fn();
+  const handler1 = vi.fn();
   observe(obs, handler1);
   reaction(() => {
     handler(obs.get());
@@ -61,8 +62,8 @@ test('box annotation', () => {
 
 test('ref annotation', () => {
   const obs = observable.ref(123);
-  const handler = jest.fn();
-  const handler1 = jest.fn();
+  const handler = vi.fn();
+  const handler1 = vi.fn();
   observe(obs, handler1);
   reaction(() => {
     handler(obs.value);
@@ -79,7 +80,7 @@ test('action annotation', () => {
     obs.aa = 123;
     obs.bb = 321;
   });
-  const handler = jest.fn();
+  const handler = vi.fn();
   reaction(() => {
     return [obs.aa, obs.bb];
   }, handler);
@@ -94,7 +95,7 @@ test('no action annotation', () => {
     obs.aa = 123;
     obs.bb = 321;
   };
-  const handler = jest.fn();
+  const handler = vi.fn();
   reaction(() => {
     return [obs.aa, obs.bb];
   }, handler);
@@ -109,10 +110,10 @@ test('computed annotation', () => {
     aa: 11,
     bb: 22,
   });
-  const handler = jest.fn(() => obs.aa + obs.bb);
-  const runner1 = jest.fn();
-  const runner2 = jest.fn();
-  const runner3 = jest.fn();
+  const handler = vi.fn(() => obs.aa + obs.bb);
+  const runner1 = vi.fn();
+  const runner2 = vi.fn();
+  const runner3 = vi.fn();
   const compu = observable.computed(handler);
   expect(compu.value).toEqual(33);
   expect(handler).toBeCalledTimes(1);
@@ -175,9 +176,9 @@ test('computed chain annotation', () => {
     aa: 11,
     bb: 22,
   });
-  const handler = jest.fn(() => obs.aa + obs.bb);
+  const handler = vi.fn(() => obs.aa + obs.bb);
   const compu1 = observable.computed(handler);
-  const handler1 = jest.fn(() => compu1.value + 33);
+  const handler1 = vi.fn(() => compu1.value + 33);
   const compu2 = observable.computed(handler1);
   const dispose = autorun(() => {
     compu2.value;
@@ -212,7 +213,7 @@ test('computed with array length', () => {
       return !this.isEmpty;
     },
   });
-  const handler = jest.fn();
+  const handler = vi.fn();
   autorun(() => {
     handler(obs.isEmpty);
     handler(obs.isNotEmpty);
@@ -236,8 +237,8 @@ test('computed with computed array length', () => {
       return !this.isEmpty;
     },
   });
-  const handler = jest.fn();
-  const handler2 = jest.fn();
+  const handler = vi.fn();
+  const handler2 = vi.fn();
   autorun(() => {
     handler(obs.isNotEmpty);
     handler2(obs.arr2);
@@ -255,7 +256,7 @@ test('computed with computed array length', () => {
 });
 
 test('computed recollect dependencies', () => {
-  const computed = jest.fn();
+  const computed = vi.fn();
   const obs = model({
     aa: 'aaa',
     bb: 'bbb',
@@ -268,7 +269,7 @@ test('computed recollect dependencies', () => {
       return this.cc;
     },
   });
-  const handler = jest.fn();
+  const handler = vi.fn();
   autorun(() => {
     handler(obs.compute);
   });
@@ -309,8 +310,8 @@ test('computed cache descriptor', () => {
   }
   const obs1 = new A();
   const obs2 = new A();
-  const handler1 = jest.fn();
-  const handler2 = jest.fn();
+  const handler1 = vi.fn();
+  const handler2 = vi.fn();
   autorun(() => {
     handler1(obs1.value);
   });
@@ -338,7 +339,7 @@ test('computed normal object', () => {
       value: observable.computed,
     },
   );
-  const handler = jest.fn();
+  const handler = vi.fn();
   autorun(() => {
     handler(obs.value);
   });

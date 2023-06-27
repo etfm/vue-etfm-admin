@@ -7,6 +7,8 @@ export interface IPublicModelPluginInstance {
    */
   disabled: boolean;
 
+  inited: boolean;
+
   /**
    * 插件名称
    * plugin name
@@ -24,4 +26,19 @@ export interface IPublicModelPluginInstance {
    * meta info of this plugin
    */
   get meta(): IPublicTypePluginMeta;
+
+  /**
+   * 销毁插件
+   */
+  dispose(): void;
+
+  /**
+   * 初始化插件
+   */
+  init(forceInit?: boolean): void;
+
+  /**
+   * 是否禁用
+   */
+  setDisabled(flag?: boolean): void;
 }

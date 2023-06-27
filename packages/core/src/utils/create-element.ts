@@ -6,13 +6,5 @@ export function createElement(content: any, props?: Record<string, unknown>): an
     return h(content, props);
   }
 
-  // if (isVNode(content)) {
-  //   return props ? cloneVNode(content, props) : content
-  // }
-
-  // if (isFunction(content)) {
-  //   return createVNode(content, props)
-  // }
-
   return content;
 }

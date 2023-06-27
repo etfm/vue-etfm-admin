@@ -9,8 +9,8 @@ export interface IPluginRuntimeCore {
   config: IPublicTypePluginConfig;
   logger: IPublicApiLogger;
   meta: IPublicTypePluginMeta;
+  inited: boolean;
   init(forceInit?: boolean): void;
-  isInited(): boolean;
   destroy(): void;
   toProxy(): any;
   setDisabled(flag: boolean): void;

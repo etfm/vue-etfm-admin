@@ -2,16 +2,15 @@ import { defineComponent, PropType } from 'vue';
 import { Skeleton } from '../skeleton';
 import '../../styles/index.scss';
 import classNames from 'classnames';
-import { TopArea } from './TopArea';
-import { LeftArea } from './LeftArea';
+import { HeaderArea } from './HeaderArea';
+import { AsideArea } from './AsideArea';
 import { FloatArea } from './FloatArea';
 import { FixedArea } from './FixedArea';
-import { Toolbar } from './Toolbar';
-import { RightArea } from './RightArea';
+import { ToolbarArea } from './ToolbarArea';
 import { MainArea } from './MainArea';
-import { BottomArea } from './BottomArea';
+import { FooterArea } from './FooterArea';
 import { observer } from '../../obx';
-import { ToolbarTop } from './ToolbarTop';
+import { BreadcrumbArea } from './BreadcrumbArea';
 import { useNamespace } from '@etfma/hooks';
 
 export const Workbench = observer(
@@ -34,18 +33,17 @@ export const Workbench = observer(
       const { ns, skeleton } = this;
       return (
         <div class={classNames(ns.b())}>
-          <TopArea area={skeleton.topArea} />
+          <HeaderArea area={skeleton.header} />
           <div class={classNames(ns.b('body'))}>
-            <LeftArea area={skeleton.leftArea} />
-            <FloatArea area={skeleton.floatArea} />
-            <FixedArea area={skeleton.fixedArea} />
+            <AsideArea area={skeleton.aside} />
+            <FloatArea area={skeleton.float} />
+            <FixedArea area={skeleton.fixed} />
             <div class={classNames(ns.b('center'))}>
-              <Toolbar area={skeleton.toolbar} />
-              <ToolbarTop area={skeleton.toolbarTop} />
-              <MainArea area={skeleton.mainArea} />
-              <BottomArea area={skeleton.bottomArea} />
+              <ToolbarArea area={skeleton.toolbar} />
+              <BreadcrumbArea area={skeleton.breadcrumb} />
+              <MainArea area={skeleton.main} />
+              <FooterArea area={skeleton.footer} />
             </div>
-            <RightArea area={skeleton.rightArea} />
           </div>
         </div>
       );

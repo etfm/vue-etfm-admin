@@ -1,6 +1,6 @@
 @use '@etfma/design/shared' as *;
 
-@include b('toolbar-area') {
+@include b('breadcrumb-area') {
   display: flex;
   display: none;
 
@@ -8,7 +8,7 @@
     display: block;
   }
 
-  @include b('toolbar-area-center') {
+  @include b('breadcrumb-area-center') {
     display: flex;
     flex: 1;
     align-items: center;

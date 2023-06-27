@@ -164,41 +164,24 @@ export class Skeleton implements IPublicApiSkeleton {
   }
 }
 
-function normalizeArea(
-  area: IPublicTypeWidgetConfigArea | string | undefined,
-):
-  | 'leftArea'
-  | 'rightArea'
-  | 'topArea'
-  | 'toolbar'
-  | 'mainArea'
-  | 'bottomArea'
-  | 'fixedArea'
-  | 'floatArea' {
+function normalizeArea(area: IPublicTypeWidgetConfigArea | string): IPublicTypeWidgetConfigArea {
   switch (area) {
-    case 'leftArea':
-    case 'left':
-      return 'leftArea';
-    case 'rightArea':
-    case 'right':
-      return 'rightArea';
-    case 'topArea':
-    case 'top':
-      return 'topArea';
+    case 'aside':
+      return 'aside';
+    case 'header':
+      return 'header';
     case 'toolbar':
       return 'toolbar';
-    case 'mainArea':
+    case 'breadcrumb':
+      return 'breadcrumb';
     case 'main':
-    case 'center':
-    case 'centerArea':
-      return 'mainArea';
-    case 'bottomArea':
-    case 'bottom':
-      return 'bottomArea';
-    case 'fixedArea':
-      return 'fixedArea';
-    case 'floatArea':
-      return 'floatArea';
+      return 'main';
+    case 'footer':
+      return 'footer';
+    case 'fixed':
+      return 'fixed';
+    case 'float':
+      return 'float';
     default:
       throw new Error(`${area} not supported`);
   }

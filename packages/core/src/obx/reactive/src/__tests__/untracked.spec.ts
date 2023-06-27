@@ -1,8 +1,9 @@
 import { untracked, observable, autorun } from '..';
+import { test, expect, vi } from 'vitest';
 
 test('basic untracked', () => {
   const obs = observable<any>({});
-  const fn = jest.fn();
+  const fn = vi.fn();
   autorun(() => {
     untracked(() => {
       fn(obs.value);

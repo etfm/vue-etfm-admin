@@ -1,4 +1,5 @@
 import { observable, observe } from '..';
+import { test, expect, vi } from 'vitest';
 
 test('deep observe', () => {
   const obs = observable<any>({
@@ -9,7 +10,7 @@ test('deep observe', () => {
     },
     ee: observable([]),
   });
-  const handler = jest.fn();
+  const handler = vi.fn();
   observe(obs, handler);
   obs.dd = 123;
   obs.aa.bb.cc.push(44);
@@ -35,7 +36,7 @@ test('shallow observe', () => {
       },
     },
   });
-  const handler = jest.fn();
+  const handler = vi.fn();
   observe(obs, handler, false);
   obs.dd = 123;
   obs.aa.bb.cc.push(44);
@@ -53,8 +54,8 @@ test('root replace observe', () => {
       },
     },
   });
-  const handler1 = jest.fn();
-  const handler = jest.fn();
+  const handler1 = vi.fn();
+  const handler = vi.fn();
   observe(obs, handler1);
   observe(obs.aa, handler);
   obs.aa = {
@@ -80,7 +81,7 @@ test('dispose observe', () => {
       },
     },
   });
-  const handler = jest.fn();
+  const handler = vi.fn();
   const dispose = observe(obs, handler);
   obs.kk = 123;
   expect(handler).toBeCalledTimes(1);
@@ -97,7 +98,7 @@ test('dispose observe', () => {
       },
     },
   });
-  const handler = jest.fn();
+  const handler = vi.fn();
   const dispose = observe(obs.aa, handler);
   obs.kk = 111;
   expect(handler).toBeCalledTimes(0);
@@ -117,7 +118,7 @@ test('dispose observe', () => {
 test('array delete', () => {
   const array = observable([{ value: 1 }, { value: 2 }]);
 
-  const fn = jest.fn();
+  const fn = vi.fn();
 
   const dispose = observe(array, (change) => {
     if (change.type === 'set' && change.key === 'value') {
@@ -137,7 +138,7 @@ test('array delete', () => {
 });
 
 test('observe dynamic tree', () => {
-  const handler = jest.fn();
+  const handler = vi.fn();
   const tree = observable<any>({});
   const childTree = observable({});
   tree.children = childTree;

@@ -1,0 +1,26 @@
+@use '@etfma/design/shared' as *;
+
+@include b('header-area') {
+  display: none;
+  width: 100%;
+
+  @include when('visible') {
+    display: flex;
+  }
+
+  @include b('header-area-left') {
+    display: flex;
+    align-items: center;
+  }
+
+  @include b('header-area-center') {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+  }
+
+  @include b('header-area-right') {
+    display: flex;
+    align-items: center;
+  }
+}

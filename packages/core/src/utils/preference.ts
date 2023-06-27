@@ -1,6 +1,6 @@
 import store from 'store';
 import { Logger } from '@etfma/shared';
-import { IPublicModelPreference } from '../types/preference';
+import { IPublicModelPreference } from '@etfma/types';
 
 const logger = new Logger({ bizName: 'Preference' });
 const STORAGE_KEY_PREFIX = 'ETFMA';

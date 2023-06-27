@@ -1,4 +1,4 @@
-import { IPublicModelEditor, IPublicTypeDisposable } from '@etfma/types';
+import { IPublicApiMaterial, IPublicModelEditor, IPublicTypeDisposable } from '@etfma/types';
 import { editorSymbol } from './symbols';
 
 export class Material implements IPublicApiMaterial {
@@ -21,15 +21,6 @@ export class Material implements IPublicApiMaterial {
    */
   getAssets(): IPublicTypeAssetsJson | undefined {
     return this[editorSymbol].get('assets');
-  }
-
-  /**
-   * 加载增量的「资产包」结构，该增量包会与原有的合并
-   * @param incrementalAssets
-   * @returns
-   */
-  loadIncrementalAssets(incrementalAssets: IPublicTypeAssetsJson) {
-    return this[designerSymbol].loadIncrementalAssets(incrementalAssets);
   }
 
   /**

@@ -1,4 +1,5 @@
 import { observable, hasCollected, autorun } from '..';
+import { test, expect } from 'vitest';
 
 test('hasCollected', () => {
   const obs = observable({ value: '' });

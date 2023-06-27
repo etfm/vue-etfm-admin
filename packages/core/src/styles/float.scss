@@ -4,17 +4,16 @@
   position: absolute;
   top: 0;
   bottom: 0;
-  left: calc(48px + 1px);
+  left: 0;
   z-index: 820;
   display: none;
-  width: 300px;
-  min-width: 300px;
-  padding-top: 36px;
   overflow: auto;
-  background-color: getCssVar('color', 'white');
-  box-shadow: 4px 6px 6px 0 rgb(31 50 88 / 8%);
+  background-color: azure;
+  box-shadow: getCssVar('float-area', 'box-shadow');
+
+  @include set-component-css-var('float-area', $float-area);
 
   @include when('visible') {
-    display: block;
+    display: flex;
   }
 }

@@ -6,7 +6,7 @@ import {
   IPublicTypePluginMeta,
 } from '@etfma/types';
 
-export class LowCodePluginRuntime implements IPluginRuntime {
+export class PluginRuntime implements IPluginRuntime {
   config: IPublicTypePluginConfig;
 
   logger: Logger;
@@ -45,19 +45,15 @@ export class LowCodePluginRuntime implements IPluginRuntime {
     if (typeof this.meta.dependencies === 'string') {
       return [this.meta.dependencies];
     }
-    // compat legacy way to declare dependencies
-    const legacyDepValue = (this.config as any).dep;
-    if (typeof legacyDepValue === 'string') {
-      return [legacyDepValue];
-    }
-    return this.meta.dependencies || legacyDepValue || [];
+
+    return this.meta.dependencies || [];
   }
 
   get disabled() {
     return this._disabled;
   }
 
-  isInited() {
+  get inited() {
     return this._inited;
   }
 

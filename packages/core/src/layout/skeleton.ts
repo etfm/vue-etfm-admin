@@ -15,30 +15,28 @@ import {
 const logger = new Logger({ bizName: 'skeleton' });
 
 export class Skeleton implements ISkeleton {
-  readonly leftArea: Area;
+  readonly aside: Area;
 
-  readonly topArea: Area;
+  readonly header: Area;
 
   readonly toolbar: Area;
 
-  readonly toolbarTop: Area;
+  readonly breadcrumb: Area;
 
-  readonly fixedArea: Area;
+  readonly fixed: Area;
 
-  readonly floatArea: Area;
+  readonly float: Area;
 
-  readonly rightArea: Area;
+  readonly main: Area;
 
-  readonly mainArea: Area;
-
-  readonly bottomArea: Area;
+  readonly footer: Area;
 
   readonly widgets: IWidget[] = [];
 
   constructor(readonly editor: Editor) {
-    this.leftArea = new Area(
+    this.aside = new Area(
       this,
-      'leftArea',
+      'aside',
       (config) => {
         if (isWidget(config)) {
           return config;
@@ -47,9 +45,9 @@ export class Skeleton implements ISkeleton {
       },
       true,
     );
-    this.topArea = new Area(
+    this.header = new Area(
       this,
-      'topArea',
+      'header',
       (config) => {
         if (isWidget(config)) {
           return config;
@@ -69,9 +67,9 @@ export class Skeleton implements ISkeleton {
       },
       true,
     );
-    this.toolbarTop = new Area(
+    this.breadcrumb = new Area(
       this,
-      'toolbarTop',
+      'breadcrumb',
       (config) => {
         if (isWidget(config)) {
           return config;
@@ -80,9 +78,9 @@ export class Skeleton implements ISkeleton {
       },
       true,
     );
-    this.fixedArea = new Area(
+    this.fixed = new Area(
       this,
-      'fixedArea',
+      'fixed',
       (config) => {
         if (isWidget(config)) {
           return config;
@@ -91,9 +89,9 @@ export class Skeleton implements ISkeleton {
       },
       true,
     );
-    this.floatArea = new Area(
+    this.float = new Area(
       this,
-      'floatArea',
+      'float',
       (config) => {
         if (isWidget(config)) {
           return config;
@@ -103,9 +101,9 @@ export class Skeleton implements ISkeleton {
       },
       false,
     );
-    this.rightArea = new Area(
+    this.main = new Area(
       this,
-      'rightArea',
+      'main',
       (config) => {
         if (isWidget(config)) {
           return config;
@@ -114,20 +112,9 @@ export class Skeleton implements ISkeleton {
       },
       true,
     );
-    this.mainArea = new Area(
+    this.footer = new Area(
       this,
-      'mainArea',
-      (config) => {
-        if (isWidget(config)) {
-          return config;
-        }
-        return this.createWidget(config);
-      },
-      true,
-    );
-    this.bottomArea = new Area(
-      this,
-      'bottomArea',
+      'footer',
       (config) => {
         if (isWidget(config)) {
           return config;
@@ -192,40 +179,31 @@ export class Skeleton implements ISkeleton {
     let { area } = parsedConfig;
     if (!area) {
       if (parsedConfig.type === 'Widget') {
-        area = 'mainArea';
+        area = 'main';
       } else {
-        area = 'leftArea';
+        area = 'aside';
       }
     }
 
     switch (area) {
-      case 'leftArea':
-      case 'left':
-        return this.leftArea.add(parsedConfig);
-      case 'rightArea':
-      case 'right':
-        return this.rightArea.add(parsedConfig);
-      case 'topArea':
-      case 'top':
-        return this.topArea.add(parsedConfig);
+      case 'aside':
+        return this.aside.add(parsedConfig);
+      case 'header':
+        return this.header.add(parsedConfig);
       case 'toolbar':
         return this.toolbar.add(parsedConfig);
-      case 'toolbarTop':
-        return this.toolbarTop.add(parsedConfig);
-      case 'mainArea':
+      case 'breadcrumb':
+        return this.breadcrumb.add(parsedConfig);
       case 'main':
-      case 'center':
-      case 'centerArea':
-        return this.mainArea.add(parsedConfig);
-      case 'bottomArea':
-      case 'bottom':
-        return this.bottomArea.add(parsedConfig);
-      case 'fixedArea':
-        return this.fixedArea.add(parsedConfig);
-      case 'floatArea':
-        return this.floatArea.add(parsedConfig);
+        return this.main.add(parsedConfig);
+      case 'footer':
+        return this.footer.add(parsedConfig);
+      case 'fixed':
+        return this.fixed.add(parsedConfig);
+      case 'float':
+        return this.float.add(parsedConfig);
       default:
-        logger.warn(`The ${config.name} not found.`);
+        logger.warn(`${config.name} not supported`);
     }
   }
 }

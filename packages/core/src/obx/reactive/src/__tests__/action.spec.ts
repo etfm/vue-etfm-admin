@@ -1,7 +1,8 @@
-import { observable, action, autorun } from '..'
-import { reaction } from '../autorun'
-import { batch } from '../batch'
-import { define } from '../model'
+import { observable, action, autorun } from '..';
+import { reaction } from '../autorun';
+import { batch } from '../batch';
+import { define } from '../model';
+import { describe, test, expect, vi } from 'vitest';
 
 describe('normal action', () => {
   test('no action', () => {
@@ -9,42 +10,42 @@ describe('normal action', () => {
       aa: {
         bb: 123,
       },
-    })
-    const handler = jest.fn()
+    });
+    const handler = vi.fn();
     autorun(() => {
-      handler(obs.aa.bb)
-    })
-    obs.aa.bb = 111
-    obs.aa.bb = 222
-    expect(handler).toBeCalledTimes(3)
+      handler(obs.aa.bb);
+    });
+    obs.aa.bb = 111;
+    obs.aa.bb = 222;
+    expect(handler).toBeCalledTimes(3);
 
-    obs.aa.bb = 333
-    obs.aa.bb = 444
+    obs.aa.bb = 333;
+    obs.aa.bb = 444;
 
-    expect(handler).toBeCalledTimes(5)
-  })
+    expect(handler).toBeCalledTimes(5);
+  });
 
   test('action', () => {
     const obs = observable({
       aa: {
         bb: 123,
       },
-    })
-    const handler = jest.fn()
+    });
+    const handler = vi.fn();
     autorun(() => {
-      handler(obs.aa.bb)
-    })
-    obs.aa.bb = 111
-    obs.aa.bb = 222
-    expect(handler).toBeCalledTimes(3)
+      handler(obs.aa.bb);
+    });
+    obs.aa.bb = 111;
+    obs.aa.bb = 222;
+    expect(handler).toBeCalledTimes(3);
     action(() => {
-      obs.aa.bb = 333
-      obs.aa.bb = 444
-    })
-    action(() => {})
-    action()
-    expect(handler).toBeCalledTimes(4)
-  })
+      obs.aa.bb = 333;
+      obs.aa.bb = 444;
+    });
+    action(() => {});
+    action();
+    expect(handler).toBeCalledTimes(4);
+  });
 
   test('action track', () => {
     const obs = observable({
@@ -52,44 +53,44 @@ describe('normal action', () => {
         bb: 123,
       },
       cc: 1,
-    })
-    const handler = jest.fn()
+    });
+    const handler = vi.fn();
     autorun(() => {
       action(() => {
         if (obs.cc > 0) {
-          handler(obs.aa.bb)
-          obs.cc = obs.cc + 20
+          handler(obs.aa.bb);
+          obs.cc = obs.cc + 20;
         }
-      })
-    })
-    expect(handler).toBeCalledTimes(1)
-    expect(obs.cc).toEqual(21)
-    obs.aa.bb = 321
-    expect(handler).toBeCalledTimes(1)
-    expect(obs.cc).toEqual(21)
-  })
+      });
+    });
+    expect(handler).toBeCalledTimes(1);
+    expect(obs.cc).toEqual(21);
+    obs.aa.bb = 321;
+    expect(handler).toBeCalledTimes(1);
+    expect(obs.cc).toEqual(21);
+  });
 
   test('action.bound', () => {
     const obs = observable({
       aa: {
         bb: 123,
       },
-    })
-    const handler = jest.fn()
+    });
+    const handler = vi.fn();
     const setData = action.bound(() => {
-      obs.aa.bb = 333
-      obs.aa.bb = 444
-    })
+      obs.aa.bb = 333;
+      obs.aa.bb = 444;
+    });
     autorun(() => {
-      handler(obs.aa.bb)
-    })
-    obs.aa.bb = 111
-    obs.aa.bb = 222
-    expect(handler).toBeCalledTimes(3)
-    setData()
-    action.bound(() => {})
-    expect(handler).toBeCalledTimes(4)
-  })
+      handler(obs.aa.bb);
+    });
+    obs.aa.bb = 111;
+    obs.aa.bb = 222;
+    expect(handler).toBeCalledTimes(3);
+    setData();
+    action.bound(() => {});
+    expect(handler).toBeCalledTimes(4);
+  });
 
   test('action.bound track', () => {
     const obs = observable({
@@ -97,69 +98,69 @@ describe('normal action', () => {
         bb: 123,
       },
       cc: 1,
-    })
-    const handler = jest.fn()
+    });
+    const handler = vi.fn();
     autorun(() => {
       action.bound(() => {
         if (obs.cc > 0) {
-          handler(obs.aa.bb)
-          obs.cc = obs.cc + 20
+          handler(obs.aa.bb);
+          obs.cc = obs.cc + 20;
         }
-      })()
-    })
-    expect(handler).toBeCalledTimes(1)
-    expect(obs.cc).toEqual(21)
-    obs.aa.bb = 321
-    expect(handler).toBeCalledTimes(1)
-    expect(obs.cc).toEqual(21)
-  })
+      })();
+    });
+    expect(handler).toBeCalledTimes(1);
+    expect(obs.cc).toEqual(21);
+    obs.aa.bb = 321;
+    expect(handler).toBeCalledTimes(1);
+    expect(obs.cc).toEqual(21);
+  });
 
   test('action.scope xxx', () => {
-    const obs = observable<any>({})
+    const obs = observable<any>({});
 
-    const handler = jest.fn()
+    const handler = vi.fn();
 
     autorun(() => {
-      handler(obs.aa, obs.bb, obs.cc, obs.dd)
-    })
+      handler(obs.aa, obs.bb, obs.cc, obs.dd);
+    });
 
     action(() => {
       action.scope(() => {
-        obs.aa = 123
-      })
+        obs.aa = 123;
+      });
       action.scope(() => {
-        obs.cc = 'ccccc'
-      })
-      obs.bb = 321
-      obs.dd = 'ddddd'
-    })
+        obs.cc = 'ccccc';
+      });
+      obs.bb = 321;
+      obs.dd = 'ddddd';
+    });
 
-    expect(handler).toBeCalledTimes(4)
-  })
+    expect(handler).toBeCalledTimes(4);
+  });
 
   test('action.scope bound', () => {
-    const obs = observable<any>({})
+    const obs = observable<any>({});
 
-    const handler = jest.fn()
+    const handler = vi.fn();
 
     autorun(() => {
-      handler(obs.aa, obs.bb, obs.cc, obs.dd)
-    })
+      handler(obs.aa, obs.bb, obs.cc, obs.dd);
+    });
 
     const scope1 = action.scope.bound(() => {
-      obs.aa = 123
-    })
+      obs.aa = 123;
+    });
     action(() => {
-      scope1()
+      scope1();
       action.scope.bound(() => {
-        obs.cc = 'ccccc'
-      })()
-      obs.bb = 321
-      obs.dd = 'ddddd'
-    })
+        obs.cc = 'ccccc';
+      })();
+      obs.bb = 321;
+      obs.dd = 'ddddd';
+    });
 
-    expect(handler).toBeCalledTimes(4)
-  })
+    expect(handler).toBeCalledTimes(4);
+  });
 
   test('action.scope track', () => {
     const obs = observable({
@@ -167,22 +168,22 @@ describe('normal action', () => {
         bb: 123,
       },
       cc: 1,
-    })
-    const handler = jest.fn()
+    });
+    const handler = vi.fn();
     autorun(() => {
       action.scope(() => {
         if (obs.cc > 0) {
-          handler(obs.aa.bb)
-          obs.cc = obs.cc + 20
+          handler(obs.aa.bb);
+          obs.cc = obs.cc + 20;
         }
-      })
-    })
-    expect(handler).toBeCalledTimes(1)
-    expect(obs.cc).toEqual(21)
-    obs.aa.bb = 321
-    expect(handler).toBeCalledTimes(1)
-    expect(obs.cc).toEqual(21)
-  })
+      });
+    });
+    expect(handler).toBeCalledTimes(1);
+    expect(obs.cc).toEqual(21);
+    obs.aa.bb = 321;
+    expect(handler).toBeCalledTimes(1);
+    expect(obs.cc).toEqual(21);
+  });
 
   test('action.scope bound track', () => {
     const obs = observable({
@@ -190,23 +191,23 @@ describe('normal action', () => {
         bb: 123,
       },
       cc: 1,
-    })
-    const handler = jest.fn()
+    });
+    const handler = vi.fn();
     autorun(() => {
       action.scope.bound(() => {
         if (obs.cc > 0) {
-          handler(obs.aa.bb)
-          obs.cc = obs.cc + 20
+          handler(obs.aa.bb);
+          obs.cc = obs.cc + 20;
         }
-      })()
-    })
-    expect(handler).toBeCalledTimes(1)
-    expect(obs.cc).toEqual(21)
-    obs.aa.bb = 321
-    expect(handler).toBeCalledTimes(1)
-    expect(obs.cc).toEqual(21)
-  })
-})
+      })();
+    });
+    expect(handler).toBeCalledTimes(1);
+    expect(obs.cc).toEqual(21);
+    obs.aa.bb = 321;
+    expect(handler).toBeCalledTimes(1);
+    expect(obs.cc).toEqual(21);
+  });
+});
 
 describe('annotation action', () => {
   test('action', () => {
@@ -216,25 +217,25 @@ describe('annotation action', () => {
           bb: 123,
         },
         setData() {
-          this.aa.bb = 333
-          this.aa.bb = 444
+          this.aa.bb = 333;
+          this.aa.bb = 444;
         },
       },
       {
         aa: observable,
         setData: action,
-      }
-    )
-    const handler = jest.fn()
+      },
+    );
+    const handler = vi.fn();
     autorun(() => {
-      handler(obs.aa.bb)
-    })
-    obs.aa.bb = 111
-    obs.aa.bb = 222
-    expect(handler).toBeCalledTimes(3)
-    obs.setData()
-    expect(handler).toBeCalledTimes(4)
-  })
+      handler(obs.aa.bb);
+    });
+    obs.aa.bb = 111;
+    obs.aa.bb = 222;
+    expect(handler).toBeCalledTimes(3);
+    obs.setData();
+    expect(handler).toBeCalledTimes(4);
+  });
 
   test('action track', () => {
     const obs = define(
@@ -245,26 +246,26 @@ describe('annotation action', () => {
         cc: 1,
         setData() {
           if (obs.cc > 0) {
-            handler(obs.aa.bb)
-            obs.cc = obs.cc + 20
+            handler(obs.aa.bb);
+            obs.cc = obs.cc + 20;
           }
         },
       },
       {
         aa: observable,
         setData: action,
-      }
-    )
-    const handler = jest.fn()
+      },
+    );
+    const handler = vi.fn();
     autorun(() => {
-      obs.setData()
-    })
-    expect(handler).toBeCalledTimes(1)
-    expect(obs.cc).toEqual(21)
-    obs.aa.bb = 321
-    expect(handler).toBeCalledTimes(1)
-    expect(obs.cc).toEqual(21)
-  })
+      obs.setData();
+    });
+    expect(handler).toBeCalledTimes(1);
+    expect(obs.cc).toEqual(21);
+    obs.aa.bb = 321;
+    expect(handler).toBeCalledTimes(1);
+    expect(obs.cc).toEqual(21);
+  });
 
   test('action.bound', () => {
     const obs = define(
@@ -273,25 +274,25 @@ describe('annotation action', () => {
           bb: 123,
         },
         setData() {
-          this.aa.bb = 333
-          this.aa.bb = 444
+          this.aa.bb = 333;
+          this.aa.bb = 444;
         },
       },
       {
         aa: observable,
         setData: action.bound,
-      }
-    )
-    const handler = jest.fn()
+      },
+    );
+    const handler = vi.fn();
     autorun(() => {
-      handler(obs.aa.bb)
-    })
-    obs.aa.bb = 111
-    obs.aa.bb = 222
-    expect(handler).toBeCalledTimes(3)
-    obs.setData()
-    expect(handler).toBeCalledTimes(4)
-  })
+      handler(obs.aa.bb);
+    });
+    obs.aa.bb = 111;
+    obs.aa.bb = 222;
+    expect(handler).toBeCalledTimes(3);
+    obs.setData();
+    expect(handler).toBeCalledTimes(4);
+  });
 
   test('action.bound track', () => {
     const obs = define(
@@ -302,26 +303,26 @@ describe('annotation action', () => {
         cc: 1,
         setData() {
           if (obs.cc > 0) {
-            handler(obs.aa.bb)
-            obs.cc = obs.cc + 20
+            handler(obs.aa.bb);
+            obs.cc = obs.cc + 20;
           }
         },
       },
       {
         aa: observable,
         setData: action.bound,
-      }
-    )
-    const handler = jest.fn()
+      },
+    );
+    const handler = vi.fn();
     autorun(() => {
-      obs.setData()
-    })
-    expect(handler).toBeCalledTimes(1)
-    expect(obs.cc).toEqual(21)
-    obs.aa.bb = 321
-    expect(handler).toBeCalledTimes(1)
-    expect(obs.cc).toEqual(21)
-  })
+      obs.setData();
+    });
+    expect(handler).toBeCalledTimes(1);
+    expect(obs.cc).toEqual(21);
+    obs.aa.bb = 321;
+    expect(handler).toBeCalledTimes(1);
+    expect(obs.cc).toEqual(21);
+  });
 
   test('action.scope', () => {
     const obs = define(
@@ -331,10 +332,10 @@ describe('annotation action', () => {
         cc: null,
         dd: null,
         scope1() {
-          this.aa = 123
+          this.aa = 123;
         },
         scope2() {
-          this.cc = 'ccccc'
+          this.cc = 'ccccc';
         },
       },
       {
@@ -344,24 +345,24 @@ describe('annotation action', () => {
         dd: observable,
         scope1: action.scope,
         scope2: action.scope,
-      }
-    )
+      },
+    );
 
-    const handler = jest.fn()
+    const handler = vi.fn();
 
     autorun(() => {
-      handler(obs.aa, obs.bb, obs.cc, obs.dd)
-    })
+      handler(obs.aa, obs.bb, obs.cc, obs.dd);
+    });
 
     action(() => {
-      obs.scope1()
-      obs.scope2()
-      obs.bb = 321
-      obs.dd = 'ddddd'
-    })
+      obs.scope1();
+      obs.scope2();
+      obs.bb = 321;
+      obs.dd = 'ddddd';
+    });
 
-    expect(handler).toBeCalledTimes(4)
-  })
+    expect(handler).toBeCalledTimes(4);
+  });
 
   test('action.scope bound', () => {
     const obs = define(
@@ -371,10 +372,10 @@ describe('annotation action', () => {
         cc: null,
         dd: null,
         scope1() {
-          this.aa = 123
+          this.aa = 123;
         },
         scope2() {
-          this.cc = 'ccccc'
+          this.cc = 'ccccc';
         },
       },
       {
@@ -384,24 +385,24 @@ describe('annotation action', () => {
         dd: observable,
         scope1: action.scope.bound,
         scope2: action.scope.bound,
-      }
-    )
+      },
+    );
 
-    const handler = jest.fn()
+    const handler = vi.fn();
 
     autorun(() => {
-      handler(obs.aa, obs.bb, obs.cc, obs.dd)
-    })
+      handler(obs.aa, obs.bb, obs.cc, obs.dd);
+    });
 
     action(() => {
-      obs.scope1()
-      obs.scope2()
-      obs.bb = 321
-      obs.dd = 'ddddd'
-    })
+      obs.scope1();
+      obs.scope2();
+      obs.bb = 321;
+      obs.dd = 'ddddd';
+    });
 
-    expect(handler).toBeCalledTimes(4)
-  })
+    expect(handler).toBeCalledTimes(4);
+  });
 
   test('action.scope track', () => {
     const obs = define(
@@ -412,8 +413,8 @@ describe('annotation action', () => {
         cc: 1,
         scope() {
           if (this.cc > 0) {
-            handler(this.aa.bb)
-            this.cc = this.cc + 20
+            handler(this.aa.bb);
+            this.cc = this.cc + 20;
           }
         },
       },
@@ -421,18 +422,18 @@ describe('annotation action', () => {
         aa: observable,
         cc: observable,
         scope: action.scope,
-      }
-    )
-    const handler = jest.fn()
+      },
+    );
+    const handler = vi.fn();
     autorun(() => {
-      obs.scope()
-    })
-    expect(handler).toBeCalledTimes(1)
-    expect(obs.cc).toEqual(21)
-    obs.aa.bb = 321
-    expect(handler).toBeCalledTimes(1)
-    expect(obs.cc).toEqual(21)
-  })
+      obs.scope();
+    });
+    expect(handler).toBeCalledTimes(1);
+    expect(obs.cc).toEqual(21);
+    obs.aa.bb = 321;
+    expect(handler).toBeCalledTimes(1);
+    expect(obs.cc).toEqual(21);
+  });
 
   test('action.scope bound track', () => {
     const obs = define(
@@ -443,8 +444,8 @@ describe('annotation action', () => {
         cc: 1,
         scope() {
           if (this.cc > 0) {
-            handler(this.aa.bb)
-            this.cc = this.cc + 20
+            handler(this.aa.bb);
+            this.cc = this.cc + 20;
           }
         },
       },
@@ -452,80 +453,80 @@ describe('annotation action', () => {
         aa: observable,
         cc: observable,
         scope: action.scope.bound,
-      }
-    )
-    const handler = jest.fn()
+      },
+    );
+    const handler = vi.fn();
     autorun(() => {
-      obs.scope()
-    })
-    expect(handler).toBeCalledTimes(1)
-    expect(obs.cc).toEqual(21)
-    obs.aa.bb = 321
-    expect(handler).toBeCalledTimes(1)
-    expect(obs.cc).toEqual(21)
-  })
-})
+      obs.scope();
+    });
+    expect(handler).toBeCalledTimes(1);
+    expect(obs.cc).toEqual(21);
+    obs.aa.bb = 321;
+    expect(handler).toBeCalledTimes(1);
+    expect(obs.cc).toEqual(21);
+  });
+});
 
 test('nested action to reaction', () => {
   const obs = observable({
     aa: 0,
-  })
-  const handler = jest.fn()
+  });
+  const handler = vi.fn();
   reaction(
     () => obs.aa,
-    (v) => handler(v)
-  )
+    (v) => handler(v),
+  );
   action(() => {
-    obs.aa = 1
+    obs.aa = 1;
     action(() => {
-      obs.aa = 2
-    })
-  })
+      obs.aa = 2;
+    });
+  });
   action(() => {
-    obs.aa = 3
+    obs.aa = 3;
     action(() => {
-      obs.aa = 4
-    })
-  })
-  expect(handler).nthCalledWith(1, 2)
-  expect(handler).nthCalledWith(2, 4)
-  expect(handler).toBeCalledTimes(2)
-})
+      obs.aa = 4;
+    });
+  });
+  expect(handler).nthCalledWith(1, 2);
+  expect(handler).nthCalledWith(2, 4);
+  expect(handler).toBeCalledTimes(2);
+});
 
 test('nested action/batch to reaction', () => {
   const obs = define(
     {
       bb: 0,
       get aa() {
-        return this.bb
+        return this.bb;
       },
       set aa(v) {
-        this.bb = v
+        this.bb = v;
       },
     },
     {
       aa: observable.computed,
       bb: observable,
-    }
-  )
-  const handler = jest.fn()
+    },
+  );
+  const handler = vi.fn();
   reaction(
     () => obs.aa,
-    (v) => handler(v)
-  )
+    (v) => handler(v),
+  );
   action(() => {
-    obs.aa = 1
+    obs.aa = 1;
     batch(() => {
-      obs.aa = 2
-    })
-  })
+      obs.aa = 2;
+    });
+  });
   action(() => {
-    obs.aa = 3
+    obs.aa = 3;
     batch(() => {
-      obs.aa = 4
-    })
-  })
-  expect(handler).nthCalledWith(1, 2)
-  expect(handler).nthCalledWith(2, 4)
-  expect(handler).toBeCalledTimes(2)
-})
+      obs.aa = 4;
+    });
+  });
+  expect(handler).nthCalledWith(1, 2);
+  expect(handler).nthCalledWith(2, 4);
+  expect(handler).toBeCalledTimes(2);
+});

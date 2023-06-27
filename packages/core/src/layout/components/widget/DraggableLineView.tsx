@@ -51,8 +51,6 @@ export const DraggableLineView = defineComponent({
     const onDragChange = (type: 'start' | 'end') => {
       const editor = props.widget.skeleton.editor;
       editor?.eventBus.emit('dockpane.dragchange', type);
-      // builtinSimulator 屏蔽掉 鼠标事件
-      editor?.eventBus.emit('designer.builtinSimulator.disabledEvents', type === 'start');
     };
 
     return {
@@ -64,10 +62,7 @@ export const DraggableLineView = defineComponent({
   },
   render() {
     const { ns } = this;
-    const isRightArea = this.widget.config?.area === 'rightArea';
-    if (isRightArea) {
-      return null;
-    }
+
     return (
       <DraggableLine
         ref={(ref) => {

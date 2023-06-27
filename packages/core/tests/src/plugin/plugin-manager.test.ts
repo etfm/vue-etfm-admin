@@ -104,7 +104,7 @@ describe('plugin 测试', () => {
     pluginManager.register(creator2);
     await pluginManager.init();
     expect(pluginManager.demo1).toBeTruthy();
-    pluginManager.get('demo1').setDisabled();
+    pluginManager.get('demo1')?.setDisabled();
     expect(pluginManager.demo1).toBeUndefined();
   });
 

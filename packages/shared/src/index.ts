@@ -10,3 +10,7 @@ export * from './browser';
 export { default as vueShared } from '@vue/shared';
 export * from './event';
 export * from './prop';
+export * from './trigger-event';
+export * from './is';
+export * from './objects';
+export * from './style';

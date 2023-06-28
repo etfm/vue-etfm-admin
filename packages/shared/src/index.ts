@@ -14,3 +14,4 @@ export * from './trigger-event';
 export * from './is';
 export * from './objects';
 export * from './style';
+export * from './vnode';

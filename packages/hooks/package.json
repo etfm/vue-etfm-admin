@@ -32,10 +32,14 @@
     "test": "node ./__tests__/@etfma/hooks.test.js"
   },
   "dependencies": {
+    "@etfma/shared": "workspace:^0.0.0",
     "@vueuse/core": "^9.13.0",
     "vue": "^3.2.47"
   },
   "publishConfig": {
     "access": "public"
+  },
+  "devDependencies": {
+    "@etfma/types": "workspace:^0.0.0"
   }
 }

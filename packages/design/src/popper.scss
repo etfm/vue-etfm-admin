@@ -1,0 +1,107 @@
+@use './shared' as *;
+@use 'mixins/var' as *;
+@use 'common/var' as *;
+
+@include b(popper) {
+  @include set-component-css-var('popper', $popper);
+}
+
+@include b(popper) {
+  $arrow-selector: #{& + '__arrow'};
+  $placements: (
+    'top': 'bottom',
+    'bottom': 'top',
+    'left': 'right',
+    'right': 'left',
+  );
+
+  @each $placement, $opposite in $placements {
+    &[data-popper-placement^='#{$placement}'] > #{$arrow-selector} {
+      #{$opposite}: -5px;
+
+      &::before {
+        @if $placement == top {
+          border-bottom-right-radius: 2px;
+        }
+
+        @if $placement == bottom {
+          border-top-left-radius: 2px;
+        }
+
+        @if $placement == left {
+          border-top-right-radius: 2px;
+        }
+
+        @if $placement == right {
+          border-bottom-left-radius: 2px;
+        }
+      }
+    }
+  }
+
+  @each $placement,
+    $adjacency in ('top': 'left', 'bottom': 'right', 'left': 'bottom', 'right': 'top')
+  {
+    &[data-popper-placement^='#{$placement}'] {
+      #{$arrow-selector}::before {
+        border-#{$placement}-color: transparent !important;
+        border-#{$adjacency}-color: transparent !important;
+      }
+    }
+  }
+
+  position: absolute;
+  z-index: 2000;
+  min-width: 10px;
+  padding: 5px 11px;
+  font-size: 12px;
+  line-height: 20px;
+  word-wrap: break-word;
+  visibility: visible;
+  border-radius: getCssVar('popper', 'border-radius');
+
+  @include when(dark) {
+    color: getCssVar('bg-color');
+    background: getCssVar('text-color', 'primary');
+    border: 1px solid getCssVar('text-color', 'primary');
+
+    #{$arrow-selector}::before {
+      right: 0;
+      background: getCssVar('text-color', 'primary');
+      border: 1px solid getCssVar('text-color', 'primary');
+    }
+  }
+
+  @include when(light) {
+    background: getCssVar('bg-color', 'overlay');
+    border: 1px solid getCssVar('border-color', 'light');
+
+    #{$arrow-selector}::before {
+      right: 0;
+      background: getCssVar('bg-color', 'overlay');
+      border: 1px solid getCssVar('border-color', 'light');
+    }
+  }
+
+  @include when(pure) {
+    padding: 0;
+  }
+
+  @include e(arrow) {
+    position: absolute;
+    z-index: -1;
+    width: 10px;
+    height: 10px;
+
+    &::before {
+      position: absolute;
+      z-index: -1;
+      box-sizing: border-box;
+      width: 10px;
+      height: 10px;
+      content: ' ';
+      background: getCssVar('text-color', 'primary');
+      transform: rotate(45deg);
+    }
+  }
+}

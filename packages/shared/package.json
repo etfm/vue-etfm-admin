@@ -31,6 +31,7 @@
     "test": "node ./__tests__/@etfma/shared.test.js"
   },
   "dependencies": {
+    "@vue/shared": "^3.3.4",
     "@vueuse/core": "^9.13.0",
     "@vueuse/shared": "^9.13.0",
     "dayjs": "^1.11.7",

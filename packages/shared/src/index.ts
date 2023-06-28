@@ -1,4 +1,4 @@
-export * from './with-install';
+export * from './install';
 export { default as lodash } from 'lodash-es';
 export * from './logger';
 export * from './treeHelper';
@@ -6,3 +6,7 @@ export * from './env';
 export * from './mitt';
 export * from './inference';
 export * from './cache';
+export * from './browser';
+export { default as vueShared } from '@vue/shared';
+export * from './event';
+export * from './prop';

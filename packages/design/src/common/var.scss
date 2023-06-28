@@ -187,3 +187,13 @@ $float-area: map.merge(
   ),
   $float-area
 );
+
+// popper
+// Pay attention to the difference between 'popper' and 'popover'
+$popper: () !default;
+$popper: map.merge(
+  (
+    'border-radius': var(#{getCssVarName('popover-border-radius')}, 4px),
+  ),
+  $popper
+);

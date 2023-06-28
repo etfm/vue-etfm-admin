@@ -40,10 +40,13 @@
     "@etfma/hooks": "workspace:*",
     "@etfma/icons": "workspace:^0.0.0",
     "@etfma/plugin": "workspace:*",
-    "@etfma/shared": "workspace:*"
+    "@etfma/shared": "workspace:*",
+    "@popperjs/core": "^2.11.8",
+    "@vueuse/core": "^9.13.0"
   },
   "devDependencies": {
-    "@etfma/types": "workspace:*"
+    "@etfma/types": "workspace:*",
+    "@vue/runtime-core": "^3.3.4"
   },
   "publishConfig": {
     "access": "public"

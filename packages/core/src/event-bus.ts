@@ -69,18 +69,18 @@ export class EventBus implements IEventBus {
     this.getLogger().debug(`${this.getMsgPrefix('emit')} name: ${event}, args: `, ...args);
   }
 
-  removeListener(event: string | number, listener: (...args: any[]) => void): any {
+  removeListener(event: string | symbol, listener: (...args: any[]) => void): any {
     return this.eventEmitter.removeListener(event, listener);
   }
 
-  addListener(event: string | number, listener: (...args: any[]) => void): any {
+  addListener(event: string | symbol, listener: (...args: any[]) => void): any {
     return this.eventEmitter.addListener(event, listener);
   }
 
   setMaxListeners(n: number): any {
     return this.eventEmitter.setMaxListeners(n);
   }
-  removeAllListeners(event?: string | number): any {
+  removeAllListeners(event?: string | symbol): any {
     return this.eventEmitter.removeAllListeners(event);
   }
 }

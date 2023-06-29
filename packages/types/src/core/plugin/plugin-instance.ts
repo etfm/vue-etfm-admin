@@ -36,9 +36,4 @@ export interface IPublicModelPluginInstance {
    * 初始化插件
    */
   init(forceInit?: boolean): void;
-
-  /**
-   * 是否禁用
-   */
-  setDisabled(flag?: boolean): void;
 }

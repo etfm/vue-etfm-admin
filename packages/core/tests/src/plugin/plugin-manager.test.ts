@@ -3,8 +3,10 @@ import { Editor } from '../../../src/editor';
 import { PluginManager } from '../../../src/plugin';
 import {
   IPluginContextPrivate,
+  IPluginRuntime,
   IPublicApiPlugins,
   IPublicModelPluginContext,
+  IPublicModelPluginInstance,
   IPublicPluginContext,
 } from '@etfma/types';
 import { engineConfig } from '../../../src/config';
@@ -104,7 +106,7 @@ describe('plugin 测试', () => {
     pluginManager.register(creator2);
     await pluginManager.init();
     expect(pluginManager.demo1).toBeTruthy();
-    pluginManager.get('demo1')?.setDisabled();
+    (pluginManager.get('demo1') as unknown as IPluginRuntime)?.setDisabled();
     expect(pluginManager.demo1).toBeUndefined();
   });
 

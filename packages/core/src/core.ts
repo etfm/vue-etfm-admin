@@ -18,6 +18,7 @@ import {
   IPluginContextApiAssembler,
   IPluginContextPrivate,
   IPluginPreference,
+  IPublicApiPlugins,
   IPublicTypeEngineOptions,
   IPublicTypePluginMeta,
 } from '@etfma/types';
@@ -42,7 +43,7 @@ const config = new Config(engineConfig);
 const event = new Event(commonEvent, { prefix: 'common' });
 const logger = new Logger({ bizName: 'common' });
 const common = new Common(innerSkeleton);
-let plugins: Plugins;
+let plugins: IPublicApiPlugins;
 
 const pluginContextApiAssembler: IPluginContextApiAssembler = {
   assembleApis: (

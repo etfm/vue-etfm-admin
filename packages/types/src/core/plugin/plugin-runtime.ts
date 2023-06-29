@@ -12,8 +12,9 @@ export interface IPluginRuntimeCore {
   inited: boolean;
   init(forceInit?: boolean): void;
   destroy(): void;
+  dispose(): void;
   toProxy(): any;
-  setDisabled(flag: boolean): void;
+  setDisabled(flag?: boolean): void;
 }
 
 interface IPluginRuntimeExportsAccessor {

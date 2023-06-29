@@ -8,6 +8,16 @@ export class PluginInstance implements IPublicModelPluginInstance {
     this[pluginInstanceSymbol] = pluginInstance;
   }
 
+  inited: boolean;
+
+  dispose(): void {
+    this[pluginInstanceSymbol].dispose();
+  }
+
+  init(forceInit?: boolean | undefined): void {
+    this[pluginInstanceSymbol].init(forceInit);
+  }
+
   get pluginName(): string {
     return this[pluginInstanceSymbol].name;
   }

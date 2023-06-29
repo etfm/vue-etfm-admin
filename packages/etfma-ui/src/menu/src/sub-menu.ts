@@ -20,8 +20,8 @@ import EtfmaTooltip from '../../tooltip';
 import { buildProps, loggerError, lodash, definePropType } from '@etfma/shared';
 import { useDeprecated } from './utils/use-deprecated';
 import { useNamespace } from '@etfma/hooks';
-import { ArrowDown, ArrowRight } from '@element-plus/icons-vue';
-import { ElIcon } from 'element-plus';
+import { ArrowDown, ArrowRight } from './svg';
+import { EtfmaIcon } from '../../icon';
 import useMenu from './use-menu';
 import { useMenuCssVar } from './use-menu-css-var';
 
@@ -304,7 +304,7 @@ export default defineComponent({
       const titleTag: VNodeArrayChildren = [
         slots.title?.(),
         h(
-          ElIcon,
+          EtfmaIcon,
           {
             class: nsSubMenu.e('icon-arrow'),
             style: {

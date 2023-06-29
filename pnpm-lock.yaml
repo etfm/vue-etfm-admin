@@ -444,9 +444,6 @@ importers:
       '@etfma/hooks':
         specifier: workspace:*
         version: link:../hooks
-      '@etfma/icons':
-        specifier: workspace:^0.0.0
-        version: link:../icons
       '@etfma/plugin':
         specifier: workspace:*
         version: link:../plugin

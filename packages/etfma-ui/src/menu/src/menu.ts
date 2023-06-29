@@ -13,8 +13,8 @@ import {
 } from 'vue';
 import { useResizeObserver } from '@vueuse/core';
 import { lodash, buildProps, definePropType, flattedChildren } from '@etfma/shared';
-import { ElIcon } from 'element-plus';
-import { More } from '@element-plus/icons-vue';
+import { EtfmaIcon } from '../../icon';
+import { More } from './svg';
 import { useNamespace } from '@etfma/hooks';
 import Menubar from './utils/menu-bar';
 import EtfmaMenuCollapseTransition from './menu-collapse-transition.vue';
@@ -361,7 +361,7 @@ export default defineComponent({
               {
                 title: () =>
                   h(
-                    ElIcon,
+                    EtfmaIcon,
                     {
                       class: nsSubMenu.e('icon-more'),
                     },

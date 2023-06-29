@@ -4,13 +4,9 @@ import 'modern-normalize';
 import './common/global.scss';
 // /** 元素进入动画 */
 import './common/entry.scss';
-
 import './var.scss';
-
 import './popper.scss';
-
 import './tooltip.scss';
-
 import './menu.scss';
-
 import './icon.scss';
+import './tag.scss';

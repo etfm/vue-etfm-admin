@@ -17,6 +17,9 @@
   @include set-component-css-var('transition-duration', $transition-duration);
   @include set-component-css-var('transition-function', $transition-function);
   @include set-component-css-var('transition', $transition);
+
+  // component size
+  @include set-component-css-var('component-size', $common-component-size);
 }
 
 // 颜色相关
@@ -54,4 +57,13 @@
   // overlay & mask
   @include set-component-css-var('overlay-color', $overlay-color);
   @include set-component-css-var('mask-color', $mask-color);
+
+  // Border
+  @include set-css-var-value('border-width', $border-width);
+  @include set-css-var-value('border-style', $border-style);
+  @include set-css-var-value('border-color-hover', $border-color-hover);
+  @include set-css-var-value(
+    'border',
+    getCssVar('border-width') getCssVar('border-style') getCssVar('border-color')
+  );
 }

@@ -25,6 +25,7 @@ export default {
     'scss/dollar-variable-pattern': null,
     'scss/no-global-function-names': null,
     'scss/at-function-pattern': null,
+    'scss/at-mixin-pattern': null,
     'no-duplicate-selectors': null,
 
     'function-name-case': null,

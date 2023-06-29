@@ -1,0 +1,46 @@
+@use 'shared' as *;
+
+.#{$namespace}-icon-loading {
+  animation: rotating 2s linear infinite;
+}
+
+.#{$namespace}-icon--right {
+  margin-left: 5px;
+}
+.#{$namespace}-icon--left {
+  margin-right: 5px;
+}
+
+@keyframes rotating {
+  0% {
+    transform: rotateZ(0deg);
+  }
+
+  100% {
+    transform: rotateZ(360deg);
+  }
+}
+
+@include b(icon) {
+  --color: inherit;
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1em;
+  height: 1em;
+  font-size: inherit;
+  line-height: 1em;
+  color: var(--color);
+  fill: currentcolor;
+
+  @include when(loading) {
+    animation: rotating 2s linear infinite;
+  }
+
+  svg {
+    width: 1em;
+    height: 1em;
+  }
+}

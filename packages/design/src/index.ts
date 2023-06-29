@@ -12,3 +12,5 @@ import './popper.scss';
 import './tooltip.scss';
 
 import './menu.scss';
+
+import './icon.scss';

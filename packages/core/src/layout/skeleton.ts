@@ -181,14 +181,7 @@ export class Skeleton implements ISkeleton {
       ...extraConfig,
     };
 
-    let { area } = parsedConfig;
-    if (!area) {
-      if (parsedConfig.type === 'Widget') {
-        area = 'main';
-      } else {
-        area = 'aside';
-      }
-    }
+    const { area } = parsedConfig;
 
     switch (area) {
       case 'aside':

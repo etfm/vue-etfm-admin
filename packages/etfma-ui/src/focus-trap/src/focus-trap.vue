@@ -21,8 +21,6 @@
     FOCUS_AFTER_TRAPPED,
     FOCUS_AFTER_TRAPPED_OPTS,
     FOCUS_TRAP_INJECTION_KEY,
-    ON_RELEASE_FOCUS_EVT,
-    ON_TRAP_FOCUS_EVT,
   } from './tokens';
 
   import type { FocusLayer } from './utils';
@@ -45,8 +43,8 @@
   });
 
   const emit = defineEmits<{
-    [ON_TRAP_FOCUS_EVT]: [e: any];
-    [ON_RELEASE_FOCUS_EVT]: [e: any];
+    focusAfterTrapped: [e: any];
+    focusAfterReleased: [e: any];
     focusin: [e: any];
     focusout: [e: any];
     'focusout-prevented': [e: any];
@@ -151,9 +149,9 @@
   });
 
   const trapOnFocus = (e: Event) => {
-    emit(ON_TRAP_FOCUS_EVT, e);
+    emit('focusAfterTrapped', e);
   };
-  const releaseOnFocus = (e: Event) => emit(ON_RELEASE_FOCUS_EVT, e);
+  const releaseOnFocus = (e: Event) => emit('focusAfterReleased', e);
 
   const onFocusIn = (e: FocusEvent) => {
     const trapContainer = unref(forwardRef);

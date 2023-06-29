@@ -28,7 +28,7 @@ export const ToolbarArea = observer(
       const center: any[] = [];
       const right: any[] = [];
       area.items.forEach((item) => {
-        const content = <div key={ns.b(`${item.align}-${item.name}`)}>{item.content}</div>;
+        const content = item.content;
         if (item.align === 'center') {
           center.push(content);
         } else if (item.align === 'right') {

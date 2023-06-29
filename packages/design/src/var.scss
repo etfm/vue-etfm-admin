@@ -1,18 +1,28 @@
-@use 'common/var' as *;
-@use 'mixins/var' as *;
 @use 'shared' as *;
 
-// 字体大小相关
+// common
 :root {
   @include set-component-css-var('font-size', $font-size);
   @include set-component-css-var('font-family', $font-family);
 
+  // z-index --etfma-index-#{$type}
+  @include set-component-css-var('index', $z-index);
+
   // --etfma-border-radius-#{$type}
   @include set-component-css-var('border-radius', $border-radius);
+
+  // Transition
+  // refer to this website to get the bezier motion function detail
+  // https://cubic-bezier.com/#p1,p2,p3,p4 (change px as your function parameter)
+  @include set-component-css-var('transition-duration', $transition-duration);
+  @include set-component-css-var('transition-function', $transition-function);
+  @include set-component-css-var('transition', $transition);
 }
 
 // 颜色相关
 :root {
+  // --etfma-color-#{$type}
+  // --etfma-color-#{$type}-light-{$i}
   @each $type in $types {
     @include set-css-color-type($colors, $type);
   }
@@ -37,4 +47,11 @@
 
   // --etfma-box-shadow-#{$type}
   @include set-component-css-var('box-shadow', $box-shadow);
+
+  // Disable base
+  @include set-component-css-var('disabled', $disabled);
+
+  // overlay & mask
+  @include set-component-css-var('overlay-color', $overlay-color);
+  @include set-component-css-var('mask-color', $mask-color);
 }

@@ -1,10 +1,10 @@
 <script setup lang="ts">
   import { ElScrollbar } from 'element-plus';
-  import { computed, CSSProperties, reactive } from 'vue';
-  import { useLayoutMenu } from './useLayoutMenu';
+  import { computed, CSSProperties, reactive, ref } from 'vue';
+  // import { useLayoutMenu } from './useLayoutMenu';
   import { BasicMenu } from '@etfma/element-ui';
   import { listenerRouteChange } from '@/logics/mitt';
-  import { useGo } from '@etfma/router';
+  // import { useGo } from '@etfma/router';
   import { lodash } from '@etfma/shared';
 
   defineOptions({
@@ -33,9 +33,40 @@
     defaultActive: '',
   });
 
-  const { menuRef } = useLayoutMenu();
+  // const { menuRef } = useLayoutMenu();
 
-  const go = useGo();
+  const menuRef = ref([
+    {
+      path: '1',
+      name: 'Menu 1',
+      children: [
+        {
+          path: '1.1',
+          name: 'Menu 1.1',
+          children: [
+            {
+              path: '1.1.1',
+              name: 'Menu 1.1.1',
+            },
+            {
+              path: '1.1.2',
+              name: 'Menu 1.1.2',
+            },
+          ],
+        },
+        {
+          path: '1.2',
+          name: 'Menu 1.2',
+        },
+      ],
+    },
+    {
+      path: '2',
+      name: 'Menu 2',
+    },
+  ]);
+
+  // const go = useGo();
 
   const getWrapperStyle = computed((): CSSProperties => {
     return {
@@ -59,7 +90,7 @@
    * 跳转路由
    */
   function handleClick(path: string) {
-    go(path);
+    // go(path);
   }
 </script>
 

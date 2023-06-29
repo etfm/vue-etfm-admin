@@ -1,6 +1,5 @@
 <template>
   <div :class="[ns.b(), 'relative h-full']">
-    <AppLogo v-if="hasLogo" />
     <LayoutMenu :is-collapse="isCollapse" />
     <div class="absolute right-5 bottom-3"
       ><LayoutTrigger :is-collapse="isCollapse" @toggle="toggleCollapsed" />
@@ -11,11 +10,10 @@
   import LayoutMenu from '../components/menu/index.vue';
   import { useNamespace } from '@etfma/hooks';
   import LayoutTrigger from '../components/trigger/index.vue';
-  import AppLogo from '../components/logo/AppLogo.vue';
-  import { computed } from 'vue';
 
   defineOptions({
     name: 'LayoutSider',
+    inheritAttrs: false,
   });
 
   interface Props {
@@ -39,8 +37,6 @@
 
   const ns = useNamespace('layout-menu');
 
-  const hasLogo = computed(() => props.layout === 'side-nav');
-
   /**
    * 折叠
    * @param collapse
@@ -49,7 +45,8 @@
     emit('toggle', collapse);
   };
 </script>
-<style scoped lang="scss" module>
+<style scoped lang="scss">
   @include b('layout-menu') {
+    width: 220px;
   }
 </style>

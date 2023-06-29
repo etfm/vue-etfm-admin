@@ -6,7 +6,7 @@
     @click="handleClick"
   >
     <etfma-tooltip
-      v-if="parentMenu.type.name === 'ElMenu' && rootMenu?.props.collapse && $slots.title"
+      v-if="parentMenu.type.name === 'EtfmaMenu' && rootMenu?.props.collapse && $slots.title"
       :effect="rootMenu.props.popperEffect"
       placement="right"
       :fallback-placements="['left']"
@@ -44,7 +44,7 @@
 
   import type { MenuProvider, SubMenuProvider } from './types';
 
-  const COMPONENT_NAME = 'ElMenuItem';
+  const COMPONENT_NAME = 'EtfmaMenuItem';
 
   defineOptions({
     name: 'EtfmaMenuItem',

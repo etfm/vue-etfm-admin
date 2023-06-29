@@ -1,11 +1,11 @@
 @use '@etfma/design/shared' as *;
 
 @include b('toolbar-area') {
-  display: flex;
   display: none;
+  width: 100%;
 
   @include when('visible') {
-    display: block;
+    display: flex;
   }
 
   @include b('toolbar-area-center') {

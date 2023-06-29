@@ -2,7 +2,7 @@
   import type { MenuRecordRaw } from '@etfma/types';
   import BasicMenuItem from './BasicMenuItem.vue';
   import { computed } from 'vue';
-  import { ElSubMenu } from 'element-plus';
+  import { EtfmaSubMenu } from '@etfma/etfma-ui';
   import BasicMenuItemContent from './BasicMenuItemContent.vue';
 
   defineOptions({
@@ -42,14 +42,14 @@
 
 <template>
   <BasicMenuItem v-if="!hasChildren" :menu="menu" :show-title="showTitle" />
-  <ElSubMenu v-else :index="menu.path">
+  <EtfmaSubMenu v-else :index="menu.path">
     <template #title>
       <BasicMenuItemContent :show-title="showTitle" :menu="menu"></BasicMenuItemContent>
     </template>
     <template v-for="item in menu.children || []" :key="item.path">
       <BasicSubMenu :menu="item"></BasicSubMenu>
     </template>
-  </ElSubMenu>
+  </EtfmaSubMenu>
 </template>
 
 <style module lang="scss" scoped></style>

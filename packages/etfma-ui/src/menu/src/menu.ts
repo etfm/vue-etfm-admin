@@ -12,15 +12,15 @@ import {
   watchEffect,
 } from 'vue';
 import { useResizeObserver } from '@vueuse/core';
-import { lodash, buildProps, definePropType, mutable } from '@etfma/shared';
-import ElIcon from '@element-plus/components/icon';
+import { lodash, buildProps, definePropType, flattedChildren } from '@etfma/shared';
+import { ElIcon } from 'element-plus';
 import { More } from '@element-plus/icons-vue';
-import { flattedChildren } from '@etfma/shared';
 import { useNamespace } from '@etfma/hooks';
 import Menubar from './utils/menu-bar';
-import ElMenuCollapseTransition from './menu-collapse-transition.vue';
-import ElSubMenu from './sub-menu';
+import EtfmaMenuCollapseTransition from './menu-collapse-transition.vue';
+import EtfmaSubMenu from './sub-menu';
 import { useMenuCssVar } from './use-menu-css-var';
+import { mutable } from '@etfma/types';
 
 import type { MenuItemClicked, MenuProvider, SubMenuProvider } from './types';
 import type { NavigationFailure, Router } from '@etfma/types';
@@ -91,7 +91,7 @@ export const menuEmits = {
 export type MenuEmits = typeof menuEmits;
 
 export default defineComponent({
-  name: 'ElMenu',
+  name: 'EtfmaMenu',
 
   props: menuProps,
   emits: menuEmits,
@@ -353,7 +353,7 @@ export default defineComponent({
           slot = slotDefault;
           vShowMore.push(
             h(
-              ElSubMenu,
+              EtfmaSubMenu,
               {
                 index: 'sub-menu-more',
                 class: nsSubMenu.e('hide-arrow'),
@@ -393,7 +393,7 @@ export default defineComponent({
       );
 
       if (props.collapseTransition && props.mode === 'vertical') {
-        return h(ElMenuCollapseTransition, () => vMenu);
+        return h(EtfmaMenuCollapseTransition, () => vMenu);
       }
 
       return vMenu;

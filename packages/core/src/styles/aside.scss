@@ -4,7 +4,6 @@
   display: none;
   flex-direction: column;
   flex-shrink: 0;
-  justify-content: space-between;
   height: 100%;
   overflow: hidden;
 
@@ -14,17 +13,20 @@
 
   @include b('aside-area-top') {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
+    width: 100%;
+  }
+
+  @include b('aside-area-center') {
+    display: flex;
+    flex: 1;
+    align-items: center;
     width: 100%;
   }
 
   @include b('aside-area-bottom') {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
     width: 100%;
   }
 }

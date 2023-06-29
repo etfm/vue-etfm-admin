@@ -36,7 +36,9 @@
     "test": "node ./__tests__/@etfma/http.test.js"
   },
   "dependencies": {
+    "@ctrl/tinycolor": "^3.6.0",
     "@etfma/design": "workspace:*",
+    "@etfma/etfma-ui": "workspace:^0.0.0",
     "@etfma/hooks": "workspace:*",
     "@etfma/icons": "workspace:^0.0.0",
     "@etfma/plugin": "workspace:*",

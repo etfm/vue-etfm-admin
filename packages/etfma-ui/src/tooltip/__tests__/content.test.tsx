@@ -3,7 +3,6 @@ import { mount } from '@vue/test-utils';
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 import { usePopperContainer } from '../../popper';
 import { TOOLTIP_INJECTION_KEY } from '../index';
-import { genTooltipProvides } from '../test-helper/provides';
 import ElTooltipContent from '../src/content.vue';
 
 import type { VueWrapper } from '@vue/test-utils';

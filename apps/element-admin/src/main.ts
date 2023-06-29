@@ -5,6 +5,7 @@ import { plugins, init, skeleton } from '@etfma/core';
 import type { IPublicPluginContext, IPublicTypePlugin } from '@etfma/core';
 import Analysis from '@/views/dashboard/analysis/index.vue';
 import { h } from 'vue';
+import LayoutSider from '@/layouts/sider/layout-sider.vue';
 
 async function boostrap() {
   const buildSkeleton: IPublicTypePlugin = (_: IPublicPluginContext) => {
@@ -20,22 +21,19 @@ async function boostrap() {
             logo: 'https://img.alicdn.com/imgextra/i4/O1CN013w2bmQ25WAIha4Hx9_!!6000000007533-55-tps-137-26.svg',
             href: 'https://lowcode-engine.cn',
           },
-          props: {
-            align: 'left',
-          },
         });
 
         skeleton.add({
           area: 'aside',
           type: 'Widget',
           name: 'leftArea',
-          content: 'logo',
+          content: h(LayoutSider, {
+            isCollapse: false,
+            layout: 'side-nav',
+          }),
           contentProps: {
             logo: 'https://img.alicdn.com/imgextra/i4/O1CN013w2bmQ25WAIha4Hx9_!!6000000007533-55-tps-137-26.svg',
             href: 'https://lowcode-engine.cn',
-          },
-          props: {
-            align: 'left',
           },
         });
 
@@ -59,9 +57,6 @@ async function boostrap() {
             logo: 'https://img.alicdn.com/imgextra/i4/O1CN013w2bmQ25WAIha4Hx9_!!6000000007533-55-tps-137-26.svg',
             href: 'https://lowcode-engine.cn',
           },
-          props: {
-            align: 'left',
-          },
         });
 
         skeleton.add({
@@ -73,9 +68,6 @@ async function boostrap() {
             logo: 'https://img.alicdn.com/imgextra/i4/O1CN013w2bmQ25WAIha4Hx9_!!6000000007533-55-tps-137-26.svg',
             href: 'https://lowcode-engine.cn',
           },
-          props: {
-            align: 'left',
-          },
         });
 
         skeleton.add({
@@ -86,9 +78,6 @@ async function boostrap() {
           contentProps: {
             logo: 'https://img.alicdn.com/imgextra/i4/O1CN013w2bmQ25WAIha4Hx9_!!6000000007533-55-tps-137-26.svg',
             href: 'https://lowcode-engine.cn',
-          },
-          props: {
-            align: 'left',
           },
         });
 
@@ -102,7 +91,6 @@ async function boostrap() {
             href: 'https://lowcode-engine.cn',
           },
           props: {
-            align: 'left',
             enableDrag: true,
           },
         });

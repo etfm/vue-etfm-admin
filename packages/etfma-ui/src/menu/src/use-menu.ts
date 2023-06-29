@@ -5,7 +5,7 @@ export default function useMenu(instance: ComponentInternalInstance, currentInde
   const indexPath = computed(() => {
     let parent = instance.parent!;
     const path = [currentIndex.value];
-    while (parent.type.name !== 'ElMenu') {
+    while (parent.type.name !== 'EtfmaMenu') {
       if (parent.props.index) {
         path.unshift(parent.props.index as string);
       }

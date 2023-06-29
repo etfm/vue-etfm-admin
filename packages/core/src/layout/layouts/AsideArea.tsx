@@ -22,23 +22,23 @@ export const AsideArea = observer(
     },
     render() {
       const { ns, area } = this;
-      const top: any[] = [];
-      const bottom: any[] = [];
-      area.items
-        .slice()
-        .sort((a, b) => {
-          const index1 = a.config?.index || 0;
-          const index2 = b.config?.index || 0;
-          return index1 === index2 ? 0 : index1 > index2 ? 1 : -1;
-        })
-        .forEach((item) => {
-          const content = <div key={ns.b(`${item.align}-${item.name}`)}>{item.content}</div>;
-          if (item.align === 'bottom') {
-            bottom.push(content);
-          } else {
-            top.push(content);
-          }
-        });
+      if (area.isEmpty()) {
+        return null;
+      }
+
+      const left: any[] = [];
+      const center: any[] = [];
+      const right: any[] = [];
+      area.items.forEach((item) => {
+        const content = item.content;
+        if (item.align === 'center') {
+          center.push(content);
+        } else if (item.align === 'right') {
+          right.push(content);
+        } else {
+          left.push(content);
+        }
+      });
 
       return (
         <div
@@ -46,8 +46,9 @@ export const AsideArea = observer(
             [ns.is('visible')]: area.visible,
           })}
         >
-          <div class={classNames(ns.b('top'))}>{top}</div>
-          <div class={classNames(ns.b('bottom'))}>{bottom}</div>
+          <div class={classNames(ns.b('left'))}>{left}</div>
+          <div class={classNames(ns.b('center'))}>{center}</div>
+          <div class={classNames(ns.b('right'))}>{right}</div>
         </div>
       );
     },

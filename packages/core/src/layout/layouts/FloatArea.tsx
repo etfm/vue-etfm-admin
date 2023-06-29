@@ -22,8 +22,6 @@ export const FloatArea = observer(
       const shell = ref<HTMLElement | null>(null);
 
       onMounted(() => {
-        console.log(document.querySelector(`.${ns.namespace.value}-aside-area`)?.clientWidth);
-
         const aside = document.querySelector(`.${ns.namespace.value}-aside-area`);
         left.value = aside?.clientWidth ?? 0;
 

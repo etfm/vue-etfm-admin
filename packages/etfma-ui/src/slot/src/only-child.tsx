@@ -1,5 +1,5 @@
 import { Comment, Fragment, Text, cloneVNode, defineComponent, inject, withDirectives } from 'vue';
-import { lodash, vueShared, loggerDebug } from '@etfma/shared';
+import { lodash, NOOP, loggerDebug } from '@etfma/shared';
 import { FORWARD_REF_INJECTION_KEY, useForwardRefDirective, useNamespace } from '@etfma/hooks';
 
 import type { Ref, VNode } from 'vue';
@@ -10,9 +10,7 @@ export const OnlyChild = defineComponent({
   name: NAME,
   setup(_, { slots, attrs }) {
     const forwardRefInjection = inject(FORWARD_REF_INJECTION_KEY);
-    const forwardRefDirective = useForwardRefDirective(
-      forwardRefInjection?.setForwardRef ?? vueShared.NOOP,
-    );
+    const forwardRefDirective = useForwardRefDirective(forwardRefInjection?.setForwardRef ?? NOOP);
     return () => {
       const defaultSlot = slots.default?.(attrs);
       if (!defaultSlot) return null;

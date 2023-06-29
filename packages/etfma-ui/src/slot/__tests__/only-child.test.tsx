@@ -29,7 +29,7 @@ const createComponent = (slot: Slot) => {
   });
 };
 
-describe('ElOnlyChild', () => {
+describe('EtfmaOnlyChild', () => {
   let wrapper: ReturnType<typeof createComponent>;
 
   afterEach(() => {

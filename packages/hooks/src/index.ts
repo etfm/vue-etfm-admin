@@ -6,3 +6,5 @@ export * from './use-forward-ref';
 export * from './use-id';
 export * from './use-timeout';
 export * from './use-model-toggle';
+
+export { useAsyncState, onClickOutside } from '@vueuse/core';

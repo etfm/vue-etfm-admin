@@ -21,7 +21,7 @@ import { buildProps, loggerError, lodash, definePropType } from '@etfma/shared';
 import { useDeprecated } from './utils/use-deprecated';
 import { useNamespace } from '@etfma/hooks';
 import { ArrowDown, ArrowRight } from '@element-plus/icons-vue';
-import { ElIcon } from '@element-plus/components/icon';
+import { ElIcon } from 'element-plus';
 import useMenu from './use-menu';
 import { useMenuCssVar } from './use-menu-css-var';
 
@@ -73,7 +73,7 @@ export const subMenuProps = buildProps({
 } as const);
 export type SubMenuProps = ExtractPropTypes<typeof subMenuProps>;
 
-const COMPONENT_NAME = 'ElSubMenu';
+const COMPONENT_NAME = 'EtfmaSubMenu';
 export default defineComponent({
   name: COMPONENT_NAME,
   props: subMenuProps,
@@ -256,7 +256,7 @@ export default defineComponent({
       ));
 
       if (appendToBody.value && deepDispatch) {
-        if (instance.parent?.type.name === 'ElSubMenu') {
+        if (instance.parent?.type.name === 'EtfmaSubMenu') {
           subMenu?.handleMouseleave?.(true);
         }
       }

@@ -1,10 +1,12 @@
 <script setup lang="ts">
-  import { ElMenu, useNamespace } from 'element-plus';
+  import { useNamespace } from 'element-plus';
   import BasicSubMenu from './BasicSubMenu.vue';
   import type { MenuRecordRaw } from '@etfma/types';
   import { MenuModeEnum, MenuTypeEnum, Mode } from './enum';
   import { computed, reactive, watch } from 'vue';
   import { lodash } from '@etfma/shared';
+
+  import { EtfmaMenu } from '@etfma/etfma-ui';
 
   defineOptions({
     name: 'BasicMenu',
@@ -133,7 +135,7 @@
 </script>
 
 <template>
-  <ElMenu
+  <EtfmaMenu
     :class="[ns.b()]"
     :mode="props.mode"
     :default-active="menuState.defaultActive"
@@ -147,7 +149,7 @@
     <template v-for="item in menus" :key="item.path">
       <BasicSubMenu :menu="item" :isHorizontal="isHorizontal" :collapse="hasShowTitle" />
     </template>
-  </ElMenu>
+  </EtfmaMenu>
 </template>
 
 <style scoped lang="scss">

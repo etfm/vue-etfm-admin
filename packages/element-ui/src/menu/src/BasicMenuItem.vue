@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { ElMenuItem } from 'element-plus';
+  import { EtfmaMenuItem } from '@etfma/etfma-ui';
   import BasicMenuItemContent from './BasicMenuItemContent.vue';
   import { MenuRecordRaw } from '@etfma/types';
 
@@ -22,11 +22,11 @@
 </script>
 
 <template>
-  <ElMenuItem :index="menu.path">
+  <EtfmaMenuItem :index="menu.path">
     <template #title>
       <BasicMenuItemContent :show-title="showTitle" :menu="menu" />
     </template>
-  </ElMenuItem>
+  </EtfmaMenuItem>
 </template>
 
 <style lang="scss" scoped module></style>

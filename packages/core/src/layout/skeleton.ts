@@ -167,6 +167,12 @@ export class Skeleton implements ISkeleton {
     }
     restConfig.pluginKey = restConfig.name;
     restConfig.parsed = true;
+
+    console.log('=====================================', restConfig);
+    if (!lodash.get(restConfig, 'props.align')) {
+      lodash.set(restConfig, 'props.align', 'center');
+    }
+
     return restConfig;
   }
 

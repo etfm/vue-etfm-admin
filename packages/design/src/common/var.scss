@@ -1,5 +1,6 @@
 @use 'sass:math';
 @use 'sass:map';
+@use '../mixins/function' as *;
 
 $types: primary, success, warning, danger, error, info;
 $colors: () !default;
@@ -177,6 +178,52 @@ $box-shadow: map.merge(
   $box-shadow
 );
 
+// overlay
+$overlay-color: () !default;
+$overlay-color: map.merge(
+  (
+    '': rgb(0 0 0 / 80%),
+    'light': rgb(0 0 0 / 70%),
+    'lighter': rgb(0 0 0 / 50%),
+  ),
+  $overlay-color
+);
+
+// mask
+$mask-color: () !default;
+$mask-color: map.merge(
+  (
+    '': rgb(255 255 255 / 90%),
+    'extra-light': rgb(255 255 255 / 30%),
+  ),
+  $mask-color
+);
+
+// zIndex
+$z-index: () !default;
+$z-index: map.merge(
+  (
+    'normal': 1,
+    'top': 1000,
+    'popper': 2000,
+  ),
+  $z-index
+);
+
+// Disable default
+$disabled: () !default;
+$disabled: map.merge(
+  (
+    'bg-color': getCssVar('fill-color', 'light'),
+    'text-color': getCssVar('text-color', 'placeholder'),
+    'border-color': getCssVar('border-color', 'light'),
+  ),
+  $disabled
+);
+
+// Components
+// -----------------------------
+
 // Float-Area
 $float-area: () !default;
 $float-area: map.merge(
@@ -196,4 +243,63 @@ $popper: map.merge(
     'border-radius': var(#{getCssVarName('popover-border-radius')}, 4px),
   ),
   $popper
+);
+
+// transition
+$transition: () !default;
+$transition: map.merge(
+  (
+    'all': all getCssVar('transition-duration') getCssVar('transition-function-ease-in-out-bezier'),
+    'fade': opacity getCssVar('transition-duration') getCssVar('transition-function-fast-bezier'),
+    'md-fade': (
+      transform getCssVar('transition-duration') getCssVar('transition-function-fast-bezier'),
+      opacity getCssVar('transition-duration') getCssVar('transition-function-fast-bezier'),
+    ),
+    'fade-linear': opacity getCssVar('transition-duration-fast') linear,
+    'border': border-color getCssVar('transition-duration-fast')
+      getCssVar('transition-function-ease-in-out-bezier'),
+    'box-shadow': box-shadow getCssVar('transition-duration-fast')
+      getCssVar('transition-function-ease-in-out-bezier'),
+    'color': color getCssVar('transition-duration-fast')
+      getCssVar('transition-function-ease-in-out-bezier'),
+  ),
+  $transition
+);
+$transition-duration: () !default;
+$transition-duration: map.merge(
+  (
+    '': 0.3s,
+    'fast': 0.2s,
+  ),
+  $transition-duration
+);
+$transition-function: () !default;
+$transition-function: map.merge(
+  (
+    'ease-in-out-bezier': cubic-bezier(0.645, 0.045, 0.355, 1),
+    'fast-bezier': cubic-bezier(0.23, 1, 0.32, 1),
+  ),
+  $transition-function
+);
+
+// Menu
+$menu: () !default;
+$menu: map.merge(
+  (
+    'active-color': getCssVar('color-primary'),
+    'text-color': getCssVar('text-color-primary'),
+    'hover-text-color': getCssVar('color-primary'),
+    'bg-color': getCssVar('fill-color', 'blank'),
+    'hover-bg-color': getCssVar('color-primary-light-9'),
+    'item-height': 56px,
+    'sub-item-height': calc(#{getCssVar('menu-item-height')} - 6px),
+    'horizontal-sub-item-height': 36px,
+    'item-font-size': getCssVar('font-size-base'),
+    'item-hover-fill': getCssVar('color-primary-light-9'),
+    'border-color': getCssVar('border-color'),
+    'base-level-padding': 20px,
+    'level-padding': 20px,
+    'icon-width': 24px,
+  ),
+  $menu
 );

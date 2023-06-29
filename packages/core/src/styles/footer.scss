@@ -2,6 +2,7 @@
 
 @include b('footer-area') {
   display: none;
+  width: 100%;
 
   @include when('visible') {
     display: block;

@@ -36,6 +36,10 @@ const VALID_ENGINE_OPTIONS = {
     default: 'zh-CN',
     description: '语言',
   },
+  router: {
+    type: 'object',
+    description: '路由， 继承vue-router所有配置',
+  },
   enableStrictPluginMode: {
     type: 'boolean',
     default: STRICT_PLUGIN_MODE_DEFAULT,

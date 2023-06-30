@@ -1,4 +1,4 @@
-import type { DefineComponent } from 'vue';
+import { IRouterContext } from '../router';
 
 export interface IPublicTypeEngineOptions {
   /**
@@ -23,12 +23,8 @@ export interface IPublicTypeEngineOptions {
   enableStrictPluginMode?: boolean;
 
   /**
-   * 自定义 loading 组件
+   * 路由配置
+   * @default
    */
-  loadingComponent?: DefineComponent;
-
-  /**
-   * 设置所有属性支持变量配置，默认值：false
-   */
-  supportVariableGlobally?: boolean;
+  router?: IRouterContext;
 }

@@ -54,6 +54,12 @@ export class Editor extends EventEmitter implements IEditor {
     this.notifyGot(key);
   }
 
+  async setAssets(key: string, assets: any) {
+    if (!key) return;
+    this.context.set(key, assets);
+    this.notifyGot(key);
+  }
+
   onceGot<T = undefined, KeyOrType extends IPublicTypeEditorValueKey = any>(
     keyOrType: KeyOrType,
   ): Promise<IPublicTypeEditorGetResult<T, KeyOrType>> {

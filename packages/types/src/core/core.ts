@@ -55,6 +55,8 @@ export interface IPublicModelEditor extends EventEmitter {
     options?: IPublicTypeEditorRegisterOptions,
   ) => void;
 
+  setAssets: (key: string, assets: any) => void;
+
   get eventBus(): IEventBus;
 
   [eventName: string]: any;

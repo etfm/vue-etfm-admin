@@ -3,6 +3,7 @@
   import { reactive } from 'vue';
   import { skeleton } from '@etfma/core';
   import { useNamespace } from '@etfma/hooks';
+  import { EtfmaBreadcrumb, EtfmaBreadcrumbItem } from '@etfma/etfma-ui';
 
   defineOptions({
     name: 'analysis',
@@ -99,6 +100,13 @@
     widget显示隐藏：
     <ElSwitch v-model="modelWidget.isLeft" @change="(e) => handleWidget(e, 'leftArea')" />
   </div>
+
+  <etfma-breadcrumb separator="/">
+    <etfma-breadcrumb-item :to="{ path: '/' }">homepage</etfma-breadcrumb-item>
+    <etfma-breadcrumb-item><a href="/">promotion management</a></etfma-breadcrumb-item>
+    <etfma-breadcrumb-item>promotion list</etfma-breadcrumb-item>
+    <etfma-breadcrumb-item>promotion detail</etfma-breadcrumb-item>
+  </etfma-breadcrumb>
 </template>
 <style scoped lang="scss">
   @include b('analysis') {

@@ -11,28 +11,26 @@ export class Material implements IPublicApiMaterial {
    * @param assets
    * @returns
    */
-  async setAssets(assets: IPublicTypeAssetsJson) {
-    return await this[editorSymbol].setAssets(assets);
+  async setAssets(key: string, assets: any) {
+    return await this[editorSymbol].setAssets(key, assets);
   }
 
   /**
    * 获取「资产包」结构
    * @returns
    */
-  getAssets(): IPublicTypeAssetsJson | undefined {
-    return this[editorSymbol].get('assets');
+  getAssets(key: string): any | undefined {
+    return this[editorSymbol].get(key);
   }
 
   /**
    * 监听 assets 变化的事件
    * @param fn
    */
-  onChangeAssets(fn: () => void): IPublicTypeDisposable {
+  onChangeAssets(key: string, fn: (...args) => void): IPublicTypeDisposable {
     const dispose = [
       // 设置 assets，经过 setAssets 赋值
-      this[editorSymbol].onGot('assets', fn),
-      // 增量设置 assets，经过 loadIncrementalAssets 赋值
-      this[editorSymbol].eventBus.on('designer.incrementalAssetsReady', fn),
+      this[editorSymbol].onGot(key, fn),
     ];
 
     return () => {

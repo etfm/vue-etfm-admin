@@ -22,6 +22,7 @@ import {
 import { PluginManager } from './plugin';
 
 export * from './types';
+export * from '@etfma/plugin-router';
 
 import PluginRouter from '@etfma/plugin-router';
 

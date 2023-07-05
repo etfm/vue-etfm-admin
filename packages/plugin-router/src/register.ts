@@ -10,8 +10,8 @@ export let context: IRouterContext = {
 
 export let router: Router;
 
-export function register(opts?: IRouterContext) {
-  context = lodash.merge(context, opts);
+export function register(...opts: IRouterContext[]) {
+  context = lodash.merge(context, ...opts);
 
   router = initRouter();
 

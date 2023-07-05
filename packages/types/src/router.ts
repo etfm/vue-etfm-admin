@@ -5,8 +5,6 @@ import type { Recordable } from './tools';
 export type * from 'vue-router';
 
 export interface IRouterContext {
-  iframeView?: () => Promise<typeof import('*.vue')>;
-  layoutView?: () => Promise<typeof import('*.vue')>;
   routes: AppRouteRecordRaw[];
   historyType?: string;
   basename?: string;
@@ -17,7 +15,7 @@ export interface IRouterContext {
 export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'children' | 'component'> {
   name: string;
   meta: RouteMeta;
-  component?: DefineComponent | Component | string;
+  component?: DefineComponent | Component;
   children?: AppRouteRecordRaw[];
   props?: Recordable<any>;
   fullPath?: string;

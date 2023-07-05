@@ -1,13 +1,10 @@
 import { App, createApp, h } from 'vue';
 import { Editor, commonEvent } from './editor';
-
 import { Skeleton as InnerSkeleton } from './layout';
-
 import { Skeleton, Material, Event, Global, Plugins, Config } from './shell';
 import { lodash, Logger } from '@etfma/shared';
 
 import jsonPkg from '../../../package.json';
-
 import { engineConfig } from './config';
 
 import symbols from './symbols';
@@ -25,6 +22,16 @@ import {
 import { PluginManager } from './plugin';
 
 export * from './types';
+
+import PluginRouter from '@etfma/plugin-router';
+
+async function registerPlugin(plugins: IPublicApiPlugins) {
+  await plugins.register(PluginRouter, {});
+
+  return () => {
+    plugins.delete(PluginRouter.pluginName);
+  };
+}
 
 const global = new Global(globalContext);
 
@@ -79,6 +86,9 @@ let engineContainer: HTMLElement | undefined;
 let app: App;
 export const version = jsonPkg.version;
 engineConfig.set('ENGINE_VERSION', version);
+
+// 注册一些内置插件
+registerPlugin(plugins);
 
 export async function init(
   container?: HTMLElement,

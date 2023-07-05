@@ -1,72 +1,11 @@
-import { loggerWarning, eachTree, lodash } from '@etfma/shared';
-import type { AppRouteModule, AppRouteRecordRaw, Recordable } from '@etfma/types';
+import { lodash } from '@etfma/shared';
+import type { AppRouteModule, AppRouteRecordRaw } from '@etfma/types';
 import {
   createWebHashHistory,
   type RouteRecordNormalized,
   type Router,
   createRouter,
 } from 'vue-router';
-import { context } from './register';
-
-let dynamicViewsModules: Record<string, () => Promise<Recordable<any>>>;
-
-export function transformObjToRoute<T = AppRouteModule>(routeList: AppRouteModule[]): T[] {
-  dynamicViewsModules = dynamicViewsModules || import.meta.glob('/src/views/**/*.{vue,tsx}');
-
-  eachTree(routeList, (route) => {
-    const component = route.component as string;
-    if (!route.component && route.meta?.frameSrc) {
-      route.component = 'IFRAME';
-    }
-    if (component) {
-      if (component.toUpperCase() == 'LAYOUT') {
-        route.component = context.layoutView && context.layoutView();
-      } else if (component.toUpperCase() == 'IFRAME') {
-        route.component = context.iframeView && context.iframeView();
-      } else {
-        route.component = dynamicImport(dynamicViewsModules, component);
-      }
-
-      route.meta ||= {};
-    } else {
-      loggerWarning(`您没有配置${route?.name}的component属性，如果是有意为之，可以忽略此条警告`);
-    }
-  });
-
-  return routeList as unknown as T[];
-}
-
-function dynamicImport(
-  dynamicViewsModules: Record<string, () => Promise<Recordable<any>>>,
-  component: string,
-  folder: string = 'views',
-) {
-  const keys = Object.keys(dynamicViewsModules);
-
-  const matchKeys = keys.filter((key) => {
-    const k = key.replace(`/src/${folder}`, '');
-
-    const lastIndex = k?.lastIndexOf('.');
-
-    return k?.substring(0, lastIndex) === component;
-  });
-
-  if (matchKeys?.length === 1) {
-    const matchKey = matchKeys[0];
-
-    return dynamicViewsModules[matchKey];
-  } else if (matchKeys?.length > 1) {
-    loggerWarning(
-      'Please do not create `.vue` and `.TSX` files with the same file name in the same hierarchical directory under the views folder. This will cause dynamic introduction failure',
-    );
-    return;
-  } else {
-    loggerWarning(
-      '在src/views/下找不到`' + component + '.vue` 或 `' + component + '.tsx`, 请自行创建!',
-    );
-    return;
-  }
-}
 
 /**
  * Convert multi-level routing to level 2 routing

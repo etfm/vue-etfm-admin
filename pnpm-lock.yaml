@@ -364,6 +364,9 @@ importers:
       '@etfma/hooks':
         specifier: workspace:^0.0.0
         version: link:../hooks
+      '@etfma/plugin-router':
+        specifier: workspace:^0.0.0
+        version: link:../plugin-router
       '@etfma/shared':
         specifier: workspace:*
         version: link:../shared
@@ -568,7 +571,21 @@ importers:
         specifier: workspace:*
         version: link:../types
 
-  packages/plugin-router: {}
+  packages/plugin-router:
+    dependencies:
+      '@etfma/core':
+        specifier: workspace:^0.0.0
+        version: link:../core
+      '@etfma/shared':
+        specifier: workspace:^0.0.0
+        version: link:../shared
+      vue-router:
+        specifier: ^4.1.6
+        version: 4.2.1
+    devDependencies:
+      '@etfma/types':
+        specifier: workspace:^0.0.0
+        version: link:../types
 
   packages/render:
     dependencies:

@@ -56,8 +56,19 @@ export default class PluginContext implements IPublicModelPluginContext {
       return pluginPreference[key];
     };
 
+    const getPreference = (
+      defaultValue?: Record<string, IPublicTypePreferenceValueType>,
+    ): Record<string, IPublicTypePreferenceValueType> | undefined | null => {
+      const pluginPreference = this.plugins.getPluginPreference(pluginName);
+      if (pluginPreference === undefined || pluginPreference === null) {
+        return defaultValue;
+      }
+      return pluginPreference;
+    };
+
     this.preference = {
       getPreferenceValue,
+      getPreference,
     };
   }
 }

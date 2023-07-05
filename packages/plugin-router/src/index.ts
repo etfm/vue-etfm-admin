@@ -6,7 +6,7 @@ const PluginRouter: IPublicTypePlugin = (ctx: IPublicPluginContext, options: any
   return {
     init: () => {
       const app = ctx.global.get('app') as App;
-      const config = ctx.preference.getPreferenceValue('PluginRouter') as unknown as IRouterContext;
+      const config = ctx.preference.getPreference() as unknown as IRouterContext;
 
       const router = register(options, config);
       app.use(router);

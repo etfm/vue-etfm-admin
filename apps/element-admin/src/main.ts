@@ -102,7 +102,7 @@ async function boostrap() {
 
   await plugins.register(buildSkeleton);
 
-  init(document.getElementById('app')!);
+  await init(document.getElementById('app')!);
 }
 
 boostrap();

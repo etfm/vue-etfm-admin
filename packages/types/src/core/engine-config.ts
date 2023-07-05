@@ -55,9 +55,9 @@ export interface IPublicModelEngineConfig {
   onGot(key: string, fn: (data: any) => void): IPublicTypeDisposable;
 
   /**
-   * 获取全局 Preference, 用于管理全局浏览器侧用户 Preference，如 Panel 是否钉住
+   * 获取全局 Preference, 用于管理全局浏览器侧用户 Preference
    * get global user preference manager, which can be use to store
-   * user`s preference in user localstorage, such as a panel is pinned or not.
+   * user`s preference in user localstorage.
    * @returns {IPublicModelPreference}
    * @since v1.1.0
    */

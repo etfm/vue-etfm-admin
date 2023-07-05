@@ -15,6 +15,5 @@ export function register(...opts: IRouterContext[]) {
 
   router = initRouter();
 
-  // 初始化路由
   return router;
 }

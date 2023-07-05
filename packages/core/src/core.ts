@@ -22,6 +22,7 @@ import {
 import { PluginManager } from './plugin';
 
 export * from './types';
+
 export * from '@etfma/plugin-router';
 
 import PluginRouter from '@etfma/plugin-router';
@@ -126,7 +127,7 @@ export async function init(
   engineConfig.set('app', app);
   globalContext.register(app, 'app');
 
-  await plugins.init(pluginPreference as any);
+  await plugins.init(pluginPreference);
 
   app.mount(engineContainer);
 }

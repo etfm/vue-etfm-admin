@@ -34,6 +34,10 @@ export interface IPluginPreferenceMananger {
     key: string,
     defaultValue?: IPublicTypePreferenceValueType,
   ) => IPublicTypePreferenceValueType | undefined;
+
+  getPreference: (
+    defaultValue?: Record<string, IPublicTypePreferenceValueType>,
+  ) => Record<string, IPublicTypePreferenceValueType> | undefined | null;
 }
 
 export type PluginOptionsType = string | number | boolean | object;

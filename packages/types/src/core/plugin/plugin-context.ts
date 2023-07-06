@@ -1,3 +1,4 @@
+import { Router } from 'vue-router';
 import {
   IPublicApiLogger,
   IPublicApiMaterial,
@@ -5,7 +6,6 @@ import {
   IPublicApiSkeleton,
   IPublicApiEvent,
   IPublicApiGlobal,
-  IPublicApiCommon,
 } from '../api';
 import { IPublicModelEngineConfig } from '../engine-config';
 import { IPluginPreferenceMananger } from './plugin-manager';
@@ -67,7 +67,7 @@ export interface IPluginContextPrivate {
   set event(event: IPublicApiEvent);
   set config(config: IPublicModelEngineConfig);
   set global(global: IPublicApiGlobal);
-  set common(common: IPublicApiCommon);
+  set router(router: Router);
   set material(material: IPublicApiMaterial);
   set plugins(plugins: IPublicApiPlugins);
   set logger(plugins: IPublicApiLogger);

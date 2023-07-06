@@ -1,4 +1,4 @@
-import { App, createApp, h } from 'vue';
+import { createApp, h } from 'vue';
 import { Editor, commonEvent } from './editor';
 import { Skeleton as InnerSkeleton } from './layout';
 import { Skeleton, Material, Event, Global, Plugins, Config } from './shell';
@@ -9,7 +9,6 @@ import { engineConfig } from './config';
 
 import symbols from './symbols';
 import classes from './classes';
-import { Common } from './shell/common';
 import { globalContext } from './ioc-context';
 import {
   IPluginContextApiAssembler,
@@ -21,19 +20,12 @@ import {
 } from '@etfma/types';
 import { PluginManager } from './plugin';
 
+import { Workbench } from './layout';
+import { GlobalRouter } from './router/router';
+
+export * from './router';
+
 export * from './types';
-
-export * from '@etfma/plugin-router';
-
-import PluginRouter from '@etfma/plugin-router';
-
-async function registerPlugin(plugins: IPublicApiPlugins) {
-  await plugins.register(PluginRouter, {});
-
-  return () => {
-    plugins.delete(PluginRouter.pluginName);
-  };
-}
 
 const global = new Global(globalContext);
 
@@ -51,7 +43,22 @@ const skeleton = new Skeleton(innerSkeleton, 'any');
 const config = new Config(engineConfig);
 const event = new Event(commonEvent, { prefix: 'common' });
 const logger = new Logger({ bizName: 'common' });
-const common = new Common(innerSkeleton);
+
+const app = createApp({
+  render: () =>
+    h(Workbench, {
+      skeleton: innerSkeleton,
+      class: 'engine-main',
+    }),
+});
+
+engineConfig.set('app', app);
+globalContext.register(app, 'app');
+
+const router = new GlobalRouter(app).router;
+engineConfig.set('router', router);
+globalContext.register(router, 'router');
+
 let plugins: IPublicApiPlugins;
 
 const pluginContextApiAssembler: IPluginContextApiAssembler = {
@@ -65,7 +72,7 @@ const pluginContextApiAssembler: IPluginContextApiAssembler = {
     const eventPrefix = meta?.eventPrefix || 'common';
     context.event = new Event(commonEvent, { prefix: eventPrefix });
     context.config = config;
-    context.common = common;
+    context.router = router;
     context.global = global;
     context.plugins = plugins;
     context.logger = new Logger({ bizName: `plugin:${pluginName}` });
@@ -77,20 +84,17 @@ plugins = new Plugins(innerPlugins).toProxy();
 editor.set('innerPlugins', innerPlugins);
 editor.set('plugins', plugins);
 
-export { skeleton, plugins, material, config, event, logger, global, common };
+export { skeleton, plugins, material, config, event, logger, global, router };
 export const __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED = {
   symbols,
   classes,
 };
 
-// container which will host LowCodeEngine DOM
-let engineContainer: HTMLElement | undefined;
-let app: App;
 export const version = jsonPkg.version;
 engineConfig.set('ENGINE_VERSION', version);
 
-// 注册一些内置插件
-registerPlugin(plugins);
+// container which will host LowCodeEngine DOM
+let engineContainer: HTMLElement | undefined;
 
 export async function init(
   container?: HTMLElement,
@@ -115,21 +119,10 @@ export async function init(
   }
 
   engineConfig.setEngineOptions(engineOptions as any);
-  const { Workbench } = common.skeletonCabin;
-
-  app = createApp({
-    render: () =>
-      h(Workbench, {
-        skeleton: innerSkeleton,
-        class: 'engine-main',
-      }),
-  });
-  engineConfig.set('app', app);
-  globalContext.register(app, 'app');
 
   await plugins.init(pluginPreference);
 
-  app.mount(engineContainer);
+  app.mount(engineContainer as Element);
 }
 
 export async function destroy() {

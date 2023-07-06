@@ -6,7 +6,6 @@ import type {
   IPluginContextApiAssembler,
   IPluginContextOptions,
   IPluginPreferenceMananger,
-  IPublicApiCommon,
   IPublicApiEditor,
   IPublicApiEvent,
   IPublicApiGlobal,
@@ -16,6 +15,7 @@ import type {
   IPublicModelPluginContext,
   IPublicTypePluginDeclaration,
   IPublicTypePreferenceValueType,
+  Router,
 } from '@etfma/types';
 
 export default class PluginContext implements IPublicModelPluginContext {
@@ -29,7 +29,7 @@ export default class PluginContext implements IPublicModelPluginContext {
   preference: IPluginPreferenceMananger;
   material: IPublicApiMaterial;
   pluginEvent: IPublicApiEvent;
-  common: IPublicApiCommon;
+  router: Router;
 
   constructor(options: IPluginContextOptions, contextApiAssembler: IPluginContextApiAssembler) {
     const { pluginName = 'anonymous', meta = {} } = options;

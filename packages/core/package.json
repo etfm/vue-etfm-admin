@@ -40,7 +40,8 @@
     "events": "^3.3.0",
     "intl-messageformat": "^10.3.5",
     "power-di": "^2.4.37",
-    "store": "^2.0.12"
+    "store": "^2.0.12",
+    "vue-router": "^4.1.6"
   },
   "peerDependencies": {
     "vue": "^3.2.47"

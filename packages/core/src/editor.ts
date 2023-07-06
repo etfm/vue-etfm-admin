@@ -1,15 +1,9 @@
 import { EventEmitter } from 'events';
-import { engineConfig } from './config';
 import { observable, define } from './obx';
 import { EventBus } from './event-bus';
 import type { IEditor, IPublicTypeEditorGetResult, IPublicTypeEditorValueKey } from '@etfma/types';
 
-const keyBlacklist = ['skeleton', 'plugins', 'material', 'innerPlugins'];
-
 export class Editor extends EventEmitter implements IEditor {
-  /**
-   * Ioc Container
-   */
   context = new Map<IPublicTypeEditorValueKey, any>();
 
   eventBus: EventBus;
@@ -46,10 +40,6 @@ export class Editor extends EventEmitter implements IEditor {
   }
 
   set(key: IPublicTypeEditorValueKey, data: any): void | Promise<void> {
-    // store the data to engineConfig while invoking editor.set()
-    if (!keyBlacklist.includes(key as string)) {
-      engineConfig.set(key as any, data);
-    }
     this.context.set(key, data);
     this.notifyGot(key);
   }

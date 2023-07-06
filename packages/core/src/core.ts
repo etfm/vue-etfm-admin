@@ -22,6 +22,7 @@ import { PluginManager } from './plugin';
 
 import { Workbench } from './layout';
 import { GlobalRouter } from './router/router';
+import { GlobalLocal } from './intl/locale';
 
 export * from './router';
 
@@ -52,12 +53,13 @@ const app = createApp({
     }),
 });
 
+editor.set('app', app);
 engineConfig.set('app', app);
 globalContext.register(app, 'app');
 
-const router = new GlobalRouter(app).router;
-engineConfig.set('router', router);
-globalContext.register(router, 'router');
+const router = new GlobalRouter(app, editor).router;
+
+const globalI18n = new GlobalLocal(app, editor);
 
 let plugins: IPublicApiPlugins;
 
@@ -73,6 +75,7 @@ const pluginContextApiAssembler: IPluginContextApiAssembler = {
     context.event = new Event(commonEvent, { prefix: eventPrefix });
     context.config = config;
     context.router = router;
+    context.i18n = i18n;
     context.global = global;
     context.plugins = plugins;
     context.logger = new Logger({ bizName: `plugin:${pluginName}` });
@@ -84,7 +87,7 @@ plugins = new Plugins(innerPlugins).toProxy();
 editor.set('innerPlugins', innerPlugins);
 editor.set('plugins', plugins);
 
-export { skeleton, plugins, material, config, event, logger, global, router };
+export { skeleton, plugins, material, config, event, logger, global, router, globalI18n };
 export const __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED = {
   symbols,
   classes,
@@ -101,7 +104,6 @@ export async function init(
   options?: IPublicTypeEngineOptions,
   pluginPreference?: IPluginPreference,
 ) {
-  await destroy();
   let engineOptions: IPublicTypeEngineOptions | HTMLElement | undefined | null = null;
   if (lodash.isPlainObject(container)) {
     engineOptions = container;
@@ -123,12 +125,4 @@ export async function init(
   await plugins.init(pluginPreference);
 
   app.mount(engineContainer as Element);
-}
-
-export async function destroy() {
-  // remove all documents
-  // TODO: delete plugins except for core plugins
-  // unmount DOM container, this will trigger React componentWillUnmount lifeCycle,
-  // so necessary cleanups will be done.
-  app && app.unmount();
 }

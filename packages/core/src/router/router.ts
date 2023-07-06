@@ -1,6 +1,6 @@
 import { createRouter, type Router, type RouteRecordRaw } from 'vue-router';
 import { createHistory } from './history';
-import { AppRouteRecordRaw, IRouterContext } from '@etfma/types';
+import { AppRouteRecordRaw, IEditor, IRouterContext } from '@etfma/types';
 import { engineConfig } from '../config';
 import { filter, lodash } from '@etfma/shared';
 import { flatMultiLevelRoutes, routeRemoveFilter } from './utils';
@@ -17,7 +17,7 @@ export class GlobalRouter {
   private _app: App;
   private _opts: IRouterContext;
 
-  constructor(app: App) {
+  constructor(app: App, editor: IEditor) {
     this._opts = ROUTER_OPTIONS;
     this._app = app;
 
@@ -27,6 +27,14 @@ export class GlobalRouter {
       this._opts = lodash.merge(this._opts, args);
 
       this.init();
+    });
+
+    editor.onGot('router', (args: AppRouteRecordRaw[] | AppRouteRecordRaw) => {
+      const routeList = this.getRouters(args);
+
+      routeList.forEach((route) => {
+        this._router.addRoute(route as unknown as RouteRecordRaw);
+      });
     });
   }
 

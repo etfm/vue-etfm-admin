@@ -18,19 +18,6 @@ const VALID_ENGINE_OPTIONS = {
     type: 'boolean',
     description: '是否开启 condition 的能力，默认在设计器中不管 condition 是啥都正常展示',
   },
-  designMode: {
-    type: 'string',
-    enum: ['design', 'live'],
-    default: 'design',
-    description: '设计模式，live 模式将会实时展示变量值',
-  },
-  device: {
-    type: 'string',
-    enum: ['default', 'mobile', 'any string value'],
-    default: 'default',
-    description: '设备类型',
-  },
-
   locale: {
     type: 'string',
     default: 'zh-CN',
@@ -45,11 +32,6 @@ const VALID_ENGINE_OPTIONS = {
     default: STRICT_PLUGIN_MODE_DEFAULT,
     description:
       '开启严格插件模式，默认值：STRICT_PLUGIN_MODE_DEFAULT , 严格模式下，插件将无法通过 engineOptions 传递自定义配置项',
-  },
-  supportVariableGlobally: {
-    type: 'boolean',
-    default: false,
-    description: '设置所有属性支持变量配置',
   },
 };
 

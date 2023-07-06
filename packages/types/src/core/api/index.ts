@@ -5,4 +5,3 @@ export * from './global';
 export * from './material';
 export * from './logger';
 export * from './plugins';
-export * from './common';

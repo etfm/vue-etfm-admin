@@ -1,5 +1,5 @@
 {
-  "name": "@etfma/core",
+  "name": "@etfma/plugin-designer",
   "version": "0.0.0",
   "description": "> TODO: description",
   "homepage": "https://github.com/etfm/vue-etfm-admin#readme",
@@ -21,38 +21,29 @@
   "main": "src/index.ts",
   "module": "src/index.ts",
   "files": [
-    "dist",
-    "src"
+    "dist"
   ],
   "scripts": {
     "bootstrap": "pnpm install",
     "build": "pnpm vite build",
     "clean": "pnpm rimraf .turbo node_modules dist",
-    "lint": "pnpm eslint .",
-    "test": "node ./__tests__/@etfma/http.test.js"
+    "lint": "pnpm eslint ."
   },
   "dependencies": {
-    "@etfma/design": "workspace:^0.0.0",
-    "@etfma/hooks": "workspace:^0.0.0",
-    "@etfma/shared": "workspace:*",
-    "classnames": "^2.3.2",
-    "events": "^3.3.0",
-    "intl-messageformat": "^10.3.5",
-    "power-di": "^2.4.37",
-    "store": "^2.0.12",
-    "vue-i18n": "^9.2.2",
-    "vue-router": "^4.1.6"
+    "@etfma/core": "workspace:^",
+    "@etfma/design": "workspace:^",
+    "@etfma/hooks": "workspace:*",
+    "@etfma/shared": "workspace:^"
   },
   "devDependencies": {
-    "@etfma/types": "workspace:^0.0.0",
-    "@types/events": "^3.0.0",
-    "semver": "^7.5.1",
-    "strict-event-emitter-types": "^2.0.0"
-  },
-  "peerDependencies": {
-    "vue": "^3.2.47"
+    "@etfma/types": "workspace:^0.0.0"
   },
   "publishConfig": {
-    "access": "public"
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.mjs"
+      }
+    }
   }
 }

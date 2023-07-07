@@ -3,7 +3,7 @@ import 'uno.css';
 
 import { plugins, init, skeleton } from '@etfma/core';
 import type { IPublicPluginContext, IPublicPlugin } from '@etfma/core';
-import Analysis from '@/views/dashboard/analysis/index.vue';
+// import Analysis from '@/views/dashboard/analysis/index.vue';
 import { h } from 'vue';
 import LayoutSider from '@/layouts/sider/layout-sider.vue';
 import PluginHttp from '@etfma/plugin-http';
@@ -12,6 +12,7 @@ import { Recordable } from '@etfma/types';
 import { getToken } from './cache/auth';
 import { getAppEnvConfig } from '@etfma/shared';
 import PluginPinia from '@etfma/plugin-pinia';
+import PluginDesigner from '@etfma/plugin-designer';
 
 async function boostrap() {
   const AppConfig = getAppEnvConfig();
@@ -102,17 +103,6 @@ async function boostrap() {
         });
 
         skeleton.add({
-          area: 'main',
-          type: 'Widget',
-          name: 'mainArea',
-          content: h(Analysis),
-          contentProps: {
-            logo: 'https://img.alicdn.com/imgextra/i4/O1CN013w2bmQ25WAIha4Hx9_!!6000000007533-55-tps-137-26.svg',
-            href: 'https://lowcode-engine.cn',
-          },
-        });
-
-        skeleton.add({
           area: 'float',
           type: 'Widget',
           name: 'leftFixedArea',
@@ -133,7 +123,23 @@ async function boostrap() {
 
   await plugins.register(buildSkeleton);
 
-  await init(document.getElementById('app')!);
+  await plugins.register(PluginDesigner);
+
+  await init(document.getElementById('app')!, {
+    router: {
+      routes: [
+        {
+          path: '/',
+          name: 'Analysis',
+          component: () => import('./views/dashboard/analysis/index.vue'),
+          meta: {
+            title: 'routes.dashboard.analysis',
+            currentActiveMenu: '/dashboard/analysis',
+          },
+        },
+      ],
+    },
+  });
 }
 
 boostrap();

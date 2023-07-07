@@ -31,7 +31,7 @@ export class GlobalRouter implements IGlobalRouter {
       this._app.use(this._router);
     });
 
-    editor.onGot('router', (args: AppRouteRecordRaw[] | AppRouteRecordRaw) => {
+    editor.onGot('routes', (args: AppRouteRecordRaw[] | AppRouteRecordRaw) => {
       const routeList = this.getRouters(args);
 
       routeList.forEach((route) => {

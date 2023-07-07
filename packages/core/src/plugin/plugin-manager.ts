@@ -18,22 +18,7 @@ import {
 const logger = new Logger({ bizName: 'pluginManager' });
 
 // 保留的事件前缀
-const RESERVED_EVENT_PREFIX = [
-  'editor',
-  'skeleton',
-  'utils',
-  'plugin',
-  'engine',
-  'editor-core',
-  'engine-core',
-  'plugins',
-  'event',
-  'events',
-  'log',
-  'logger',
-  'ctx',
-  'context',
-];
+const RESERVED_EVENT_PREFIX = ['skeleton', 'plugin', 'dockpane'];
 
 export class PluginManager implements IPluginManager {
   private plugins: IPluginRuntime[] = [];

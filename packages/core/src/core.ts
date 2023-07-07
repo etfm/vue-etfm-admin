@@ -68,7 +68,7 @@ engineConfig.set('app', app);
 globalContext.register(app, 'app');
 
 const innerGlobalRouter = new InnerGlobalRouter(editor);
-// editor.set('router', innerGlobalRouter);
+editor.set('router', innerGlobalRouter);
 const globalRouter = new GlobalRouter(innerGlobalRouter);
 
 const innerGlobalI18n = new InnerGlobalI18n(editor);

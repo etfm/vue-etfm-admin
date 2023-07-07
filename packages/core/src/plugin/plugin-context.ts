@@ -9,13 +9,14 @@ import type {
   IPublicApiEditor,
   IPublicApiEvent,
   IPublicApiGlobal,
+  IPublicApiI18n,
   IPublicApiMaterial,
   IPublicApiPlugins,
+  IPublicApiRouter,
   IPublicApiSkeleton,
   IPublicModelPluginContext,
   IPublicTypePluginDeclaration,
   IPublicTypePreferenceValueType,
-  Router,
 } from '@etfma/types';
 
 export default class PluginContext implements IPublicModelPluginContext {
@@ -29,7 +30,8 @@ export default class PluginContext implements IPublicModelPluginContext {
   preference: IPluginPreferenceMananger;
   material: IPublicApiMaterial;
   pluginEvent: IPublicApiEvent;
-  router: Router;
+  globalRouter: IPublicApiRouter;
+  globalI18n: IPublicApiI18n;
 
   constructor(options: IPluginContextOptions, contextApiAssembler: IPluginContextApiAssembler) {
     const { pluginName = 'anonymous', meta = {} } = options;

@@ -12,10 +12,8 @@ import { skeletonSymbol } from './symbols';
 
 export class Skeleton implements IPublicApiSkeleton {
   private readonly [skeletonSymbol]: ISkeleton;
-  private readonly pluginName: string;
 
-  constructor(skeleton: ISkeleton, pluginName: string) {
-    this.pluginName = pluginName;
+  constructor(skeleton: ISkeleton) {
     this[skeletonSymbol] = skeleton;
   }
 
@@ -29,11 +27,7 @@ export class Skeleton implements IPublicApiSkeleton {
     config: IPublicTypeSkeletonConfig,
     extraConfig?: Record<string, any>,
   ): IPublicModelSkeletonItem | undefined {
-    const configWithName = {
-      ...config,
-      pluginName: this.pluginName,
-    };
-    const item = this[skeletonSymbol].add(configWithName, extraConfig);
+    const item = this[skeletonSymbol].add(config, extraConfig);
     if (item) {
       return new SkeletonItem(item);
     }

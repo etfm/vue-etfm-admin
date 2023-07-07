@@ -15,5 +15,7 @@ export * from './widget-config-area';
 export * from './area';
 export * from './panel';
 export * from './widget';
-export * from './container';
 export * from './skeleton';
+export * from './i18n';
+export * from './router';
+export * from './material';

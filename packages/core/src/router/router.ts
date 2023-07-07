@@ -1,6 +1,6 @@
 import { createRouter, type Router, type RouteRecordRaw } from 'vue-router';
 import { createHistory } from './history';
-import { AppRouteRecordRaw, IEditor, IRouterContext } from '@etfma/types';
+import { AppRouteRecordRaw, IEditor, IGlobalRouter, IRouterContext } from '@etfma/types';
 import { engineConfig } from '../config';
 import { filter, lodash } from '@etfma/shared';
 import { flatMultiLevelRoutes, routeRemoveFilter } from './utils';
@@ -12,18 +12,18 @@ const ROUTER_OPTIONS = {
   routes: [],
 };
 
-export class GlobalRouter {
+export class GlobalRouter implements IGlobalRouter {
   private _router: Router;
   private _app: App;
   private _opts: IRouterContext;
 
-  constructor(app: App, editor: IEditor) {
+  constructor(editor: IEditor) {
     this._opts = ROUTER_OPTIONS;
-    this._app = app;
+    this._app = editor.get('app') as App;
 
     this.init();
 
-    engineConfig.onGot('router', (args: IRouterContext) => {
+    engineConfig.onceGot('router').then((args: IRouterContext) => {
       this._opts = lodash.merge(this._opts, args);
 
       this.init();

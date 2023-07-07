@@ -1,4 +1,5 @@
 import { IPublicTypeDisposable } from '../disposable';
+import { AssetsKey } from '../material';
 
 export interface IPublicApiMaterial {
   /**
@@ -6,14 +7,14 @@ export interface IPublicApiMaterial {
    * set data for Assets
    * @returns void
    */
-  setAssets(key: string, assets: any): void;
+  setAssets(key: AssetsKey, assets: any): void;
 
   /**
    * 获取「资产包」结构
    * get AssetsJson data
    * @returns IPublicTypeAssetsJson
    */
-  getAssets(key: string): any | undefined;
+  getAssets(key: AssetsKey): any | undefined;
 
   /**
    * 监听 assets 变化的事件
@@ -21,5 +22,5 @@ export interface IPublicApiMaterial {
    * @param key
    * @param fn
    */
-  onChangeAssets(key: string, fn: (...args) => void): IPublicTypeDisposable;
+  onChangeAssets(key: AssetsKey, fn: (...args) => void): IPublicTypeDisposable;
 }

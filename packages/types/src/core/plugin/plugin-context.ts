@@ -1,4 +1,3 @@
-import { Router } from 'vue-router';
 import {
   IPublicApiLogger,
   IPublicApiMaterial,
@@ -6,6 +5,8 @@ import {
   IPublicApiSkeleton,
   IPublicApiEvent,
   IPublicApiGlobal,
+  IPublicApiI18n,
+  IPublicApiRouter,
 } from '../api';
 import { IPublicModelEngineConfig } from '../engine-config';
 import { IPluginPreferenceMananger } from './plugin-manager';
@@ -34,9 +35,9 @@ export interface IPublicModelPluginContext {
 
   get global(): IPublicApiGlobal;
 
-  get router(): Router;
+  get globalRouter(): IPublicApiRouter;
 
-  get i18n(): GlobalLocal;
+  get globalI18n(): IPublicApiI18n;
 }
 
 export interface IPluginContextPrivate {
@@ -44,11 +45,11 @@ export interface IPluginContextPrivate {
   set event(event: IPublicApiEvent);
   set config(config: IPublicModelEngineConfig);
   set global(global: IPublicApiGlobal);
-  set router(router: Router);
+  set globalRouter(router: IPublicApiRouter);
   set material(material: IPublicApiMaterial);
   set plugins(plugins: IPublicApiPlugins);
   set logger(plugins: IPublicApiLogger);
-  set globalI18n(i18n: GlobalLocal);
+  set globalI18n(i18n: IPublicApiI18n);
 }
 
 export interface IPluginContextApiAssembler {

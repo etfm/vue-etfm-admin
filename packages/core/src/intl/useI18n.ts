@@ -1,4 +1,4 @@
-import { i18n } from './register';
+import { globalI18n } from '../core';
 
 type I18nGlobalTranslation = {
   (key: string): string;
@@ -24,6 +24,8 @@ function getKey(namespace: string | undefined, key: string) {
 export function useI18n(namespace?: string): {
   t: I18nGlobalTranslation;
 } {
+  const i18n = globalI18n.i18n;
+
   const normalFn = {
     t: (key: string) => {
       return getKey(namespace, key);

@@ -1,9 +1,10 @@
-export interface I18nData {
-  type: 'i18n'
-  intl?: any
-  [key: string]: any
-}
+import { I18n } from 'vue-i18n';
 
-export interface I18nMap {
-  [lang: string]: { [key: string]: string }
+export interface IGlobalI18n {
+  i18n: I18n;
+  init(): void;
+  changeLocale(locale: string): string;
+  setI18nLanguage(locale: string): void;
+  setLanguageMessage(locale: string, message: any): void;
+  setLoadLocalePool(locale: string): void;
 }

@@ -138,7 +138,3 @@ export class Widget implements IWidget {
 export function isWidget(obj: any): obj is IWidget {
   return obj && obj.isWidget;
 }
-
-export function isWidgetConfig(obj: any): obj is WidgetConfig {
-  return obj && obj.type === 'Widget';
-}

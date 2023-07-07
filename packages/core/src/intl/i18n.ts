@@ -1,7 +1,7 @@
 import { createI18n } from 'vue-i18n';
 import { setHtmlPageLang } from './helper';
 import { App, unref } from 'vue';
-import { I18n, IEditor, ILocalContext } from '@etfma/types';
+import { I18n, IEditor, IGlobalI18n, ILocalContext } from '@etfma/types';
 import { engineConfig } from '../config';
 import { lodash, loggerWarning } from '@etfma/shared';
 
@@ -23,7 +23,7 @@ const INTL_OPTIONS = {
   silentFallbackWarn: true,
 };
 
-export class GlobalLocal {
+export class GlobalI18n implements IGlobalI18n {
   private _app: App;
   private _opts: ILocalContext;
   private _i18n: I18n;
@@ -36,12 +36,13 @@ export class GlobalLocal {
     return this._i18n;
   }
 
-  constructor(app: App, editor: IEditor) {
-    this._app = app;
+  constructor(editor: IEditor) {
+    this._app = editor.get('app') as App;
     this._opts = INTL_OPTIONS;
+
     this.init();
 
-    engineConfig.onGot('i18n', (args: ILocalContext) => {
+    engineConfig.onceGot('i18n').then((args: ILocalContext) => {
       this._opts = lodash.merge(this._opts, args);
 
       this.init();
@@ -74,10 +75,10 @@ export class GlobalLocal {
       return locale;
     }
 
-    if (loadLocalePool.includes(locale)) {
-      this.setI18nLanguage(locale);
-      return locale;
-    }
+    this.setI18nLanguage(locale);
+
+    // 同步全部配置
+    engineConfig.set('i18n', { locale });
 
     return locale;
   }

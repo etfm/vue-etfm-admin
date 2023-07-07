@@ -1,4 +1,9 @@
-import { IPublicApiMaterial, IPublicModelEditor, IPublicTypeDisposable } from '@etfma/types';
+import type {
+  AssetsKey,
+  IPublicApiMaterial,
+  IPublicModelEditor,
+  IPublicTypeDisposable,
+} from '@etfma/types';
 import { editorSymbol } from './symbols';
 
 export class Material implements IPublicApiMaterial {
@@ -11,7 +16,7 @@ export class Material implements IPublicApiMaterial {
    * @param assets
    * @returns
    */
-  async setAssets(key: string, assets: any) {
+  async setAssets(key: AssetsKey, assets: any) {
     return await this[editorSymbol].setAssets(key, assets);
   }
 
@@ -19,7 +24,7 @@ export class Material implements IPublicApiMaterial {
    * 获取「资产包」结构
    * @returns
    */
-  getAssets(key: string): any | undefined {
+  getAssets(key: AssetsKey): any | undefined {
     return this[editorSymbol].get(key);
   }
 
@@ -27,7 +32,7 @@ export class Material implements IPublicApiMaterial {
    * 监听 assets 变化的事件
    * @param fn
    */
-  onChangeAssets(key: string, fn: (...args) => void): IPublicTypeDisposable {
+  onChangeAssets(key: AssetsKey, fn: (...args) => void): IPublicTypeDisposable {
     const dispose = [
       // 设置 assets，经过 setAssets 赋值
       this[editorSymbol].onGot(key, fn),

@@ -1,4 +1,4 @@
-import type { EventEmitter } from 'events';
+import { EventEmitter } from 'events';
 import { IEventBus } from './event-bus';
 
 export type IPublicTypeEditorValueKey = (new (...args: any[]) => any) | symbol | string;

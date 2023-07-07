@@ -1,10 +1,10 @@
 import { getPluginManager } from '@etfma/plugin';
-import type { IRouterContext } from '@etfma/types';
+import type { RouterContext } from '@etfma/types';
 import { initRouter } from './router';
 import { lodash } from '@etfma/shared';
 import type { Router } from 'vue-router';
 
-export let context: IRouterContext = {
+export let context: RouterContext = {
   layoutView: () => {
     const key = '/src/layouts/index.vue';
     const viewMap = import.meta.glob('/src/layouts/index.vue');
@@ -29,7 +29,7 @@ export let context: IRouterContext = {
 
 export let router: Router;
 
-export function register(opts?: IRouterContext) {
+export function register(opts?: RouterContext) {
   // 收集配置信息
   const routerConfig = getPluginManager().applyPlugins({
     key: 'router',

@@ -1,12 +1,12 @@
 import { createRouter, type Router, type RouteRecordRaw } from 'vue-router';
 import { createHistory } from './history';
-import { AppRouteRecordRaw, IEditor, IGlobalRouter, IRouterContext } from '@etfma/types';
+import { AppRouteRecordRaw, IEditor, IGlobalRouter, RouterContext } from '@etfma/types';
 import { engineConfig } from '../config';
 import { filter, lodash } from '@etfma/shared';
 import { flatMultiLevelRoutes, routeRemoveFilter } from './utils';
 import { App } from 'vue';
 
-const ROUTER_OPTIONS = {
+export const ROUTER_OPTIONS = {
   historyType: 'hash',
   basename: '/',
   routes: [],
@@ -15,7 +15,7 @@ const ROUTER_OPTIONS = {
 export class GlobalRouter implements IGlobalRouter {
   private _router: Router;
   private _app: App;
-  private _opts: IRouterContext;
+  private _opts: RouterContext;
 
   constructor(editor: IEditor) {
     this._opts = ROUTER_OPTIONS;
@@ -23,10 +23,12 @@ export class GlobalRouter implements IGlobalRouter {
 
     this.init();
 
-    engineConfig.onceGot('router').then((args: IRouterContext) => {
+    engineConfig.onceGot('router').then((args: RouterContext) => {
       this._opts = lodash.merge(this._opts, args);
 
       this.init();
+
+      this._app.use(this._router);
     });
 
     editor.onGot('router', (args: AppRouteRecordRaw[] | AppRouteRecordRaw) => {
@@ -56,11 +58,9 @@ export class GlobalRouter implements IGlobalRouter {
       routes: routeList as unknown as RouteRecordRaw[],
       strict: true,
     });
-
-    this._app.use(this._router);
   }
 
-  getRouters(routes: AppRouteRecordRaw[] | AppRouteRecordRaw) {
+  getRouters(routes?: AppRouteRecordRaw[] | AppRouteRecordRaw) {
     const rouls =
       this._opts.rouls && lodash.isFunction(this._opts.rouls)
         ? this._opts.rouls()

@@ -14,13 +14,8 @@ const STRICT_PLUGIN_MODE_DEFAULT = true;
 // used in strict mode, when only options in this VALID_ENGINE_OPTIONS can be accepted
 // type and description are only used for developer`s assistance, won`t affect runtime
 const VALID_ENGINE_OPTIONS = {
-  enableCondition: {
-    type: 'boolean',
-    description: '是否开启 condition 的能力，默认在设计器中不管 condition 是啥都正常展示',
-  },
-  locale: {
-    type: 'string',
-    default: 'zh-CN',
+  i18n: {
+    type: 'object',
     description: '语言',
   },
   router: {

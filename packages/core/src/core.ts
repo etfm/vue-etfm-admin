@@ -30,8 +30,8 @@ import {
 import { PluginManager } from './plugin';
 
 import { Workbench } from './layout';
-import { GlobalRouter as InnerGlobalRouter } from './router/router';
-import { GlobalI18n as InnerGlobalI18n } from './intl/i18n';
+import { GlobalRouter as InnerGlobalRouter, ROUTER_OPTIONS } from './router/router';
+import { INTL_OPTIONS, GlobalI18n as InnerGlobalI18n } from './intl/i18n';
 
 export * from './router';
 export * from './intl';
@@ -68,7 +68,7 @@ engineConfig.set('app', app);
 globalContext.register(app, 'app');
 
 const innerGlobalRouter = new InnerGlobalRouter(editor);
-editor.set('router', innerGlobalRouter);
+// editor.set('router', innerGlobalRouter);
 const globalRouter = new GlobalRouter(innerGlobalRouter);
 
 const innerGlobalI18n = new InnerGlobalI18n(editor);
@@ -117,14 +117,14 @@ export async function init(
   options?: IPublicTypeEngineOptions,
   pluginPreference?: IPluginPreference,
 ) {
-  let engineOptions: IPublicTypeEngineOptions | HTMLElement | undefined | null = null;
+  let engineOptions: IPublicTypeEngineOptions;
   if (lodash.isPlainObject(container)) {
-    engineOptions = container;
+    engineOptions = container as IPublicTypeEngineOptions;
     engineContainer = document.createElement('div');
     engineContainer.id = 'engine';
     document.body.appendChild(engineContainer);
   } else {
-    engineOptions = options;
+    engineOptions = options!;
     engineContainer = container;
     if (!container) {
       engineContainer = document.createElement('div');
@@ -133,9 +133,24 @@ export async function init(
     }
   }
 
-  engineConfig.setEngineOptions(engineOptions as any);
+  engineOptions = merge(engineOptions);
+
+  engineConfig.setEngineOptions(engineOptions);
 
   await plugins.init(pluginPreference);
 
   app.mount(engineContainer as Element);
+}
+
+function merge(engineOptions: IPublicTypeEngineOptions) {
+  // 触发通知router挂载到vue上
+  const router = lodash.merge(ROUTER_OPTIONS, engineOptions?.router);
+  // 触发通知i18n挂载到vue上
+  const i18n = lodash.merge(INTL_OPTIONS, engineOptions?.i18n);
+
+  return {
+    ...engineOptions,
+    router,
+    i18n,
+  };
 }

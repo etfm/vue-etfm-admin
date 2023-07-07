@@ -1,19 +1,12 @@
-import { IRouterContext } from '../router';
+import { I18nContext } from '../locale';
+import { RouterContext } from '../router';
 
 export interface IPublicTypeEngineOptions {
   /**
-   * 是否开启 condition 的能力，默认在设计器中不管 condition 是啥都正常展示
-   * when this is true, node that configured as conditional not renderring
-   * will not display in canvas.
-   * @default false
+   * 多语言配置
+   * @default
    */
-  enableCondition?: boolean;
-
-  /**
-   * 语言，默认值：'zh-CN'
-   * @default 'zh-CN'
-   */
-  locale?: string;
+  i18n?: I18nContext;
 
   /**
    * 开启严格插件模式，默认值：STRICT_PLUGIN_MODE_DEFAULT , 严格模式下，插件将无法通过 engineOptions 传递自定义配置项
@@ -26,5 +19,5 @@ export interface IPublicTypeEngineOptions {
    * 路由配置
    * @default
    */
-  router?: IRouterContext;
+  router?: RouterContext;
 }

@@ -1,9 +1,9 @@
 import { createI18n } from 'vue-i18n';
 import { setHtmlPageLang } from './helper';
 import { App, unref } from 'vue';
-import { I18n, IEditor, IGlobalI18n, ILocalContext } from '@etfma/types';
+import { I18n, IEditor, IGlobalI18n, I18nContext } from '@etfma/types';
 import { engineConfig } from '../config';
-import { lodash, loggerWarning } from '@etfma/shared';
+import { lodash } from '@etfma/shared';
 
 const loadLocalePool: string[] = [];
 
@@ -12,7 +12,7 @@ export const LOCALE = {
   EN_US: 'en',
 };
 
-const INTL_OPTIONS = {
+export const INTL_OPTIONS = {
   locale: LOCALE.ZH_CN,
   fallbackLocale: LOCALE.ZH_CN,
   availableLocales: [LOCALE.ZH_CN, LOCALE.EN_US],
@@ -25,7 +25,7 @@ const INTL_OPTIONS = {
 
 export class GlobalI18n implements IGlobalI18n {
   private _app: App;
-  private _opts: ILocalContext;
+  private _opts: I18nContext;
   private _i18n: I18n;
 
   get locale() {
@@ -42,10 +42,12 @@ export class GlobalI18n implements IGlobalI18n {
 
     this.init();
 
-    engineConfig.onceGot('i18n').then((args: ILocalContext) => {
+    engineConfig.onceGot('i18n').then((args: I18nContext) => {
       this._opts = lodash.merge(this._opts, args);
 
       this.init();
+
+      this._app.use(this._i18n);
     });
 
     editor.onGot('locale', (args: any) => {
@@ -60,12 +62,6 @@ export class GlobalI18n implements IGlobalI18n {
     this._i18n = createI18n({
       ...this._opts,
     });
-
-    if ((this._app as App & { __VUE_I18N__: any }).__VUE_I18N__) {
-      loggerWarning('VUE_I18N已注册，插件默认执行覆盖');
-    }
-
-    this._app.use(this._i18n);
   }
 
   changeLocale(locale: string) {

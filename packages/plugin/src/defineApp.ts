@@ -1,17 +1,17 @@
 import type {
-  IRouterContext,
+  RouterContext,
   IPiniaContext,
   IRenderContext,
   IHttpContext,
-  ILocalContext,
+  I18nContext,
 } from '@etfma/types';
 
 export interface IRuntimeConfig {
-  router?: IRouterContext;
+  router?: RouterContext;
   pinia?: IPiniaContext;
   render?: IRenderContext;
   http?: IHttpContext;
-  locale?: ILocalContext;
+  locale?: I18nContext;
   [key: string]: any;
 }
 

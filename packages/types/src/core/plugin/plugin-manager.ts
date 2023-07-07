@@ -1,4 +1,4 @@
-import { IPublicTypePlugin } from './plugin';
+import { IPublicPlugin } from './plugin';
 import { IPublicPluginContext } from './plugin-context';
 import { IPluginContextOptions } from './plugin-context-options';
 import { IPublicTypePluginRegisterOptions } from './plugin-register-options';
@@ -11,7 +11,7 @@ interface IPluginManagerPluginAccessor {
 
 export interface IPluginManagerCore {
   register(
-    pluginModel: IPublicTypePlugin,
+    pluginModel: IPublicPlugin,
     pluginOptions?: any,
     options?: IPublicTypePluginRegisterOptions,
   ): Promise<void>;
@@ -40,4 +40,4 @@ export interface IPluginPreferenceMananger {
   ) => Record<string, IPublicTypePreferenceValueType> | undefined | null;
 }
 
-export type PluginOptionsType = string | number | boolean | object;
+export type PluginOptionsType = string | number | boolean | object | undefined | null;

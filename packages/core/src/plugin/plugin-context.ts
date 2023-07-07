@@ -1,6 +1,5 @@
 import { EngineConfig, engineConfig } from '../config';
 import { Logger } from '@etfma/shared';
-import { isValidPreferenceKey } from './plugin-utils';
 import { createModuleEventBus } from '../event-bus';
 import type {
   IPluginContextApiAssembler,
@@ -15,7 +14,6 @@ import type {
   IPublicApiRouter,
   IPublicApiSkeleton,
   IPublicModelPluginContext,
-  IPublicTypePluginDeclaration,
   IPublicTypePreferenceValueType,
 } from '@etfma/types';
 
@@ -43,14 +41,11 @@ export default class PluginContext implements IPublicModelPluginContext {
     }
   }
 
-  setPreference(pluginName: string, preferenceDeclaration: IPublicTypePluginDeclaration): void {
+  setPreference(pluginName: string): void {
     const getPreferenceValue = (
       key: string,
       defaultValue?: IPublicTypePreferenceValueType,
     ): IPublicTypePreferenceValueType | undefined => {
-      if (!isValidPreferenceKey(key, preferenceDeclaration)) {
-        return undefined;
-      }
       const pluginPreference = this.plugins.getPluginPreference(pluginName) || {};
       if (pluginPreference[key] === undefined || pluginPreference[key] === null) {
         return defaultValue;

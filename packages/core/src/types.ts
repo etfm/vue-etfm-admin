@@ -3,7 +3,7 @@ import type {
   IPublicApiMaterial,
   IPublicApiEvent,
   IPublicPluginContext,
-  IPublicTypePlugin,
+  IPublicPlugin,
 } from '@etfma/types';
 
 export {
@@ -11,5 +11,5 @@ export {
   IPublicApiMaterial,
   IPublicApiEvent,
   IPublicPluginContext,
-  IPublicTypePlugin,
+  IPublicPlugin,
 };

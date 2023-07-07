@@ -3,7 +3,7 @@
 import { IPublicTypePluginCreater } from './plugin-creater';
 import { IPublicTypePluginMeta } from './plugin-meta';
 
-export interface IPublicTypePlugin extends IPublicTypePluginCreater {
+export interface IPublicPlugin extends IPublicTypePluginCreater {
   pluginName: string;
   meta?: IPublicTypePluginMeta;
 }

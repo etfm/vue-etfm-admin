@@ -1,6 +1,5 @@
 import { engineConfig } from '../config';
 import { Logger } from '@etfma/shared';
-import { filterValidOptions } from './plugin-utils';
 import { PluginRuntime } from './plugin';
 import PluginContext from './plugin-context';
 import sequencify from './sequencify';
@@ -11,7 +10,7 @@ import {
   IPluginPreference,
   IPluginContextApiAssembler,
   IPluginContextOptions,
-  IPublicTypePlugin,
+  IPublicPlugin,
   IPublicTypePluginRegisterOptions,
   IPublicTypePreferenceValueType,
 } from '@etfma/types';
@@ -76,17 +75,13 @@ export class PluginManager implements IPluginManager {
    * @param registerOptions - the plugin register options
    */
   async register(
-    pluginModel: IPublicTypePlugin,
+    pluginModel: IPublicPlugin,
     options?: any,
     registerOptions?: IPublicTypePluginRegisterOptions,
   ): Promise<void> {
     // registerOptions maybe in the second place
-    if (isRegisterOptions(options)) {
-      registerOptions = options;
-      options = {};
-    }
     let { pluginName, meta = {} } = pluginModel;
-    const { preferenceDeclaration, engines } = meta;
+    const { engines } = meta;
     // filter invalid eventPrefix
     const { eventPrefix } = meta;
     const isReservedPrefix = RESERVED_EVENT_PREFIX.find((item) => item === eventPrefix);
@@ -97,14 +92,10 @@ export class PluginManager implements IPluginManager {
       );
     }
     const ctx = this._getPluginContext({ pluginName, meta });
-    const customFilterValidOptions = engineConfig.get(
-      'customPluginFilterOptions',
-      filterValidOptions,
-    );
 
-    const config = pluginModel(ctx, customFilterValidOptions(options, preferenceDeclaration!));
+    const config = pluginModel(ctx, options);
 
-    ctx.setPreference(pluginName, preferenceDeclaration!);
+    ctx.setPreference(pluginName);
 
     const allowOverride = registerOptions?.override === true;
 
@@ -234,8 +225,4 @@ export class PluginManager implements IPluginManager {
     this.plugins = [];
     this.pluginsMap.clear();
   }
-}
-
-export function isRegisterOptions(opts: any): opts is IPublicTypePluginRegisterOptions {
-  return opts && ('autoInit' in opts || 'override' in opts);
 }

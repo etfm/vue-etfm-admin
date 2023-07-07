@@ -1,4 +1,4 @@
-import { IPublicTypePlugin } from '../plugin/plugin';
+import { IPublicPlugin } from '../plugin/plugin';
 import { IPublicModelPluginInstance } from '../plugin/plugin-instance';
 import { PluginOptionsType } from '../plugin/plugin-manager';
 import { IPublicTypePluginRegisterOptions } from '../plugin/plugin-register-options';
@@ -11,7 +11,7 @@ export interface IPublicApiPlugins {
   [key: string]: any;
 
   register(
-    pluginModel: IPublicTypePlugin,
+    pluginModel: IPublicPlugin,
     options?: Record<string, PluginOptionsType>,
     registerOptions?: IPublicTypePluginRegisterOptions,
   ): Promise<void>;

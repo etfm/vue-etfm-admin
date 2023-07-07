@@ -2,13 +2,41 @@ import '@etfma/design';
 import 'uno.css';
 
 import { plugins, init, skeleton } from '@etfma/core';
-import type { IPublicPluginContext, IPublicTypePlugin } from '@etfma/core';
+import type { IPublicPluginContext, IPublicPlugin } from '@etfma/core';
 import Analysis from '@/views/dashboard/analysis/index.vue';
 import { h } from 'vue';
 import LayoutSider from '@/layouts/sider/layout-sider.vue';
+import PluginHttp from '@etfma/plugin-http';
+import { handleHttpError } from './http/error';
+import { Recordable } from '@etfma/types';
+import { getToken } from './cache/auth';
+import { getAppEnvConfig } from '@etfma/shared';
 
 async function boostrap() {
-  const buildSkeleton: IPublicTypePlugin = (_: IPublicPluginContext) => {
+  const AppConfig = getAppEnvConfig();
+
+  plugins.register(
+    PluginHttp,
+    {
+      apiUrl: AppConfig.VITE_GLOB_API_URL,
+      urlPrefix: AppConfig.VITE_GLOB_API_URL_PREFIX,
+      requestInterceptors: [
+        (config) => {
+          // 请求之前处理config
+          const token = getToken();
+          if (token && (config as Recordable<any>)?.requestOptions?.withToken !== false) {
+            // jwt token
+            (config as Recordable<any>).headers.Authorization = token;
+          }
+          return config;
+        },
+      ],
+      onError: handleHttpError,
+    },
+    { autoInit: true },
+  );
+
+  const buildSkeleton: IPublicPlugin = (_: IPublicPluginContext) => {
     return {
       name: 'TextPlugin',
       init() {

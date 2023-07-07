@@ -1,8 +1,8 @@
-import type { IPublicPluginContext, IPublicTypePlugin, IRouterContext } from '@etfma/types';
+import type { IPublicPluginContext, IPublicPlugin, IRouterContext } from '@etfma/types';
 import type { App } from 'vue';
 import { register } from './register';
 
-const PluginRouter: IPublicTypePlugin = (ctx: IPublicPluginContext, options: any) => {
+const PluginRouter: IPublicPlugin = (ctx: IPublicPluginContext, options: any) => {
   return {
     init: () => {
       const app = ctx.global.get('app') as App;

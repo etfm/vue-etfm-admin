@@ -2,7 +2,7 @@ import {
   IPluginManager,
   IPublicApiPlugins,
   IPublicModelPluginInstance,
-  IPublicTypePlugin,
+  IPublicPlugin,
   IPublicTypePluginRegisterOptions,
   IPublicTypePreferenceValueType,
 } from '@etfma/types';
@@ -17,7 +17,7 @@ export class Plugins implements IPublicApiPlugins {
   }
 
   async register(
-    pluginModel: IPublicTypePlugin,
+    pluginModel: IPublicPlugin,
     options?: any,
     registerOptions?: IPublicTypePluginRegisterOptions,
   ): Promise<void> {

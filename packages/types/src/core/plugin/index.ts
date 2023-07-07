@@ -3,7 +3,6 @@ export * from './plugin-config';
 export * from './plugin-context';
 export * from './plugin-context-options';
 export * from './plugin-creater';
-export * from './plugin-declaration';
 export * from './plugin-declaration-property';
 export * from './plugin-instance';
 export * from './plugin-manager';

@@ -1,5 +1,3 @@
-import { IPublicTypePluginDeclaration } from './plugin-declaration';
-
 export interface IPublicTypePluginMeta {
   /**
    * define dependencies which the plugin depends on
@@ -12,7 +10,6 @@ export interface IPublicTypePluginMeta {
     /** e.g. '^1.0.0' */
     version?: string;
   };
-  preferenceDeclaration?: IPublicTypePluginDeclaration;
 
   /**
    * use 'common' as event prefix when eventPrefix is not set.

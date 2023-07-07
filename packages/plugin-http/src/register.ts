@@ -43,8 +43,6 @@ export let http: VAxios;
 export async function register(...opts: IHttpContext[]) {
   context = lodash.merge(context, ...opts);
 
-  console.log(context);
-
   http = new VAxios(context);
 
   return http;

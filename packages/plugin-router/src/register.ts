@@ -6,6 +6,7 @@ export let context: IRouterContext = {
   historyType: 'hash',
   basename: '/',
   routes: [],
+  rouls: [],
 };
 
 export let router: Router;

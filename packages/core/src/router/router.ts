@@ -52,11 +52,8 @@ export class GlobalRouter implements IGlobalRouter {
 
     this._router = createRouter({
       ...this._opts,
-      // 创建一个 hash 历史记录。
       history: history,
-      // 应该添加到路由的初始路由列表。
       routes: routeList as unknown as RouteRecordRaw[],
-      // 是否应该禁止尾部斜杠。默认为假
       strict: true,
     });
 
@@ -71,7 +68,6 @@ export class GlobalRouter implements IGlobalRouter {
 
     if (routes && !lodash.isEmpty(routes)) {
       routes = lodash.isArray(routes) ? routes : [routes];
-
       // 忽略路由
       const filterRoutes = filter(routes, (route) => routeRemoveFilter(route, rouls as string[]));
       // 路由打平到二级路由

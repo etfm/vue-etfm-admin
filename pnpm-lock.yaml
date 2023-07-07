@@ -149,6 +149,9 @@ importers:
       '@etfma/plugin-http':
         specifier: workspace:^0.0.0
         version: link:../../packages/plugin-http
+      '@etfma/plugin-pinia':
+        specifier: workspace:^0.0.0
+        version: link:../../packages/plugin-pinia
       '@etfma/render':
         specifier: workspace:*
         version: link:../../packages/render
@@ -601,6 +604,25 @@ importers:
       '@types/qs':
         specifier: ^6.9.7
         version: 6.9.7
+
+  packages/plugin-pinia:
+    dependencies:
+      '@etfma/plugin':
+        specifier: workspace:*
+        version: link:../plugin
+      '@etfma/shared':
+        specifier: workspace:*
+        version: link:../shared
+      pinia:
+        specifier: ^2.0.32
+        version: 2.1.3
+      pinia-plugin-persistedstate:
+        specifier: ^3.1.0
+        version: 3.1.0(pinia@2.1.3)
+    devDependencies:
+      '@etfma/types':
+        specifier: workspace:^0.0.0
+        version: link:../types
 
   packages/plugin-router:
     dependencies:

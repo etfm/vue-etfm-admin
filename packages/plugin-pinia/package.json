@@ -1,0 +1,46 @@
+{
+  "name": "@etfma/plugin-pinia",
+  "version": "0.0.0",
+  "description": "> TODO: description",
+  "homepage": "https://github.com/etfm/vue-etfm-admin#readme",
+  "bugs": {
+    "url": "https://github.com/etfm/vue-etfm-admin/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/etfm/vue-etfm-admin.git"
+  },
+  "license": "ISC",
+  "author": "lzdjack <1956252575@qq.com>",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "default": "./src/index.ts"
+    }
+  },
+  "main": "src/index.ts",
+  "module": "src/index.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "bootstrap": "pnpm install",
+    "build": "pnpm vite build",
+    "clean": "pnpm rimraf .turbo node_modules dist",
+    "lint": "pnpm eslint .",
+    "test": "node ./__tests__/@etfma/pinia.test.js"
+  },
+  "dependencies": {
+    "@etfma/plugin": "workspace:*",
+    "@etfma/shared": "workspace:*",
+    "pinia": "^2.0.32",
+    "pinia-plugin-persistedstate": "^3.1.0"
+  },
+  "devDependencies": {
+    "@etfma/types": "workspace:^0.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -11,11 +11,12 @@ import { handleHttpError } from './http/error';
 import { Recordable } from '@etfma/types';
 import { getToken } from './cache/auth';
 import { getAppEnvConfig } from '@etfma/shared';
+import PluginPinia from '@etfma/plugin-pinia';
 
 async function boostrap() {
   const AppConfig = getAppEnvConfig();
 
-  plugins.register(
+  await plugins.register(
     PluginHttp,
     {
       apiUrl: AppConfig.VITE_GLOB_API_URL,
@@ -35,6 +36,8 @@ async function boostrap() {
     },
     { autoInit: true },
   );
+
+  await plugins.register(PluginPinia);
 
   const buildSkeleton: IPublicPlugin = (_: IPublicPluginContext) => {
     return {

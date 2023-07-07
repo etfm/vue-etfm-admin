@@ -8,41 +8,13 @@ const PluginRouter: IPublicPlugin = (ctx: IPublicPluginContext, options: any) =>
       const app = ctx.global.get('app') as App;
       const config = ctx.preference.getPreference() as unknown as IRouterContext;
 
-      const router = register(options, config);
+      const router = register(config, options);
       app.use(router);
     },
   };
 };
 
 PluginRouter.pluginName = 'PluginRouter';
-
-PluginRouter.meta = {
-  preferenceDeclaration: {
-    title: 'PluginRouter',
-    properties: [
-      {
-        key: 'historyType',
-        type: 'string',
-        description: 'this is description for historyType',
-      },
-      {
-        key: 'basename',
-        type: 'string',
-        description: 'basename',
-      },
-      {
-        key: 'routes',
-        type: 'array',
-        description: 'routes',
-      },
-      {
-        key: 'rouls',
-        type: 'array',
-        description: 'rouls',
-      },
-    ],
-  },
-};
 
 export default PluginRouter;
 

@@ -23,6 +23,7 @@
     "@etfma/pinia": "workspace:*",
     "@etfma/plugin": "workspace:*",
     "@etfma/plugin-http": "workspace:^0.0.0",
+    "@etfma/plugin-pinia": "workspace:^0.0.0",
     "@etfma/render": "workspace:*",
     "@etfma/router": "workspace:*",
     "@etfma/shared": "workspace:*",

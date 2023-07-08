@@ -125,17 +125,33 @@ async function boostrap() {
 
   await plugins.register(PluginDesigner);
 
+  const aa = './views/demo/main-out/main-out.vue';
+
+  import(aa);
+
   await init(document.getElementById('app')!, {
     router: {
       routes: [
         {
           path: '/',
           name: 'Analysis',
-          component: () => import('./views/dashboard/analysis/index.vue'),
+          component: 'layout',
+          redirect: '/analysis',
           meta: {
             title: 'routes.dashboard.analysis',
             currentActiveMenu: '/dashboard/analysis',
           },
+          children: [
+            {
+              path: 'analysis',
+              name: 'Analysis',
+              component: '/dashboard/analysis/index',
+              meta: {
+                title: 'routes.dashboard.analysis',
+                currentActiveMenu: '/dashboard/analysis',
+              },
+            },
+          ],
         },
       ],
     },

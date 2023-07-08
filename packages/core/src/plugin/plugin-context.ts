@@ -5,6 +5,7 @@ import type {
   IPluginContextApiAssembler,
   IPluginContextOptions,
   IPluginPreferenceMananger,
+  IPublicApiCommon,
   IPublicApiEditor,
   IPublicApiEvent,
   IPublicApiGlobal,
@@ -23,6 +24,7 @@ export default class PluginContext implements IPublicModelPluginContext {
   config: EngineConfig;
   global: IPublicApiGlobal;
   editor: IPublicApiEditor;
+  common: IPublicApiCommon;
   logger: Logger;
   plugins: IPublicApiPlugins;
   preference: IPluginPreferenceMananger;

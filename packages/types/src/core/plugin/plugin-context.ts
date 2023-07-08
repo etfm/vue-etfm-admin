@@ -7,6 +7,7 @@ import {
   IPublicApiGlobal,
   IPublicApiI18n,
   IPublicApiRouter,
+  IPublicApiCommon,
 } from '../api';
 import { IPublicModelEngineConfig } from '../engine-config';
 import { IPluginPreferenceMananger } from './plugin-manager';
@@ -38,6 +39,8 @@ export interface IPublicModelPluginContext {
   get globalRouter(): IPublicApiRouter;
 
   get globalI18n(): IPublicApiI18n;
+
+  get common(): IPublicApiCommon;
 }
 
 export interface IPluginContextPrivate {
@@ -45,6 +48,7 @@ export interface IPluginContextPrivate {
   set event(event: IPublicApiEvent);
   set config(config: IPublicModelEngineConfig);
   set global(global: IPublicApiGlobal);
+  set common(common: IPublicApiCommon);
   set globalRouter(router: IPublicApiRouter);
   set material(material: IPublicApiMaterial);
   set plugins(plugins: IPublicApiPlugins);

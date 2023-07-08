@@ -10,7 +10,7 @@
   const hasCache = ref(true);
   const enableTransition = ref(true);
   const defaultTransitionName = ref('');
-  const cacheTabs = ref(['']);
+  const cacheTabs = ref([]);
 </script>
 
 <template>

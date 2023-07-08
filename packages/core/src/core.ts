@@ -29,9 +29,10 @@ import {
 } from '@etfma/types';
 import { PluginManager } from './plugin';
 
-import { Workbench } from './layout';
 import { GlobalRouter as InnerGlobalRouter, ROUTER_OPTIONS } from './router/router';
 import { INTL_OPTIONS, GlobalI18n as InnerGlobalI18n } from './intl/i18n';
+import { Common } from './shell/common';
+import { RouterView } from 'vue-router';
 
 export * from './router';
 export * from './intl';
@@ -46,6 +47,15 @@ globalContext.register(editor, 'editor');
 
 const innerSkeleton = new InnerSkeleton(editor);
 editor.set('skeleton', innerSkeleton);
+const common = new Common(innerSkeleton);
+
+const app = createApp({
+  render: () => h(RouterView),
+});
+
+editor.set('app', app);
+engineConfig.set('app', app);
+globalContext.register(app, 'app');
 
 const material = new Material(editor);
 editor.set('material', material);
@@ -54,18 +64,6 @@ const skeleton = new Skeleton(innerSkeleton);
 const config = new Config(engineConfig);
 const event = new Event(commonEvent, { prefix: 'common' });
 const logger = new Logger({ bizName: 'common' });
-
-const app = createApp({
-  render: () =>
-    h(Workbench, {
-      skeleton: innerSkeleton,
-      class: 'engine-main',
-    }),
-});
-
-editor.set('app', app);
-engineConfig.set('app', app);
-globalContext.register(app, 'app');
 
 const innerGlobalRouter = new InnerGlobalRouter(editor);
 editor.set('router', innerGlobalRouter);
@@ -91,6 +89,7 @@ const pluginContextApiAssembler: IPluginContextApiAssembler = {
     context.globalRouter = globalRouter;
     context.globalI18n = globalI18n;
     context.global = global;
+    context.common = common;
     context.plugins = plugins;
     context.logger = new Logger({ bizName: `plugin:${pluginName}` });
   },
@@ -101,7 +100,18 @@ plugins = new Plugins(innerPlugins).toProxy();
 editor.set('innerPlugins', innerPlugins);
 editor.set('plugins', plugins);
 
-export { skeleton, plugins, material, config, event, logger, global, globalRouter, globalI18n };
+export {
+  skeleton,
+  plugins,
+  material,
+  config,
+  event,
+  logger,
+  global,
+  common,
+  globalRouter,
+  globalI18n,
+};
 export const __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED = {
   symbols,
   classes,

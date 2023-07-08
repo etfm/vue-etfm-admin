@@ -15,7 +15,7 @@ export interface RouterContext extends Omit<RouterOptions, 'routes' | 'history'>
 export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'children' | 'component'> {
   name: string;
   meta: RouteMeta;
-  component?: DefineComponent | Component;
+  component?: DefineComponent | Component | string;
   children?: AppRouteRecordRaw[];
   props?: Recordable<any>;
   fullPath?: string;

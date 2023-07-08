@@ -19,6 +19,9 @@ importers:
       vue:
         specifier: ^3.3.4
         version: 3.3.4
+      vue-router:
+        specifier: ^4.1.6
+        version: 4.2.1(vue@3.3.4)
     devDependencies:
       '@commitlint/cli':
         specifier: ^17.5.1

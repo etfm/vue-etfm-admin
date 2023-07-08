@@ -1,7 +1,6 @@
 import { IPublicTypeWidgetConfigArea } from './widget-config-area';
 
 export interface IPublicTypeWidgetBaseConfig {
-  type: string;
   name: string;
   area: IPublicTypeWidgetConfigArea;
   props?: Record<string, any>;

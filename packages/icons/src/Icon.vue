@@ -93,7 +93,9 @@
 </script>
 
 <template>
-  <span ref="iconRef" v-bind="$attrs" :class="$style.icon" :style="iconStyles"></span>
+  <i ref="iconRef" v-bind="$attrs" :class="$style.icon" :style="iconStyles">
+    <slot v-if="!icon" />
+  </i>
 </template>
 
 <style module scoped lang="scss">

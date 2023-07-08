@@ -367,3 +367,16 @@ $tag-icon-size: map.merge(
   ),
   $tag-icon-size
 );
+
+// Scrollbar
+// css3 var in packages/theme-chalk/src/scrollbar.scss
+$scrollbar: () !default;
+$scrollbar: map.merge(
+  (
+    'opacity': 0.3,
+    'bg-color': getCssVar('text-color-secondary'),
+    'hover-opacity': 0.5,
+    'hover-bg-color': getCssVar('text-color-secondary'),
+  ),
+  $scrollbar
+);

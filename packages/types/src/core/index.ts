@@ -13,7 +13,6 @@ export * from './skeleton-item';
 export * from './widget-base-config';
 export * from './widget-config-area';
 export * from './area';
-export * from './panel';
 export * from './widget';
 export * from './skeleton';
 export * from './i18n';

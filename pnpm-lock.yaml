@@ -634,6 +634,31 @@ importers:
         specifier: ^6.9.7
         version: 6.9.7
 
+  packages/plugin-menu:
+    dependencies:
+      '@etfma/core':
+        specifier: workspace:^
+        version: link:../core
+      '@etfma/design':
+        specifier: workspace:^
+        version: link:../design
+      '@etfma/etfma-ui':
+        specifier: workspace:^
+        version: link:../etfma-ui
+      '@etfma/hooks':
+        specifier: workspace:*
+        version: link:../hooks
+      '@etfma/icons':
+        specifier: workspace:^
+        version: link:../icons
+      '@etfma/shared':
+        specifier: workspace:^
+        version: link:../shared
+    devDependencies:
+      '@etfma/types':
+        specifier: workspace:^0.0.0
+        version: link:../types
+
   packages/plugin-pinia:
     dependencies:
       '@etfma/plugin':

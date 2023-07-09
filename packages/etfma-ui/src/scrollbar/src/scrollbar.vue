@@ -29,10 +29,10 @@
   import { useNamespace } from '@etfma/hooks';
   import { addUnit, lodash, loggerWarning } from '@etfma/shared';
 
-  const COMPONENT_NAME = 'ElScrollbar';
+  const COMPONENT_NAME = 'EtfmaScrollbar';
 
   defineOptions({
-    name: COMPONENT_NAME,
+    name: 'EtfmaScrollbar',
   });
 
   const props = defineProps(scrollbarProps);

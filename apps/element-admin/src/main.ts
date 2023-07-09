@@ -5,7 +5,6 @@ import { plugins, init, skeleton } from '@etfma/core';
 import type { IPublicPluginContext, IPublicPlugin } from '@etfma/core';
 // import Analysis from '@/views/dashboard/analysis/index.vue';
 import { h } from 'vue';
-import LayoutSider from '@/layouts/sider/layout-sider.vue';
 import PluginHttp from '@etfma/plugin-http';
 import { handleHttpError } from './http/error';
 import { Recordable } from '@etfma/types';
@@ -13,6 +12,7 @@ import { getToken } from './cache/auth';
 import { getAppEnvConfig } from '@etfma/shared';
 import PluginPinia from '@etfma/plugin-pinia';
 import PluginDesigner from '@etfma/plugin-designer';
+import PluginAside from '@etfma/plugin-aside';
 
 async function boostrap() {
   const AppConfig = getAppEnvConfig();
@@ -40,13 +40,14 @@ async function boostrap() {
 
   await plugins.register(PluginPinia);
 
+  await plugins.register(PluginAside);
+
   const buildSkeleton: IPublicPlugin = (_: IPublicPluginContext) => {
     return {
       name: 'TextPlugin',
       init() {
         skeleton.add({
           area: 'header',
-          type: 'Widget',
           name: 'topArea',
           content: 'logo',
           contentProps: {
@@ -56,22 +57,7 @@ async function boostrap() {
         });
 
         skeleton.add({
-          area: 'aside',
-          type: 'Widget',
-          name: 'leftArea',
-          content: h(LayoutSider, {
-            isCollapse: false,
-            layout: 'side-nav',
-          }),
-          contentProps: {
-            logo: 'https://img.alicdn.com/imgextra/i4/O1CN013w2bmQ25WAIha4Hx9_!!6000000007533-55-tps-137-26.svg',
-            href: 'https://lowcode-engine.cn',
-          },
-        });
-
-        skeleton.add({
           area: 'footer',
-          type: 'Widget',
           name: 'bottomArea',
           content: 'logo',
           contentProps: {
@@ -82,7 +68,6 @@ async function boostrap() {
 
         skeleton.add({
           area: 'toolbar',
-          type: 'Widget',
           name: 'toolbar',
           content: 'logo',
           contentProps: {
@@ -93,7 +78,6 @@ async function boostrap() {
 
         skeleton.add({
           area: 'breadcrumb',
-          type: 'Widget',
           name: 'toolbarTop',
           content: '1212',
           contentProps: {
@@ -104,7 +88,6 @@ async function boostrap() {
 
         skeleton.add({
           area: 'float',
-          type: 'Widget',
           name: 'leftFixedArea',
           content: h('div', 'logologologologologologologologologol'),
           contentProps: {
@@ -124,10 +107,6 @@ async function boostrap() {
   await plugins.register(buildSkeleton);
 
   await plugins.register(PluginDesigner);
-
-  const aa = './views/demo/main-out/main-out.vue';
-
-  import(aa);
 
   await init(document.getElementById('app')!, {
     router: {

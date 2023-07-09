@@ -2,24 +2,24 @@ import { IPiniaContext, IPublicPlugin, IPublicPluginContext } from '@etfma/types
 import { skeleton } from '@etfma/core';
 import { h } from 'vue';
 import { lodash } from '@etfma/shared';
-import Sider from './sider.vue';
+import Aside from './aside.vue';
 
-const PluginMenu: IPublicPlugin = (ctx: IPublicPluginContext, options: IPiniaContext) => {
+const PluginAside: IPublicPlugin = (ctx: IPublicPluginContext, options: IPiniaContext) => {
   return {
     init: () => {
       const config = ctx.preference.getPreference() as unknown as IPiniaContext;
       const opts = lodash.merge(config, options);
 
       skeleton.add({
-        name: 'PluginMenu',
+        name: 'PluginAside',
         area: 'aside',
-        content: h(Sider),
+        content: h(Aside),
         contentProps: opts,
       });
     },
   };
 };
 
-PluginMenu.pluginName = 'PluginMenu';
+PluginAside.pluginName = 'PluginAside';
 
-export default PluginMenu;
+export default PluginAside;

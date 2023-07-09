@@ -22,6 +22,7 @@
     "@etfma/locale": "workspace:^",
     "@etfma/pinia": "workspace:*",
     "@etfma/plugin": "workspace:*",
+    "@etfma/plugin-aside": "workspace:^",
     "@etfma/plugin-designer": "workspace:^",
     "@etfma/plugin-http": "workspace:^0.0.0",
     "@etfma/plugin-pinia": "workspace:^0.0.0",

@@ -1,31 +1,15 @@
-<template>
-  <div :class="[ns.b()]">
-    <EtfmaScrollbar :style="getWrapperStyle">
-      <BasicMenu
-        :collapse="isCollapse"
-        :menus="menuRef"
-        :is-horizontal="isHorizontal"
-        :default-active="model.defaultActive"
-        @menu-click="handleClick"
-      ></BasicMenu>
-    </EtfmaScrollbar>
-    <div class="absolute right-5 bottom-3"
-      ><Trigger :is-collapse="isCollapse" @toggle="toggleCollapsed" />
-    </div>
-  </div>
-</template>
 <script setup lang="ts">
   import BasicMenu from './BasicMenu.vue';
   import { useNamespace } from '@etfma/hooks';
   import Trigger from './components/trigger/index.vue';
   import { EtfmaScrollbar } from '@etfma/etfma-ui';
-  import { CSSProperties, computed, reactive, ref } from 'vue';
+  import { reactive, ref } from 'vue';
   import { lodash } from '@etfma/shared';
   import { event } from '@etfma/core';
   import { useRouter } from 'vue-router';
 
   defineOptions({
-    name: 'LayoutSider',
+    name: 'LayoutASide',
     inheritAttrs: false,
   });
 
@@ -94,14 +78,6 @@
     },
   ]);
 
-  // const go = useGo();
-
-  const getWrapperStyle = computed((): CSSProperties => {
-    return {
-      height: 'calc(100% - 60px)',
-    };
-  });
-
   /**
    * 监听当前路由的变化
    */
@@ -130,9 +106,26 @@
     emit('toggle', collapse);
   };
 </script>
+<template>
+  <div :class="[ns.b()]">
+    <EtfmaScrollbar class="h-full">
+      <BasicMenu
+        :collapse="isCollapse"
+        :menus="menuRef"
+        :is-horizontal="isHorizontal"
+        :default-active="model.defaultActive"
+        @menu-click="handleClick"
+      ></BasicMenu>
+    </EtfmaScrollbar>
+    <div class="absolute right-5 bottom-3"
+      ><Trigger :is-collapse="isCollapse" @toggle="toggleCollapsed" />
+    </div>
+  </div>
+</template>
 <style scoped lang="scss">
   @include b('layout-menu') {
     position: relative;
+    width: 220px;
     height: 100%;
   }
 </style>

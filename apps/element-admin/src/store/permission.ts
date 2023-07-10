@@ -1,11 +1,12 @@
-import { addDynamicRoute, AppRouteModule, AppRouteRecordRaw } from '@etfma/router';
+import { AppRouteRecordRaw, material } from '@etfma/core';
 
-import { defineStore, store } from '@etfma/pinia';
+import { defineStore, store } from '@etfma/plugin-pinia';
 
 import { getMenuList } from '@/api/sys/menu';
 import { getPermCode } from '@/api/sys/user';
 import type { Menu } from '@/router/types';
 import { transformRouteToMenu } from '@/router/helper/menuHelper';
+import { staticRoutes } from '@/router';
 
 // import { useMessage } from '/@/hooks/web/useMessage'
 
@@ -88,13 +89,15 @@ export const usePermissionStore = defineStore({
       try {
         await this.changePermissionCode();
         routes = (await getMenuList()) as AppRouteRecordRaw[];
-        // 追加到路由表中，并返回树形路由表
-        const routeList = addDynamicRoute(routes);
 
-        //  Background routing to menu structure
-        //  后台路由到菜单结构
-        const backMenuList = transformRouteToMenu(routeList as AppRouteModule[]);
-        this.setBackMenuList(backMenuList);
+        // 追加到路由表中，并返回树形路由表
+        material.setAssets('routes', [...staticRoutes, ...routes]);
+        // const routeList = addDynamicRoute(routes);
+
+        // //  Background routing to menu structure
+        // //  后台路由到菜单结构
+        // const backMenuList = transformRouteToMenu(routeList as AppRouteModule[]);
+        // this.setBackMenuList(backMenuList);
 
         // 下次不在向后台请求路由
         this.setDynamicAddedRoute(true);

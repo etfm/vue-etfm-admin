@@ -26,16 +26,16 @@ const dashboardRoute = {
         currentActiveMenu: '/dashboard/analysis',
       },
     },
-    {
-      path: 'workbench',
-      name: 'Workbench',
-      component: '/dashboard/workbench/index',
-      meta: {
-        hideMenu: false,
-        hideBreadcrumb: false,
-        title: 'routes.dashboard.workbench',
-      },
-    },
+    // {
+    //   path: 'workbench',
+    //   name: 'Workbench',
+    //   component: '/dashboard/workbench/index',
+    //   meta: {
+    //     hideMenu: false,
+    //     hideBreadcrumb: false,
+    //     title: 'routes.dashboard.workbench',
+    //   },
+    // },
   ],
 };
 

@@ -41,7 +41,7 @@
     emit('toggle', props.isCollapse);
   };
 </script>
-<style scoped lang="scss" module>
+<style scoped lang="scss">
   @include b('layout-trigger') {
     width: 24px;
     height: 24px;

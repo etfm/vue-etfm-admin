@@ -1,7 +1,7 @@
 import '@etfma/design';
 import 'uno.css';
 
-import { plugins, init, skeleton } from '@etfma/core';
+import { plugins, init, skeleton, globalRouter } from '@etfma/core';
 import type { IPublicPluginContext, IPublicPlugin } from '@etfma/core';
 // import Analysis from '@/views/dashboard/analysis/index.vue';
 import { h } from 'vue';
@@ -13,6 +13,9 @@ import { getAppEnvConfig } from '@etfma/shared';
 import PluginPinia from '@etfma/plugin-pinia';
 import PluginDesigner from '@etfma/plugin-designer';
 import PluginAside from '@etfma/plugin-aside';
+import { setupRouterGuard } from './router/guard';
+import { staticRoutes } from './router';
+import PluginRouterGuard from './plugin/router-guard';
 
 async function boostrap() {
   const AppConfig = getAppEnvConfig();
@@ -108,31 +111,11 @@ async function boostrap() {
 
   await plugins.register(PluginDesigner);
 
+  await plugins.register(PluginRouterGuard);
+
   await init(document.getElementById('app')!, {
     router: {
-      routes: [
-        {
-          path: '/',
-          name: 'Analysis',
-          component: 'layout',
-          redirect: '/analysis',
-          meta: {
-            title: 'routes.dashboard.analysis',
-            currentActiveMenu: '/dashboard/analysis',
-          },
-          children: [
-            {
-              path: 'analysis',
-              name: 'Analysis',
-              component: '/dashboard/analysis/index',
-              meta: {
-                title: 'routes.dashboard.analysis',
-                currentActiveMenu: '/dashboard/analysis',
-              },
-            },
-          ],
-        },
-      ],
+      routes: staticRoutes,
     },
   });
 }

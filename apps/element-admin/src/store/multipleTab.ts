@@ -1,7 +1,7 @@
 import type { RouteLocationNormalized, RouteLocationRaw, Router } from '@etfma/types';
 
 import { toRaw, unref } from 'vue';
-import { defineStore, store } from '@etfma/pinia';
+import { defineStore, store } from '@etfma/plugin-pinia';
 
 // import { useGo, useRedo } from '/@/hooks/web/usePage'
 

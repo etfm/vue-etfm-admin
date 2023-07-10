@@ -47,42 +47,12 @@
     defaultActive: '',
   });
 
-  const menuRef = ref([
-    {
-      path: '1',
-      name: 'Menu 1',
-      children: [
-        {
-          path: '1.1',
-          name: 'Menu 1.1',
-          children: [
-            {
-              path: '1.1.1',
-              name: 'Menu 1.1.1',
-            },
-            {
-              path: '1.1.2',
-              name: 'Menu 1.1.2',
-            },
-          ],
-        },
-        {
-          path: '1.2',
-          name: 'Menu 1.2',
-        },
-      ],
-    },
-    {
-      path: '2',
-      name: 'Menu 2',
-    },
-  ]);
+  const menuRef = ref([]);
 
   /**
    * 监听当前路由的变化
    */
-
-  event.on('router-change', (menu) => {
+  event.on('common:router-change', (menu) => {
     const currentActiveMenu = lodash.get(menu, 'meta.currentActiveMenu') as string;
     if (currentActiveMenu) {
       model.defaultActive = currentActiveMenu;
@@ -125,7 +95,7 @@
 <style scoped lang="scss">
   @include b('layout-menu') {
     position: relative;
-    width: 220px;
     height: 100%;
+    background-color: getCssVar('menu-bg-color');
   }
 </style>

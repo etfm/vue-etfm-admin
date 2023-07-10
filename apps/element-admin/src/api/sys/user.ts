@@ -1,11 +1,11 @@
-import { http } from '@etfma/http'
+import { http } from '@etfma/plugin-http';
 
 enum Api {
   Login = '/login',
   Logout = '/logout',
   GetUserInfo = '/getUserInfo',
   GetPermCode = '/getPermCode',
-  TestRetry = '/testRetry'
+  TestRetry = '/testRetry',
 }
 
 /**
@@ -14,21 +14,21 @@ enum Api {
 export function loginApi(params: any) {
   return http.post({
     url: Api.Login,
-    params
-  })
+    params,
+  });
 }
 
 /**
  * @description: getUserInfo
  */
 export function getUserInfo() {
-  return http.get({ url: Api.GetUserInfo })
+  return http.get({ url: Api.GetUserInfo });
 }
 
 export function getPermCode() {
-  return http.get<string[]>({ url: Api.GetPermCode })
+  return http.get<string[]>({ url: Api.GetPermCode });
 }
 
 export function doLogout() {
-  return http.get({ url: Api.Logout })
+  return http.get({ url: Api.Logout });
 }

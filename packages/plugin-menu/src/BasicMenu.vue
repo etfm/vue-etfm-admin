@@ -152,8 +152,8 @@
 </template>
 
 <style scoped lang="scss">
-  @include b('basic-menu') {
-    width: 100%;
+  @include b('basic-menu:not(.etfma-menu--collapse)') {
+    width: 220px;
     border-right: none;
   }
 </style>

@@ -7,7 +7,7 @@
 // } from '/#/config'
 // import type { BeforeMiniState } from '/#/store'
 
-import { store, defineStore } from '@etfma/pinia';
+import { store, defineStore } from '@etfma/plugin-pinia';
 
 // import { ThemeEnum } from '/@/enums/appEnum'
 // import { APP_DARK_MODE_KEY_, PROJ_CFG_KEY } from '/@/enums/cacheEnum'

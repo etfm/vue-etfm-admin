@@ -4,11 +4,11 @@ import type {
   RouteRecordRaw,
   RouteRecordName,
 } from '@etfma/router';
-import { router } from '@etfma/router';
 import { mainOutRoutes } from './mainOut';
 import { PAGE_NOT_FOUND_ROUTE, REDIRECT_ROUTE } from './basic';
 import { BASE_HOME } from './constant';
 import { loggerWarning, traverseTree } from '@etfma/shared';
+import { globalRouter } from '@etfma/core';
 
 // import.meta.globEager() 直接引入所有的模块 Vite 独有的功能
 const modules = import.meta.glob('./modules/**/*.ts');
@@ -73,8 +73,8 @@ const staticRouteNames = traverseTree<AppRouteRecordRaw, RouteRecordName | undef
  * @description 重置路由
  */
 function resetRoutes() {
-  const routes = router.getRoutes();
-  const { hasRoute, removeRoute } = router;
+  const routes = globalRouter.router.getRoutes();
+  const { hasRoute, removeRoute } = globalRouter.router;
   routes.forEach(({ name }) => {
     // 存在于路由表且非白名单才需要删除
     if (name && !staticRouteNames.includes(name) && hasRoute(name)) {

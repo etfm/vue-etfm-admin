@@ -1,7 +1,7 @@
-import { http } from '@etfma/http'
+import { http } from '@etfma/plugin-http';
 
 enum Api {
-  GetMenuList = '/getMenuList'
+  GetMenuList = '/getMenuList',
 }
 
 /**
@@ -9,5 +9,5 @@ enum Api {
  */
 
 export const getMenuList = () => {
-  return http.get({ url: Api.GetMenuList })
-}
+  return http.get({ url: Api.GetMenuList });
+};

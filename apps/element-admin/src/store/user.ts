@@ -1,10 +1,10 @@
-import { store, defineStore } from '@etfma/pinia';
+import { store, defineStore } from '@etfma/plugin-pinia';
 import { ROLES_KEY, TOKEN_KEY, USER_INFO_KEY } from '@/enums/cacheEnum';
 import { getAuthCache, setAuthCache } from '@/cache/auth';
 import type { GetUserInfoModel, LoginParams } from '@/api/sys/model/userModel';
 import { doLogout, getUserInfo, loginApi } from '@/api/sys/user';
 // import { useI18n } from '@/hooks/web/useI18n';
-import { router } from '@etfma/router';
+import { globalRouter } from '@etfma/core';
 import { usePermissionStore } from '@/store/permission';
 import type { Nullable, Recordable } from '@etfma/types';
 import { PageEnum } from '@/enums/pageEnum';
@@ -52,7 +52,6 @@ export const useUserStore = defineStore({
   actions: {
     setToken(info: string | undefined) {
       this.token = info ? info : ''; // for null or undefined value
-      console.log(this.token, '----+++-----');
       setAuthCache(TOKEN_KEY, info);
     },
     setRoleList(roleList: string[]) {
@@ -84,6 +83,7 @@ export const useUserStore = defineStore({
     ): Promise<GetUserInfoModel | null> {
       try {
         const { goHome = true, mode, ...loginParams } = params;
+
         const data = await loginApi(loginParams);
 
         const { token } = data;
@@ -97,24 +97,28 @@ export const useUserStore = defineStore({
     },
     async afterLoginAction(goHome?: boolean): Promise<any | null> {
       if (!this.getToken) return null;
-      // get user info
+
       const userInfo = await this.getUserInfoAction();
 
       const sessionTimeout = this.sessionTimeout;
+
       if (sessionTimeout) {
         this.setSessionTimeout(false);
       } else {
         const permissionStore = usePermissionStore();
+
         if (!permissionStore.isDynamicAddedRoute) {
           await permissionStore.buildRoutesAction();
         }
-        goHome && (await router.replace(userInfo?.homePath || PageEnum.BASE_HOME));
+
+        goHome && (await globalRouter.router.replace(userInfo?.homePath || PageEnum.BASE_HOME));
       }
       return userInfo;
     },
     async getUserInfoAction(): Promise<Recordable<any> | null> {
       if (!this.getToken) return null;
       const userInfo = await getUserInfo();
+
       const { roles = [] } = userInfo;
       if (lodash.isArray(roles)) {
         const roleList = roles.map((item) => item.value);
@@ -140,7 +144,7 @@ export const useUserStore = defineStore({
       this.setToken(undefined);
       this.setSessionTimeout(false);
       this.setUserInfo(null);
-      goLogin && router.push(PageEnum.BASE_LOGIN);
+      goLogin && globalRouter.router.push(PageEnum.BASE_LOGIN);
     },
 
     /**

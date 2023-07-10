@@ -1,10 +1,9 @@
-import type { Router } from '@etfma/router';
 import { usePermissionStoreWithOut } from '@/store/permission';
 import { PageEnum } from '../enum';
 import { useUserStoreWithOut } from '@/store/user';
 import { PAGE_NOT_FOUND_ROUTE } from '@/router/basic';
 import { RootRoute } from '../';
-import { Recordable } from '@etfma/types';
+import { Recordable, Router } from '@etfma/types';
 
 const LOGIN_PATH = PageEnum.BASE_LOGIN;
 

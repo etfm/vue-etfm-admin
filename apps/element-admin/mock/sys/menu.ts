@@ -10,7 +10,7 @@ const dashboardRoute = {
   component: 'LAYOUT',
   redirect: '/dashboard/analysis',
   meta: {
-    title: 'routes.dashboard.dashboard',
+    title: 'Dashboard',
     hideChildrenInMenu: false,
     icon: 'bx:bx-home',
   },
@@ -22,8 +22,7 @@ const dashboardRoute = {
       meta: {
         hideMenu: false,
         hideBreadcrumb: false,
-        title: 'routes.dashboard.analysis',
-        currentActiveMenu: '/dashboard/analysis',
+        title: '分析页',
       },
     },
     // {

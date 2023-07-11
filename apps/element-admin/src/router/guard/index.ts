@@ -7,7 +7,8 @@ import type { Router, RouteLocationNormalized } from '@etfma/router';
 // import { unref } from 'vue'
 import { createPermissionGuard } from './permissionGuard';
 import { createStateGuard } from './stateGuard';
-import { setRouteChange } from '@/logics/mitt';
+// import { setRouteChange } from '@/logics/mitt';
+import { event } from '@etfma/core';
 // import nProgress from 'nprogress'
 // import projectSetting from '/@/settings/projectSetting'
 // import { createParamMenuGuard } from './paramMenuGuard'
@@ -36,7 +37,9 @@ function createPageGuard(router: Router) {
     // The page has already been loaded, it will be faster to open it again, you don’t need to do loading and other processing
     to.meta.loaded = !!loadedPageMap.get(to.path);
     // Notify routing changes
-    setRouteChange(to);
+    // setRouteChange(to);
+
+    event.emit('common:router-change', to);
 
     return true;
   });

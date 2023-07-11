@@ -5,8 +5,9 @@
   import { EtfmaScrollbar } from '@etfma/etfma-ui';
   import { reactive, ref } from 'vue';
   import { lodash } from '@etfma/shared';
-  import { event } from '@etfma/core';
+  import { event, material, type AppRouteRecordRaw } from '@etfma/core';
   import { useRouter } from 'vue-router';
+  import { getMenu, transformRouteToMenu } from './menuHelper';
 
   defineOptions({
     name: 'LayoutASide',
@@ -23,17 +24,17 @@
      * 布局方式
      * @default side-nav
      */
-    layout: string;
+    layout?: string;
     /**
      * 是否折起
      * @default false
      */
-    isCollapse: boolean;
+    isCollapse?: boolean;
   }
 
   const emit = defineEmits<{ toggle: [collapse: boolean] }>();
 
-  withDefaults(defineProps<Props>(), {
+  const props = withDefaults(defineProps<Props>(), {
     layout: 'side-nav',
     isHorizontal: false,
     isCollapse: false,
@@ -47,7 +48,7 @@
     defaultActive: '',
   });
 
-  const menuRef = ref([]);
+  const menuRef = ref<AppRouteRecordRaw[]>([]);
 
   /**
    * 监听当前路由的变化
@@ -59,6 +60,18 @@
     } else {
       model.defaultActive = menu.path;
     }
+  });
+
+  /**
+   * 监听路由的变化
+   * 菜单是根据菜单转化而来
+   * 具体参数请查看文档
+   */
+  material.onChangeAssets('routes', (routes: AppRouteRecordRaw[]) => {
+    const transfromMenus = transformRouteToMenu(routes);
+    const menus = getMenu(transfromMenus);
+
+    menuRef.value = menus;
   });
 
   /**

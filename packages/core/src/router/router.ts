@@ -52,6 +52,7 @@ export class GlobalRouter implements IGlobalRouter {
       basename: this._opts.basename,
     });
 
+    console.log(routeList);
     this._router = createRouter({
       ...this._opts,
       history: history,

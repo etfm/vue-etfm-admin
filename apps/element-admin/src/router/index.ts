@@ -39,6 +39,7 @@ export const LoginRoute: AppRouteRecordRaw = {
   component: '/sys/login/index',
   meta: {
     title: '登录',
+    hideMenu: true,
   },
 };
 

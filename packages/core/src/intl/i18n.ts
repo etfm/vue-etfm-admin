@@ -52,6 +52,7 @@ export class GlobalI18n implements IGlobalI18n {
 
     editor.onGot('locale', (args: any) => {
       const locale = this._opts.locale;
+
       this.setLanguageMessage(locale, args.message);
     });
   }

@@ -13,9 +13,9 @@ import { getAppEnvConfig } from '@etfma/shared';
 import PluginPinia from '@etfma/plugin-pinia';
 import PluginDesigner from '@etfma/plugin-designer';
 import PluginAside from '@etfma/plugin-aside';
-import { setupRouterGuard } from './router/guard';
 import { staticRoutes } from './router';
 import PluginRouterGuard from './plugin/router-guard';
+import PluginLocale from './plugin/plugin-locale';
 
 async function boostrap() {
   const AppConfig = getAppEnvConfig();
@@ -40,6 +40,8 @@ async function boostrap() {
     },
     { autoInit: true },
   );
+
+  await plugins.register(PluginLocale);
 
   await plugins.register(PluginPinia);
 

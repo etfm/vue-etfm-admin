@@ -4,6 +4,7 @@
 
   defineOptions({
     name: 'AppLogo',
+    inheritAttrs: false,
   });
 
   const ns = useNamespace('app-logo');
@@ -22,21 +23,22 @@
   </div>
 </template>
 
-<style scoped lang="scss" module>
+<style scoped lang="scss">
   @include b(app-logo) {
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 220px;
 
     @include e(title) {
-      color: #0960bd;
+      overflow: hidden;
       font-size: 16px;
       font-weight: 700;
-      transition: all 0.5s;
       line-height: normal;
-      overflow: hidden;
+      color: #0960bd;
       text-overflow: ellipsis;
       white-space: nowrap;
+      transition: all 0.5s;
     }
   }
 </style>

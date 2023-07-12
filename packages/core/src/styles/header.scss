@@ -3,6 +3,9 @@
 @include b('header-area') {
   display: none;
   width: 100%;
+  background-color: getCssVar('header-area', 'bg-color');
+
+  @include set-component-css-var('header-area', $header-area);
 
   @include when('visible') {
     display: flex;

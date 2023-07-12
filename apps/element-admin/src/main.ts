@@ -16,6 +16,7 @@ import PluginAside from '@etfma/plugin-aside';
 import { staticRoutes } from './router';
 import PluginRouterGuard from './plugin/router-guard';
 import PluginLocale from './plugin/plugin-locale';
+import PluginAppLogo from './plugin/plugin-logo';
 
 async function boostrap() {
   const AppConfig = getAppEnvConfig();
@@ -46,21 +47,12 @@ async function boostrap() {
   await plugins.register(PluginPinia);
 
   await plugins.register(PluginAside);
+  await plugins.register(PluginAppLogo);
 
   const buildSkeleton: IPublicPlugin = (_: IPublicPluginContext) => {
     return {
       name: 'TextPlugin',
       init() {
-        skeleton.add({
-          area: 'header',
-          name: 'topArea',
-          content: 'logo',
-          contentProps: {
-            logo: 'https://img.alicdn.com/imgextra/i4/O1CN013w2bmQ25WAIha4Hx9_!!6000000007533-55-tps-137-26.svg',
-            href: 'https://lowcode-engine.cn',
-          },
-        });
-
         skeleton.add({
           area: 'footer',
           name: 'bottomArea',

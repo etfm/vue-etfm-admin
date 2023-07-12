@@ -261,6 +261,15 @@ $float-area: map.merge(
   $float-area
 );
 
+// Header-Area
+$header-area: () !default;
+$header-area: map.merge(
+  (
+    'bg-color': getCssVar('bg-color'),
+  ),
+  $header-area
+);
+
 // popper
 // Pay attention to the difference between 'popper' and 'popover'
 $popper: () !default;

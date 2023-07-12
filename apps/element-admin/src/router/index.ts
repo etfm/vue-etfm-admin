@@ -30,6 +30,7 @@ export const RootRoute: AppRouteRecordRaw = {
   redirect: BASE_HOME,
   meta: {
     title: 'Root',
+    hideMenu: true,
   },
 };
 

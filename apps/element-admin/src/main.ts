@@ -1,7 +1,7 @@
 import '@etfma/design';
 import 'uno.css';
 
-import { plugins, init, skeleton, globalRouter } from '@etfma/core';
+import { plugins, init, skeleton } from '@etfma/core';
 import type { IPublicPluginContext, IPublicPlugin } from '@etfma/core';
 // import Analysis from '@/views/dashboard/analysis/index.vue';
 import { h } from 'vue';

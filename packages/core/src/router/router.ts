@@ -4,7 +4,6 @@ import { AppRouteRecordRaw, IEditor, IGlobalRouter, RouterContext } from '@etfma
 import { engineConfig } from '../config';
 import { filter, lodash } from '@etfma/shared';
 import { flatMultiLevelRoutes, routeRemoveFilter, transformObjToRoute } from './utils';
-import { App } from 'vue';
 
 export const ROUTER_OPTIONS = {
   historyType: 'hash',
@@ -14,21 +13,15 @@ export const ROUTER_OPTIONS = {
 
 export class GlobalRouter implements IGlobalRouter {
   private _router: Router;
-  private _app: App;
   private _opts: RouterContext;
 
   constructor(editor: IEditor) {
     this._opts = ROUTER_OPTIONS;
-    this._app = editor.get('app') as App;
-
-    this.init();
 
     engineConfig.onceGot('router').then((args: RouterContext) => {
       this._opts = lodash.merge(this._opts, args);
 
       this.init();
-
-      this._app.use(this._router);
     });
 
     editor.onGot('routes', (args: AppRouteRecordRaw[] | AppRouteRecordRaw) => {
@@ -52,7 +45,6 @@ export class GlobalRouter implements IGlobalRouter {
       basename: this._opts.basename,
     });
 
-    console.log(routeList);
     this._router = createRouter({
       ...this._opts,
       history: history,

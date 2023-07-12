@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import { ref } from 'vue';
   import { getTransitionName } from './transition';
+  import { RouterView } from 'vue-router';
 
   defineOptions({
     name: 'LayoutContent',
@@ -14,7 +15,6 @@
 </script>
 
 <template>
-  <!-- 主要内容展示区域 -->
   <RouterView>
     <template #default="{ Component, route }">
       <Transition

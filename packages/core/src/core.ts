@@ -149,6 +149,8 @@ export async function init(
 
   await plugins.init(pluginPreference);
 
+  use();
+
   app.mount(engineContainer as Element);
 }
 
@@ -163,4 +165,9 @@ function merge(engineOptions: IPublicTypeEngineOptions) {
     router,
     i18n,
   };
+}
+
+function use() {
+  app.use(globalRouter.router);
+  app.use(globalI18n.i18n);
 }

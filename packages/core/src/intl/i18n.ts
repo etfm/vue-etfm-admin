@@ -1,6 +1,6 @@
 import { createI18n } from 'vue-i18n';
 import { setHtmlPageLang } from './helper';
-import { App, unref } from 'vue';
+import { unref } from 'vue';
 import { I18n, IEditor, IGlobalI18n, I18nContext } from '@etfma/types';
 import { engineConfig } from '../config';
 import { lodash } from '@etfma/shared';
@@ -24,7 +24,6 @@ export const INTL_OPTIONS = {
 };
 
 export class GlobalI18n implements IGlobalI18n {
-  private _app: App;
   private _opts: I18nContext;
   private _i18n: I18n;
 
@@ -37,17 +36,12 @@ export class GlobalI18n implements IGlobalI18n {
   }
 
   constructor(editor: IEditor) {
-    this._app = editor.get('app') as App;
     this._opts = INTL_OPTIONS;
-
-    this.init();
 
     engineConfig.onceGot('i18n').then((args: I18nContext) => {
       this._opts = lodash.merge(this._opts, args);
 
       this.init();
-
-      this._app.use(this._i18n);
     });
 
     editor.onGot('locale', (args: any) => {

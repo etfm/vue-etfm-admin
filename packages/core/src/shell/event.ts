@@ -29,7 +29,7 @@ export class Event implements IPublicApiEvent {
    */
   on(event: string, listener: (...args: any[]) => void): IPublicTypeDisposable {
     if (isPluginEventName(event)) {
-      return this[eventBusSymbol].on(event, listener);
+      return this[eventBusSymbol].on(`${this.options.prefix}:${event}`, listener);
     } else {
       logger.warn(
         `fail to monitor on event ${event}, event should have a prefix like 'somePrefix:eventName'`,
@@ -44,7 +44,7 @@ export class Event implements IPublicApiEvent {
    * @param listener 事件回调
    */
   off(event: string, listener: (...args: any[]) => void) {
-    this[eventBusSymbol].off(event, listener);
+    this[eventBusSymbol].off(`${this.options.prefix}:${event}`, listener);
   }
 
   /**
@@ -58,6 +58,7 @@ export class Event implements IPublicApiEvent {
       logger.warn('Event#emit has been forbidden while prefix is not specified');
       return;
     }
+
     this[eventBusSymbol].emit(`${this.options.prefix}:${event}`, ...args);
   }
 
@@ -67,7 +68,7 @@ export class Event implements IPublicApiEvent {
    * @param args
    */
   __internalEmit__(event: string, ...args: unknown[]) {
-    this[eventBusSymbol].emit(event, ...args);
+    this[eventBusSymbol].emit(`${this.options.prefix}:${event}`, ...args);
   }
 }
 

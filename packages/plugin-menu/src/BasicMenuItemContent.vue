@@ -2,7 +2,6 @@
   import { MenuRecordRaw } from '@etfma/types';
   import { Icon } from '@etfma/icons';
   import { computed } from 'vue';
-  import { useNamespace } from '@etfma/hooks';
 
   defineOptions({
     name: 'BasicMenuItemContent',
@@ -27,18 +26,15 @@
   }
 
   const props = withDefaults(defineProps<Props>(), {
-    isHorizontal: true,
     showIcon: true,
     showTitle: true,
   });
-
-  const ns = useNamespace('basic-menu-item-content');
 
   const icon = computed(() => props.menu.icon ?? '');
 </script>
 
 <template>
-  <Icon v-if="props.showIcon" :icon="icon"></Icon>
+  <Icon v-if="showIcon" :icon="icon"></Icon>
 
   <span v-if="showTitle">{{ menu.name }}</span>
 </template>

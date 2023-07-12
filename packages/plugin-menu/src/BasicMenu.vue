@@ -1,8 +1,8 @@
 <script setup lang="ts">
   import BasicSubMenu from './BasicSubMenu.vue';
   import type { MenuRecordRaw } from '@etfma/types';
-  import { MenuModeEnum, MenuTypeEnum, Mode } from './enum';
-  import { computed, reactive, watch } from 'vue';
+  import { MenuModeEnum, Mode } from './enum';
+  import { reactive, watch } from 'vue';
   import { lodash } from '@etfma/shared';
   import { EtfmaMenu } from '@etfma/etfma-ui';
   import { useNamespace } from '@etfma/hooks';
@@ -28,20 +28,10 @@
      */
     menus: MenuRecordRaw[];
     /**
-     * 是否横向菜单
-     * @default false
-     */
-    isHorizontal?: boolean;
-    /**
      * 菜单组件mode属性
      * @default MenuModeEnum.VERTICAL
      */
     mode?: Mode;
-    /**
-     * 菜单组件的类型
-     * @default MenuTypeEnum.MIX
-     */
-    type?: MenuTypeEnum;
     /**
      * 是否只保持一个子菜单的展开
      * @default false
@@ -60,9 +50,7 @@
   }
 
   const props = withDefaults(defineProps<Props>(), {
-    isHorizontal: false,
     mode: MenuModeEnum.VERTICAL,
-    type: MenuTypeEnum.MIX,
     uniqueOpened: false,
     collapse: false,
     ellipsis: true,
@@ -79,8 +67,6 @@
     defaultActive: '',
     defaultOpeneds: [],
   });
-
-  const hasShowTitle = computed(() => !props.collapse);
 
   watch(
     () => props.defaultActive,
@@ -146,7 +132,7 @@
     @select="handleSelect"
   >
     <template v-for="item in menus" :key="item.path">
-      <BasicSubMenu :menu="item" :isHorizontal="isHorizontal" :collapse="hasShowTitle" />
+      <BasicSubMenu :menu="item" />
     </template>
   </EtfmaMenu>
 </template>

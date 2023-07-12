@@ -20,25 +20,25 @@
      * 是否折起
      * @default false
      */
-    isCollapse: boolean;
+    collapse: boolean;
   }
 
   const emit = defineEmits<{ (event: 'toggle', collapse: boolean): void }>();
 
   const props = withDefaults(defineProps<Props>(), {
-    isCollapse: false,
+    collapse: false,
   });
 
   const ns = useNamespace('layout-trigger');
 
   const icon = computed(() => {
-    return props.isCollapse
+    return props.collapse
       ? 'tabler:layout-sidebar-right-collapse'
       : 'tabler:layout-sidebar-left-collapse';
   });
 
   const toggleCollapsed = () => {
-    emit('toggle', props.isCollapse);
+    emit('toggle', props.collapse);
   };
 </script>
 <style scoped lang="scss">

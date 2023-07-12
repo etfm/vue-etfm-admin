@@ -25,10 +25,8 @@ class SkeletonCabin implements IPublicApiCommonSkeletonCabin {
 
   get Workbench(): any {
     const innerSkeleton = this[skeletonSymbol];
-    return (props: any) =>
-      h(InnerWorkbench, {
-        ...props,
-        skeleton: innerSkeleton,
-      });
+    return h(InnerWorkbench, {
+      skeleton: innerSkeleton,
+    });
   }
 }

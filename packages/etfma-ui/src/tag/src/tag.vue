@@ -38,8 +38,6 @@
   const props = defineProps(tagProps);
   const emit = defineEmits(tagEmits);
 
-  console.log(props);
-
   const ns = useNamespace('tag');
   const containerKls = computed(() => {
     const { type, hit, effect, closable, round, size } = props;

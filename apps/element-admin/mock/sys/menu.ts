@@ -35,6 +35,16 @@ const dashboardRoute = {
         title: '面板',
       },
     },
+    {
+      path: 'manout',
+      name: 'manout',
+      component: '/demo/main-out/main-out',
+      meta: {
+        hideMenu: false,
+        hideBreadcrumb: false,
+        title: '测试',
+      },
+    },
   ],
 };
 

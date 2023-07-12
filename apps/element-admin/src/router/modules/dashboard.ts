@@ -1,5 +1,5 @@
-import type { AppRouteModule } from '@etfma/router'
-import { LAYOUT } from '../constant'
+import type { AppRouteModule } from '@etfma/router';
+import { LAYOUT } from '../constant';
 
 const dashboard: AppRouteModule = {
   path: '/dashboard',
@@ -9,19 +9,19 @@ const dashboard: AppRouteModule = {
   meta: {
     orderNo: 10,
     icon: 'ion:grid-outline',
-    title: 'Dashboard'
+    title: 'Dashboard',
   },
   children: [
     {
       path: 'analysis',
       name: 'Analysis',
-      component: () => '/dashboard/analysis/analysis',
+      component: '/dashboard/analysis/analysis',
       meta: {
         affix: true,
-        title: '分析页'
-      }
-    }
-  ]
-}
+        title: '分析页',
+      },
+    },
+  ],
+};
 
-export default dashboard
+export default dashboard;

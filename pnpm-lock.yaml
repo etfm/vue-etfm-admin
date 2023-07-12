@@ -161,6 +161,9 @@ importers:
       '@etfma/plugin-pinia':
         specifier: workspace:^0.0.0
         version: link:../../packages/plugin-pinia
+      '@etfma/plugin-tabs':
+        specifier: workspace:^0.0.0
+        version: link:../../packages/plugin-tabs
       '@etfma/render':
         specifier: workspace:*
         version: link:../../packages/render
@@ -669,6 +672,28 @@ importers:
       pinia-plugin-persistedstate:
         specifier: ^3.1.0
         version: 3.1.0(pinia@2.1.3)
+    devDependencies:
+      '@etfma/types':
+        specifier: workspace:^0.0.0
+        version: link:../types
+
+  packages/plugin-tabs:
+    dependencies:
+      '@etfma/core':
+        specifier: workspace:^
+        version: link:../core
+      '@etfma/design':
+        specifier: workspace:^
+        version: link:../design
+      '@etfma/etfma-ui':
+        specifier: workspace:^0.0.0
+        version: link:../etfma-ui
+      '@etfma/hooks':
+        specifier: workspace:*
+        version: link:../hooks
+      '@etfma/shared':
+        specifier: workspace:^
+        version: link:../shared
     devDependencies:
       '@etfma/types':
         specifier: workspace:^0.0.0

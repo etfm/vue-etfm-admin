@@ -270,6 +270,15 @@ $header-area: map.merge(
   $header-area
 );
 
+// Toolbar-Area
+$toolbar-area: () !default;
+$toolbar-area: map.merge(
+  (
+    'bg-color': getCssVar('bg-color'),
+  ),
+  $toolbar-area
+);
+
 // popper
 // Pay attention to the difference between 'popper' and 'popover'
 $popper: () !default;

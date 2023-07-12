@@ -3,6 +3,9 @@
 @include b('toolbar-area') {
   display: none;
   width: 100%;
+  background-color: getCssVar('toolbar-area', 'bg-color');
+
+  @include set-component-css-var('toolbar-area', $toolbar-area);
 
   @include when('visible') {
     display: flex;

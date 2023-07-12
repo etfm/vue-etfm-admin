@@ -17,6 +17,7 @@ import { staticRoutes } from './router';
 import PluginRouterGuard from './plugin/router-guard';
 import PluginLocale from './plugin/plugin-locale';
 import PluginAppLogo from './plugin/plugin-logo';
+import PluginTabs from '@etfma/plugin-tabs';
 
 async function boostrap() {
   const AppConfig = getAppEnvConfig();
@@ -48,6 +49,7 @@ async function boostrap() {
 
   await plugins.register(PluginAside);
   await plugins.register(PluginAppLogo);
+  await plugins.register(PluginTabs);
 
   const buildSkeleton: IPublicPlugin = (_: IPublicPluginContext) => {
     return {
@@ -56,16 +58,6 @@ async function boostrap() {
         skeleton.add({
           area: 'footer',
           name: 'bottomArea',
-          content: 'logo',
-          contentProps: {
-            logo: 'https://img.alicdn.com/imgextra/i4/O1CN013w2bmQ25WAIha4Hx9_!!6000000007533-55-tps-137-26.svg',
-            href: 'https://lowcode-engine.cn',
-          },
-        });
-
-        skeleton.add({
-          area: 'toolbar',
-          name: 'toolbar',
           content: 'logo',
           contentProps: {
             logo: 'https://img.alicdn.com/imgextra/i4/O1CN013w2bmQ25WAIha4Hx9_!!6000000007533-55-tps-137-26.svg',

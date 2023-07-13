@@ -20,6 +20,7 @@ const dashboardRoute = {
       name: 'Analysis',
       component: '/dashboard/analysis/index',
       meta: {
+        affix: true,
         hideMenu: false,
         hideBreadcrumb: false,
         title: '分析页',

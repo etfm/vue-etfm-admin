@@ -12,3 +12,4 @@ import './icon.scss';
 import './tag.scss';
 import './breadcrumb.scss';
 import './scrollbar.scss';
+import './dropdown.scss';

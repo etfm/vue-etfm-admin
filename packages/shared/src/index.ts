@@ -15,3 +15,5 @@ export * from './objects';
 export * from './style';
 export * from './vnode';
 export { NOOP } from '@vue/shared';
+export * from './rand';
+export * from './refs';

@@ -1,5 +1,10 @@
 import { computed, ref, toRaw, unref } from 'vue';
-import { RouteLocationNormalized, RouteRecordNormalized } from 'vue-router';
+import {
+  RouteLocationNormalized,
+  RouteLocationRaw,
+  RouteRecordNormalized,
+  Router,
+} from 'vue-router';
 
 export function useMultipleTab() {
   const cacheTabList = ref<Set<string>>(new Set());
@@ -29,6 +34,15 @@ export function useMultipleTab() {
         : undefined) as RouteRecordNormalized[],
     };
   }
+
+  const getToTarget = (tabItem: RouteLocationNormalized) => {
+    const { params, path, query } = tabItem;
+    return {
+      params: params || {},
+      path,
+      query: query || {},
+    };
+  };
 
   /**
    * 添加tabs
@@ -95,6 +109,73 @@ export function useMultipleTab() {
     cacheTabList.value = cacheMap;
   }
 
+  async function closeTabByKey(key: string, router: Router) {
+    const index = unref(tabList).findIndex((item) => (item.fullPath || item.path) === key);
+    if (index !== -1) {
+      await closeTab(unref(tabList)[index], router);
+      const { currentRoute, replace } = router;
+      // 检查当前路由是否存在于tabList中
+      const isActivated = unref(tabList).findIndex((item) => {
+        return item.fullPath === currentRoute.value.fullPath;
+      });
+      // 如果当前路由不存在于TabList中，尝试切换到其它路由
+      if (isActivated === -1) {
+        let pageIndex;
+        if (index > 0) {
+          pageIndex = index - 1;
+        } else if (index < unref(tabList).length - 1) {
+          pageIndex = index + 1;
+        } else {
+          pageIndex = -1;
+        }
+        if (pageIndex >= 0) {
+          const page = unref(tabList)[index - 1];
+          const toTarget = getToTarget(page);
+          await replace(toTarget);
+        }
+      }
+    }
+  }
+
+  async function closeTab(tab: RouteLocationNormalized, router: Router) {
+    const close = (route: RouteLocationNormalized) => {
+      const { fullPath, meta: { affix } = {} } = route;
+      if (affix) {
+        return;
+      }
+      const index = unref(tabList).findIndex((item) => item.fullPath === fullPath);
+      index !== -1 && unref(tabList).splice(index, 1);
+    };
+
+    const { currentRoute, replace } = router;
+
+    const { path } = unref(currentRoute);
+    if (path !== tab.path) {
+      // Closed is not the activation tab
+      close(tab);
+      updateCacheTab();
+      return;
+    }
+
+    // Closed is activated atb
+    let toTarget: RouteLocationRaw = {};
+
+    const index = unref(tabList).findIndex((item) => item.path === path);
+
+    // If the current is the leftmost tab
+    if (index === 0) {
+      //  Jump to the right tab
+      const page = unref(tabList)[index];
+      toTarget = getToTarget(page);
+    } else {
+      // Close the current tab
+      const page = unref(tabList)[index - 1];
+      toTarget = getToTarget(page);
+    }
+    close(currentRoute.value);
+    await replace(toTarget);
+  }
+
   return {
     cacheTabList,
     tabList,
@@ -103,5 +184,6 @@ export function useMultipleTab() {
     getCachedTabList,
     getLastDragEndIndex,
     addTab,
+    closeTabByKey,
   };
 }

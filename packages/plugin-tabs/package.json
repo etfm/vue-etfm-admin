@@ -34,7 +34,8 @@
     "@etfma/design": "workspace:^",
     "@etfma/etfma-ui": "workspace:^0.0.0",
     "@etfma/hooks": "workspace:*",
-    "@etfma/shared": "workspace:^"
+    "@etfma/shared": "workspace:^",
+    "@vueuse/core": "^9.13.0"
   },
   "devDependencies": {
     "@etfma/types": "workspace:^0.0.0"

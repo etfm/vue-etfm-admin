@@ -398,3 +398,24 @@ $scrollbar: map.merge(
   ),
   $scrollbar
 );
+
+// Dropdown
+$dropdown: () !default;
+$dropdown: map.merge(
+  (
+    'menu-box-shadow': getCssVar('box-shadow-light'),
+    'menuItem-hover-fill': getCssVar('color-primary-light-9'),
+    'menuItem-hover-color': getCssVar('color-primary'),
+    'menu-index': 10,
+  ),
+  $dropdown
+);
+$input-font-size: () !default;
+$input-font-size: map.merge(
+  (
+    'large': 14px,
+    'default': 14px,
+    'small': 12px,
+  ),
+  $input-font-size
+);

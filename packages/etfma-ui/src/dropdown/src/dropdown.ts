@@ -5,9 +5,9 @@ import type { Placement } from '../../popper';
 import type { ComponentInternalInstance, ComputedRef } from 'vue';
 import { Nullable } from '@etfma/types';
 import { definePropType, buildProps } from '@etfma/shared';
-import { iconPropType } from 'src/menu';
-import { EVENT_CODE } from 'src/focus-trap';
-import { createCollectionWithScope } from 'src/collection';
+import { iconPropType } from '../../menu';
+import { EVENT_CODE } from '../../focus-trap';
+import { createCollectionWithScope } from '../../collection';
 
 export interface IElDropdownInstance {
   instance?: ComponentInternalInstance;

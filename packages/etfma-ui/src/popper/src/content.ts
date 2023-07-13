@@ -78,7 +78,10 @@ export const popperContentProps = buildProps({
     type: Boolean,
     default: true,
   },
-  pure: Boolean,
+  pure: {
+    type: Boolean,
+    default: false,
+  },
   focusOnShow: {
     type: Boolean,
     default: false,

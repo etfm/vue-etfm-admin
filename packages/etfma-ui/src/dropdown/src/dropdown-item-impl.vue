@@ -33,7 +33,7 @@
   import { DROPDOWN_INJECTION_KEY } from './tokens';
   import { useNamespace } from '@etfma/hooks';
   import { composeEventHandlers, composeRefs } from '@etfma/shared';
-  import { EVENT_CODE } from 'src/focus-trap';
+  import { EVENT_CODE } from '../../focus-trap';
 
   export default defineComponent({
     name: 'DropdownItemImpl',

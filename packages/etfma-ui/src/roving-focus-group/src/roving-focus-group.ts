@@ -1,5 +1,5 @@
 import { buildProps, definePropType } from '@etfma/shared';
-import { createCollectionWithScope } from 'src/collection';
+import { createCollectionWithScope } from '../../collection';
 import type { ExtractPropTypes, HTMLAttributes, StyleValue } from 'vue';
 
 export const rovingFocusGroupProps = buildProps({

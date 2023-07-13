@@ -79,7 +79,7 @@
 
   import type { CSSProperties } from 'vue';
   import { useId, useNamespace } from '@etfma/hooks';
-  import { EVENT_CODE } from 'src/focus-trap';
+  import { EVENT_CODE } from '../../focus-trap';
   import { addUnit, lodash } from '@etfma/shared';
 
   export default defineComponent({

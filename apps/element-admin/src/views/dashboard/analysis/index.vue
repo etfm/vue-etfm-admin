@@ -3,7 +3,13 @@
   import { reactive } from 'vue';
   import { skeleton } from '@etfma/core';
   import { useNamespace } from '@etfma/hooks';
-  import { EtfmaBreadcrumb, EtfmaBreadcrumbItem } from '@etfma/etfma-ui';
+  import {
+    EtfmaBreadcrumb,
+    EtfmaBreadcrumbItem,
+    EtfmaDropdown,
+    EtfmaDropdownItem,
+    EtfmaDropdownMenu,
+  } from '@etfma/etfma-ui';
 
   defineOptions({
     name: 'analysis',
@@ -106,6 +112,19 @@
       <etfma-breadcrumb-item>promotion list</etfma-breadcrumb-item>
       <etfma-breadcrumb-item>promotion detail</etfma-breadcrumb-item>
     </etfma-breadcrumb>
+
+    <EtfmaDropdown trigger="click">
+      <span class="el-dropdown-link"> Dropdown List </span>
+      <template #dropdown>
+        <EtfmaDropdownMenu>
+          <EtfmaDropdownItem>Action 1</EtfmaDropdownItem>
+          <EtfmaDropdownItem>Action 2</EtfmaDropdownItem>
+          <EtfmaDropdownItem>Action 3</EtfmaDropdownItem>
+          <EtfmaDropdownItem disabled>Action 4</EtfmaDropdownItem>
+          <EtfmaDropdownItem divided>Action 5</EtfmaDropdownItem>
+        </EtfmaDropdownMenu>
+      </template>
+    </EtfmaDropdown>
   </div>
 </template>
 <style scoped lang="scss">

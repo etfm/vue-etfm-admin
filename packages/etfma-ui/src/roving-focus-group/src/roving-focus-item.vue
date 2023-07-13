@@ -17,7 +17,7 @@
   import { focusFirst, getFocusIntent, reorderArray } from './utils';
   import { useId } from '@etfma/hooks';
   import { composeEventHandlers } from '@etfma/shared';
-  import { EVENT_CODE } from 'src/focus-trap';
+  import { EVENT_CODE } from '../../focus-trap';
 
   export default defineComponent({
     components: {

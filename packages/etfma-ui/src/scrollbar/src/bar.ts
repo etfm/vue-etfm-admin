@@ -5,7 +5,7 @@ import { buildProps } from '@etfma/shared';
 export const barProps = buildProps({
   always: {
     type: Boolean,
-    default: true,
+    default: false,
   },
   width: String,
   height: String,

@@ -2,12 +2,19 @@
   import { computed, onBeforeUnmount, ref, unref, watch, watchEffect } from 'vue';
   import { RouteLocationNormalized, RouteMeta, useRouter } from 'vue-router';
   import { useMultipleTab } from './use-multiple-tab';
-  import { EtfmaTag } from '@etfma/etfma-ui';
+  import {
+    EtfmaTag,
+    EtfmaIcon,
+    EtfmaDropdown,
+    EtfmaDropdownItem,
+    EtfmaDropdownMenu,
+  } from '@etfma/etfma-ui';
   import { useNamespace } from '@etfma/hooks';
   import useTouchMove from './use-touch-move';
   import { useResizeObserver } from '@vueuse/core';
   import { TabSizeMap } from './types';
   import useOffsets from './use-offsets';
+  import More from './more.vue';
 
   defineOptions({
     name: 'Tabs',
@@ -82,6 +89,8 @@
    * 点击跳转页面
    */
   function handleClick(route: RouteLocationNormalized, index: number) {
+    console.log('-----------', index);
+
     activeKey.value = `tag-${index}`;
 
     scrollToTab(activeKey.value);
@@ -177,7 +186,7 @@
   });
 
   watch(
-    [() => getTabList.value, tabOffsets],
+    [() => getTabList.value, () => tabOffsets.value, () => activeKey.value],
     () => {
       scrollToTab();
     },
@@ -185,7 +194,7 @@
   );
 
   watch(
-    [() => getTabList.value],
+    [() => getTabList.value, () => activeKey.value],
     () => {
       onListHolderResize();
     },
@@ -193,13 +202,8 @@
   );
 
   watchEffect(() => {
-    // let unit: 'width' | 'height';
-    // let basicSize: number;
-
     const tabOffsetsValue = tabOffsets.value;
-
     const basicSize = wrapperWidth.value;
-
     const transformSize = Math.abs(transformLeft.value);
     const mergedBasicSize = basicSize;
 
@@ -231,13 +235,14 @@
   });
 
   const hiddenTabs = computed(() => {
-    const aaa = [
+    const element = [
       ...unref(btnRefs).slice(0, visibleStart.value),
       ...unref(btnRefs).slice(visibleEnd.value + 1),
     ];
-    console.log(aaa, '=====');
 
-    return aaa;
+    return element.map((e) => {
+      return e.dataset.meta;
+    });
   });
 
   const doLockAnimation = () => {
@@ -305,17 +310,37 @@
           :class="[ns.b('tag')]"
           v-for="index in 30"
           :key="index"
-          :data-aaa="hiddenTabs"
+          :data-meta="index"
         >
           <EtfmaTag @click="handleClick(tag, index)">{{ index }} 测试 </EtfmaTag>
         </div>
       </div>
     </div>
-    <div></div>
+    <EtfmaDropdown :max-height="140" trigger="click">
+      <div :class="[ns.b('icon')]">
+        <EtfmaIcon>
+          <More />
+        </EtfmaIcon>
+      </div>
+      <template #dropdown>
+        <EtfmaDropdownMenu>
+          <EtfmaDropdownItem
+            @click="handleClick('', index)"
+            v-for="index in hiddenTabs"
+            :key="index"
+          >
+            测试仪{{ index }}
+          </EtfmaDropdownItem>
+        </EtfmaDropdownMenu>
+      </template>
+    </EtfmaDropdown>
   </div>
 </template>
 <style scoped lang="scss">
   @include b(tabs) {
+    display: flex;
+    align-items: center;
+    justify-items: center;
     width: 200px;
 
     @include b(tabs-wrap) {
@@ -338,6 +363,11 @@
 
     @include b(tabs-tag) {
       margin: 4px 3px;
+      cursor: pointer;
+    }
+
+    @include b(tabs-icon) {
+      padding: 0 16px;
       cursor: pointer;
     }
   }

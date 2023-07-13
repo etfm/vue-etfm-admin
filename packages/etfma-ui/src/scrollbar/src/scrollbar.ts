@@ -66,7 +66,10 @@ export const scrollbarProps = buildProps({
   /**
    * @description always show
    */
-  always: Boolean,
+  always: {
+    type: Boolean,
+    default: false,
+  },
   /**
    * @description minimum size of scrollbar
    */

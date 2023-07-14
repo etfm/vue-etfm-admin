@@ -5,6 +5,8 @@ import {
   RouteRecordNormalized,
   Router,
 } from 'vue-router';
+import { material } from '@etfma/core';
+import { findPath } from '@etfma/shared';
 
 export interface TabMeta extends RouteLocationNormalized {
   title: string;
@@ -49,12 +51,56 @@ export function useMultipleTab() {
 
   const getToTarget = (tabItem: RouteLocationNormalized) => {
     const { params, path, query } = tabItem;
+
     return {
       params: params || {},
       path,
       query: query || {},
     };
   };
+
+  /**
+   * 获取affix数据
+   * 这里需要监听路由物料的变化
+   */
+  material.onChangeAssets('routes', (e: RouteLocationNormalized[]) => {
+    const routeList = findPath(e, (route: RouteLocationNormalized) => {
+      if (route?.meta?.affix) {
+        return true;
+      }
+    });
+
+    let path = '';
+    routeList.forEach((route: RouteLocationNormalized) => {
+      path += `${route.path}/`;
+    });
+
+    const startFlag = path.startsWith('/');
+    if (!startFlag) {
+      path += '/';
+    }
+
+    const endFlag = path.endsWith('/');
+    if (endFlag) {
+      path = path.substring(0, path.lastIndexOf('/'));
+    }
+
+    const index = routeList.length > 0 ? routeList.length - 1 : 0;
+    const name = routeList[index].name;
+    const meta = routeList[index].meta;
+
+    unref(tabList).unshift({
+      path,
+      fullPath: path,
+      matched: [],
+      query: {},
+      hash: '',
+      redirectedFrom: undefined,
+      name,
+      params: {},
+      meta,
+    });
+  });
 
   /**
    * 添加tabs

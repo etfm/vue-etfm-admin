@@ -3,7 +3,6 @@
   import { RouteLocationNormalized, RouteMeta, useRouter } from 'vue-router';
   import { useMultipleTab } from './hooks/use-multiple-tab';
   import { EtfmaTag } from '@etfma/etfma-ui';
-  import { useNamespace } from '@etfma/hooks';
   import Tabs from './components/tabs.vue';
   import TabPane from './components/tab-pane.vue';
 
@@ -14,7 +13,6 @@
 
   const router = useRouter();
   const { addTab, getTabList, closeTabByKey } = useMultipleTab();
-  const ns = useNamespace('tabs');
 
   const mouseActiveKey = ref('');
   const { currentRoute, getRoutes, push } = router;
@@ -87,31 +85,21 @@
 </script>
 
 <template>
-  <div :class="ns.b()">
-    <Tabs
-      v-model:activeKey="activeKey"
-      :affix="getAffixKey"
-      @tabClick="handleClick"
-      @dropdown-remove="handleClose"
-    >
-      <TabPane v-for="item in getTabList" :key="item.path" :name="item.path" :title="item.title">
-        <EtfmaTag
-          :closable="hasClose(item)"
-          :type="item.path === activeKey ? '' : 'info'"
-          @close="handleClose(item.path)"
-          @mouseenter="handleMouseenter(item)"
-          @mouseleave="handleMouseleave"
-          >{{ item.title }}
-        </EtfmaTag>
-      </TabPane>
-    </Tabs>
-  </div>
+  <Tabs
+    v-model:activeKey="activeKey"
+    :affix="getAffixKey"
+    @tabClick="handleClick"
+    @dropdown-remove="handleClose"
+  >
+    <TabPane v-for="item in getTabList" :key="item.path" :name="item.path" :title="item.title">
+      <EtfmaTag
+        :closable="hasClose(item)"
+        :type="item.path === activeKey ? '' : 'info'"
+        @close="handleClose(item.path)"
+        @mouseenter="handleMouseenter(item)"
+        @mouseleave="handleMouseleave"
+        >{{ item.title }}
+      </EtfmaTag>
+    </TabPane>
+  </Tabs>
 </template>
-<style scoped lang="scss">
-  @include b(tabs) {
-    display: flex;
-    align-items: center;
-    justify-items: center;
-    width: 150px;
-  }
-</style>

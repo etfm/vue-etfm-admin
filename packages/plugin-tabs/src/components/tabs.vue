@@ -116,6 +116,7 @@
 
 <template>
   <div :class="ns.b()">
+    <slot name="left" />
     <div ref="tabsWrapperRef" :class="ns.b('wrap')">
       <div
         ref="tabListRef"
@@ -150,6 +151,7 @@
         </EtfmaDropdownMenu>
       </template>
     </EtfmaDropdown>
+    <slot name="right" />
   </div>
 </template>
 <style scoped lang="scss">

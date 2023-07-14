@@ -10,7 +10,7 @@ const REFRESH_INTERVAL = 20;
 const SPEED_OFF_MULTIPLE = 0.995 ** REFRESH_INTERVAL;
 // ================================= Hook =================================
 export default function useTouchMove(
-  domRef: Ref<HTMLDivElement>,
+  domRef: Ref<HTMLDivElement | null>,
   onOffset: (offsetX: number, offsetY: number) => boolean,
 ) {
   const touchPosition = ref<{ x: number; y: number } | null>();

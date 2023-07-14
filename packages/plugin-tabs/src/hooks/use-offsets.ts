@@ -1,13 +1,12 @@
 import { Ref, unref } from 'vue';
 import { ref, watchEffect } from 'vue';
-import { TabOffset, TabOffsetMap, TabSizeMap } from './types';
-
-const DEFAULT_SIZE = { width: 0, height: 0, left: 0, top: 0 };
+import { TabOffset, TabOffsetMap, TabSizeMap } from '../types';
+import { Tabs } from './use-get-tabs';
+import { DEFAULT_SIZE } from '../constants';
 
 export default function useOffsets(
-  tabs: Ref<any[]>,
+  tabs: Ref<Tabs[]>,
   tabSizes: Ref<TabSizeMap | undefined>,
-  // holderScrollWidth: Ref<number>,
 ): Ref<TabOffsetMap> {
   const offsetMap = ref<TabOffsetMap>(new Map());
   watchEffect(() => {
@@ -16,25 +15,23 @@ export default function useOffsets(
 
     if (tabsValue.length === 0) return;
 
-    const lastOffset = unref(tabSizes)?.get(tabsValue[0].dataset.key) || DEFAULT_SIZE;
+    const lastOffset = unref(tabSizes)?.get(tabsValue[0].key) || DEFAULT_SIZE;
     const rightOffset = lastOffset.left + lastOffset.width;
 
     for (let i = 0; i < tabsValue.length; i += 1) {
-      const { key } = tabsValue[i].dataset;
+      const key = tabsValue[i].key;
 
       let data = unref(tabSizes)?.get(key);
 
       // Reuse last one when not exist yet
       if (!data) {
-        data = unref(tabSizes)?.get(tabsValue[i - 1]?.dataset.key) || DEFAULT_SIZE;
+        data = unref(tabSizes)?.get(tabsValue[i - 1]?.key) || DEFAULT_SIZE;
       }
 
       const entity = (map.get(key) || { ...data }) as TabOffset;
 
-      // Right
       entity.right = rightOffset - entity.left - entity.width;
 
-      // Update entity
       map.set(key, entity);
     }
     offsetMap.value = new Map(map);

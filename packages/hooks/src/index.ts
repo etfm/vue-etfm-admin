@@ -1,5 +1,5 @@
 export * from './use-namespace';
-export * from './useContext';
+export * from './use-context';
 export * from './use-escape-keydown';
 export * from './use-z-index';
 export * from './use-forward-ref';

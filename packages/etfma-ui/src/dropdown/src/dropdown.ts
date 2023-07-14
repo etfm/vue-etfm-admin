@@ -40,7 +40,6 @@ export const dropdownProps = buildProps({
     type: String,
     default: '',
   },
-  splitButton: Boolean,
   hideOnClick: {
     type: Boolean,
     default: true,

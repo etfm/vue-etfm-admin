@@ -18,7 +18,6 @@
       :show-after="trigger === 'hover' ? showTimeout : 0"
       :stop-popper-mouse-event="false"
       :virtual-ref="triggeringElementRef"
-      :virtual-triggering="splitButton"
       :disabled="disabled"
       :transition="`${ns.namespace.value}-zoom-in-top`"
       :teleported="teleported"

@@ -9,6 +9,6 @@
 
 <script>
   export default {
-    name: 'EpMoreFilled',
+    name: 'More',
   };
 </script>

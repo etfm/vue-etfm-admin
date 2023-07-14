@@ -113,7 +113,7 @@
       <etfma-breadcrumb-item>promotion detail</etfma-breadcrumb-item>
     </etfma-breadcrumb>
 
-    <EtfmaDropdown trigger="click">
+    <EtfmaDropdown>
       <span class="el-dropdown-link"> Dropdown List </span>
       <template #dropdown>
         <EtfmaDropdownMenu>

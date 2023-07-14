@@ -6,12 +6,24 @@ import {
   Router,
 } from 'vue-router';
 
+export interface TabMeta extends RouteLocationNormalized {
+  title: string;
+}
+
 export function useMultipleTab() {
   const cacheTabList = ref<Set<string>>(new Set());
   const tabList = ref<RouteLocationNormalized[]>([]);
   const lastDragEndIndex = ref(0);
 
-  const getTabList = computed(() => tabList.value);
+  const getTabList = computed(() =>
+    unref(tabList).map(
+      (item) =>
+        ({
+          ...item,
+          ...(item.meta ? item.meta : {}),
+        } as TabMeta),
+    ),
+  );
 
   const getCachedTabList = computed(() => Array.from(cacheTabList.value));
 

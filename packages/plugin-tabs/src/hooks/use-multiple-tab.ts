@@ -5,14 +5,15 @@ import {
   RouteRecordNormalized,
   Router,
 } from 'vue-router';
-import { material } from '@etfma/core';
-import { findPath } from '@etfma/shared';
+import { useRouter } from 'vue-router';
 
 export interface TabMeta extends RouteLocationNormalized {
   title: string;
 }
 
 export function useMultipleTab() {
+  const { getRoutes } = useRouter();
+
   const cacheTabList = ref<Set<string>>(new Set());
   const tabList = ref<RouteLocationNormalized[]>([]);
   const lastDragEndIndex = ref(0);
@@ -61,46 +62,59 @@ export function useMultipleTab() {
 
   /**
    * 获取affix数据
-   * 这里需要监听路由物料的变化
+   * affix为true，页面加载应就显示
    */
-  material.onChangeAssets('routes', (e: RouteLocationNormalized[]) => {
-    const routeList = findPath(e, (route: RouteLocationNormalized) => {
-      if (route?.meta?.affix) {
-        return true;
-      }
-    });
+  function initDefaultAffix() {
+    const routes = getRoutes();
 
-    let path = '';
-    routeList.forEach((route: RouteLocationNormalized) => {
-      path += `${route.path}/`;
-    });
+    routes.forEach((route: any) => route && route.meta && route.meta.affix && addTab(route));
+  }
 
-    const startFlag = path.startsWith('/');
-    if (!startFlag) {
-      path += '/';
-    }
+  initDefaultAffix();
 
-    const endFlag = path.endsWith('/');
-    if (endFlag) {
-      path = path.substring(0, path.lastIndexOf('/'));
-    }
+  /**
+   * 获取affix数据
+   * 这里需要监听路由物料的变化
+   * TODO 待优化
+   */
+  // material.onChangeAssets('routes', (e: RouteLocationNormalized[]) => {
+  //   const routeList = findPath(e, (route: RouteLocationNormalized) => {
+  //     if (route?.meta?.affix) {
+  //       return true;
+  //     }
+  //   });
 
-    const index = routeList.length > 0 ? routeList.length - 1 : 0;
-    const name = routeList[index].name;
-    const meta = routeList[index].meta;
+  //   let path = '';
+  //   routeList.forEach((route: RouteLocationNormalized) => {
+  //     path += `${route.path}/`;
+  //   });
 
-    unref(tabList).unshift({
-      path,
-      fullPath: path,
-      matched: [],
-      query: {},
-      hash: '',
-      redirectedFrom: undefined,
-      name,
-      params: {},
-      meta,
-    });
-  });
+  //   const startFlag = path.startsWith('/');
+  //   if (!startFlag) {
+  //     path += '/';
+  //   }
+
+  //   const endFlag = path.endsWith('/');
+  //   if (endFlag) {
+  //     path = path.substring(0, path.lastIndexOf('/'));
+  //   }
+
+  //   const index = routeList.length > 0 ? routeList.length - 1 : 0;
+  //   const name = routeList[index].name;
+  //   const meta = routeList[index].meta;
+
+  //   unref(tabList).unshift({
+  //     path,
+  //     fullPath: path,
+  //     matched: [],
+  //     query: {},
+  //     hash: '',
+  //     redirectedFrom: undefined,
+  //     name,
+  //     params: {},
+  //     meta,
+  //   });
+  // });
 
   /**
    * 添加tabs

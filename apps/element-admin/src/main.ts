@@ -18,6 +18,7 @@ import PluginRouterGuard from './plugin/router-guard';
 import PluginLocale from './plugin/plugin-locale';
 import PluginAppLogo from './plugin/plugin-logo';
 import PluginTabs from '@etfma/plugin-tabs';
+import PluginBreadcrumb from '@etfma/plugin-breadcrumb';
 
 async function boostrap() {
   const AppConfig = getAppEnvConfig();
@@ -66,16 +67,6 @@ async function boostrap() {
         });
 
         skeleton.add({
-          area: 'breadcrumb',
-          name: 'toolbarTop',
-          content: '1212',
-          contentProps: {
-            logo: 'https://img.alicdn.com/imgextra/i4/O1CN013w2bmQ25WAIha4Hx9_!!6000000007533-55-tps-137-26.svg',
-            href: 'https://lowcode-engine.cn',
-          },
-        });
-
-        skeleton.add({
           area: 'float',
           name: 'leftFixedArea',
           content: h('div', 'logologologologologologologologologol'),
@@ -96,6 +87,8 @@ async function boostrap() {
   await plugins.register(buildSkeleton);
 
   await plugins.register(PluginDesigner);
+
+  await plugins.register(PluginBreadcrumb);
 
   await plugins.register(PluginRouterGuard);
 

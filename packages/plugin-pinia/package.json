@@ -32,7 +32,6 @@
     "test": "node ./__tests__/@etfma/pinia.test.js"
   },
   "dependencies": {
-    "@etfma/plugin": "workspace:*",
     "@etfma/shared": "workspace:*",
     "pinia": "^2.0.32",
     "pinia-plugin-persistedstate": "^3.1.0"

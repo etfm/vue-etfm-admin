@@ -1,5 +1,5 @@
 {
-  "name": "@etfma/element-ui",
+  "name": "@etfma/plugin-breadcrumb",
   "version": "0.0.0",
   "description": "> TODO: description",
   "homepage": "https://github.com/etfm/vue-etfm-admin#readme",
@@ -16,37 +16,36 @@
   "exports": {
     ".": {
       "default": "./src/index.ts"
-    },
-    "./shared": {
-      "default": "./src/_shared.scss"
-    },
-    "./*": "./*"
+    }
   },
   "main": "src/index.ts",
   "module": "src/index.ts",
   "files": [
-    "dist",
-    "src"
+    "dist"
   ],
   "scripts": {
     "bootstrap": "pnpm install",
     "build": "pnpm vite build",
     "clean": "pnpm rimraf .turbo node_modules dist",
-    "lint": "pnpm eslint .",
-    "test": "node ./__tests__/@etfma/http.test.js"
+    "lint": "pnpm eslint ."
   },
   "dependencies": {
-    "@ctrl/tinycolor": "^3.6.0",
-    "@etfma/design": "workspace:*",
+    "@etfma/core": "workspace:^",
+    "@etfma/design": "workspace:^",
     "@etfma/etfma-ui": "workspace:^0.0.0",
     "@etfma/hooks": "workspace:*",
-    "@etfma/icon": "workspace:^0.0.0",
-    "@etfma/shared": "workspace:*"
+    "@etfma/icon": "workspace:^",
+    "@etfma/shared": "workspace:^"
   },
   "devDependencies": {
-    "@etfma/types": "workspace:*"
+    "@etfma/types": "workspace:^0.0.0"
   },
   "publishConfig": {
-    "access": "public"
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.mjs"
+      }
+    }
   }
 }

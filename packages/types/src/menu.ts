@@ -38,6 +38,8 @@ interface MenuRecordRaw {
    * 原信息
    */
   meta?: RouteMeta;
+
+  [key: string]: any;
 }
 
 export type { MenuRecordRaw };

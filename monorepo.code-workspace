@@ -21,40 +21,12 @@
       "path": "configs/vite"
     },
     {
-      "name": "@etfma/element",
-      "path": "packages/element"
-    },
-    {
       "name": "@etfma/hooks",
       "path": "packages/hooks"
     },
     {
-      "name": "@etfma/http",
-      "path": "packages/http"
-    },
-    {
-      "name": "@etfma/pinia",
-      "path": "packages/pinia"
-    },
-    {
-      "name": "@etfma/plugin",
-      "path": "packages/plugin"
-    },
-    {
-      "name": "@etfma/render",
-      "path": "packages/render"
-    },
-    {
-      "name": "@etfma/router",
-      "path": "packages/router"
-    },
-    {
       "name": "@etfma/shared",
       "path": "packages/shared"
-    },
-    {
-      "name": "@etfma/styles",
-      "path": "packages/styles"
     },
     {
       "name": "root",

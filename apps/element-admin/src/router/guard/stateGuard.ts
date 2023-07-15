@@ -1,10 +1,10 @@
-import type { Router } from '@etfma/router';
 import { useAppStore } from '@/store/app';
 // import { useMultipleTabStore } from '@/store/multipleTab'
 import { useUserStore } from '@/store/user';
 import { usePermissionStore } from '@/store/permission';
 import { PageEnum } from '../enum';
 import { removeTabChangeListener } from '@/logics/mitt';
+import { Router } from '@etfma/core';
 
 export function createStateGuard(router: Router) {
   router.afterEach((to) => {

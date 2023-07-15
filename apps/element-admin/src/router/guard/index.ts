@@ -1,4 +1,3 @@
-import type { Router, RouteLocationNormalized } from '@etfma/router';
 // import { useAppStoreWithOut } from '/@/store/modules/app'
 // import { useUserStoreWithOut } from '/@/store/modules/user'
 // import { useTransitionSetting } from '/@/hooks/setting/useTransitionSetting'
@@ -8,7 +7,7 @@ import type { Router, RouteLocationNormalized } from '@etfma/router';
 import { createPermissionGuard } from './permissionGuard';
 import { createStateGuard } from './stateGuard';
 // import { setRouteChange } from '@/logics/mitt';
-import { event } from '@etfma/core';
+import { RouteLocationNormalized, Router, event } from '@etfma/core';
 // import nProgress from 'nprogress'
 // import projectSetting from '/@/settings/projectSetting'
 // import { createParamMenuGuard } from './paramMenuGuard'

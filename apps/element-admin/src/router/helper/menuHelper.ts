@@ -1,7 +1,6 @@
 import { lodash, treeMap, findPath, isHttpUrl } from '@etfma/shared';
 import { toRaw } from 'vue';
-import type { RouteParams, AppRouteRecordRaw, AppRouteModule } from '@etfma/router';
-import type { Recordable } from '@etfma/types';
+import type { AppRouteModule, AppRouteRecordRaw, Recordable, RouteParams } from '@etfma/types';
 
 import type { Menu, MenuModule } from '@/router/types';
 

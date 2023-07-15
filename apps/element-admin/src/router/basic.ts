@@ -1,5 +1,5 @@
-import type { AppRouteRecordRaw } from '@etfma/router';
-import { EXCEPTION_COMPONENT, LAYOUT, PAGE_NOT_FOUND_NAME, REDIRECT_NAME } from './constant';
+import { AppRouteRecordRaw } from '@etfma/types';
+import { EXCEPTION_COMPONENT, LAYOUT, PAGE_NOT_FOUND_NAME } from './constant';
 
 // 404 on a page
 export const PAGE_NOT_FOUND_ROUTE: AppRouteRecordRaw = {

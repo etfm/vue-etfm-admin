@@ -5,7 +5,6 @@ import { defineStore, store } from '@etfma/plugin-pinia';
 import { getMenuList } from '@/api/sys/menu';
 import { getPermCode } from '@/api/sys/user';
 import type { Menu } from '@/router/types';
-import { transformRouteToMenu } from '@/router/helper/menuHelper';
 import { staticRoutes } from '@/router';
 
 // import { useMessage } from '/@/hooks/web/useMessage'

@@ -2,6 +2,7 @@
   import { MenuRecordRaw } from '@etfma/types';
   import { Icon } from '@etfma/icon';
   import { computed } from 'vue';
+  import { EtfmaIcon } from '@etfma/etfma-ui';
 
   defineOptions({
     name: 'BasicMenuItemContent',
@@ -34,7 +35,9 @@
 </script>
 
 <template>
-  <Icon v-if="isShowIcon" :icon="menu.icon"></Icon>
+  <EtfmaIcon>
+    <Icon v-if="isShowIcon" :icon="menu.icon"></Icon>
+  </EtfmaIcon>
 
   <span v-if="showTitle">{{ menu.name }}</span>
 </template>

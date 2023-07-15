@@ -40,7 +40,7 @@
     "@etfma/design": "workspace:*",
     "@etfma/etfma-ui": "workspace:^0.0.0",
     "@etfma/hooks": "workspace:*",
-    "@etfma/icons": "workspace:^0.0.0",
+    "@etfma/icon": "workspace:^0.0.0",
     "@etfma/plugin": "workspace:*",
     "@etfma/shared": "workspace:*"
   },

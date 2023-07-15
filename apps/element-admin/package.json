@@ -17,7 +17,7 @@
     "@etfma/etfma-ui": "workspace:^0.0.0",
     "@etfma/hooks": "workspace:*",
     "@etfma/http": "workspace:*",
-    "@etfma/icons": "workspace:^0.0.0",
+    "@etfma/icon": "workspace:^0.0.0",
     "@etfma/layout": "workspace:^0.0.0",
     "@etfma/locale": "workspace:^",
     "@etfma/pinia": "workspace:*",

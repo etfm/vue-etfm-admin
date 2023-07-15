@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { MenuRecordRaw } from '@etfma/types';
   import { useNamespace, ElIcon } from 'element-plus';
-  import { Icon } from '@etfma/icons';
+  import { Icon } from '@etfma/icon';
   import { computed } from 'vue';
 
   const ns = useNamespace('basic-menu-item-content');

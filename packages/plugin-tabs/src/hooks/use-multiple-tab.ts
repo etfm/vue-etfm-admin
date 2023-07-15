@@ -1,4 +1,5 @@
-import { computed, ref, toRaw, unref } from 'vue';
+import { useGo, useRedo } from '@etfma/core';
+import { ComputedRef, Ref, computed, ref, toRaw, unref } from 'vue';
 import {
   RouteLocationNormalized,
   RouteLocationRaw,
@@ -11,7 +12,25 @@ export interface TabMeta extends RouteLocationNormalized {
   title: string;
 }
 
-export function useMultipleTab() {
+export interface PublicMultipleTab {
+  cacheTabList: Ref<Set<string>>;
+  tabList: Ref<RouteLocationNormalized[]>;
+  getTabList: ComputedRef<TabMeta[]>;
+  getCachedTabList: ComputedRef<string[]>;
+  lastDragEndIndex: Ref<number>;
+  getLastDragEndIndex: ComputedRef<number>;
+  addTab: (route: RouteLocationNormalized) => Promise<void>;
+  closeTabByKey: (key: string, router: Router) => Promise<void>;
+  refresh: (router: Router) => Promise<void>;
+  closeTab: (tab: RouteLocationNormalized, router: Router) => Promise<void>;
+  closeLeftTabs: (route: RouteLocationNormalized, router: Router) => Promise<void>;
+  closeRightTabs: (route: RouteLocationNormalized, router: Router) => Promise<void>;
+  closeAllTab: (router: Router) => Promise<void>;
+  closeOtherTabs: (route: RouteLocationNormalized, router: Router) => Promise<void>;
+  resetState: () => void;
+}
+
+export function useMultipleTab(): PublicMultipleTab {
   const { getRoutes } = useRouter();
 
   const cacheTabList = ref<Set<string>>(new Set());
@@ -122,6 +141,10 @@ export function useMultipleTab() {
   async function addTab(route: RouteLocationNormalized) {
     const { path, fullPath, params, query, meta } = getRawRoute(route);
 
+    if (meta.hideTab) {
+      return;
+    }
+
     let updateIndex = -1;
     // Existing pages, do not add tabs repeatedly
     const tabHasExits = unref(tabList).some((tab, index) => {
@@ -181,6 +204,11 @@ export function useMultipleTab() {
     cacheTabList.value = cacheMap;
   }
 
+  /**
+   * @description 通过key删除tab
+   * @param key
+   * @param router
+   */
   async function closeTabByKey(key: string, router: Router) {
     const index = unref(tabList).findIndex((item) => (item.fullPath || item.path) === key);
     if (index !== -1) {
@@ -209,6 +237,12 @@ export function useMultipleTab() {
     }
   }
 
+  /**
+   * @description 关闭tab
+   * @param tab
+   * @param router
+   * @returns
+   */
   async function closeTab(tab: RouteLocationNormalized, router: Router) {
     const close = (route: RouteLocationNormalized) => {
       const { fullPath, meta: { affix } = {} } = route;
@@ -248,6 +282,125 @@ export function useMultipleTab() {
     await replace(toTarget);
   }
 
+  /**
+   * @description 刷新tab对应page
+   * @param params
+   */
+  async function refresh(router: Router) {
+    const { currentRoute } = router;
+    const route = unref(currentRoute);
+    const name = route.name;
+
+    const findTab = unref(getCachedTabList).find((item) => item === name);
+    if (findTab) {
+      unref(cacheTabList).delete(findTab);
+    }
+    const redo = useRedo(router);
+    await redo();
+  }
+
+  async function closeLeftTabs(route: RouteLocationNormalized, router: Router) {
+    const index = unref(tabList).findIndex((item) => item.path === route.path);
+
+    if (index > 0) {
+      const leftTabs = unref(tabList).slice(0, index);
+      const pathList: string[] = [];
+      for (const item of leftTabs) {
+        const affix = item?.meta?.affix ?? false;
+        if (!affix) {
+          pathList.push(item.fullPath);
+        }
+      }
+      bulkCloseTabs(pathList);
+    }
+    updateCacheTab();
+    handleGotoPage(router);
+  }
+
+  async function closeRightTabs(route: RouteLocationNormalized, router: Router) {
+    const index = unref(tabList).findIndex((item) => item.fullPath === route.fullPath);
+
+    if (index >= 0 && index < unref(tabList).length - 1) {
+      const rightTabs = unref(tabList).slice(index + 1, unref(tabList).length);
+
+      const pathList: string[] = [];
+      for (const item of rightTabs) {
+        const affix = item?.meta?.affix ?? false;
+        if (!affix) {
+          pathList.push(item.fullPath);
+        }
+      }
+      bulkCloseTabs(pathList);
+    }
+    updateCacheTab();
+    handleGotoPage(router);
+  }
+
+  async function closeAllTab(router: Router) {
+    tabList.value = unref(tabList).filter((item) => item?.meta?.affix ?? false);
+    clearCacheTabs();
+    goToPage(router);
+  }
+
+  async function closeOtherTabs(route: RouteLocationNormalized, router: Router) {
+    const closePathList = unref(tabList).map((item) => item.fullPath);
+
+    const pathList: string[] = [];
+
+    for (const path of closePathList) {
+      if (path !== route.fullPath) {
+        const closeItem = unref(tabList).find((item) => item.path === path);
+        if (!closeItem) {
+          continue;
+        }
+        const affix = closeItem?.meta?.affix ?? false;
+        if (!affix) {
+          pathList.push(closeItem.fullPath);
+        }
+      }
+    }
+    bulkCloseTabs(pathList);
+    updateCacheTab();
+    handleGotoPage(router);
+  }
+
+  function bulkCloseTabs(pathList: string[]) {
+    tabList.value = unref(tabList).filter((item) => !pathList.includes(item.fullPath));
+  }
+
+  function handleGotoPage(router: Router) {
+    const go = useGo(router);
+    go(unref(router.currentRoute).fullPath, true);
+  }
+
+  function clearCacheTabs(): void {
+    cacheTabList.value = new Set();
+  }
+  function resetState(): void {
+    tabList.value = [];
+    clearCacheTabs();
+  }
+  function goToPage(router: Router) {
+    const go = useGo(router);
+    const len = tabList.value.length;
+    const { path } = unref(router.currentRoute);
+
+    let toPath: string = '';
+
+    if (len > 0) {
+      const page = unref(tabList)[len - 1];
+      const p = page.fullPath || page.path;
+      if (p) {
+        toPath = p;
+      }
+    }
+
+    if (toPath) {
+      // Jump to the current page and report an error
+      path !== toPath && go(toPath, true);
+    }
+  }
+
   return {
     cacheTabList,
     tabList,
@@ -257,5 +410,12 @@ export function useMultipleTab() {
     getLastDragEndIndex,
     addTab,
     closeTabByKey,
+    refresh,
+    closeTab,
+    closeLeftTabs,
+    closeRightTabs,
+    closeAllTab,
+    closeOtherTabs,
+    resetState,
   };
 }

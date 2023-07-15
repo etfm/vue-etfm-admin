@@ -5,7 +5,7 @@ import type {
   RouteRecordName,
 } from '@etfma/router';
 import { mainOutRoutes } from './mainOut';
-import { PAGE_NOT_FOUND_ROUTE, REDIRECT_ROUTE } from './basic';
+import { PAGE_NOT_FOUND_ROUTE } from './basic';
 import { BASE_HOME } from './constant';
 import { loggerWarning, traverseTree } from '@etfma/shared';
 import { globalRouter } from '@etfma/core';
@@ -31,6 +31,7 @@ export const RootRoute: AppRouteRecordRaw = {
   meta: {
     title: 'Root',
     hideMenu: true,
+    hideTab: true,
   },
 };
 
@@ -41,18 +42,13 @@ export const LoginRoute: AppRouteRecordRaw = {
   meta: {
     title: '登录',
     hideMenu: true,
+    hideTab: true,
   },
 };
 
 // Basic routing without permission
 // 未经许可的基本路由
-const staticRoutes = [
-  LoginRoute,
-  RootRoute,
-  ...mainOutRoutes,
-  REDIRECT_ROUTE,
-  PAGE_NOT_FOUND_ROUTE,
-];
+const staticRoutes = [LoginRoute, RootRoute, ...mainOutRoutes, PAGE_NOT_FOUND_ROUTE];
 
 /** 排查在主框架外的路由，这些路由没有菜单和顶部及其他框架内容 */
 const externalRoutes: RouteRecordRaw[] = [];

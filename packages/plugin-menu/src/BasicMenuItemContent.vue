@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { MenuRecordRaw } from '@etfma/types';
-  import { Icon } from '@etfma/icons';
+  import { Icon } from '@etfma/icon';
   import { computed } from 'vue';
 
   defineOptions({
@@ -30,11 +30,11 @@
     showTitle: true,
   });
 
-  const icon = computed(() => props.menu.icon ?? '');
+  const isShowIcon = computed(() => props.menu.icon && props.showIcon);
 </script>
 
 <template>
-  <Icon v-if="showIcon" :icon="icon"></Icon>
+  <Icon v-if="isShowIcon" :icon="menu.icon"></Icon>
 
   <span v-if="showTitle">{{ menu.name }}</span>
 </template>

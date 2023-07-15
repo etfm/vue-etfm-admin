@@ -166,6 +166,7 @@
       display: inline-block;
       display: flex;
       flex: auto;
+      flex: 1;
       align-self: stretch;
       overflow: hidden;
       white-space: nowrap;

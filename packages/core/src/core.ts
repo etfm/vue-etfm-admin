@@ -29,10 +29,11 @@ import {
 } from '@etfma/types';
 import { PluginManager } from './plugin';
 
-import { GlobalRouter as InnerGlobalRouter, ROUTER_OPTIONS } from './router/router';
+import { GlobalRouter as InnerGlobalRouter } from './router/router';
 import { INTL_OPTIONS, GlobalI18n as InnerGlobalI18n } from './intl/i18n';
 import { Common } from './shell/common';
 import { RouterView } from 'vue-router';
+import { ROUTER_OPTIONS } from './router/constants';
 
 export * from './router';
 export * from './intl';

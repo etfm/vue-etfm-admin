@@ -34,7 +34,7 @@
     "@etfma/design": "workspace:^",
     "@etfma/etfma-ui": "workspace:^",
     "@etfma/hooks": "workspace:*",
-    "@etfma/icons": "workspace:^",
+    "@etfma/icon": "workspace:^",
     "@etfma/shared": "workspace:^"
   },
   "devDependencies": {

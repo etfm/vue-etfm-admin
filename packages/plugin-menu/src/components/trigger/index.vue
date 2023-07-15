@@ -7,7 +7,7 @@
   </div>
 </template>
 <script setup lang="ts">
-  import { Icon } from '@etfma/icons';
+  import { Icon } from '@etfma/icon';
   import { computed } from 'vue';
   import { useNamespace } from '@etfma/hooks';
 

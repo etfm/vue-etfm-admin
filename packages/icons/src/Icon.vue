@@ -1,15 +1,6 @@
 <script setup lang="ts">
   import iconify from '@purge-icons/generated';
-  import {
-    computed,
-    type CSSProperties,
-    nextTick,
-    onMounted,
-    ref,
-    unref,
-    useCssModule,
-    watch,
-  } from 'vue';
+  import { computed, type CSSProperties, nextTick, onMounted, ref, unref, watch } from 'vue';
 
   defineOptions({
     name: 'Icon',
@@ -39,15 +30,20 @@
      * @default ''
      */
     namespace?: string;
+
+    /**
+     * @description 图标旋转
+     * @default false
+     */
+    spin?: boolean;
   }
 
   const props = withDefaults(defineProps<Props>(), {
     size: 16,
     namespace: '',
     color: '',
+    spin: false,
   });
-
-  const $style = useCssModule();
 
   const iconRef = ref<HTMLSpanElement>();
 
@@ -82,7 +78,7 @@
       iconElement.appendChild(svg);
     } else {
       const span = document.createElement('span');
-      span.className = $style.iconify;
+      span.className = 'iconify';
       span.dataset.icon = icon;
       iconElement.textContent = '';
       iconElement.appendChild(span);
@@ -93,17 +89,38 @@
 </script>
 
 <template>
-  <i ref="iconRef" v-bind="$attrs" :class="$style.icon" :style="iconStyles">
-    <slot v-if="!icon" />
-  </i>
+  <span
+    ref="iconRef"
+    v-bind="$attrs"
+    :class="[$attrs.class, 'app-iconify', spin && 'app-iconify-spin']"
+    :style="iconStyles"
+  >
+  </span>
 </template>
 
-<style module scoped lang="scss">
-  .icon {
+<style lang="scss">
+  .app-iconify {
     display: inline-block;
+    vertical-align: middle;
+
+    &-spin {
+      svg {
+        animation: loading 1s infinite linear;
+      }
+    }
   }
 
-  .iconify {
+  @keyframes loading {
+    0% {
+      transform: rotate(0);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  span.iconify {
     display: block;
     min-width: 1em;
     min-height: 1em;

@@ -4,12 +4,7 @@ import { AppRouteRecordRaw, IEditor, IGlobalRouter, RouterContext } from '@etfma
 import { engineConfig } from '../config';
 import { filter, lodash } from '@etfma/shared';
 import { flatMultiLevelRoutes, routeRemoveFilter, transformObjToRoute } from './utils';
-
-export const ROUTER_OPTIONS = {
-  historyType: 'hash',
-  basename: '/',
-  routes: [],
-};
+import { DEFAULT_REDIRECT, ROUTER_OPTIONS } from './constants';
 
 export class GlobalRouter implements IGlobalRouter {
   private _router: Router;
@@ -39,6 +34,8 @@ export class GlobalRouter implements IGlobalRouter {
 
   init() {
     const routeList = this.getRouters(this._opts.routes);
+
+    routeList.push(DEFAULT_REDIRECT);
 
     const history = createHistory({
       type: this._opts.historyType,

@@ -5,6 +5,10 @@
   import { EtfmaTag } from '@etfma/etfma-ui';
   import Tabs from './components/tabs.vue';
   import TabPane from './components/tab-pane.vue';
+  import TabOperate from './components/tab-operate.vue';
+  import TabRedo from './components/tab-redo.vue';
+  import { Icon } from '@etfma/icon';
+  import { useNamespace } from '@etfma/hooks';
 
   defineOptions({
     name: 'Tabs',
@@ -12,8 +16,10 @@
   });
 
   const router = useRouter();
-  const { addTab, getTabList, closeTabByKey } = useMultipleTab();
+  const store = useMultipleTab();
+  const ns = useNamespace('tabs-main');
 
+  const { addTab, getTabList, closeTabByKey } = store;
   const mouseActiveKey = ref('');
   const { currentRoute, getRoutes, push } = router;
   const activeKey = ref('');
@@ -85,6 +91,7 @@
 </script>
 
 <template>
+  <div :class="ns.b()"> </div>
   <Tabs
     v-model:activeKey="activeKey"
     :affix="getAffixKey"
@@ -92,14 +99,27 @@
     @dropdown-remove="handleClose"
   >
     <TabPane v-for="item in getTabList" :key="item.path" :name="item.path" :title="item.title">
-      <EtfmaTag
-        :closable="hasClose(item)"
-        :type="item.path === activeKey ? '' : 'info'"
-        @close="handleClose(item.path)"
-        @mouseenter="handleMouseenter(item)"
-        @mouseleave="handleMouseleave"
-        >{{ item.title }}
-      </EtfmaTag>
+      <TabOperate :store="store" trigger="contextmenu" :tabItem="item">
+        <EtfmaTag
+          :closable="hasClose(item)"
+          :type="item.path === activeKey ? '' : 'info'"
+          @close="handleClose(item.path)"
+          @mouseenter="handleMouseenter(item)"
+          @mouseleave="handleMouseleave"
+          >{{ item.title }}
+        </EtfmaTag>
+      </TabOperate>
     </TabPane>
+    <template #right>
+      <TabRedo :store="store" />
+      <TabOperate :store="store" :tabItem="currentRoute">
+        <Icon :class="ns.b('arrow-down')" icon="ep:arrow-down-bold" />
+      </TabOperate>
+    </template>
   </Tabs>
 </template>
+<style scoped lang="scss">
+  @include b(tabs-main-arrow-down) {
+    margin: 0 8px;
+  }
+</style>

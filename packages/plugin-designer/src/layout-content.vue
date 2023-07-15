@@ -8,7 +8,7 @@
   });
 
   const openCache = ref(true);
-  const hasCache = ref(true);
+  const hasCache = ref(false);
   const enableTransition = ref(true);
   const defaultTransitionName = ref('');
   const cacheTabs = ref([]);

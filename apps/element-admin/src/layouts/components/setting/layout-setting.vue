@@ -1,5 +1,5 @@
 <script setup lang="ts" module>
-  import { Icon } from '@etfma/icons';
+  import { Icon } from '@etfma/icon';
   const openDrawer = () => {};
 </script>
 <template>

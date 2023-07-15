@@ -6,7 +6,7 @@ import { defineStore, store } from '@etfma/plugin-pinia';
 // import { useGo, useRedo } from '/@/hooks/web/usePage'
 
 import { PageEnum } from '@/enums/pageEnum';
-import { PAGE_NOT_FOUND_ROUTE, REDIRECT_ROUTE } from '@/router/basic';
+import { PAGE_NOT_FOUND_ROUTE } from '@/router/basic';
 import { MULTIPLE_TABS_KEY } from '@/enums/cacheEnum';
 
 import { useUserStore } from '@/store/user';
@@ -120,12 +120,7 @@ export const useMultipleTabStore = defineStore({
     async addTab(route: RouteLocationNormalized) {
       const { path, name, fullPath, params, query, meta } = route;
       // 404  The page does not need to add a tab
-      if (
-        path === PageEnum.ERROR_PAGE ||
-        path === PageEnum.BASE_LOGIN ||
-        !name ||
-        [REDIRECT_ROUTE.name, PAGE_NOT_FOUND_ROUTE.name].includes(name as string)
-      ) {
+      if (path === PageEnum.ERROR_PAGE || path === PageEnum.BASE_LOGIN || !name) {
         return;
       }
 

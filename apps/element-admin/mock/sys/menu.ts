@@ -12,7 +12,7 @@ const dashboardRoute = {
   meta: {
     title: 'Dashboard',
     hideChildrenInMenu: false,
-    icon: 'bx:bx-home',
+    icon: 'material-symbols:photo-camera-back-rounded',
   },
   children: [
     {

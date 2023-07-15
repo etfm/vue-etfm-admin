@@ -15,6 +15,7 @@ export const mainOutRoutes: AppRouteModule[] = [
       title: 'MainOut',
       ignoreAuth: true,
       hideMenu: true,
+      hideTab: true,
     },
   },
 ];

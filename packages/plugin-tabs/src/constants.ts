@@ -18,3 +18,12 @@ export function useTabsProviderContext() {
 }
 
 export const DEFAULT_SIZE = { width: 0, height: 0, left: 0, top: 0, right: 0 };
+
+export enum OP_TYPE {
+  REFRESH,
+  CLOSE_CURRENT,
+  CLOSE_LEFT,
+  CLOSE_RIGHT,
+  CLOSE_OTHER,
+  CLOSE_ALL,
+}

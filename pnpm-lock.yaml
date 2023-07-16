@@ -565,6 +565,34 @@ importers:
         specifier: workspace:^0.0.0
         version: link:../types
 
+  packages/plugin-fullscreen:
+    dependencies:
+      '@etfma/core':
+        specifier: workspace:^
+        version: link:../core
+      '@etfma/design':
+        specifier: workspace:^
+        version: link:../design
+      '@etfma/etfma-ui':
+        specifier: workspace:^0.0.0
+        version: link:../etfma-ui
+      '@etfma/hooks':
+        specifier: workspace:*
+        version: link:../hooks
+      '@etfma/icon':
+        specifier: workspace:^
+        version: link:../icons
+      '@etfma/shared':
+        specifier: workspace:^
+        version: link:../shared
+      '@vueuse/core':
+        specifier: ^9.13.0
+        version: 9.13.0(vue@3.3.4)
+    devDependencies:
+      '@etfma/types':
+        specifier: workspace:^0.0.0
+        version: link:../types
+
   packages/plugin-http:
     dependencies:
       '@etfma/core':

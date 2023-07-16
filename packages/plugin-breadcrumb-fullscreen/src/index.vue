@@ -14,16 +14,12 @@
      * @description 是否全屏
      * @default false
      */
-    isFullscreen?: boolean;
+    defaultFullscreen?: boolean;
   }
 
   const props = withDefaults(defineProps<Props>(), {
-    isFullscreen: false,
+    defaultFullscreen: false,
   });
-
-  const emit = defineEmits<{
-    'update:isFullscreen': [e: boolean];
-  }>();
 
   const ns = useNamespace('pbf');
 
@@ -36,7 +32,11 @@
   });
 
   watchEffect(() => {
-    hasFullscreen.value = props.isFullscreen;
+    hasFullscreen.value = props.defaultFullscreen;
+
+    if (hasFullscreen.value) {
+      enter();
+    }
   });
 
   /**
@@ -45,15 +45,21 @@
   function handleFullscreen() {
     if (hasFullscreen.value) {
       hasFullscreen.value = false;
-      skeleton.showArea('header');
-      skeleton.showArea('aside');
+      exit();
     } else {
       hasFullscreen.value = true;
-      skeleton.hideArea('header');
-      skeleton.hideArea('aside');
+      enter();
     }
+  }
 
-    emit('update:isFullscreen', hasFullscreen.value);
+  function enter() {
+    skeleton.hideArea('header');
+    skeleton.hideArea('aside');
+  }
+
+  function exit() {
+    skeleton.showArea('header');
+    skeleton.showArea('aside');
   }
 </script>
 <template>

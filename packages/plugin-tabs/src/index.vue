@@ -121,5 +121,6 @@
 <style scoped lang="scss">
   @include b(tabs-main-arrow-down) {
     margin: 0 8px;
+    outline: none;
   }
 </style>

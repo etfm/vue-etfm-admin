@@ -3,7 +3,6 @@ import 'uno.css';
 
 import { plugins, init, skeleton } from '@etfma/core';
 import type { IPublicPluginContext, IPublicPlugin } from '@etfma/core';
-// import Analysis from '@/views/dashboard/analysis/index.vue';
 import { h } from 'vue';
 import PluginHttp from '@etfma/plugin-http';
 import { handleHttpError } from './http/error';
@@ -20,6 +19,7 @@ import PluginAppLogo from './plugin/plugin-logo';
 import PluginTabs from '@etfma/plugin-tabs';
 import PluginBreadcrumb from '@etfma/plugin-breadcrumb';
 import PluginBreadcrumbFullscreen from '@etfma/plugin-breadcrumb-fullscreen';
+import PluginFullscreen from '@etfma/plugin-fullscreen';
 
 async function boostrap() {
   const AppConfig = getAppEnvConfig();
@@ -92,6 +92,8 @@ async function boostrap() {
   await plugins.register(PluginBreadcrumb);
 
   await plugins.register(PluginBreadcrumbFullscreen);
+
+  await plugins.register(PluginFullscreen);
 
   await plugins.register(PluginRouterGuard);
 

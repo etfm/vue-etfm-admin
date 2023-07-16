@@ -7,4 +7,6 @@ export * from './use-id';
 export * from './use-timeout';
 export * from './use-model-toggle';
 
-export { useAsyncState, onClickOutside } from '@vueuse/core';
+export { useAsyncState, onClickOutside, useFullscreen } from '@vueuse/core';
+
+export * as vueUse from '@vueuse/core';

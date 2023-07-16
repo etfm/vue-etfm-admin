@@ -19,6 +19,7 @@
     "@etfma/icon": "workspace:^0.0.0",
     "@etfma/plugin-aside": "workspace:^",
     "@etfma/plugin-breadcrumb": "workspace:^",
+    "@etfma/plugin-breadcrumb-fullscreen": "workspace:^",
     "@etfma/plugin-designer": "workspace:^",
     "@etfma/plugin-http": "workspace:^0.0.0",
     "@etfma/plugin-pinia": "workspace:^0.0.0",

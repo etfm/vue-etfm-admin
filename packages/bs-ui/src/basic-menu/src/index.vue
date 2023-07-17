@@ -6,9 +6,9 @@
   import { reactive, watch } from 'vue';
   import { event, material, type AppRouteRecordRaw } from '@etfma/core';
   import { useRouter } from 'vue-router';
-  import { getMenu, transformRouteToMenu } from './menuHelper';
   import { MenuModeEnum, Mode } from './enum';
   import { MenuRecordRaw } from '@etfma/types';
+  import { useMenu } from './hooks/use-menu';
 
   defineOptions({
     name: 'LayoutASide',
@@ -59,6 +59,7 @@
   const { push, currentRoute } = useRouter();
 
   const ns = useNamespace('layout-menu');
+  const { getMenu, transformRouteToMenu } = useMenu();
 
   const model = reactive({
     defaultActive: props.defaultActive,

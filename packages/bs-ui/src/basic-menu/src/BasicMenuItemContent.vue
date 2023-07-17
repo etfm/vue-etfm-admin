@@ -36,7 +36,7 @@
 
 <template>
   <EtfmaIcon>
-    <Icon v-if="isShowIcon" :icon="menu.icon"></Icon>
+    <Icon v-if="isShowIcon" :icon="menu.icon!"></Icon>
   </EtfmaIcon>
 
   <span v-if="showTitle">{{ menu.name }}</span>

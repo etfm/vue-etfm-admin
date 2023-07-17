@@ -1,8 +1,8 @@
 import { IPiniaContext, IPublicPlugin, IPublicPluginContext } from '@etfma/types';
+import { lodash } from '@etfma/shared';
+import { BasicMenu } from '@etfma/bs-ui';
 import { skeleton } from '@etfma/core';
 import { h } from 'vue';
-import { lodash } from '@etfma/shared';
-import Aside from './aside.vue';
 
 const PluginAside: IPublicPlugin = (ctx: IPublicPluginContext, options: IPiniaContext) => {
   return {
@@ -13,7 +13,7 @@ const PluginAside: IPublicPlugin = (ctx: IPublicPluginContext, options: IPiniaCo
       skeleton.add({
         name: 'PluginAside',
         area: 'aside',
-        content: h(Aside),
+        content: h(BasicMenu),
         contentProps: opts,
       });
     },

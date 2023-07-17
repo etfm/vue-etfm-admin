@@ -16,7 +16,7 @@
     showTitle?: boolean;
   }
 
-  const props = withDefaults(defineProps<Props>(), {
+  withDefaults(defineProps<Props>(), {
     showTitle: true,
   });
 </script>

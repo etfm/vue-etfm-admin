@@ -1,11 +1,3 @@
-<template>
-  <div
-    :class="[ns.b(), 'flex justify-center items-center rounded cursor-pointer']"
-    @click="toggleCollapsed"
-  >
-    <Icon :icon="icon" color="#C0C4CC" />
-  </div>
-</template>
 <script setup lang="ts">
   import { Icon } from '@etfma/icon';
   import { computed } from 'vue';
@@ -41,6 +33,14 @@
     emit('toggle', props.collapse);
   };
 </script>
+<template>
+  <div
+    :class="[ns.b(), 'flex justify-center items-center rounded cursor-pointer']"
+    @click="toggleCollapsed"
+  >
+    <Icon :icon="icon" color="#C0C4CC" />
+  </div>
+</template>
 <style scoped lang="scss">
   @include b('layout-trigger') {
     width: 24px;

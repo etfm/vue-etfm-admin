@@ -34,7 +34,7 @@
   watchEffect(() => {
     hasFullscreen.value = props.defaultFullscreen;
 
-    if (hasFullscreen.value) {
+    if (props.defaultFullscreen) {
       enter();
     }
   });

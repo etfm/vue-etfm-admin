@@ -19,6 +19,7 @@ import PluginBreadcrumb from '@etfma/plugin-breadcrumb';
 import PluginBreadcrumbFullscreen from '@etfma/plugin-breadcrumb-fullscreen';
 import PluginFullscreen from '@etfma/plugin-fullscreen';
 import PluginHeaderMenu from '@etfma/plugin-header-menu';
+import PluginUser from './plugin/plugin-user';
 
 async function boostrap() {
   const AppConfig = getAppEnvConfig();
@@ -63,6 +64,8 @@ async function boostrap() {
   await plugins.register(PluginBreadcrumbFullscreen);
 
   await plugins.register(PluginFullscreen);
+
+  await plugins.register(PluginUser);
 
   await plugins.register(PluginRouterGuard);
 

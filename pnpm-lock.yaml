@@ -125,9 +125,6 @@ importers:
       '@etfma/element-ui':
         specifier: workspace:^0.0.0
         version: link:../../packages/element-ui
-      '@etfma/etfma-ui':
-        specifier: workspace:^0.0.0
-        version: link:../../packages/etfma-ui
       '@etfma/hooks':
         specifier: workspace:*
         version: link:../../packages/hooks
@@ -161,6 +158,9 @@ importers:
       '@etfma/shared':
         specifier: workspace:*
         version: link:../../packages/shared
+      '@etfma/ui':
+        specifier: workspace:^0.0.0
+        version: link:../../packages/etfma-ui
       nprogress:
         specifier: ^0.2.0
         version: 0.2.0
@@ -367,9 +367,6 @@ importers:
       '@etfma/design':
         specifier: workspace:*
         version: link:../design
-      '@etfma/etfma-ui':
-        specifier: workspace:^
-        version: link:../etfma-ui
       '@etfma/hooks':
         specifier: workspace:*
         version: link:../hooks
@@ -379,6 +376,9 @@ importers:
       '@etfma/shared':
         specifier: workspace:*
         version: link:../shared
+      '@etfma/ui':
+        specifier: workspace:^
+        version: link:../etfma-ui
     devDependencies:
       '@etfma/types':
         specifier: workspace:*
@@ -444,9 +444,6 @@ importers:
       '@etfma/design':
         specifier: workspace:*
         version: link:../design
-      '@etfma/etfma-ui':
-        specifier: workspace:^0.0.0
-        version: link:../etfma-ui
       '@etfma/hooks':
         specifier: workspace:*
         version: link:../hooks
@@ -456,6 +453,9 @@ importers:
       '@etfma/shared':
         specifier: workspace:*
         version: link:../shared
+      '@etfma/ui':
+        specifier: workspace:^0.0.0
+        version: link:../etfma-ui
     devDependencies:
       '@etfma/types':
         specifier: workspace:*
@@ -538,9 +538,6 @@ importers:
       '@etfma/design':
         specifier: workspace:^
         version: link:../design
-      '@etfma/etfma-ui':
-        specifier: workspace:^0.0.0
-        version: link:../etfma-ui
       '@etfma/hooks':
         specifier: workspace:*
         version: link:../hooks
@@ -550,6 +547,9 @@ importers:
       '@etfma/shared':
         specifier: workspace:^
         version: link:../shared
+      '@etfma/ui':
+        specifier: workspace:^0.0.0
+        version: link:../etfma-ui
     devDependencies:
       '@etfma/types':
         specifier: workspace:^0.0.0
@@ -563,9 +563,6 @@ importers:
       '@etfma/design':
         specifier: workspace:^
         version: link:../design
-      '@etfma/etfma-ui':
-        specifier: workspace:^0.0.0
-        version: link:../etfma-ui
       '@etfma/hooks':
         specifier: workspace:*
         version: link:../hooks
@@ -575,6 +572,9 @@ importers:
       '@etfma/shared':
         specifier: workspace:^
         version: link:../shared
+      '@etfma/ui':
+        specifier: workspace:^0.0.0
+        version: link:../etfma-ui
       '@vueuse/core':
         specifier: ^9.13.0
         version: 9.13.0
@@ -610,9 +610,6 @@ importers:
       '@etfma/design':
         specifier: workspace:^
         version: link:../design
-      '@etfma/etfma-ui':
-        specifier: workspace:^0.0.0
-        version: link:../etfma-ui
       '@etfma/hooks':
         specifier: workspace:*
         version: link:../hooks
@@ -622,6 +619,9 @@ importers:
       '@etfma/shared':
         specifier: workspace:^
         version: link:../shared
+      '@etfma/ui':
+        specifier: workspace:^0.0.0
+        version: link:../etfma-ui
       '@vueuse/core':
         specifier: ^9.13.0
         version: 9.13.0
@@ -676,9 +676,6 @@ importers:
       '@etfma/design':
         specifier: workspace:^
         version: link:../design
-      '@etfma/etfma-ui':
-        specifier: workspace:^0.0.0
-        version: link:../etfma-ui
       '@etfma/hooks':
         specifier: workspace:*
         version: link:../hooks
@@ -688,6 +685,9 @@ importers:
       '@etfma/shared':
         specifier: workspace:^
         version: link:../shared
+      '@etfma/ui':
+        specifier: workspace:^0.0.0
+        version: link:../etfma-ui
       '@vueuse/core':
         specifier: ^9.13.0
         version: 9.13.0

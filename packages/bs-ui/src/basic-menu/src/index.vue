@@ -2,7 +2,7 @@
   import BasicMenu from './BasicMenu.vue';
   import { useNamespace } from '@etfma/hooks';
   import Trigger from './components/trigger/index.vue';
-  import { EtfmaScrollbar } from '@etfma/etfma-ui';
+  import { EtfmaScrollbar } from '@etfma/ui';
   import { reactive, watch } from 'vue';
   import { event, material, type AppRouteRecordRaw } from '@etfma/core';
   import { useRouter } from 'vue-router';

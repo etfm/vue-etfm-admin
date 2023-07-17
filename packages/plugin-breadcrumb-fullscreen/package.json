@@ -32,10 +32,10 @@
   "dependencies": {
     "@etfma/core": "workspace:^",
     "@etfma/design": "workspace:^",
-    "@etfma/etfma-ui": "workspace:^0.0.0",
     "@etfma/hooks": "workspace:*",
     "@etfma/icon": "workspace:^",
     "@etfma/shared": "workspace:^",
+    "@etfma/ui": "workspace:^0.0.0",
     "@vueuse/core": "^9.13.0"
   },
   "devDependencies": {

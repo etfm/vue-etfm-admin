@@ -9,7 +9,7 @@
     EtfmaDropdown,
     EtfmaDropdownItem,
     EtfmaDropdownMenu,
-  } from '@etfma/etfma-ui';
+  } from '@etfma/ui';
 
   defineOptions({
     name: 'analysis',

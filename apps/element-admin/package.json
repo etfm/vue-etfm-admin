@@ -14,7 +14,6 @@
     "@etfma/core": "workspace:^",
     "@etfma/design": "workspace:*",
     "@etfma/element-ui": "workspace:^0.0.0",
-    "@etfma/etfma-ui": "workspace:^0.0.0",
     "@etfma/hooks": "workspace:*",
     "@etfma/icon": "workspace:^0.0.0",
     "@etfma/plugin-aside": "workspace:^",
@@ -26,6 +25,7 @@
     "@etfma/plugin-pinia": "workspace:^0.0.0",
     "@etfma/plugin-tabs": "workspace:^0.0.0",
     "@etfma/shared": "workspace:*",
+    "@etfma/ui": "workspace:^0.0.0",
     "nprogress": "^0.2.0",
     "path-to-regexp": "^6.2.1"
   },

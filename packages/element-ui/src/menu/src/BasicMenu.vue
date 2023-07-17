@@ -6,7 +6,7 @@
   import { computed, reactive, watch } from 'vue';
   import { lodash } from '@etfma/shared';
 
-  import { EtfmaMenu } from '@etfma/etfma-ui';
+  import { EtfmaMenu } from '@etfma/ui';
 
   defineOptions({
     name: 'BasicMenu',

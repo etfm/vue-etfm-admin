@@ -4,7 +4,7 @@
   import { MenuModeEnum, Mode } from './enum';
   import { reactive, watch } from 'vue';
   import { lodash } from '@etfma/shared';
-  import { EtfmaMenu } from '@etfma/etfma-ui';
+  import { EtfmaMenu } from '@etfma/ui';
   import { useNamespace } from '@etfma/hooks';
 
   defineOptions({

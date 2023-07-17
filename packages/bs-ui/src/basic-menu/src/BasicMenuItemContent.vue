@@ -2,7 +2,7 @@
   import { MenuRecordRaw } from '@etfma/types';
   import { Icon } from '@etfma/icon';
   import { computed } from 'vue';
-  import { EtfmaIcon } from '@etfma/etfma-ui';
+  import { EtfmaIcon } from '@etfma/ui';
 
   defineOptions({
     name: 'BasicMenuItemContent',

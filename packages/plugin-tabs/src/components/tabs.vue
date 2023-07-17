@@ -4,7 +4,7 @@
   import useOffsets from '../hooks/use-offsets';
   import useTouchMove from '../hooks/use-touch-move';
   import { useGetTabPane } from '../hooks/use-get-tabs';
-  import { EtfmaIcon, EtfmaDropdown, EtfmaDropdownItem, EtfmaDropdownMenu } from '@etfma/etfma-ui';
+  import { EtfmaIcon, EtfmaDropdown, EtfmaDropdownItem, EtfmaDropdownMenu } from '@etfma/ui';
   import More from '../icon/more.vue';
   import { useHiddenTabs } from '../hooks/use-hidden-tabs';
   import { useResize } from '../hooks/use-resize';

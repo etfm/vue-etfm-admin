@@ -2,7 +2,7 @@
   import { computed, ref, unref, watch } from 'vue';
   import { RouteLocationNormalized, RouteMeta, useRouter } from 'vue-router';
   import { useMultipleTab } from './hooks/use-multiple-tab';
-  import { EtfmaTag } from '@etfma/etfma-ui';
+  import { EtfmaTag } from '@etfma/ui';
   import Tabs from './components/tabs.vue';
   import TabPane from './components/tab-pane.vue';
   import TabOperate from './components/tab-operate.vue';

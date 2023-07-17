@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { useNamespace } from '@etfma/hooks';
-  import { EtfmaDropdown, EtfmaDropdownItem, EtfmaDropdownMenu } from '@etfma/etfma-ui';
+  import { EtfmaDropdown, EtfmaDropdownItem, EtfmaDropdownMenu } from '@etfma/ui';
   import { Icon } from '@etfma/icon';
   import { PublicMultipleTab } from '../hooks/use-multiple-tab';
   import { RouteLocationNormalized } from 'vue-router';

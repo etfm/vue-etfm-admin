@@ -38,10 +38,10 @@
   "dependencies": {
     "@etfma/core": "workspace:^",
     "@etfma/design": "workspace:*",
-    "@etfma/etfma-ui": "workspace:^",
     "@etfma/hooks": "workspace:*",
     "@etfma/icon": "workspace:^",
-    "@etfma/shared": "workspace:*"
+    "@etfma/shared": "workspace:*",
+    "@etfma/ui": "workspace:^"
   },
   "devDependencies": {
     "@etfma/types": "workspace:*"

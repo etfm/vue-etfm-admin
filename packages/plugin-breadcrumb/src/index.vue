@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { EtfmaBreadcrumb, EtfmaBreadcrumbItem } from '@etfma/etfma-ui';
+  import { EtfmaBreadcrumb, EtfmaBreadcrumbItem } from '@etfma/ui';
 
   import { useMenu } from './use-menu';
   import { useBreadcrumb } from './use-breadcrumb';
@@ -8,7 +8,7 @@
   import { MenuRecordRaw } from '@etfma/types';
   import { lodash } from '@etfma/shared';
   import { useGo } from '@etfma/core';
-  import { EtfmaDropdownItem, EtfmaDropdownMenu, EtfmaDropdown } from '@etfma/etfma-ui';
+  import { EtfmaDropdownItem, EtfmaDropdownMenu, EtfmaDropdown } from '@etfma/ui';
 
   defineOptions({
     name: 'plugin-breadcrumb',

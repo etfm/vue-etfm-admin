@@ -160,7 +160,7 @@ importers:
         version: link:../../packages/shared
       '@etfma/ui':
         specifier: workspace:^0.0.0
-        version: link:../../packages/etfma-ui
+        version: link:../../packages/ui
       nprogress:
         specifier: ^0.2.0
         version: 0.2.0
@@ -378,7 +378,7 @@ importers:
         version: link:../shared
       '@etfma/ui':
         specifier: workspace:^
-        version: link:../etfma-ui
+        version: link:../ui
     devDependencies:
       '@etfma/types':
         specifier: workspace:*
@@ -455,39 +455,11 @@ importers:
         version: link:../shared
       '@etfma/ui':
         specifier: workspace:^0.0.0
-        version: link:../etfma-ui
+        version: link:../ui
     devDependencies:
       '@etfma/types':
         specifier: workspace:*
         version: link:../types
-
-  packages/etfma-ui:
-    dependencies:
-      '@ctrl/tinycolor':
-        specifier: ^3.6.0
-        version: 3.6.0
-      '@etfma/design':
-        specifier: workspace:*
-        version: link:../design
-      '@etfma/hooks':
-        specifier: workspace:*
-        version: link:../hooks
-      '@etfma/shared':
-        specifier: workspace:*
-        version: link:../shared
-      '@popperjs/core':
-        specifier: ^2.11.8
-        version: 2.11.8
-      '@vueuse/core':
-        specifier: ^9.13.0
-        version: 9.13.0
-    devDependencies:
-      '@etfma/types':
-        specifier: workspace:*
-        version: link:../types
-      '@vue/runtime-core':
-        specifier: ^3.3.4
-        version: 3.3.4
 
   packages/hooks:
     dependencies:
@@ -549,7 +521,7 @@ importers:
         version: link:../shared
       '@etfma/ui':
         specifier: workspace:^0.0.0
-        version: link:../etfma-ui
+        version: link:../ui
     devDependencies:
       '@etfma/types':
         specifier: workspace:^0.0.0
@@ -574,7 +546,7 @@ importers:
         version: link:../shared
       '@etfma/ui':
         specifier: workspace:^0.0.0
-        version: link:../etfma-ui
+        version: link:../ui
       '@vueuse/core':
         specifier: ^9.13.0
         version: 9.13.0
@@ -621,7 +593,7 @@ importers:
         version: link:../shared
       '@etfma/ui':
         specifier: workspace:^0.0.0
-        version: link:../etfma-ui
+        version: link:../ui
       '@vueuse/core':
         specifier: ^9.13.0
         version: 9.13.0
@@ -687,7 +659,7 @@ importers:
         version: link:../shared
       '@etfma/ui':
         specifier: workspace:^0.0.0
-        version: link:../etfma-ui
+        version: link:../ui
       '@vueuse/core':
         specifier: ^9.13.0
         version: 9.13.0
@@ -741,6 +713,34 @@ importers:
       vue-router:
         specifier: ^4.1.6
         version: 4.2.1
+
+  packages/ui:
+    dependencies:
+      '@ctrl/tinycolor':
+        specifier: ^3.6.0
+        version: 3.6.0
+      '@etfma/design':
+        specifier: workspace:*
+        version: link:../design
+      '@etfma/hooks':
+        specifier: workspace:*
+        version: link:../hooks
+      '@etfma/shared':
+        specifier: workspace:*
+        version: link:../shared
+      '@popperjs/core':
+        specifier: ^2.11.8
+        version: 2.11.8
+      '@vueuse/core':
+        specifier: ^9.13.0
+        version: 9.13.0
+    devDependencies:
+      '@etfma/types':
+        specifier: workspace:*
+        version: link:../types
+      '@vue/runtime-core':
+        specifier: ^3.3.4
+        version: 3.3.4
 
 packages:
 

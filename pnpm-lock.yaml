@@ -146,6 +146,9 @@ importers:
       '@etfma/plugin-fullscreen':
         specifier: workspace:^
         version: link:../../packages/plugin-fullscreen
+      '@etfma/plugin-header-menu':
+        specifier: workspace:^0.0.0
+        version: link:../../packages/plugin-header-menu
       '@etfma/plugin-http':
         specifier: workspace:^0.0.0
         version: link:../../packages/plugin-http
@@ -494,9 +497,18 @@ importers:
       '@etfma/core':
         specifier: workspace:^
         version: link:../core
+      '@etfma/hooks':
+        specifier: workspace:*
+        version: link:../hooks
+      '@etfma/icon':
+        specifier: workspace:^
+        version: link:../icons
       '@etfma/shared':
         specifier: workspace:^
         version: link:../shared
+      '@etfma/ui':
+        specifier: workspace:^
+        version: link:../ui
     devDependencies:
       '@etfma/types':
         specifier: workspace:^0.0.0
@@ -597,6 +609,25 @@ importers:
       '@vueuse/core':
         specifier: ^9.13.0
         version: 9.13.0
+    devDependencies:
+      '@etfma/types':
+        specifier: workspace:^0.0.0
+        version: link:../types
+
+  packages/plugin-header-menu:
+    dependencies:
+      '@etfma/bs-ui':
+        specifier: workspace:^0.0.0
+        version: link:../bs-ui
+      '@etfma/core':
+        specifier: workspace:^
+        version: link:../core
+      '@etfma/hooks':
+        specifier: workspace:*
+        version: link:../hooks
+      '@etfma/shared':
+        specifier: workspace:^
+        version: link:../shared
     devDependencies:
       '@etfma/types':
         specifier: workspace:^0.0.0

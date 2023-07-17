@@ -58,17 +58,7 @@ export class Event implements IPublicApiEvent {
       logger.warn('Event#emit has been forbidden while prefix is not specified');
       return;
     }
-
-    this[eventBusSymbol].emit(`${this.options.prefix}:${event}`, ...args);
-  }
-
-  /**
-   * DO NOT USE if u fully understand what this method does.
-   * @param event
-   * @param args
-   */
-  __internalEmit__(event: string, ...args: unknown[]) {
-    this[eventBusSymbol].emit(`${this.options.prefix}:${event}`, ...args);
+    setTimeout(() => this[eventBusSymbol].emit(`${this.options.prefix}:${event}`, ...args));
   }
 }
 

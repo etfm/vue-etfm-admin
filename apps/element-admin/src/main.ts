@@ -1,9 +1,7 @@
 import '@etfma/design';
 import 'uno.css';
 
-import { plugins, init, skeleton } from '@etfma/core';
-import type { IPublicPluginContext, IPublicPlugin } from '@etfma/core';
-import { h } from 'vue';
+import { plugins, init } from '@etfma/core';
 import PluginHttp from '@etfma/plugin-http';
 import { handleHttpError } from './http/error';
 import { Recordable } from '@etfma/types';
@@ -20,6 +18,7 @@ import PluginTabs from '@etfma/plugin-tabs';
 import PluginBreadcrumb from '@etfma/plugin-breadcrumb';
 import PluginBreadcrumbFullscreen from '@etfma/plugin-breadcrumb-fullscreen';
 import PluginFullscreen from '@etfma/plugin-fullscreen';
+import PluginHeaderMenu from '@etfma/plugin-header-menu';
 
 async function boostrap() {
   const AppConfig = getAppEnvConfig();
@@ -50,42 +49,12 @@ async function boostrap() {
   await plugins.register(PluginPinia);
 
   await plugins.register(PluginAside);
+
+  await plugins.register(PluginHeaderMenu);
+
   await plugins.register(PluginAppLogo);
+
   await plugins.register(PluginTabs);
-
-  const buildSkeleton: IPublicPlugin = (_: IPublicPluginContext) => {
-    return {
-      name: 'TextPlugin',
-      init() {
-        skeleton.add({
-          area: 'footer',
-          name: 'bottomArea',
-          content: 'logo',
-          contentProps: {
-            logo: 'https://img.alicdn.com/imgextra/i4/O1CN013w2bmQ25WAIha4Hx9_!!6000000007533-55-tps-137-26.svg',
-            href: 'https://lowcode-engine.cn',
-          },
-        });
-
-        skeleton.add({
-          area: 'float',
-          name: 'leftFixedArea',
-          content: h('div', 'logologologologologologologologologol'),
-          contentProps: {
-            logo: 'https://img.alicdn.com/imgextra/i4/O1CN013w2bmQ25WAIha4Hx9_!!6000000007533-55-tps-137-26.svg',
-            href: 'https://lowcode-engine.cn',
-          },
-          props: {
-            enableDrag: true,
-          },
-        });
-      },
-    };
-  };
-
-  buildSkeleton.pluginName = 'TextPlugin';
-
-  await plugins.register(buildSkeleton);
 
   await plugins.register(PluginDesigner);
 

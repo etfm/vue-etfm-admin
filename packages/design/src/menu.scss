@@ -2,26 +2,20 @@
 @use 'common/transition' as *;
 
 @mixin menu-item {
-  position: relative;
-  box-sizing: border-box;
   display: flex;
   align-items: center;
   height: getCssVar('menu-item-height');
-  padding: 0 getCssVar('menu-base-level-padding');
-  font-size: getCssVar('menu-item-font-size');
   line-height: getCssVar('menu-item-height');
+  font-size: getCssVar('menu-item-font-size');
   color: getCssVar('menu-text-color');
-  white-space: nowrap;
+  padding: 0 getCssVar('menu-base-level-padding');
   list-style: none;
   cursor: pointer;
+  position: relative;
   transition: border-color getCssVar('transition-duration'),
     background-color getCssVar('transition-duration'), color getCssVar('transition-duration');
-
-  @include when(disabled) {
-    cursor: not-allowed;
-    background: none !important;
-    opacity: 0.25;
-  }
+  box-sizing: border-box;
+  white-space: nowrap;
 
   * {
     vertical-align: bottom;
@@ -39,6 +33,12 @@
   &:hover {
     background-color: getCssVar('menu-hover-bg-color');
   }
+
+  @include when(disabled) {
+    opacity: 0.25;
+    cursor: not-allowed;
+    background: none !important;
+  }
 }
 
 :root {
@@ -47,25 +47,25 @@
 }
 
 @include b(menu) {
-  position: relative;
-  box-sizing: border-box;
-  padding-left: 0;
-  margin: 0;
+  border-right: none;
   list-style: none;
+  position: relative;
+  margin: 0;
+  padding-left: 0;
   background-color: getCssVar('menu-bg-color');
-  border-right: solid 1px getCssVar('menu-border-color');
+  box-sizing: border-box;
 
   @include m(vertical) {
     &:not(.#{$namespace}-menu--collapse):not(.#{$namespace}-menu--popup-container) {
       & .#{$namespace}-menu-item,
       & .#{$namespace}-sub-menu__title,
       & .#{$namespace}-menu-item-group__title {
+        white-space: nowrap;
         padding-left: calc(
           #{getCssVar('menu-base-level-padding')} + #{getCssVar('menu-level')} * #{getCssVar(
               'menu-level-padding'
             )}
         );
-        white-space: nowrap;
       }
     }
   }
@@ -73,17 +73,18 @@
   @include m(horizontal) {
     display: flex;
     flex-wrap: nowrap;
+    border-bottom: none;
     border-right: none;
-    border-bottom: solid 1px getCssVar('menu-border-color');
 
     & > .#{$namespace}-menu-item {
       display: inline-flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
+
       height: 100%;
       margin: 0;
-      color: getCssVar('menu-text-color');
       border-bottom: 2px solid transparent;
+      color: getCssVar('menu-text-color');
 
       a,
       a:hover {
@@ -109,15 +110,15 @@
 
       &.is-active {
         .#{$namespace}-sub-menu__title {
-          color: getCssVar('menu-active-color');
           border-bottom: 2px solid getCssVar('menu-active-color');
+          color: getCssVar('menu-active-color');
         }
       }
 
       & .#{$namespace}-sub-menu__title {
         height: 100%;
-        color: getCssVar('menu-text-color');
         border-bottom: 2px solid transparent;
+        color: getCssVar('menu-text-color');
 
         &:hover {
           background-color: getCssVar('bg-color', 'overlay');
@@ -127,13 +128,13 @@
     & .#{$namespace}-menu {
       & .#{$namespace}-menu-item,
       & .#{$namespace}-sub-menu__title {
+        background-color: getCssVar('menu-bg-color');
         display: flex;
         align-items: center;
         height: getCssVar('menu-horizontal-sub-item-height');
-        padding: 0 10px;
         line-height: getCssVar('menu-horizontal-sub-item-height');
+        padding: 0 10px;
         color: getCssVar('menu-text-color');
-        background-color: getCssVar('menu-bg-color');
       }
 
       & .#{$namespace}-sub-menu__title {
@@ -147,16 +148,15 @@
     }
     & .#{$namespace}-menu-item:not(.is-disabled):hover,
     & .#{$namespace}-menu-item:not(.is-disabled):focus {
+      outline: none;
       color: getCssVar('menu-hover-text-color');
       background-color: getCssVar('menu-hover-bg-color');
-      outline: none;
     }
     & > .#{$namespace}-menu-item.is-active {
-      color: getCssVar('menu-active-color') !important;
       border-bottom: 2px solid getCssVar('menu-active-color');
+      color: getCssVar('menu-active-color') !important;
     }
   }
-
   @include m(collapse) {
     width: calc(#{getCssVar('menu-icon-width')} + #{getCssVar('menu-base-level-padding')} * 2);
 
@@ -167,10 +167,10 @@
       > .#{$namespace}-sub-menu
       > .#{$namespace}-sub-menu__title {
       [class^='#{$namespace}-icon'] {
-        width: getCssVar('menu-icon-width');
         margin: 0;
-        text-align: center;
         vertical-align: middle;
+        width: getCssVar('menu-icon-width');
+        text-align: center;
       }
 
       .#{$namespace}-sub-menu__icon-arrow {
@@ -178,11 +178,11 @@
       }
 
       > span {
-        display: inline-block;
-        width: 0;
         height: 0;
+        width: 0;
         overflow: hidden;
         visibility: hidden;
+        display: inline-block;
       }
     }
 
@@ -194,12 +194,11 @@
       min-width: 200px;
     }
   }
-
   @include m(popup) {
     z-index: 100;
     min-width: 200px;
-    padding: 5px 0;
     border: none;
+    padding: 5px 0;
     border-radius: getCssVar('border-radius-small');
     box-shadow: getCssVar('box-shadow-light');
   }
@@ -212,67 +211,43 @@
 @include b(menu-item) {
   @include menu-item;
 
+  & [class^='#{$namespace}-icon'] {
+    margin-right: 5px;
+    width: getCssVar('menu-icon-width');
+    text-align: center;
+    font-size: 18px;
+    vertical-align: middle;
+  }
   @include when(active) {
     color: getCssVar('menu-active-color');
-
     i {
       color: inherit;
     }
   }
-
-  & [class^='#{$namespace}-icon'] {
-    width: getCssVar('menu-icon-width');
-    margin-right: 5px;
-    font-size: 18px;
-    text-align: center;
-    vertical-align: middle;
-  }
   .#{$namespace}-menu-tooltip__trigger {
     position: absolute;
-    top: 0;
     left: 0;
-    box-sizing: border-box;
+    top: 0;
+    height: 100%;
+    width: 100%;
     display: inline-flex;
     align-items: center;
-    width: 100%;
-    height: 100%;
+    box-sizing: border-box;
     padding: 0 getCssVar('menu-base-level-padding');
   }
 }
 
 @include b(sub-menu) {
-  padding-left: 0;
-  margin: 0;
   list-style: none;
+  margin: 0;
+  padding-left: 0;
 
   @include e(title) {
-    padding-right: calc(#{getCssVar('menu-base-level-padding')} + #{getCssVar('menu-icon-width')});
-
     @include menu-item;
+    padding-right: calc(#{getCssVar('menu-base-level-padding')} + #{getCssVar('menu-icon-width')});
 
     &:hover {
       background-color: getCssVar('menu-hover-bg-color');
-    }
-  }
-
-  @include e(hide-arrow) {
-    .#{$namespace}-sub-menu__icon-arrow {
-      display: none !important;
-    }
-  }
-
-  @include when(active) {
-    .#{$namespace}-sub-menu__title {
-      border-bottom-color: getCssVar('menu-active-color');
-    }
-  }
-
-  @include when(disabled) {
-    .#{$namespace}-sub-menu__title,
-    .#{$namespace}-menu-item {
-      cursor: not-allowed;
-      background: none !important;
-      opacity: 0.25;
     }
   }
   & .#{$namespace}-menu {
@@ -282,12 +257,30 @@
     height: getCssVar('menu-sub-item-height');
     line-height: getCssVar('menu-sub-item-height');
   }
+  @include e(hide-arrow) {
+    .#{$namespace}-sub-menu__icon-arrow {
+      display: none !important;
+    }
+  }
+  @include when(active) {
+    .#{$namespace}-sub-menu__title {
+      border-bottom-color: getCssVar('menu-active-color');
+    }
+  }
+  @include when(disabled) {
+    .#{$namespace}-sub-menu__title,
+    .#{$namespace}-menu-item {
+      opacity: 0.25;
+      cursor: not-allowed;
+      background: none !important;
+    }
+  }
   .#{$namespace}-icon {
-    width: getCssVar('menu-icon-width');
-    margin-right: 5px;
-    font-size: 18px;
-    text-align: center;
     vertical-align: middle;
+    margin-right: 5px;
+    width: getCssVar('menu-icon-width');
+    text-align: center;
+    font-size: 18px;
 
     &.#{$namespace}-sub-menu__icon-more {
       margin-right: 0 !important;
@@ -297,28 +290,27 @@
     position: absolute;
     top: 50%;
     right: getCssVar('menu-base-level-padding');
-    width: inherit;
     margin-top: -6px;
-    margin-right: 0;
-    font-size: 12px;
     transition: transform getCssVar('transition-duration');
+    font-size: 12px;
+    margin-right: 0;
+    width: inherit;
   }
 }
 
 @include b(menu-item-group) {
-  @include e(title) {
-    padding: 7px 0 7px getCssVar('menu-base-level-padding');
-    font-size: 12px;
-    line-height: normal;
-    color: getCssVar('text-color', 'secondary');
-  }
-
   > ul {
     padding: 0;
+  }
+  @include e(title) {
+    padding: 7px 0 7px getCssVar('menu-base-level-padding');
+    line-height: normal;
+    font-size: 12px;
+    color: getCssVar('text-color', 'secondary');
   }
 }
 
 .horizontal-collapse-transition .#{$namespace}-sub-menu__title .#{$namespace}-sub-menu__icon-arrow {
-  opacity: 0;
   transition: getCssVar('transition-duration-fast');
+  opacity: 0;
 }

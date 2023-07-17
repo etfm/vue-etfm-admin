@@ -58,7 +58,7 @@
 
   const emit = defineEmits<{ (event: 'menuClick', arg: string): void }>();
 
-  const ns = useNamespace('basic-menu');
+  useNamespace('basic-menu');
 
   const menuState = reactive<{
     defaultActive: string;
@@ -121,7 +121,6 @@
 
 <template>
   <EtfmaMenu
-    :class="[ns.b()]"
     :mode="props.mode"
     :default-active="menuState.defaultActive"
     :default-openeds="menuState.defaultOpeneds"
@@ -136,10 +135,3 @@
     </template>
   </EtfmaMenu>
 </template>
-
-<style scoped lang="scss">
-  @include b('basic-menu:not(.etfma-menu--collapse)') {
-    width: 220px;
-    border-right: none;
-  }
-</style>

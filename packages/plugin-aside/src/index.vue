@@ -1,14 +1,15 @@
 <script setup lang="ts">
-  import BasicMenu from './BasicMenu.vue';
+  import { BasicMenu } from '@etfma/bs-ui';
   import { useNamespace } from '@etfma/hooks';
   import Trigger from './components/trigger/index.vue';
   import { EtfmaScrollbar } from '@etfma/ui';
-  import { reactive, watch } from 'vue';
+  import { reactive, watch, computed } from 'vue';
   import { event, material, type AppRouteRecordRaw } from '@etfma/core';
   import { useRouter } from 'vue-router';
-  import { MenuModeEnum, Mode } from './enum';
   import { MenuRecordRaw } from '@etfma/types';
   import { useMenu } from './hooks/use-menu';
+  import { MenuTypeEnum } from './enum';
+  import type { CSSProperties } from 'vue';
 
   defineOptions({
     name: 'LayoutASide',
@@ -21,11 +22,7 @@
      * @default ''
      */
     defaultActive?: string;
-    /**
-     * 菜单组件mode属性
-     * @default MenuModeEnum.VERTICAL
-     */
-    mode?: Mode;
+
     /**
      * 菜单列表
      * @default MenuRecordRaw[]
@@ -41,33 +38,33 @@
      * @default false
      */
     collapse?: boolean;
+
     /**
-     * 是否省略多余的子项（仅在横向模式生效）
-     * @default true
+     * 菜单的类型
+     *  @default MenuTypeEnum.MENU
      */
-    ellipsis?: boolean;
+    type?: MenuTypeEnum;
   }
 
   const props = withDefaults(defineProps<Props>(), {
     collapse: false,
-    model: MenuModeEnum.VERTICAL,
     defaultActive: '',
-    ellipsis: true,
     uniqueOpened: true,
+    type: MenuTypeEnum.MENU,
+    menus: () => [],
   });
 
   const { push, currentRoute } = useRouter();
 
-  const ns = useNamespace('layout-menu');
+  const ns = useNamespace('pa');
   const { getMenu, transformRouteToMenu } = useMenu();
 
   const model = reactive({
     defaultActive: props.defaultActive,
     collapse: props.collapse,
-    mode: props.model,
     menus: props.menus,
-    ellipsis: props.ellipsis,
     uniqueOpened: props.uniqueOpened,
+    type: props.type,
   });
 
   watch(
@@ -92,39 +89,40 @@
   /**
    * 设置默认激活的index
    */
-  event.on('menu:default-active', (path: string) => {
+  event.on('aside:default-active', (path: string) => {
     if (model.defaultActive === path) return;
 
     model.defaultActive = path;
   });
 
   /**
-   * 设置是否省略多余的子项
-   */
-  event.on('menu:ellipsis', (e: boolean) => {
-    if (model.mode === MenuModeEnum.HORIZONTAL && model.ellipsis !== e) {
-      model.ellipsis = e;
-    }
-  });
-
-  /**
    * 设置是否只保持一个子菜单的展开
    */
-  event.on('menu:unique-opened', (e: boolean) => {
+  event.on('aside:unique-opened', (e: boolean) => {
     if (model.uniqueOpened !== e) {
       model.uniqueOpened = e;
     }
   });
 
   /**
+   * @description 当只有路由类型 MenuTypeEnum.SPLIT_MENU 时才会赋值路由生效
+   */
+  event.on('aside:routes', (e: MenuRecordRaw[]) => {
+    if (model.type === MenuTypeEnum.SPLIT_MENU) {
+      model.menus = e;
+    }
+  });
+
+  /**
    * 监听路由的变化
-   * 菜单是根据菜单转化而来
+   * 菜单是根据路由转化而来
    * 具体参数请查看文档
    */
   material.onChangeAssets('routes', (routes: AppRouteRecordRaw[]) => {
+    if (model.type === MenuTypeEnum.SPLIT_MENU) return;
+
     const transfromMenus = transformRouteToMenu(routes);
     const menus = getMenu(transfromMenus);
-
     model.menus = menus;
   });
 
@@ -142,27 +140,31 @@
   const toggleCollapsed = (collapse: boolean) => {
     event.emit('aside:collapse', !collapse);
   };
+
+  const getWrapper = computed<CSSProperties | null>(() => {
+    return model.collapse ? null : { width: '220px' };
+  });
 </script>
 <template>
   <div :class="[ns.b()]">
     <EtfmaScrollbar class="h-full">
       <BasicMenu
+        :class="ns.b()"
+        :style="getWrapper"
         :collapse="model.collapse"
         :menus="model.menus!"
         :default-active="model.defaultActive"
-        :mode="model.mode"
         :unique-opened="model.uniqueOpened"
-        :ellipsis="model.ellipsis"
         @menu-click="handleClick"
       ></BasicMenu>
     </EtfmaScrollbar>
-    <div class="absolute right-5 bottom-3"
-      ><Trigger :collapse="model.collapse" @toggle="toggleCollapsed" />
+    <div class="absolute right-5 bottom-3">
+      <Trigger :collapse="model.collapse" @toggle="toggleCollapsed" />
     </div>
   </div>
 </template>
 <style scoped lang="scss">
-  @include b('layout-menu') {
+  @include b('pa') {
     position: relative;
     height: 100%;
     background-color: getCssVar('menu-bg-color');

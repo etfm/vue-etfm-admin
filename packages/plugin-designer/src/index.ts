@@ -4,7 +4,7 @@ import { h } from 'vue';
 import { lodash } from '@etfma/shared';
 import LayoutContent from './layout-content.vue';
 
-const PluginDesigner: IPublicPlugin = (ctx: IPublicPluginContext, options: IPiniaContext) => {
+const PluginDesigner: IPublicPlugin = (ctx: IPublicPluginContext, options) => {
   return {
     init: () => {
       const config = ctx.preference.getPreference() as unknown as IPiniaContext;

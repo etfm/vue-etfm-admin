@@ -4,7 +4,7 @@ import { h } from 'vue';
 import { lodash } from '@etfma/shared';
 import Tabs from './index.vue';
 
-const PluginTabs: IPublicPlugin = (ctx: IPublicPluginContext, options: IPiniaContext) => {
+const PluginTabs: IPublicPlugin = (ctx: IPublicPluginContext, options) => {
   return {
     init: () => {
       const config = ctx.preference.getPreference() as unknown as IPiniaContext;

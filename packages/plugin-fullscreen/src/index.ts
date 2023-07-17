@@ -4,7 +4,7 @@ import { h } from 'vue';
 import { lodash } from '@etfma/shared';
 import Fullscreen from './index.vue';
 
-const PluginFullscreen: IPublicPlugin = (ctx: IPublicPluginContext, options: IPiniaContext) => {
+const PluginFullscreen: IPublicPlugin = (ctx: IPublicPluginContext, options) => {
   return {
     init: () => {
       const config = ctx.preference.getPreference() as unknown as IPiniaContext;

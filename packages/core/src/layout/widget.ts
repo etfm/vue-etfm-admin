@@ -50,9 +50,11 @@ export class Widget implements IWidget {
   constructor(readonly skeleton: ISkeleton, readonly config: WidgetConfig) {
     this.makeObservable();
 
-    const { props = {}, name } = config;
+    const { props = {}, name, visible = true, disabled = false } = config;
     this.name = name;
     this.align = props.align;
+    this._visible = visible;
+    this._disabled = disabled;
 
     if (props.onInit) {
       props.onInit.call(this, this);

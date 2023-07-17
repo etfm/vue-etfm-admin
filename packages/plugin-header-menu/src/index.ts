@@ -5,7 +5,7 @@ import { skeleton } from '@etfma/core';
 import { h } from 'vue';
 import { MenuModeEnum } from '@etfma/bs-ui';
 
-const PluginHeaderMenu: IPublicPlugin = (ctx: IPublicPluginContext, options: IPiniaContext) => {
+const PluginHeaderMenu: IPublicPlugin = (ctx: IPublicPluginContext, options) => {
   return {
     init: () => {
       const config = ctx.preference.getPreference() as unknown as IPiniaContext;
@@ -16,6 +16,7 @@ const PluginHeaderMenu: IPublicPlugin = (ctx: IPublicPluginContext, options: IPi
         area: 'header',
         content: h(Menu),
         contentProps: opts,
+        visible: opts.visible,
       });
     },
   };

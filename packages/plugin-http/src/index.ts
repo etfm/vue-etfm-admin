@@ -1,7 +1,7 @@
 import { IHttpContext, IPublicPlugin, IPublicPluginContext } from '@etfma/types';
 import { register } from './register';
 
-const PluginHttp: IPublicPlugin = (ctx: IPublicPluginContext, options: IHttpContext) => {
+const PluginHttp: IPublicPlugin = (ctx: IPublicPluginContext, options) => {
   return {
     init: () => {
       const config = ctx.preference.getPreference() as unknown as IHttpContext;

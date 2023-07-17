@@ -4,7 +4,7 @@ import { skeleton } from '@etfma/core';
 import { h } from 'vue';
 import Aside from './index.vue';
 
-const PluginAside: IPublicPlugin = (ctx: IPublicPluginContext, options: IPiniaContext) => {
+const PluginAside: IPublicPlugin = (ctx: IPublicPluginContext, options) => {
   return {
     init: () => {
       const config = ctx.preference.getPreference() as unknown as IPiniaContext;

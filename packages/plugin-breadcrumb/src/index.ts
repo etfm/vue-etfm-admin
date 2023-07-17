@@ -4,7 +4,7 @@ import { h } from 'vue';
 import { lodash } from '@etfma/shared';
 import Breadcrumb from './index.vue';
 
-const PluginBreadcrumb: IPublicPlugin = (ctx: IPublicPluginContext, options: IPiniaContext) => {
+const PluginBreadcrumb: IPublicPlugin = (ctx: IPublicPluginContext, options) => {
   return {
     init: () => {
       const config = ctx.preference.getPreference() as unknown as IPiniaContext;

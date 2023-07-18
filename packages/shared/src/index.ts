@@ -17,3 +17,4 @@ export * from './vnode';
 export { NOOP } from '@vue/shared';
 export * from './rand';
 export * from './refs';
+export * from './deepMerge';

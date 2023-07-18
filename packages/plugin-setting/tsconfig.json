@@ -3,10 +3,8 @@
   "extends": "@etfma/ts/web.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "types": ["unplugin-vue-define-options/macros-global", "components.d.ts"],
-    "paths": {
-      "@etfma/element-ui/*": ["src/*"]
-    }
+    "types": ["unplugin-vue-define-options/macros-global", "vite/client"],
+    "moduleResolution": "bundler"
   },
   "vueCompilerOptions": {
     "target": 3,

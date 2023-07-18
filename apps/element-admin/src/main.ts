@@ -11,8 +11,6 @@ import PluginPinia from '@etfma/plugin-pinia';
 import PluginDesigner from '@etfma/plugin-designer';
 import PluginAside from '@etfma/plugin-aside';
 import { staticRoutes } from './router';
-import PluginRouterGuard from './plugin/router-guard';
-import PluginLocale from './plugin/plugin-locale';
 import PluginAppLogo from './plugin/plugin-logo';
 import PluginTabs from '@etfma/plugin-tabs';
 import PluginBreadcrumb from '@etfma/plugin-breadcrumb';
@@ -20,6 +18,8 @@ import PluginBreadcrumbFullscreen from '@etfma/plugin-breadcrumb-fullscreen';
 import PluginFullscreen from '@etfma/plugin-fullscreen';
 import PluginHeaderMenu from '@etfma/plugin-header-menu';
 import PluginUser from './plugin/plugin-user';
+import PluginInit from './plugin/plugin-init';
+import PluginSetting from '@etfma/plugin-setting';
 
 async function boostrap() {
   const AppConfig = getAppEnvConfig();
@@ -45,7 +45,7 @@ async function boostrap() {
     { autoInit: true },
   );
 
-  await plugins.register(PluginLocale);
+  await plugins.register(PluginInit);
 
   await plugins.register(PluginPinia);
 
@@ -67,7 +67,7 @@ async function boostrap() {
 
   await plugins.register(PluginUser);
 
-  await plugins.register(PluginRouterGuard);
+  await plugins.register(PluginSetting);
 
   await init(document.getElementById('app')!, {
     router: {

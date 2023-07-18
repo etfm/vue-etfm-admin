@@ -3,7 +3,7 @@ import { useAppStore } from '@/store/app';
 import { useUserStore } from '@/store/user';
 import { usePermissionStore } from '@/store/permission';
 import { PageEnum } from '../enum';
-import { removeTabChangeListener } from '@/logics/mitt';
+// import { removeTabChangeListener } from '@/logics/mitt';
 import { Router } from '@etfma/core';
 
 export function createStateGuard(router: Router) {
@@ -18,7 +18,7 @@ export function createStateGuard(router: Router) {
       permissionStore.resetState();
       // tabStore.resetState();
       userStore.resetState();
-      removeTabChangeListener();
+      // removeTabChangeListener();
     }
   });
 }

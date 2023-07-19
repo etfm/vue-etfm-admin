@@ -10,7 +10,7 @@ interface DefineOptions {
   options?: {};
 }
 
-function definePackageConfig(defineOptions: DefineOptions = {}) {
+function definePackageUIConfig(defineOptions: DefineOptions = {}) {
   const { overrides = {}, options = {} } = defineOptions;
   const { extraCss } = options as any;
   const root = process.cwd();
@@ -18,6 +18,13 @@ function definePackageConfig(defineOptions: DefineOptions = {}) {
     const { dependencies = {}, peerDependencies = {} } = await readPackageJSON(root);
 
     const packageConfig: UserConfig = {
+      css: {
+        preprocessorOptions: {
+          scss: {
+            additionalData: `@use '@etfma/design/shared' as *;`,
+          },
+        },
+      },
       build: {
         lib: {
           entry: 'src/index.ts',
@@ -27,7 +34,6 @@ function definePackageConfig(defineOptions: DefineOptions = {}) {
         rollupOptions: {
           external: [...Object.keys(dependencies), ...Object.keys(peerDependencies)],
         },
-        sourcemap: true,
       },
       plugins: [
         dts({
@@ -43,4 +49,4 @@ function definePackageConfig(defineOptions: DefineOptions = {}) {
   });
 }
 
-export { definePackageConfig };
+export { definePackageUIConfig };

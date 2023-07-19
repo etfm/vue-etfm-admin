@@ -6,13 +6,13 @@
   import { useNamespace } from '@etfma/hooks';
   import { computed, useAttrs } from 'vue';
   import { Icon } from '@etfma/icon';
-  import type { IBasicArrow } from './typing';
+  import { basicArrowProps } from './props';
 
   const ns = useNamespace('basic-arrow');
 
   const { style } = useAttrs();
 
-  const props = defineProps<IBasicArrow>();
+  const props = defineProps(basicArrowProps);
 
   const classes = computed(() => {
     const { expand, up, down, inset } = props;

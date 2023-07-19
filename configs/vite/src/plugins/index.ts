@@ -51,7 +51,7 @@ async function createPlugins({ isBuild, root, enableMock, compress, enableAnalyz
   }
 
   // vite-plugin-mock
-  vitePlugins.push(configMockPlugin({ enable: !!enableMock  }));
+  vitePlugins.push(configMockPlugin({ enable: !!enableMock }));
 
   return vitePlugins;
 }

@@ -1,5 +1,5 @@
 import type { ExtractPropTypes } from 'vue';
-import type Thumb from './thumb.vue';
+import Thumb from './thumb.vue';
 import { buildProps } from '@etfma/shared';
 
 export const thumbProps = buildProps({

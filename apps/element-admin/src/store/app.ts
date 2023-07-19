@@ -11,7 +11,7 @@ import { store, defineStore } from '@etfma/plugin-pinia';
 
 // import { ThemeEnum } from '/@/enums/appEnum'
 // import { APP_DARK_MODE_KEY_, PROJ_CFG_KEY } from '/@/enums/cacheEnum'
-import { Persistent } from '@/cache/persistent';
+// import { Persistent } from '@/cache/persistent';
 // import { darkMode } from '/@/settings/designSetting'
 import { resetRoutes } from '@/router';
 // import { TimeoutHandle } from '@etfma/types';
@@ -82,7 +82,7 @@ export const useAppStore = defineStore({
 
     async resetAllState() {
       resetRoutes();
-      Persistent.clearAll();
+      // Persistent.clearAll();
     },
     // async setPageLoadingAction(loading: boolean): Promise<void> {
     //   if (loading) {

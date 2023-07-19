@@ -1,7 +1,6 @@
 <script lang="ts" setup>
   import { BasicTitle } from '../../../basic';
   import { Icon } from '@etfma/icon';
-  import { IDrawerHeader } from '../typing';
   import { useNamespace } from '@etfma/hooks';
   import { headerProps } from '../props';
 
@@ -9,7 +8,7 @@
     close: [];
   }>();
 
-  withDefaults(defineProps<IDrawerHeader>(), headerProps);
+  defineProps(headerProps);
 
   const ns = useNamespace('basic-drawer-header');
 

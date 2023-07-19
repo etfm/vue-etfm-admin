@@ -146,14 +146,14 @@ const instrumentations = {
     const target = ProxyRaw.get(this)
     const proto = Reflect.getPrototypeOf(this)
     bindTargetKeyWithCurrentReaction({ target, type: 'iterate' })
-    const iterator = proto[Symbol.iterator].apply(target, arguments)
+    const iterator = proto![Symbol.iterator].apply(target, arguments)
     return patchIterator(target, '', iterator, target instanceof Map)
   },
   get size() {
     const target = ProxyRaw.get(this)
     const proto = Reflect.getPrototypeOf(this)
     bindTargetKeyWithCurrentReaction({ target, type: 'iterate' })
-    return Reflect.get(proto, 'size', target)
+    return Reflect.get(proto!, 'size', target)
   },
 }
 

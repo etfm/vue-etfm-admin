@@ -1,3 +1,3 @@
-import { definePackageConfig } from '@etfma/vite';
+import { definePackageUIConfig } from '@etfma/vite';
 
-export default definePackageConfig();
+export default definePackageUIConfig();

@@ -13,15 +13,20 @@
   "license": "ISC",
   "author": "lzdjack <1956252575@qq.com>",
   "sideEffects": false,
+  "type": "module",
   "exports": {
     ".": {
-      "default": "./src/index.ts"
+      "development": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.mjs"
     }
   },
-  "main": "src/index.ts",
-  "module": "src/index.ts",
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "src"
   ],
   "scripts": {
     "bootstrap": "pnpm install",
@@ -41,6 +46,7 @@
     "@etfma/types": "workspace:^0.0.0"
   },
   "publishConfig": {
+    "access": "public",
     "exports": {
       ".": {
         "types": "./dist/index.d.ts",

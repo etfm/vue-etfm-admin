@@ -35,6 +35,8 @@ export class PluginRuntime implements IPluginRuntime {
     this.pluginName = pluginName;
     this.meta = meta;
     this.logger = new Logger({ bizName: `plugin:${pluginName}` });
+    this._inited = false;
+    this._disabled = false;
   }
 
   get name() {

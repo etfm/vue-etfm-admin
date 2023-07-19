@@ -1,37 +1,34 @@
-import { ObModelSymbol } from '../environment'
-import { createAnnotation } from '../internals'
-import { buildDataTree } from '../tree'
-import {
-  bindTargetKeyWithCurrentReaction,
-  runReactionsFromTargetKey,
-} from '../reaction'
+import { ObModelSymbol } from '../environment';
+import { createAnnotation } from '../internals';
+import { buildDataTree } from '../tree';
+import { bindTargetKeyWithCurrentReaction, runReactionsFromTargetKey } from '../reaction';
 
 export interface IRef {
-  <T>(target: T): { value: T }
+  <T>(target: T): { value: T };
 }
 
 export const ref: IRef = createAnnotation(({ target, key, value }) => {
   const store = {
-    value: target ? target[key] : value,
-  }
+    value: target ? target[key!] : value,
+  };
 
-  const proxy = {}
+  const proxy = {};
 
-  const context = target ? target : store
-  const property = target ? key : 'value'
+  const context = target ? target : store;
+  const property = target ? key : 'value';
 
   function get() {
     bindTargetKeyWithCurrentReaction({
       target: context,
       key: property,
       type: 'get',
-    })
-    return store.value
+    });
+    return store.value;
   }
 
   function set(value: any) {
-    const oldValue = store.value
-    store.value = value
+    const oldValue = store.value;
+    store.value = value;
     if (oldValue !== value) {
       runReactionsFromTargetKey({
         target: context,
@@ -39,23 +36,23 @@ export const ref: IRef = createAnnotation(({ target, key, value }) => {
         type: 'set',
         oldValue,
         value,
-      })
+      });
     }
   }
   if (target) {
-    Object.defineProperty(target, key, {
+    Object.defineProperty(target, key!, {
       get,
       set,
       enumerable: true,
-    })
-    return target
+    });
+    return target;
   } else {
     Object.defineProperty(proxy, 'value', {
       set,
       get,
-    })
-    buildDataTree(target, key, store)
-    proxy[ObModelSymbol] = store
+    });
+    buildDataTree(target, key!, store);
+    proxy[ObModelSymbol] = store;
   }
-  return proxy
-})
+  return proxy;
+});

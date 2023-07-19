@@ -6,6 +6,7 @@ import { getMenuList } from '@/api/sys/menu';
 import { getPermCode } from '@/api/sys/user';
 import type { Menu } from '@/router/types';
 import { staticRoutes } from '@/router';
+import { transformObjToRoute } from '@/router/helper/routerHelper';
 
 // import { useMessage } from '/@/hooks/web/useMessage'
 
@@ -90,7 +91,8 @@ export const usePermissionStore = defineStore({
         routes = (await getMenuList()) as AppRouteRecordRaw[];
 
         // 追加到路由表中，并返回树形路由表
-        material.setAssets('routes', [...staticRoutes, ...routes]);
+        const routeList = transformObjToRoute([...staticRoutes, ...routes]);
+        material.setAssets('routes', routeList);
         // const routeList = addDynamicRoute(routes);
 
         // //  Background routing to menu structure

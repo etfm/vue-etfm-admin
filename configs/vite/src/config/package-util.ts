@@ -10,7 +10,7 @@ interface DefineOptions {
   options?: {};
 }
 
-function definePackageConfig(defineOptions: DefineOptions = {}) {
+function definePackageUtilConfig(defineOptions: DefineOptions = {}) {
   const { overrides = {}, options = {} } = defineOptions;
   const { extraCss } = options as any;
   const root = process.cwd();
@@ -27,7 +27,6 @@ function definePackageConfig(defineOptions: DefineOptions = {}) {
         rollupOptions: {
           external: [...Object.keys(dependencies), ...Object.keys(peerDependencies)],
         },
-        sourcemap: true,
       },
       plugins: [
         dts({
@@ -43,4 +42,4 @@ function definePackageConfig(defineOptions: DefineOptions = {}) {
   });
 }
 
-export { definePackageConfig };
+export { definePackageUtilConfig };

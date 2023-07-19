@@ -16,7 +16,7 @@ import {
   computed,
 } from 'vue';
 import { Fn, Nullable } from '@etfma/types';
-import { isProdMode, loggerError, lodash } from '@etfma/shared';
+import { loggerError, lodash } from '@etfma/shared';
 import { vueUse } from '@etfma/hooks';
 
 const dataTransferRef = reactive<any>({});
@@ -35,14 +35,13 @@ export function useDrawer(): UseDrawerReturnType {
   const uid = ref<string | number>('');
 
   function register(drawerInstance: DrawerInstance, uuid: number | string) {
-    isProdMode() &&
-      vueUse.tryOnUnmounted(() => {
-        drawer.value = null;
-        loaded.value = null;
-        dataTransferRef[unref(uid)] = null;
-      });
+    vueUse.tryOnUnmounted(() => {
+      drawer.value = null;
+      loaded.value = null;
+      dataTransferRef[unref(uid)] = null;
+    });
 
-    if (unref(loaded) && isProdMode() && drawerInstance === unref(drawer)) {
+    if (unref(loaded) && drawerInstance === unref(drawer)) {
       return;
     }
     uid.value = uuid;
@@ -114,10 +113,9 @@ export const useDrawerInner = (callbackFn?: Fn): UseDrawerInnerReturnType => {
   };
 
   const register = (modalInstance: DrawerInstance, uuid: string | number) => {
-    isProdMode() &&
-      vueUse.tryOnUnmounted(() => {
-        drawerInstanceRef.value = null;
-      });
+    vueUse.tryOnUnmounted(() => {
+      drawerInstanceRef.value = null;
+    });
 
     uidRef.value = uuid;
     drawerInstanceRef.value = modalInstance;

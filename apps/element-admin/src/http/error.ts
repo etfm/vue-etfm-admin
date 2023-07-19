@@ -9,7 +9,7 @@ import { useMessage } from '@etfma/element-ui';
 
 const { createMessage } = useMessage();
 
-export function handleHttpError(error, opts) {
+export function handleHttpError(error) {
   const userStore = useUserStoreWithOut();
 
   const status = error.code;

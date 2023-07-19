@@ -14,11 +14,14 @@
   "author": "lzdjack <1956252575@qq.com>",
   "exports": {
     ".": {
-      "default": "./src/index.ts"
+      "development": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.mjs"
     }
   },
-  "main": "src/index.ts",
-  "module": "src/index.ts",
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist",
     "src"
@@ -43,6 +46,12 @@
     "@types/lodash-es": "^4.17.7"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.mjs"
+      }
+    }
   }
 }

@@ -6,6 +6,7 @@ export * from './use-forward-ref';
 export * from './use-id';
 export * from './use-timeout';
 export * from './use-model-toggle';
+export * from './use-theme';
 
 export { useAsyncState, onClickOutside, useFullscreen } from '@vueuse/core';
 

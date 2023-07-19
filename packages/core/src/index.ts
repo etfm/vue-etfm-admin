@@ -1,6 +1,7 @@
 import { version } from './core';
 
 export * from './core';
+
 console.log(
   `%c EtfmaEngine %c v${version} `,
   'padding: 2px 1px; border-radius: 3px 0 0 3px; color: #fff; background: #606060; font-weight: bold;',

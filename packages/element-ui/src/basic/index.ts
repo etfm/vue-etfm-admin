@@ -7,3 +7,5 @@ import basicTitle from './src/basic-title.vue';
 export const BasicArrow = withInstall(basicArrow);
 export const BasicHelp = withInstall(basicHelp);
 export const BasicTitle = withInstall(basicTitle);
+
+export * from './src/props';

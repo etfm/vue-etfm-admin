@@ -6,7 +6,6 @@ import PluginHttp from '@etfma/plugin-http';
 import { handleHttpError } from './http/error';
 import { Recordable } from '@etfma/types';
 import { getToken } from './cache/auth';
-import { getAppEnvConfig } from '@etfma/shared';
 import PluginPinia from '@etfma/plugin-pinia';
 import PluginDesigner from '@etfma/plugin-designer';
 import PluginAside from '@etfma/plugin-aside';
@@ -20,6 +19,8 @@ import PluginHeaderMenu from '@etfma/plugin-header-menu';
 import PluginUser from './plugin/plugin-user';
 import PluginInit from './plugin/plugin-init';
 import PluginSetting from '@etfma/plugin-setting';
+import { getAppEnvConfig } from './utils/env';
+import { transformObjToRoute } from './router/helper/routerHelper';
 
 async function boostrap() {
   const AppConfig = getAppEnvConfig();
@@ -69,11 +70,19 @@ async function boostrap() {
 
   await plugins.register(PluginSetting);
 
+  const routes = transformObjToRoute(staticRoutes);
+
   await init(document.getElementById('app')!, {
     router: {
-      routes: staticRoutes,
+      routes,
     },
   });
+
+  if (process.env.NODE_ENV === 'production') {
+    import('./mockProdServer').then(({ setupProdMockServer }) => {
+      setupProdMockServer();
+    });
+  }
 }
 
 boostrap();

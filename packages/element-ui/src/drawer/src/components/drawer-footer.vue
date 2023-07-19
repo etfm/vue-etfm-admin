@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-  import type { IDrawerFooter } from '../typing';
   import { useNamespace } from '@etfma/hooks';
   import { footerProps } from '../props';
   import { ElButton } from 'element-plus';
@@ -14,7 +13,7 @@
     close: [];
   }>();
 
-  withDefaults(defineProps<IDrawerFooter>(), footerProps);
+  defineProps(footerProps);
 
   const ns = useNamespace('basic-drawer-footer');
 

@@ -3,7 +3,7 @@ import { createHistory } from './history';
 import { AppRouteRecordRaw, IEditor, IGlobalRouter, RouterContext } from '@etfma/types';
 import { engineConfig } from '../config';
 import { filter, lodash } from '@etfma/shared';
-import { flatMultiLevelRoutes, routeRemoveFilter, transformObjToRoute } from './utils';
+import { flatMultiLevelRoutes, routeRemoveFilter } from './utils';
 import { DEFAULT_REDIRECT, ROUTER_OPTIONS } from './constants';
 
 export class GlobalRouter implements IGlobalRouter {
@@ -58,8 +58,6 @@ export class GlobalRouter implements IGlobalRouter {
 
     if (routes && !lodash.isEmpty(routes)) {
       routes = lodash.isArray(routes) ? routes : [routes];
-      // 转换路由
-      transformObjToRoute(routes);
       // 忽略路由
       const filterRoutes = filter(routes, (route) => routeRemoveFilter(route, rouls as string[]));
       // 路由打平到二级路由

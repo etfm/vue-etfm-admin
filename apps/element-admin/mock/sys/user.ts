@@ -1,6 +1,6 @@
 import { MockMethod } from 'vite-plugin-mock';
 
-import { getRequestToken, requestParams, resultError, resultSuccess } from '../_util';
+import { getRequestToken, resultError, resultSuccess } from '../_util';
 
 export function createFakeUserList() {
   return [
@@ -71,9 +71,10 @@ export default [
   },
   {
     url: '/basic-api/getUserInfo',
+    timeout: 200,
     method: 'get',
-    response: (request: requestParams) => {
-      const token = getRequestToken(request);
+    response: ({ headers }) => {
+      const token = getRequestToken({ headers });
       if (!token) return resultError('Invalid token');
       const checkUser = createFakeUserList().find((item) => item.token === token);
       if (!checkUser) {
@@ -86,8 +87,8 @@ export default [
     url: '/basic-api/getPermCode',
     timeout: 200,
     method: 'get',
-    response: (request: requestParams) => {
-      const token = getRequestToken(request);
+    response: ({ headers }) => {
+      const token = getRequestToken({ headers });
       if (!token) return resultError('Invalid token');
       const checkUser = createFakeUserList().find((item) => item.token === token);
       if (!checkUser) {
@@ -102,8 +103,8 @@ export default [
     url: '/basic-api/logout',
     timeout: 200,
     method: 'get',
-    response: (request: requestParams) => {
-      const token = getRequestToken(request);
+    response: ({ headers }) => {
+      const token = getRequestToken({ headers });
       if (!token) return resultError('Invalid token');
       const checkUser = createFakeUserList().find((item) => item.token === token);
       if (!checkUser) {

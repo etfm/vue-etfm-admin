@@ -13,13 +13,11 @@
   import { useSlots, computed } from 'vue';
   import { lodash } from '@etfma/shared';
   import { Warning } from '@element-plus/icons-vue';
-  import { IBasicHelp } from './typing';
+  import { basicHelpProps } from './props';
 
   const slots = useSlots();
 
-  const props = withDefaults(defineProps<IBasicHelp>(), {
-    placement: 'right',
-  });
+  const props = defineProps(basicHelpProps);
 
   const ns = useNamespace('basic-help');
 

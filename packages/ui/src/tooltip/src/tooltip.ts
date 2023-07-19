@@ -3,7 +3,7 @@ import { createModelToggleComposable } from '@etfma/hooks';
 import { popperArrowProps, popperProps } from '../../popper';
 import { useTooltipContentProps } from './content';
 import { useTooltipTriggerProps } from './trigger';
-import type Tooltip from './tooltip.vue';
+import Tooltip from './tooltip.vue';
 
 import type { ExtractPropTypes } from 'vue';
 

@@ -12,6 +12,9 @@ export default defineApplicationConfig({
     optimizeDeps: {
       include: [],
     },
+    build: {
+      sourcemap: true,
+    },
     server: {
       proxy: {
         '/basic-api': {

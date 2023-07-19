@@ -2,13 +2,9 @@
   import { useSlots, computed } from 'vue';
   import BasicHelp from './basic-help.vue';
   import { useNamespace } from '@etfma/hooks';
-  import { IBasicTitle } from './typing';
+  import { basicTitleProps } from './props';
 
-  const props = withDefaults(defineProps<IBasicTitle>(), {
-    helpMessage: '',
-    span: false,
-    normal: false,
-  });
+  const props = defineProps(basicTitleProps);
 
   const ns = useNamespace('basic-title');
   const slots = useSlots();

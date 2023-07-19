@@ -1,6 +1,5 @@
 <script setup lang="ts">
   import { computed, getCurrentInstance, nextTick, ref, toRaw, unref, useAttrs, watch } from 'vue';
-  import { basicDrawerProps } from './props';
   import type { DrawerInstance, IDrawer } from './typing';
   import { useNamespace } from '@etfma/hooks';
   import { deepMerge, lodash } from '@etfma/shared';
@@ -8,6 +7,7 @@
   import DrawerHeader from './components/drawer-header.vue';
   import { ElDrawer } from 'element-plus';
   import { ElScrollbar, DrawerProps } from 'element-plus';
+  import { drawerProps } from './props';
 
   const emit = defineEmits<{
     'visible-change': [visible: boolean];
@@ -16,7 +16,7 @@
     register: [instance: DrawerInstance, uid: number];
   }>();
 
-  const props = withDefaults(defineProps<IDrawer>(), basicDrawerProps as any);
+  const props = defineProps(drawerProps);
   const visibleRef = ref(false);
   const attrs = useAttrs();
   const propsRef = ref<Partial<IDrawer> | null>(null);

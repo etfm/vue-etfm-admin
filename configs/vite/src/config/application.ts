@@ -6,6 +6,8 @@ import { createPlugins } from '../plugins';
 import { commonConfig } from './common';
 import colors from 'picocolors';
 import { warmup } from 'vite-plugin-warmup';
+import UnoCSS from 'unocss/vite';
+import { presetTypography, presetUno } from 'unocss';
 
 interface DefineOptions {
   overrides?: UserConfig;
@@ -70,6 +72,11 @@ export function defineApplicationConfig(defineOptions: DefineOptions = {}) {
         ...plugins,
         warmup({
           clientFiles: ['./*.html'],
+        }),
+        UnoCSS({
+          exclude: ['node_modules'],
+          include: ['**.ts', '**.tsx', '**.vue'],
+          presets: [presetUno(), presetTypography()],
         }),
       ],
     };

@@ -1,4 +1,4 @@
-import type { RouteMeta } from '@etfma/router';
+import { RouteMeta } from '@etfma/types';
 
 export interface RouteItem {
   path: string;

@@ -21,7 +21,6 @@ export class GlobalRouter implements IGlobalRouter {
 
     editor.onGot('routes', (args: AppRouteRecordRaw[] | AppRouteRecordRaw) => {
       const routeList = this.getRouters(args);
-
       routeList.forEach((route) => {
         this._router.addRoute(route as unknown as RouteRecordRaw);
       });
@@ -34,8 +33,6 @@ export class GlobalRouter implements IGlobalRouter {
 
   init() {
     const routeList = this.getRouters(this._opts.routes);
-
-    routeList.push(DEFAULT_REDIRECT);
 
     const history = createHistory({
       type: this._opts.historyType,
@@ -58,11 +55,11 @@ export class GlobalRouter implements IGlobalRouter {
 
     if (routes && !lodash.isEmpty(routes)) {
       routes = lodash.isArray(routes) ? routes : [routes];
+      routes.push(DEFAULT_REDIRECT);
       // 忽略路由
       const filterRoutes = filter(routes, (route) => routeRemoveFilter(route, rouls as string[]));
       // 路由打平到二级路由
       const patchRoutes = flatMultiLevelRoutes(filterRoutes);
-
       return patchRoutes;
     }
 

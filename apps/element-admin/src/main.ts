@@ -1,7 +1,7 @@
 import '@etfma/design';
 import 'uno.css';
 
-import { plugins, init } from '@etfma/core';
+import { plugins, init, globalRouter } from '@etfma/core';
 import PluginHttp from '@etfma/plugin-http';
 import { handleHttpError } from './http/error';
 import { Recordable } from '@etfma/types';
@@ -21,6 +21,7 @@ import PluginInit from './plugin/plugin-init';
 import PluginSetting from '@etfma/plugin-setting';
 import { getAppEnvConfig } from './utils/env';
 import { transformObjToRoute } from './router/helper/routerHelper';
+import { setupRouterGuard } from './router/guard';
 
 async function boostrap() {
   const AppConfig = getAppEnvConfig();
@@ -78,11 +79,7 @@ async function boostrap() {
     },
   });
 
-  if (process.env.NODE_ENV === 'production') {
-    import('./mockProdServer').then(({ setupProdMockServer }) => {
-      setupProdMockServer();
-    });
-  }
+  setupRouterGuard(globalRouter.router);
 }
 
 boostrap();

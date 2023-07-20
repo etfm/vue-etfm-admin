@@ -66,9 +66,11 @@ const config = new Config(engineConfig);
 const event = new Event(commonEvent, { prefix: 'common' });
 const logger = new Logger({ bizName: 'common' });
 
-const innerGlobalRouter = new InnerGlobalRouter(editor);
-editor.set('router', innerGlobalRouter);
-const globalRouter = new GlobalRouter(innerGlobalRouter);
+// const innerGlobalRouter = new InnerGlobalRouter(editor);
+// editor.set('router', innerGlobalRouter);
+// const globalRouter = new GlobalRouter(innerGlobalRouter);
+
+let globalRouter;
 
 const innerGlobalI18n = new InnerGlobalI18n(editor);
 editor.set('i18n', innerGlobalI18n);
@@ -150,7 +152,11 @@ export async function init(
 
   await plugins.init(pluginPreference);
 
+  globalRouter = new InnerGlobalRouter(editor);
+
   use();
+
+  console.log('============================================================', engineOptions);
 
   app.mount(engineContainer as Element);
 }
@@ -169,6 +175,8 @@ function merge(engineOptions: IPublicTypeEngineOptions) {
 }
 
 function use() {
+  console.log(app, '==========---', globalRouter.router);
+
   app.use(globalRouter.router);
   app.use(globalI18n.i18n);
 }

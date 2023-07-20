@@ -92,7 +92,8 @@ export const usePermissionStore = defineStore({
 
         // 追加到路由表中，并返回树形路由表
         const routeList = transformObjToRoute([...staticRoutes, ...routes]);
-        material.setAssets('routes', routeList);
+
+        await material.setAssets('routes', routeList);
         // const routeList = addDynamicRoute(routes);
 
         // //  Background routing to menu structure

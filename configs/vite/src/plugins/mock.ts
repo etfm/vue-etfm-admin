@@ -4,10 +4,16 @@
  */
 import { viteMockServe } from 'vite-plugin-mock';
 
-export function configMockPlugin({ enable }: { enable: boolean }) {
+export function configMockPlugin({ enable, isBuild }: { enable: boolean; isBuild: boolean }) {
   return viteMockServe({
     ignore: /^_/,
     mockPath: 'mock',
-    enable,
+    localEnabled: enable && !isBuild,
+    prodEnabled: enable && isBuild,
+    injectCode: `
+      import { setupProdMockServer } from '../mock/_createProductionServer';
+
+      setupProdMockServer();
+      `,
   });
 }

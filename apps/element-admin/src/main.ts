@@ -78,8 +78,6 @@ async function boostrap() {
       routes,
     },
   });
-
-  setupRouterGuard(globalRouter.router);
 }
 
 boostrap();

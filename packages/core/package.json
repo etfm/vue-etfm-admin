@@ -53,7 +53,7 @@
     "strict-event-emitter-types": "^2.0.0"
   },
   "peerDependencies": {
-    "vue": "^^3.3.4"
+    "vue": "^3.3.4"
   },
   "publishConfig": {
     "access": "public",

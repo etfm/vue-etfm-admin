@@ -34,6 +34,7 @@ import { INTL_OPTIONS, GlobalI18n as InnerGlobalI18n } from './intl/i18n';
 import { Common } from './shell/common';
 import { RouterView } from 'vue-router';
 import { ROUTER_OPTIONS } from './router/constants';
+import { App } from './layout/layouts/APP';
 
 export * from './router';
 export * from './intl';
@@ -50,9 +51,7 @@ const innerSkeleton = new InnerSkeleton(editor);
 editor.set('skeleton', innerSkeleton);
 const common = new Common(innerSkeleton);
 
-const app = createApp({
-  render: () => h(RouterView),
-});
+const app = createApp(App);
 
 editor.set('app', app);
 engineConfig.set('app', app);
@@ -66,11 +65,9 @@ const config = new Config(engineConfig);
 const event = new Event(commonEvent, { prefix: 'common' });
 const logger = new Logger({ bizName: 'common' });
 
-// const innerGlobalRouter = new InnerGlobalRouter(editor);
-// editor.set('router', innerGlobalRouter);
-// const globalRouter = new GlobalRouter(innerGlobalRouter);
-
-let globalRouter;
+const innerGlobalRouter = new InnerGlobalRouter(editor);
+editor.set('router', innerGlobalRouter);
+const globalRouter = new GlobalRouter(innerGlobalRouter);
 
 const innerGlobalI18n = new InnerGlobalI18n(editor);
 editor.set('i18n', innerGlobalI18n);
@@ -152,11 +149,7 @@ export async function init(
 
   await plugins.init(pluginPreference);
 
-  globalRouter = new InnerGlobalRouter(editor);
-
   use();
-
-  console.log('============================================================', engineOptions);
 
   app.mount(engineContainer as Element);
 }
@@ -175,8 +168,6 @@ function merge(engineOptions: IPublicTypeEngineOptions) {
 }
 
 function use() {
-  console.log(app, '==========---', globalRouter.router);
-
   app.use(globalRouter.router);
   app.use(globalI18n.i18n);
 }

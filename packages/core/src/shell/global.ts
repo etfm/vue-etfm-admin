@@ -1,5 +1,5 @@
 import { IPublicApiGlobal, IPublicTypeEditorGetResult, RegKeyType } from '@etfma/types';
-import { IocContext, RegisterOptions } from '../ioc-context';
+import type { IocContext, RegisterOptions } from '../ioc-context';
 import { globalSymbol } from './symbols';
 
 export class Global implements IPublicApiGlobal {

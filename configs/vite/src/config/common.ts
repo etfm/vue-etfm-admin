@@ -9,6 +9,7 @@ const commonConfig: UserConfig = {
     host: true,
   },
   build: {
+    sourcemap: true,
     reportCompressedSize: false,
     chunkSizeWarningLimit: 1500,
   },

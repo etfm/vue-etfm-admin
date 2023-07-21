@@ -33,7 +33,7 @@ import { GlobalRouter as InnerGlobalRouter } from './router/router';
 import { INTL_OPTIONS, GlobalI18n as InnerGlobalI18n } from './intl/i18n';
 import { Common } from './shell/common';
 import { ROUTER_OPTIONS } from './router/constants';
-import { App } from './layout/layouts/APP';
+import { App } from './layout/layouts';
 
 export * from './router';
 export * from './intl';

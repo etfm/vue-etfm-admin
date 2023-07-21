@@ -36,8 +36,9 @@ const useNamespace = (block: string) => {
     (name: string, state: boolean | undefined): string;
     (name: string): string;
   } = (name: string, ...args: [boolean | undefined] | []) => {
+    const $style = useCssModule();
     const state = args.length >= 1 ? args[0] : true;
-    return name && state ? `${statePrefix}${name}` : '';
+    return name && state ? $style[`${statePrefix}${name}`] : '';
   };
 
   // for css var

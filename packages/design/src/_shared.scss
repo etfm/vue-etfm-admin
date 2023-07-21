@@ -20,7 +20,7 @@
 
 // BEM
 @mixin b($block) {
-  $B: $namespace + $common-separator + $block !global;
+  $B: $block !global;
 
   .#{$B} {
     @content;
@@ -144,12 +144,12 @@
 }
 
 @mixin picker-popper($background, $border, $box-shadow) {
-  &.#{$namespace}-popper {
+  &.popper {
     @each $placement,
       $adjacency in ('top': 'left', 'bottom': 'right', 'left': 'bottom', 'right': 'top')
     {
       &[data-popper-placement^='#{$placement}'] {
-        .#{$namespace}-popper__arrow::before {
+        .popper__arrow::before {
           border-#{$placement}-color: transparent;
           border-#{$adjacency}-color: transparent;
         }
@@ -160,7 +160,7 @@
     border: $border;
     box-shadow: $box-shadow;
 
-    .#{$namespace}-popper__arrow {
+    .popper__arrow {
       &::before {
         border: $border;
       }

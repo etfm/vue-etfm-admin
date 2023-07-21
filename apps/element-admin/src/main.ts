@@ -8,7 +8,7 @@ import { Recordable } from '@etfma/types';
 import { getToken } from './cache/auth';
 import PluginPinia from '@etfma/plugin-pinia';
 import PluginDesigner from '@etfma/plugin-designer';
-import PluginAside from '@etfma/plugin-aside';
+// import PluginAside from '@etfma/plugin-aside';
 import { staticRoutes } from './router';
 import PluginAppLogo from './plugin/plugin-logo';
 // import PluginTabs from '@etfma/plugin-tabs';
@@ -51,7 +51,7 @@ async function boostrap() {
 
   await plugins.register(PluginPinia);
 
-  await plugins.register(PluginAside);
+  // await plugins.register(PluginAside);
 
   // await plugins.register(PluginHeaderMenu, { visible: false });
 

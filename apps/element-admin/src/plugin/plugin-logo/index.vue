@@ -23,7 +23,7 @@
   </div>
 </template>
 
-<style scoped lang="scss">
+<style scoped lang="scss" module>
   @include b(app-logo) {
     display: flex;
     align-items: center;

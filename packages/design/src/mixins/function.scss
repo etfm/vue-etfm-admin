@@ -45,7 +45,7 @@
 // join var name
 // joinVarName(('button', 'text-color')) => '--etfma-button-text-color'
 @function joinVarName($list) {
-  $name: '--' + config.$namespace;
+  $name: '-';
 
   @each $item in $list {
     @if $item != '' {
@@ -73,7 +73,7 @@
 
 // bem('block', 'element', 'modifier') => 'etfma-block__element--modifier'
 @function bem($block, $element: '', $modifier: '') {
-  $name: config.$namespace + config.$common-separator + $block;
+  $name: $block;
 
   @if $element != '' {
     $name: $name + config.$element-separator + $element;

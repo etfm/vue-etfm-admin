@@ -3,13 +3,13 @@
   import { reactive } from 'vue';
   import { skeleton } from '@etfma/core';
   import { useNamespace } from '@etfma/hooks';
-  import {
-    EtfmaBreadcrumb,
-    EtfmaBreadcrumbItem,
-    EtfmaDropdown,
-    EtfmaDropdownItem,
-    EtfmaDropdownMenu,
-  } from '@etfma/ui';
+  // import {
+  //   EtfmaBreadcrumb,
+  //   EtfmaBreadcrumbItem,
+  //   EtfmaDropdown,
+  //   EtfmaDropdownItem,
+  //   EtfmaDropdownMenu,
+  // } from '@etfma/ui';
 
   defineOptions({
     name: 'analysis',
@@ -106,7 +106,7 @@
     widget显示隐藏：
     <ElSwitch v-model="modelWidget.isLeft" @change="(e) => handleWidget(e, 'leftArea')" />
 
-    <etfma-breadcrumb separator="/">
+    <!-- <etfma-breadcrumb separator="/">
       <etfma-breadcrumb-item :to="{ path: '/' }">homepage</etfma-breadcrumb-item>
       <etfma-breadcrumb-item><a href="/">promotion management</a></etfma-breadcrumb-item>
       <etfma-breadcrumb-item>promotion list</etfma-breadcrumb-item>
@@ -124,10 +124,10 @@
           <EtfmaDropdownItem divided>Action 5</EtfmaDropdownItem>
         </EtfmaDropdownMenu>
       </template>
-    </EtfmaDropdown>
+    </EtfmaDropdown> -->
   </div>
 </template>
-<style scoped lang="scss">
+<style scoped lang="scss" module>
   @include b('analysis') {
     display: block;
     flex-direction: column;

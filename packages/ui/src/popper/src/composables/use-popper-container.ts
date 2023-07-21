@@ -1,16 +1,14 @@
 import { computed, onBeforeMount } from 'vue';
 import { isClient } from '@etfma/shared';
-import { useGetDerivedNamespace } from '@etfma/hooks';
 import { useIdInjection } from '@etfma/hooks';
 
 let cachedContainer: HTMLElement;
 
 export const usePopperContainerId = () => {
-  const namespace = useGetDerivedNamespace();
   const idInjection = useIdInjection();
 
   const id = computed(() => {
-    return `${namespace.value}-popper-container-${idInjection.prefix}`;
+    return `popper-container-${idInjection.prefix}`;
   });
   const selector = computed(() => `#${id.value}`);
 

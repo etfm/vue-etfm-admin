@@ -1,10 +1,11 @@
 <script setup lang="ts">
   import { ref } from 'vue';
   import { getTransitionName } from './transition';
-  import { RouterView } from 'vue-router';
+  import { RouterView } from '@etfma/core';
 
   defineOptions({
     name: 'LayoutContent',
+    inheritAttrs: false,
   });
 
   const openCache = ref(true);

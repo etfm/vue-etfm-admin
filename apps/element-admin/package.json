@@ -27,9 +27,10 @@
     "@etfma/plugin-setting": "workspace:^0.0.0",
     "@etfma/plugin-tabs": "workspace:^0.0.0",
     "@etfma/shared": "workspace:*",
-    "@etfma/ui": "workspace:^0.0.0",
+    "@etfma/ui": "workspace:*",
     "nprogress": "^0.2.0",
     "path-to-regexp": "^6.2.1",
+    "vue": "^3.3.4",
     "vue-i18n": "^9.2.2",
     "vue-router": "^4.1.6"
   },

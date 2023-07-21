@@ -1,6 +1,5 @@
 import { computed, getCurrentInstance, inject, unref } from 'vue';
 import { loggerDebug, isClient } from '@etfma/shared';
-import { useGetDerivedNamespace } from './use-namespace';
 
 import type { InjectionKey, Ref } from 'vue';
 import type { MaybeRef } from '@vueuse/core';
@@ -34,11 +33,8 @@ usage: app.provide(ID_INJECTION_KEY, {
     );
   }
 
-  const namespace = useGetDerivedNamespace();
   const idRef = computed(
-    () =>
-      unref(deterministicId) ||
-      `${namespace.value}-id-${idInjection.prefix}-${idInjection.current++}`,
+    () => unref(deterministicId) || `id-${idInjection.prefix}-${idInjection.current++}`,
   );
 
   return idRef;

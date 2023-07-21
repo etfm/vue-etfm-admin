@@ -1,4 +1,4 @@
-import { createApp, h } from 'vue';
+import { createApp } from 'vue';
 import { Editor, commonEvent } from './editor';
 import { Skeleton as InnerSkeleton } from './layout';
 import {
@@ -32,7 +32,6 @@ import { PluginManager } from './plugin';
 import { GlobalRouter as InnerGlobalRouter } from './router/router';
 import { INTL_OPTIONS, GlobalI18n as InnerGlobalI18n } from './intl/i18n';
 import { Common } from './shell/common';
-import { RouterView } from 'vue-router';
 import { ROUTER_OPTIONS } from './router/constants';
 import { App } from './layout/layouts/APP';
 

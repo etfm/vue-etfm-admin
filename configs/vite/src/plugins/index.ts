@@ -1,5 +1,4 @@
 // @ts-ignore: type unless
-import DefineOptions from 'unplugin-vue-define-options/vite';
 import type { PluginOption } from 'vite';
 import purgeIcons from 'vite-plugin-purge-icons';
 

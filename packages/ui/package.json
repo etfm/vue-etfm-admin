@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "@ctrl/tinycolor": "^3.6.0",
+    "@element-plus/icons-vue": "^2.1.0",
     "@etfma/design": "workspace:*",
     "@etfma/hooks": "workspace:*",
     "@etfma/shared": "workspace:*",
@@ -45,6 +46,9 @@
   "devDependencies": {
     "@etfma/types": "workspace:*",
     "@vue/runtime-core": "^3.3.4"
+  },
+  "peerDependencies": {
+    "vue": "^3.3.4"
   },
   "publishConfig": {
     "access": "public",

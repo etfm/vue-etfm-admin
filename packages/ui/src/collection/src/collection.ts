@@ -1,9 +1,6 @@
-import { inject, onBeforeUnmount, onMounted, provide, ref, unref } from 'vue';
-import Collection from './collection.vue';
-import CollectionItem from './collection-item.vue';
-
+import { inject, onBeforeUnmount, onMounted, provide, ref, unref, defineComponent } from 'vue';
 import type { InjectionKey } from 'vue';
-import type { SetupContext } from '@vue/runtime-core';
+import type { SetupContext, Slots } from '@vue/runtime-core';
 import type { ElCollectionInjectionContext, ElCollectionItemInjectionContext } from './tokens';
 
 export const COLLECTION_ITEM_SIGN = `data-el-collection-item`;
@@ -17,10 +14,10 @@ export const createCollectionWithScope = (name: string) => {
   const COLLECTION_ITEM_INJECTION_KEY: InjectionKey<ElCollectionItemInjectionContext> =
     Symbol(COLLECTION_ITEM_NAME);
 
-  const ElCollection = {
-    ...Collection,
+  const ElCollection = defineComponent({
     name: COLLECTION_NAME,
-    setup() {
+    inheritAttrs: false,
+    setup(_) {
       const collectionRef = ref<HTMLElement | null>(null);
       const itemMap: ElCollectionInjectionContext['itemMap'] = new Map();
       const getItems = () => {
@@ -40,11 +37,14 @@ export const createCollectionWithScope = (name: string) => {
         collectionRef,
       });
     },
-  };
+    render() {
+      return getSlot(this.$slots);
+    },
+  });
 
-  const ElCollectionItem = {
-    ...CollectionItem,
+  const ElCollectionItem = defineComponent({
     name: COLLECTION_ITEM_NAME,
+    inheritAttrs: false,
     setup(_: unknown, { attrs }: SetupContext) {
       const collectionItemRef = ref<HTMLElement | null>(null);
       const collectionInjection = inject(COLLECTION_INJECTION_KEY, undefined)!;
@@ -68,7 +68,11 @@ export const createCollectionWithScope = (name: string) => {
         collectionInjection.itemMap.delete(collectionItemEl);
       });
     },
-  };
+
+    render() {
+      return getSlot(this.$slots);
+    },
+  });
 
   return {
     COLLECTION_INJECTION_KEY,
@@ -77,3 +81,12 @@ export const createCollectionWithScope = (name: string) => {
     ElCollectionItem,
   };
 };
+
+function getSlot(slots: Slots, slot = 'default', data?: any) {
+  if (!slots || !Reflect.has(slots, slot)) {
+    return null;
+  }
+  const slotFn = slots[slot];
+  if (!slotFn) return null;
+  return slotFn(data);
+}

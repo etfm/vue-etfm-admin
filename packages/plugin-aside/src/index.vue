@@ -5,7 +5,7 @@
   import { EtfmaScrollbar } from '@etfma/ui';
   import { reactive, watch, computed } from 'vue';
   import { event, material, type AppRouteRecordRaw } from '@etfma/core';
-  import { useRouter } from 'vue-router';
+  import { useRouter } from '@etfma/core';
   import { MenuRecordRaw } from '@etfma/types';
   import { useMenu } from './hooks/use-menu';
   import { MenuTypeEnum } from './enum';
@@ -163,7 +163,7 @@
     </div>
   </div>
 </template>
-<style scoped lang="scss">
+<style scoped lang="scss" module>
   @include b('pa') {
     position: relative;
     height: 100%;

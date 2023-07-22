@@ -22,17 +22,17 @@
   import { useEventListener, useResizeObserver } from '@vueuse/core';
   import { GAP } from './util';
   import Bar from './bar.vue';
-  import { scrollbarContextKey } from './constants';
+  import { ScrollbarContext, scrollbarContextKey } from './constants';
   import { scrollbarEmits, scrollbarProps } from './scrollbar';
   import type { BarInstance } from './bar';
   import type { CSSProperties, StyleValue } from 'vue';
   import { useNamespace } from '@etfma/hooks';
   import { addUnit, lodash, loggerWarning } from '@etfma/shared';
 
-  const COMPONENT_NAME = 'EtfmaScrollbar';
+  const COMPONENT_NAME = 'EtfmScrollbar';
 
   defineOptions({
-    name: 'EtfmaScrollbar',
+    name: 'EtfmScrollbar',
   });
 
   const props = defineProps(scrollbarProps);
@@ -157,7 +157,7 @@
     reactive({
       scrollbarElement: scrollbarRef,
       wrapElement: wrapRef,
-    }),
+    } as unknown as ScrollbarContext),
   );
 
   onMounted(() => {
@@ -183,3 +183,27 @@
     handleScroll,
   });
 </script>
+<style lang="scss" scoped module>
+  @include b(scrollbar) {
+    @include set-component-css-var('scrollbar', $scrollbar);
+  }
+
+  @include b(scrollbar) {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+
+    @include e(wrap) {
+      height: 100%;
+      overflow: auto;
+
+      @include m(hidden-default) {
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+          display: none;
+        }
+      }
+    }
+  }
+</style>

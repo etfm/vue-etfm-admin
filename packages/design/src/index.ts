@@ -5,11 +5,6 @@ import './common/global.scss';
 // /** 元素进入动画 */
 import './common/entry.scss';
 import './var.scss';
-// import './popper.scss';
-// import './tooltip.scss';
+
+import './common/transition.scss';
 // import './menu.scss';
-// import './icon.scss';
-// import './tag.scss';
-// import './breadcrumb.scss';
-// import './scrollbar.scss';
-// import './dropdown.scss';

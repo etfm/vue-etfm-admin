@@ -126,3 +126,48 @@
     },
   });
 </script>
+
+<style lang="scss" module>
+  @use 'sass:map';
+
+  @include b(dropdown-menu) {
+    position: relative;
+    top: 0;
+    left: 0;
+    z-index: getCssVar('dropdown-menu-index');
+    padding: map.get($dropdown-menu-padding-vertical, 'default')-$border-width 0;
+    margin: 0;
+    list-style: none;
+    background-color: getCssVar('bg-color', 'overlay');
+    border: none;
+    border-radius: getCssVar('border-radius-base');
+    box-shadow: none;
+
+    @each $size in (large, small) {
+      @include b(dropdown-menu) {
+        @include m($size) {
+          padding: map.get($dropdown-menu-padding-vertical, $size)-$border-width 0;
+        }
+      }
+    }
+  }
+</style>
+<style lang="scss">
+  @use 'sass:map';
+
+  @each $size, $index in ('large': '14', 'small': '18') {
+    ._dropdown-menu_1wtvq_1 {
+      &._dropdown-menu--#{$size}_1wtvq_#{$index} {
+        ._dropdown-menu__item_wa026_1 {
+          padding: map.get($dropdown-item-padding, $size);
+          font-size: map.get($input-font-size, $size);
+          line-height: map.get($dropdown-item-line-height, $size);
+
+          ._dropdown-menu__item--divided_wa026_14 {
+            margin: map.get($dropdown-item-divided-margin, $size);
+          }
+        }
+      }
+    }
+  }
+</style>

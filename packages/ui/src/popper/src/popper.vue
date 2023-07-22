@@ -10,7 +10,7 @@
   import { popperProps } from './popper';
 
   defineOptions({
-    name: 'EtfmaPopper',
+    name: 'EtfmPopper',
     inheritAttrs: false,
   });
 

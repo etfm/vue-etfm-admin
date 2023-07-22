@@ -11,7 +11,7 @@
   import { breadcrumbProps } from './breadcrumb';
 
   defineOptions({
-    name: 'ElBreadcrumb',
+    name: 'EtfmBreadcrumb',
   });
 
   const props = defineProps(breadcrumbProps);
@@ -28,3 +28,11 @@
     }
   });
 </script>
+<style lang="scss" scoped module>
+  @include b(breadcrumb) {
+    font-size: 14px;
+    line-height: 1;
+
+    @include utils-clearfix;
+  }
+</style>

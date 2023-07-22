@@ -19,7 +19,7 @@
       :stop-popper-mouse-event="false"
       :virtual-ref="triggeringElementRef"
       :disabled="disabled"
-      :transition="`${ns.namespace.value}-zoom-in-top`"
+      :transition="`zoom-in-top`"
       :teleported="teleported"
       pure
       persistent
@@ -260,3 +260,101 @@
     },
   });
 </script>
+<style lang="scss" module>
+  @use 'sass:map';
+
+  @include b(dropdown) {
+    @each $size in (large, small) {
+      @include m($size) {
+        .dropdown__caret-button {
+          width: map.get($dropdown-caret-width, $size);
+        }
+      }
+    }
+
+    position: relative;
+    display: inline-flex;
+    font-size: getCssVar('font-size', 'base');
+    line-height: 1;
+    color: getCssVar('text-color', 'regular');
+    vertical-align: top;
+
+    @include set-component-css-var('dropdown', $dropdown);
+
+    @include e(popper) {
+      @include set-component-css-var('dropdown', $dropdown);
+
+      // using attributes selector to override
+
+      @include picker-popper(
+        getCssVar('bg-color', 'overlay'),
+        1px solid getCssVar('border-color-light'),
+        getCssVar('dropdown-menu-box-shadow')
+      );
+
+      @include b(scrollbar__bar) {
+        z-index: calc(#{getCssVar('dropdown', 'menu-index')} + 1);
+      }
+
+      @include b(dropdown__list) {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+        list-style: none;
+      }
+
+      .dropdown-menu {
+        border: none;
+      }
+
+      #{& + '-selfdefine'} {
+        outline: none;
+      }
+    }
+
+    &.is-disabled {
+      color: getCssVar('text-color', 'placeholder');
+      cursor: not-allowed;
+    }
+
+    & .dropdown__caret-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: map.get($dropdown-caret-width, 'default');
+      padding-right: 0;
+      padding-left: 0;
+      border-left: none;
+
+      > span {
+        display: inline-flex;
+      }
+
+      &::before {
+        position: absolute;
+        top: -1px;
+        bottom: -1px;
+        left: 0;
+        display: block;
+        width: 1px;
+        content: '';
+        background: getCssVar('overlay-color', 'lighter');
+      }
+
+      &.button::before {
+        background: getCssVar('border-color');
+        opacity: 0.5;
+      }
+
+      & .dropdown__icon {
+        padding-left: 0;
+        font-size: inherit;
+      }
+    }
+
+    .dropdown-selfdefine {
+      // 自定义
+      outline: none;
+    }
+  }
+</style>

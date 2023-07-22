@@ -78,7 +78,7 @@
     onBeforeHide,
   } = inject(TOOLTIP_INJECTION_KEY, undefined)!;
   const transitionClass = computed(() => {
-    return props.transition || `${ns.namespace.value}-fade-in-linear`;
+    return props.transition || `fade-in-linear`;
   });
   const persistentRef = computed(() => {
     // For testing, we would always want the content to be rendered

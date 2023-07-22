@@ -22,7 +22,7 @@
   import type { Router } from '@etfma/types';
 
   defineOptions({
-    name: 'ElBreadcrumbItem',
+    name: 'EtfmBreadcrumbItem',
   });
 
   const props = defineProps(breadcrumbItemProps);
@@ -41,3 +41,60 @@
     props.replace ? router.replace(props.to) : router.push(props.to);
   };
 </script>
+<style lang="scss" scope module>
+  @include b(breadcrumb) {
+    @include e(separator) {
+      margin: 0 9px;
+      font-weight: bold;
+      color: getCssVar('text-color', 'placeholder');
+
+      &.icon {
+        margin: 0 6px;
+        font-weight: normal;
+
+        svg {
+          vertical-align: middle;
+        }
+      }
+    }
+
+    @include e(item) {
+      display: inline-flex;
+      align-items: center;
+      float: left;
+
+      @include e(inner) {
+        color: getCssVar('text-color', 'regular');
+
+        &.is-link,
+        & a {
+          font-weight: bold;
+          color: getCssVar('text-color', 'primary');
+          text-decoration: none;
+          transition: getCssVar('transition', 'color');
+
+          &:hover {
+            color: getCssVar('color-primary');
+            cursor: pointer;
+          }
+        }
+      }
+
+      &:last-child {
+        .breadcrumb__inner,
+        .breadcrumb__inner a {
+          &,
+          &:hover {
+            font-weight: normal;
+            color: getCssVar('text-color', 'regular');
+            cursor: text;
+          }
+        }
+
+        .breadcrumb__separator {
+          display: none;
+        }
+      }
+    }
+  }
+</style>

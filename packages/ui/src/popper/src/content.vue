@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { onBeforeUnmount, onMounted, provide, ref, unref, watch } from 'vue';
+  import { computed, onBeforeUnmount, onMounted, provide, ref, unref, watch } from 'vue';
   import { lodash } from '@etfma/shared';
   import EtfmaFocusTrap from '../../focus-trap';
   import { POPPER_CONTENT_INJECTION_KEY } from './constants';
@@ -67,8 +67,10 @@
 
   provide(POPPER_CONTENT_INJECTION_KEY, {
     arrowStyle,
+    effect: computed(() => props.effect),
     arrowRef,
     arrowOffset,
+    attributes,
   });
 
   let triggerTargetAriaStopWatch: WatchStopHandle | undefined = undefined;
@@ -147,3 +149,33 @@
     contentStyle,
   });
 </script>
+<style lang="scss" module>
+  @include b(popper) {
+    @include set-component-css-var('popper', $popper);
+
+    position: absolute;
+    z-index: 2000;
+    min-width: 10px;
+    padding: 5px 11px;
+    font-size: 12px;
+    line-height: 20px;
+    word-wrap: break-word;
+    visibility: visible;
+    border-radius: getCssVar('popper', 'border-radius');
+
+    @include when(dark) {
+      color: getCssVar('bg-color');
+      background: getCssVar('text-color', 'primary');
+      border: 1px solid getCssVar('text-color', 'primary');
+    }
+
+    @include when(light) {
+      background: getCssVar('bg-color', 'overlay');
+      border: 1px solid getCssVar('border-color', 'light');
+    }
+
+    @include when(pure) {
+      padding: 0;
+    }
+  }
+</style>

@@ -63,6 +63,7 @@
       position: relative;
       display: flex;
       flex: 1;
+      overflow: hidden;
     }
 
     @include b('workbench-center') {
@@ -70,6 +71,7 @@
       display: flex;
       flex: 1;
       flex-direction: column;
+      overflow: hidden;
     }
   }
 </style>

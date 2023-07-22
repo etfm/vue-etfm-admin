@@ -27,7 +27,7 @@
   import { EVENT_CODE } from './constants';
 
   defineOptions({
-    name: 'EtfmaFocusTrap',
+    name: 'EtfmFocusTrap',
     inheritAttrs: false,
   });
 

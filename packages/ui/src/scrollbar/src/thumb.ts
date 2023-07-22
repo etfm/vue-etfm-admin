@@ -3,20 +3,14 @@ import Thumb from './thumb.vue';
 import { buildProps } from '@etfma/shared';
 
 export const thumbProps = buildProps({
-  vertical: {
-    type: Boolean,
-    default: true,
-  },
+  vertical: Boolean,
   size: String,
   move: Number,
   ratio: {
     type: Number,
     required: true,
   },
-  always: {
-    type: Boolean,
-    default: false,
-  },
+  always: Boolean,
 } as const);
 export type ThumbProps = ExtractPropTypes<typeof thumbProps>;
 

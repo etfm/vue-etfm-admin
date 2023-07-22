@@ -1,15 +1,24 @@
 <script setup lang="ts">
-  import { ElSwitch, ElDivider } from 'element-plus';
-  import { reactive } from 'vue';
+  import { ElSwitch, ElDivider, ElInput, ElButton } from 'element-plus';
+  import { nextTick, reactive, ref } from 'vue';
   import { skeleton } from '@etfma/core';
   import { useNamespace } from '@etfma/hooks';
-  // import {
-  //   EtfmaBreadcrumb,
-  //   EtfmaBreadcrumbItem,
-  //   EtfmaDropdown,
-  //   EtfmaDropdownItem,
-  //   EtfmaDropdownMenu,
-  // } from '@etfma/ui';
+  import {
+    EtfmaBreadcrumb,
+    EtfmaBreadcrumbItem,
+    EtfmaIcon,
+    EtfmaTag,
+    EtfmaTooltip,
+    EtfmaDropdownItem,
+    EtfmaDropdownMenu,
+    EtfmaDropdown,
+    DropdownInstance,
+    // EtfmaDropdown,
+    // EtfmaDropdownItem,
+    // EtfmaDropdownMenu,
+  } from '@etfma/ui';
+
+  import { Loading } from '@element-plus/icons-vue';
 
   defineOptions({
     name: 'analysis',
@@ -69,6 +78,30 @@
   skeleton.onShowArea((name) => {
     console.log('监听显示Area事件', name);
   });
+
+  const inputValue = ref('');
+  const dynamicTags = ref(['Tag 1', 'Tag 2', 'Tag 3']);
+  const inputVisible = ref(false);
+  const InputRef = ref<InstanceType<typeof ElInput>>();
+
+  const buttonRef = ref();
+  const tooltipRef = ref();
+
+  const visible = ref(false);
+
+  const dropdown1 = ref<DropdownInstance>();
+  function handleVisible2(visible: any) {
+    if (!dropdown1.value) return;
+    if (visible) {
+      dropdown1.value.handleClose();
+    } else {
+      dropdown1.value.handleOpen();
+    }
+  }
+  function showClick() {
+    if (!dropdown1.value) return;
+    dropdown1.value.handleOpen();
+  }
 </script>
 
 <template>
@@ -113,8 +146,70 @@
       <etfma-breadcrumb-item>promotion detail</etfma-breadcrumb-item>
     </etfma-breadcrumb>
 
-    <EtfmaDropdown>
-      <span class="el-dropdown-link"> Dropdown List </span>
+    <EtfmaIcon :loading="true" :size="25" color="red">
+      <Loading />
+    </EtfmaIcon>
+
+    <EtfmaTag>Tag 1</EtfmaTag>
+    <EtfmaTag class="ml-2" type="success">Tag 2</EtfmaTag>
+    <EtfmaTag class="ml-2" type="info">Tag 3</EtfmaTag>
+    <EtfmaTag class="ml-2" type="warning">Tag 4</EtfmaTag>
+    <EtfmaTag class="ml-2" type="danger">Tag 5</EtfmaTag>
+
+    <EtfmaTag class="mx-1" size="large" effect="plain" round>Large</EtfmaTag>
+    <EtfmaTag class="mx-1" effect="light">Default</EtfmaTag>
+    <EtfmaTag class="mx-1" size="small" effect="dark">Small</EtfmaTag>
+
+    <EtfmaTooltip placement="top">
+      <template #content> multiple lines<br />second line </template>
+      Top center
+    </EtfmaTooltip> -->
+    <EtfmaTooltip effect="light" content="I am an EtfmaTooltip">
+      <span> Some content </span>
+    </EtfmaTooltip>
+
+    <EtfmaTooltip content="<span>The content can be <strong>HTML</strong></span>" raw-content>
+      <el-button>hover me</el-button>
+    </EtfmaTooltip>
+
+    <etfma-dropdown :hide-on-click="false" size="large" trigger="click">
+      <span class="etfma-dropdown-link"> Dropdown List </span>
+      <template #dropdown>
+        <etfma-dropdown-menu>
+          <etfma-dropdown-item>Action 1</etfma-dropdown-item>
+          <etfma-dropdown-item>Action 2</etfma-dropdown-item>
+          <etfma-dropdown-item>Action 3</etfma-dropdown-item>
+          <etfma-dropdown-item disabled>Action 4</etfma-dropdown-item>
+          <etfma-dropdown-item divided>Action 5</etfma-dropdown-item>
+        </etfma-dropdown-menu>
+      </template>
+    </etfma-dropdown>
+    <etfma-dropdown :hide-on-click="false" trigger="click">
+      <span class="etfma-dropdown-link"> Dropdown List </span>
+      <template #dropdown>
+        <etfma-dropdown-menu>
+          <etfma-dropdown-item>Action 1</etfma-dropdown-item>
+          <etfma-dropdown-item>Action 2</etfma-dropdown-item>
+          <etfma-dropdown-item>Action 3</etfma-dropdown-item>
+          <etfma-dropdown-item disabled>Action 4</etfma-dropdown-item>
+          <etfma-dropdown-item divided>Action 5</etfma-dropdown-item>
+        </etfma-dropdown-menu>
+      </template>
+    </etfma-dropdown>
+    <etfma-dropdown :hide-on-click="false" size="small" trigger="click">
+      <span class="etfma-dropdown-link"> Dropdown List </span>
+      <template #dropdown>
+        <etfma-dropdown-menu>
+          <etfma-dropdown-item>Action 1</etfma-dropdown-item>
+          <etfma-dropdown-item>Action 2</etfma-dropdown-item>
+          <etfma-dropdown-item>Action 3</etfma-dropdown-item>
+          <etfma-dropdown-item disabled>Action 4</etfma-dropdown-item>
+          <etfma-dropdown-item divided>Action 5</etfma-dropdown-item>
+        </etfma-dropdown-menu>
+      </template>
+    </etfma-dropdown>
+    <!-- <EtfmaDropdown>
+      <span class="etfma-dropdown-link"> Dropdown List </span>
       <template #dropdown>
         <EtfmaDropdownMenu>
           <EtfmaDropdownItem>Action 1</EtfmaDropdownItem>
@@ -131,6 +226,31 @@
   @include b('analysis') {
     display: block;
     flex-direction: column;
+    align-items: center;
+  }
+</style>
+<style>
+  .tooltip-base-box {
+    width: 600px;
+    margin-left: 300px;
+  }
+  .tooltip-base-box .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .tooltip-base-box .center {
+    justify-content: center;
+  }
+  .tooltip-base-box .box-item {
+    width: 110px;
+    margin-top: 10px;
+  }
+
+  .example-showcase .etfma-dropdown-link {
+    cursor: pointer;
+    color: var(--el-color-primary);
+    display: flex;
     align-items: center;
   }
 </style>

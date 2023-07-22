@@ -19,6 +19,7 @@ const _bem = (block: string, blockSuffix: string, element: string, modifier: str
   if (modifier) {
     cls += `--${modifier}`;
   }
+
   return $style[cls];
 };
 

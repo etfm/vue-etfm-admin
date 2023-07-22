@@ -99,9 +99,48 @@
         role,
         tabIndex,
         handleFocus,
+
         handleKeydown,
         handleMousedown,
       };
     },
   });
 </script>
+<style lang="scss" module>
+  @use 'sass:map';
+
+  @include b(dropdown-menu) {
+    @include e(item) {
+      display: flex;
+      align-items: center;
+      padding: map.get($dropdown-item-padding, 'default');
+      margin: 0;
+      font-size: getCssVar('font-size', 'base');
+      line-height: map.get($dropdown-item-line-height, 'default');
+      color: getCssVar('text-color', 'regular');
+      white-space: nowrap;
+      list-style: none;
+      cursor: pointer;
+      outline: none;
+
+      @include m(divided) {
+        margin: map.get($dropdown-item-divided-margin, 'default');
+        border-top: 1px solid getCssVar('border-color-lighter');
+      }
+
+      @include when(disabled) {
+        color: getCssVar('text-color-disabled');
+        cursor: not-allowed;
+      }
+
+      &:not(.is-disabled):focus {
+        color: getCssVar('dropdown-menuItem-hover-color');
+        background-color: getCssVar('dropdown-menuItem-hover-fill');
+      }
+
+      i {
+        margin-right: 5px;
+      }
+    }
+  }
+</style>

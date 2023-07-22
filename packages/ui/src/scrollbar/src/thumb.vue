@@ -1,5 +1,5 @@
 <template>
-  <transition :name="ns.b('fade')">
+  <transition name="scrollbar-fade">
     <div
       v-show="always || visible"
       ref="instance"
@@ -147,3 +147,76 @@
   useEventListener(toRef(scrollbar!, 'scrollbarElement'), 'mousemove', mouseMoveScrollbarHandler);
   useEventListener(toRef(scrollbar!, 'scrollbarElement'), 'mouseleave', mouseLeaveScrollbarHandler);
 </script>
+<style lang="scss" scoped module>
+  @use 'sass:map';
+
+  @include b(scrollbar) {
+    @include e(thumb) {
+      position: relative;
+      display: block;
+      width: 0;
+      height: 0;
+      cursor: pointer;
+      background-color: var(
+        #{getCssVarName('scrollbar-bg-color')},
+        map.get($scrollbar, 'bg-color')
+      );
+      border-radius: inherit;
+      opacity: var(#{getCssVarName('scrollbar-opacity')}, map.get($scrollbar, 'opacity'));
+      transition: getCssVar('transition-duration') background-color;
+
+      &:hover {
+        background-color: var(
+          #{getCssVarName('scrollbar-hover-bg-color')},
+          map.get($scrollbar, 'hover-bg-color')
+        );
+        opacity: var(
+          #{getCssVarName('scrollbar-hover-opacity')},
+          map.get($scrollbar, 'hover-opacity')
+        );
+      }
+    }
+
+    @include e(bar) {
+      position: absolute;
+      right: 2px;
+      bottom: 2px;
+      z-index: 1;
+      border-radius: 4px;
+
+      @include when(vertical) {
+        top: 2px;
+        width: 6px;
+
+        > div {
+          width: 100%;
+        }
+      }
+
+      @include when(horizontal) {
+        left: 2px;
+        height: 6px;
+
+        > div {
+          height: 100%;
+        }
+      }
+    }
+  }
+</style>
+<style lang="scss" scoped>
+  .scrollbar-fade {
+    &-enter-active {
+      transition: opacity 340ms ease-out;
+    }
+
+    &-leave-active {
+      transition: opacity 120ms ease-out;
+    }
+
+    &-enter-from,
+    &-leave-active {
+      opacity: 0;
+    }
+  }
+</style>

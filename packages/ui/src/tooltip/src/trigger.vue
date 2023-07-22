@@ -97,3 +97,9 @@
     triggerRef,
   });
 </script>
+<style lang="scss" module>
+  @include b(tooltip) {
+    @include e(trigger) {
+    }
+  }
+</style>

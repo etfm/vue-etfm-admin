@@ -1,5 +1,5 @@
 <template>
-  <i :class="ns.b()" :style="style" v-bind="$attrs">
+  <i :class="[ns.b(), loading ? ns.is('loading') : '']" :style="style" v-bind="$attrs">
     <slot />
   </i>
 </template>
@@ -12,7 +12,7 @@
   import type { CSSProperties } from 'vue';
 
   defineOptions({
-    name: 'EtfmaIcon',
+    name: 'EtfmIcon',
     inheritAttrs: false,
   });
   const props = defineProps(iconProps);
@@ -28,3 +28,38 @@
     };
   });
 </script>
+<style lang="scss" scoped module>
+  @keyframes rotating {
+    0% {
+      transform: rotateZ(0deg);
+    }
+
+    100% {
+      transform: rotateZ(360deg);
+    }
+  }
+
+  @include b(icon) {
+    --color: inherit;
+
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1em;
+    height: 1em;
+    font-size: inherit;
+    line-height: 1em;
+    color: var(--color);
+    fill: currentcolor;
+
+    @include when(loading) {
+      animation: rotating 2s linear infinite;
+    }
+
+    svg {
+      width: 1em;
+      height: 1em;
+    }
+  }
+</style>

@@ -1,19 +1,19 @@
-import MenuItem from './menu-item'
+import MenuItem from './menu-item';
 
-import type { RendererNode } from 'vue'
+import type { RendererNode } from 'vue';
 
 class Menu {
-  constructor(public domNode: RendererNode, namespace: string) {
-    this.init(namespace)
+  constructor(public domNode: RendererNode) {
+    this.init();
   }
-  init(namespace: string): void {
-    const menuChildren = this.domNode.childNodes
+  init(): void {
+    const menuChildren = this.domNode.childNodes;
     Array.from<Node>(menuChildren).forEach((child) => {
       if (child.nodeType === 1) {
-        new MenuItem(child as HTMLElement, namespace)
+        new MenuItem(child as HTMLElement);
       }
-    })
+    });
   }
 }
 
-export default Menu
+export default Menu;

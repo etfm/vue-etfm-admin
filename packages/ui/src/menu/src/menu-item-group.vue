@@ -15,7 +15,7 @@
   import { menuItemGroupProps } from './menu-item-group';
 
   defineOptions({
-    name: 'EtfmaMenuItemGroup',
+    name: 'EtfmMenuItemGroup',
   });
 
   defineProps(menuItemGroupProps);

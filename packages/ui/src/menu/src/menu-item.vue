@@ -6,7 +6,7 @@
     @click="handleClick"
   >
     <etfma-tooltip
-      v-if="parentMenu.type.name === 'EtfmaMenu' && rootMenu?.props.collapse && $slots.title"
+      v-if="parentMenu.type.name === 'EtfmMenu' && rootMenu?.props.collapse && $slots.title"
       :effect="rootMenu.props.popperEffect"
       placement="right"
       :fallback-placements="['left']"
@@ -44,10 +44,10 @@
 
   import type { MenuProvider, SubMenuProvider } from './types';
 
-  const COMPONENT_NAME = 'EtfmaMenuItem';
+  const COMPONENT_NAME = 'EtfmMenuItem';
 
   defineOptions({
-    name: 'EtfmaMenuItem',
+    name: 'EtfmMenuItem',
   });
 
   const props = defineProps(menuItemProps);
@@ -59,6 +59,8 @@
   if (!rootMenu) loggerError(COMPONENT_NAME, 'can not inject root menu');
 
   const { parentMenu, indexPath } = useMenu(instance, toRef(props as any, 'index'));
+
+  console.log(parentMenu.value, '----------------');
 
   const subMenu = inject<SubMenuProvider>(`subMenu:${parentMenu.value.uid}`);
   if (!subMenu) loggerError(COMPONENT_NAME, 'can not inject sub menu');

@@ -4,13 +4,13 @@ import SubMenu from './submenu';
 
 class MenuItem {
   public submenu: SubMenu | undefined;
-  constructor(public domNode: HTMLElement, namespace: string) {
-    this.init(namespace);
+  constructor(public domNode: HTMLElement) {
+    this.init();
   }
 
-  init(namespace: string): void {
+  init(): void {
     this.domNode.setAttribute('tabindex', '0');
-    const menuChild = this.domNode.querySelector(`.${namespace}-menu`);
+    const menuChild = this.domNode.querySelector(`.menu`);
     if (menuChild) {
       this.submenu = new SubMenu(this, menuChild);
     }

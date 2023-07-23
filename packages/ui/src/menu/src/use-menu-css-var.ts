@@ -1,8 +1,7 @@
 import { computed } from 'vue';
 import { useNamespace } from '@etfma/hooks';
 import useMenuColor from './use-menu-color';
-
-import type { MenuProps } from './menu';
+import { MenuProps } from './types';
 
 export const useMenuCssVar = (props: MenuProps, level: number) => {
   const ns = useNamespace('menu');

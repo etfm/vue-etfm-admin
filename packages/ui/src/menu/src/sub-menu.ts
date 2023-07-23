@@ -19,6 +19,7 @@ import EtfmaCollapseTransition from '../../collapse-transition';
 import EtfmaTooltip from '../../tooltip';
 import { buildProps, loggerError, lodash, definePropType } from '@etfma/shared';
 import { useDeprecated } from './utils/use-deprecated';
+import { useNamespace } from '@etfma/hooks';
 import { ArrowDown, ArrowRight } from './svg';
 import { EtfmaIcon } from '../../icon';
 import useMenu from './use-menu';
@@ -72,7 +73,7 @@ export const subMenuProps = buildProps({
 } as const);
 export type SubMenuProps = ExtractPropTypes<typeof subMenuProps>;
 
-const COMPONENT_NAME = 'EtfmSubMenu';
+const COMPONENT_NAME = 'EtfmaSubMenu';
 export default defineComponent({
   name: COMPONENT_NAME,
   props: subMenuProps,
@@ -94,6 +95,8 @@ export default defineComponent({
       instance,
       computed(() => props.index),
     );
+    const nsMenu = useNamespace('menu');
+    const nsSubMenu = useNamespace('sub-menu');
 
     // inject
     const rootMenu = inject<MenuProvider>('rootMenu');
@@ -136,7 +139,9 @@ export default defineComponent({
       return value === undefined ? isFirstLevel.value : value;
     });
     const menuTransitionName = computed(() =>
-      rootMenu?.props.collapse ? `zoom-in-left` : `zoom-in-top`,
+      rootMenu?.props.collapse
+        ? `${nsMenu.namespace.value}-zoom-in-left`
+        : `${nsMenu.namespace.value}-zoom-in-top`,
     );
     const fallbackPlacements = computed<Placement[]>(() =>
       mode.value === 'horizontal' && isFirstLevel.value
@@ -251,7 +256,7 @@ export default defineComponent({
       ));
 
       if (appendToBody.value && deepDispatch) {
-        if (instance.parent?.type.name === 'EtfmSubMenu') {
+        if (instance.parent?.type.name === 'EtfmaSubMenu') {
           subMenu?.handleMouseleave?.(true);
         }
       }
@@ -301,7 +306,7 @@ export default defineComponent({
         h(
           EtfmaIcon,
           {
-            class: rootMenu?.ns.nsSubMenu.e('icon-arrow'),
+            class: nsSubMenu.e('icon-arrow'),
             style: {
               transform: opened.value
                 ? (props.expandCloseIcon && props.expandOpenIcon) ||
@@ -345,11 +350,7 @@ export default defineComponent({
                 h(
                   'div',
                   {
-                    class: [
-                      rootMenu.ns.nsMenu.m(mode.value),
-                      rootMenu.ns.nsMenu.m('popup-container'),
-                      props.popperClass,
-                    ],
+                    class: [nsMenu.m(mode.value), nsMenu.m('popup-container'), props.popperClass],
                     onMouseenter: (evt: MouseEvent) => handleMouseenter(evt, 100),
                     onMouseleave: () => handleMouseleave(true),
                     onFocus: (evt: FocusEvent) => handleMouseenter(evt, 100),
@@ -359,9 +360,9 @@ export default defineComponent({
                       'ul',
                       {
                         class: [
-                          rootMenu.ns.nsMenu.b(),
-                          rootMenu.ns.nsMenu.m('popup'),
-                          rootMenu.ns.nsMenu.m(`popup-${currentPlacement.value}`),
+                          nsMenu.b(),
+                          nsMenu.m('popup'),
+                          nsMenu.m(`popup-${currentPlacement.value}`),
                         ],
                         style: ulStyle.value,
                       },
@@ -373,7 +374,7 @@ export default defineComponent({
                 h(
                   'div',
                   {
-                    class: rootMenu.ns.nsSubMenu.e('title'),
+                    class: nsSubMenu.e('title'),
                     style: [titleStyle.value, { backgroundColor: backgroundColor.value }],
                     onClick: handleClick,
                   },
@@ -385,7 +386,7 @@ export default defineComponent({
             h(
               'div',
               {
-                class: rootMenu?.ns.nsSubMenu.e('title'),
+                class: nsSubMenu.e('title'),
                 style: [titleStyle.value, { backgroundColor: backgroundColor.value }],
                 ref: verticalTitleRef,
                 onClick: handleClick,
@@ -402,7 +403,7 @@ export default defineComponent({
                       'ul',
                       {
                         role: 'menu',
-                        class: [rootMenu?.ns.nsMenu.b(), rootMenu?.ns.nsMenu.m('inline')],
+                        class: [nsMenu.b(), nsMenu.m('inline')],
                         style: ulStyle.value,
                       },
                       [slots.default?.()],
@@ -417,10 +418,10 @@ export default defineComponent({
         'li',
         {
           class: [
-            rootMenu?.ns.nsSubMenu.b(),
-            rootMenu?.ns.nsSubMenu.is('active', active.value),
-            rootMenu?.ns.nsSubMenu.is('opened', opened.value),
-            rootMenu?.ns.nsSubMenu.is('disabled', props.disabled),
+            nsSubMenu.b(),
+            nsSubMenu.is('active', active.value),
+            nsSubMenu.is('opened', opened.value),
+            nsSubMenu.is('disabled', props.disabled),
           ],
           role: 'menuitem',
           ariaHaspopup: true,

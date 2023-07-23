@@ -4,16 +4,15 @@
   </transition>
 </template>
 <script lang="ts" setup>
+  import { useNamespace } from '@etfma/hooks';
   import { addClass, hasClass, removeClass } from '@etfma/shared';
-  import { inject, type BaseTransitionProps, type TransitionProps } from 'vue';
-  import { MenuProvider } from './types';
+  import type { BaseTransitionProps, TransitionProps } from 'vue';
 
   defineOptions({
     name: 'EtfmMenuCollapseTransition',
   });
 
-  const rootMenu = inject<MenuProvider>('rootMenu');
-
+  const ns = useNamespace('menu');
   const listeners = {
     onBeforeEnter: (el) => (el.style.opacity = '0.2'),
     onEnter(el, done) {
@@ -32,16 +31,16 @@
         (el as any).dataset = {};
       }
 
-      if (hasClass(el, rootMenu?.ns.nsMenu.m('collapse'))) {
-        removeClass(el, rootMenu?.ns.nsMenu.m('collapse'));
+      if (hasClass(el, ns.m('collapse'))) {
+        removeClass(el, ns.m('collapse'));
         el.dataset.oldOverflow = el.style.overflow;
         el.dataset.scrollWidth = el.clientWidth.toString();
-        addClass(el, rootMenu?.ns.nsMenu.m('collapse'));
+        addClass(el, ns.m('collapse'));
       } else {
-        addClass(el, rootMenu?.ns.nsMenu.m('collapse'));
+        addClass(el, ns.m('collapse'));
         el.dataset.oldOverflow = el.style.overflow;
         el.dataset.scrollWidth = el.clientWidth.toString();
-        removeClass(el, rootMenu?.ns.nsMenu.m('collapse'));
+        removeClass(el, ns.m('collapse'));
       }
 
       el.style.width = `${el.scrollWidth}px`;

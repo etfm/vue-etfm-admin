@@ -14,5 +14,5 @@
     "target": 3,
     "plugins": ["@vue-macros/volar/define-options"]
   },
-  "include": ["src", "mock", "vite.config.ts", "vitest.config", ".etfmirc.ts", ".etfm.ts"]
+  "include": ["src", "mock", "vite.config.ts", "vitest.config"]
 }

@@ -2,6 +2,8 @@
  * Mock plugin for development and production.
  * https://github.com/anncwb/vite-plugin-mock
  */
+
+// @ts-nocheck
 import { viteMockServe } from 'vite-plugin-mock';
 
 export function configMockPlugin({ enable, isBuild }: { enable: boolean; isBuild: boolean }) {

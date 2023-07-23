@@ -1,4 +1,4 @@
-// @ts-ignore: type unless
+// @ts-nocheck
 import type { PluginOption } from 'vite';
 import purgeIcons from 'vite-plugin-purge-icons';
 

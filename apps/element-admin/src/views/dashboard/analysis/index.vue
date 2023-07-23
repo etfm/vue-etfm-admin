@@ -1,24 +1,22 @@
 <script setup lang="ts">
-  import { ElSwitch, ElDivider, ElInput, ElButton } from 'element-plus';
-  import { nextTick, reactive, ref } from 'vue';
+  // import { ElSwitch, ElDivider, ElButton } from 'element-plus';
+  // import { reactive } from 'vue';
   import { skeleton } from '@etfma/core';
   import { useNamespace } from '@etfma/hooks';
   import {
-    EtfmaBreadcrumb,
-    EtfmaBreadcrumbItem,
-    EtfmaIcon,
-    EtfmaTag,
-    EtfmaTooltip,
-    EtfmaDropdownItem,
-    EtfmaDropdownMenu,
-    EtfmaDropdown,
-    DropdownInstance,
+    // EtfmaTooltip,
+    // EtfmaDropdownItem,
+    // EtfmaDropdownMenu,
+    // EtfmaDropdown,
     // EtfmaDropdown,
     // EtfmaDropdownItem,
     // EtfmaDropdownMenu,
+    EtfmaMenu,
+    EtfmaSubMenu,
+    EtfmaMenuItemGroup,
+    EtfmaMenuItem,
   } from '@etfma/ui';
-
-  import { Loading } from '@element-plus/icons-vue';
+  import { ref } from 'vue';
 
   defineOptions({
     name: 'analysis',
@@ -27,41 +25,41 @@
 
   const ns = useNamespace('analysis');
 
-  const modelArea = reactive({
-    isLeft: true,
-    isHeader: true,
-    isRight: true,
-    isBottom: true,
-    isToolbar: true,
-    isLeftFixed: true,
-    isLeftFloat: false,
-  });
+  // const modelArea = reactive({
+  //   isLeft: true,
+  //   isHeader: true,
+  //   isRight: true,
+  //   isBottom: true,
+  //   isToolbar: true,
+  //   isLeftFixed: true,
+  //   isLeftFloat: false,
+  // });
 
-  const modelWidget = reactive({
-    isLeft: true,
-    isHeader: true,
-    isRight: true,
-    isBottom: true,
-    isToolbar: true,
-    isLeftFixed: true,
-    isLeftFloat: false,
-  });
+  // const modelWidget = reactive({
+  //   isLeft: true,
+  //   isHeader: true,
+  //   isRight: true,
+  //   isBottom: true,
+  //   isToolbar: true,
+  //   isLeftFixed: true,
+  //   isLeftFloat: false,
+  // });
 
-  function handleArea(e, name) {
-    if (e) {
-      skeleton.showArea(name);
-    } else {
-      skeleton.hideArea(name);
-    }
-  }
+  // function handleArea(e, name) {
+  //   if (e) {
+  //     skeleton.showArea(name);
+  //   } else {
+  //     skeleton.hideArea(name);
+  //   }
+  // }
 
-  function handleWidget(e, name) {
-    if (e) {
-      skeleton.showWidget(name);
-    } else {
-      skeleton.hideWidget(name);
-    }
-  }
+  // function handleWidget(e, name) {
+  //   if (e) {
+  //     skeleton.showWidget(name);
+  //   } else {
+  //     skeleton.hideWidget(name);
+  //   }
+  // }
 
   skeleton.onHideWidget((name) => {
     console.log('监听隐藏widget事件', name);
@@ -79,34 +77,64 @@
     console.log('监听显示Area事件', name);
   });
 
-  const inputValue = ref('');
-  const dynamicTags = ref(['Tag 1', 'Tag 2', 'Tag 3']);
-  const inputVisible = ref(false);
-  const InputRef = ref<InstanceType<typeof ElInput>>();
-
-  const buttonRef = ref();
-  const tooltipRef = ref();
-
-  const visible = ref(false);
-
-  const dropdown1 = ref<DropdownInstance>();
-  function handleVisible2(visible: any) {
-    if (!dropdown1.value) return;
-    if (visible) {
-      dropdown1.value.handleClose();
-    } else {
-      dropdown1.value.handleOpen();
-    }
-  }
-  function showClick() {
-    if (!dropdown1.value) return;
-    dropdown1.value.handleOpen();
-  }
+  const activeIndex = ref('1');
+  const activeIndex2 = ref('1');
+  const handleSelect = (key: string, keyPath: string[]) => {
+    console.log(key, keyPath);
+  };
 </script>
 
 <template>
   <div class="bg-white p-5 m-5" :class="[ns.b()]">
-    <ElDivider content-position="left">Area操作</ElDivider>
+    <etfma-menu
+      :default-active="activeIndex"
+      class="etfma-menu-demo"
+      mode="horizontal"
+      @select="handleSelect"
+    >
+      <etfma-menu-item index="1">Processing Center</etfma-menu-item>
+      <etfma-sub-menu index="2">
+        <template #title>Workspace</template>
+        <etfma-menu-item index="2-1">item one</etfma-menu-item>
+        <etfma-menu-item index="2-2">item two</etfma-menu-item>
+        <etfma-menu-item index="2-3">item three</etfma-menu-item>
+        <etfma-sub-menu index="2-4">
+          <template #title>item four</template>
+          <etfma-menu-item index="2-4-1">item one</etfma-menu-item>
+          <etfma-menu-item index="2-4-2">item two</etfma-menu-item>
+          <etfma-menu-item index="2-4-3">item three</etfma-menu-item>
+        </etfma-sub-menu>
+      </etfma-sub-menu>
+      <etfma-menu-item index="3" disabled>Info</etfma-menu-item>
+      <etfma-menu-item index="4">Orders</etfma-menu-item>
+    </etfma-menu>
+    <!-- <div class="h-6" /> -->
+    <!-- <etfma-menu
+      :default-active="activeIndex2"
+      class="etfma-menu-demo"
+      mode="horizontal"
+      background-color="#545c64"
+      text-color="#fff"
+      active-text-color="#ffd04b"
+      @select="handleSelect"
+    >
+      <etfma-menu-item index="1">Processing Center</etfma-menu-item>
+      <etfma-sub-menu index="2">
+        <template #title>Workspace</template>
+        <etfma-menu-item index="2-1">item one</etfma-menu-item>
+        <etfma-menu-item index="2-2">item two</etfma-menu-item>
+        <etfma-menu-item index="2-3">item three</etfma-menu-item>
+        <etfma-sub-menu index="2-4">
+          <template #title>item four</template>
+          <etfma-menu-item index="2-4-1">item one</etfma-menu-item>
+          <etfma-menu-item index="2-4-2">item two</etfma-menu-item>
+          <etfma-menu-item index="2-4-3">item three</etfma-menu-item>
+        </etfma-sub-menu>
+      </etfma-sub-menu>
+      <etfma-menu-item index="3" disabled>Info</etfma-menu-item>
+      <etfma-menu-item index="4">Orders</etfma-menu-item>
+    </etfma-menu> -->
+    <!-- <ElDivider content-position="left">Area操作</ElDivider>
     <div>
       左侧菜单栏：
       <ElSwitch v-model="modelArea.isLeft" @change="(e) => handleArea(e, 'aside')" />
@@ -137,7 +165,7 @@
     </div>
     <ElDivider content-position="left">Widget操作</ElDivider>
     widget显示隐藏：
-    <ElSwitch v-model="modelWidget.isLeft" @change="(e) => handleWidget(e, 'leftArea')" />
+    <ElSwitch v-model="modelWidget.isLeft" @change="(e) => handleWidget(e, 'leftArea')" /> -->
 
     <!-- <etfma-breadcrumb separator="/">
       <etfma-breadcrumb-item :to="{ path: '/' }">homepage</etfma-breadcrumb-item>
@@ -164,7 +192,7 @@
       <template #content> multiple lines<br />second line </template>
       Top center
     </EtfmaTooltip> -->
-    <EtfmaTooltip effect="light" content="I am an EtfmaTooltip">
+    <!-- <EtfmaTooltip effect="light" content="I am an EtfmaTooltip">
       <span> Some content </span>
     </EtfmaTooltip>
 
@@ -207,7 +235,7 @@
           <etfma-dropdown-item divided>Action 5</etfma-dropdown-item>
         </etfma-dropdown-menu>
       </template>
-    </etfma-dropdown>
+    </etfma-dropdown> -->
     <!-- <EtfmaDropdown>
       <span class="etfma-dropdown-link"> Dropdown List </span>
       <template #dropdown>

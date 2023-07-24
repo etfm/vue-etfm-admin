@@ -4,7 +4,7 @@ import { FORWARD_REF_INJECTION_KEY, useForwardRefDirective, useNamespace } from 
 
 import type { Ref, VNode } from 'vue';
 
-const NAME = 'EtfmaOnlyChild';
+const NAME = 'EtfmOnlyChild';
 
 export const OnlyChild = defineComponent({
   name: NAME,
@@ -59,7 +59,7 @@ function findFirstLegitChild(node: VNode[] | undefined): VNode | null {
 }
 
 function wrapTextContent(s: string | VNode) {
-  const ns = useNamespace('only-child');
+  const ns = useNamespace('only-child', { isCssModule: false });
   return <span class={ns.e('content')}>{s}</span>;
 }
 

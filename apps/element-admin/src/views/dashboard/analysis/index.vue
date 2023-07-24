@@ -11,6 +11,9 @@
     EtfmaMenu,
     EtfmaSubMenu,
     EtfmaMenuItem,
+    EtfmaBreadcrumb,
+    EtfmaBreadcrumbItem,
+    EtfmaTag,
   } from '@etfma/ui';
   import { ref } from 'vue';
 
@@ -82,12 +85,7 @@
 
 <template>
   <div class="bg-white p-5 m-5" :class="[ns.b()]">
-    <etfma-menu
-      :default-active="activeIndex"
-      class="etfma-menu-demo"
-      mode="horizontal"
-      @select="handleSelect"
-    >
+    <etfma-menu :default-active="activeIndex" class="etfma-menu-demo" @select="handleSelect">
       <etfma-menu-item index="1">Processing Center</etfma-menu-item>
       <etfma-sub-menu index="2">
         <template #title>Workspace</template>
@@ -108,7 +106,6 @@
     <etfma-menu
       :default-active="activeIndex2"
       class="etfma-menu-demo"
-      mode="horizontal"
       background-color="#545c64"
       text-color="#fff"
       active-text-color="#ffd04b"
@@ -169,10 +166,6 @@
       <etfma-breadcrumb-item>promotion list</etfma-breadcrumb-item>
       <etfma-breadcrumb-item>promotion detail</etfma-breadcrumb-item>
     </etfma-breadcrumb>
-
-    <EtfmaIcon :loading="true" :size="25" color="red">
-      <Loading />
-    </EtfmaIcon>
 
     <EtfmaTag>Tag 1</EtfmaTag>
     <EtfmaTag class="ml-2" type="success">Tag 2</EtfmaTag>

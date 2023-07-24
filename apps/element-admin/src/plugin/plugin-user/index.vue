@@ -19,7 +19,7 @@
     </template>
   </EtfmaDropdown>
 </template>
-<style lang="scss" scoped>
+<style lang="scss" module>
   @include b(plugin-user) {
     padding: 0 16px;
     cursor: pointer;

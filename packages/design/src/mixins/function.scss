@@ -4,7 +4,6 @@
 @function selectorToString($selector) {
   $selector: inspect($selector);
   $selector: str-slice($selector, 2, -2);
-
   @return $selector;
 }
 
@@ -43,37 +42,35 @@
 }
 
 // join var name
-// joinVarName(('button', 'text-color')) => '--etfma-button-text-color'
+// joinVarName(('button', 'text-color')) => '--el-button-text-color'
 @function joinVarName($list) {
-  $name: '-';
-
+  $name: '--' + config.$namespace;
   @each $item in $list {
     @if $item != '' {
       $name: $name + '-' + $item;
     }
   }
-
   @return $name;
 }
 
-// getCssVarName('button', 'text-color') => '--etfma-button-text-color'
+// getCssVarName('button', 'text-color') => '--el-button-text-color'
 @function getCssVarName($args...) {
   @return joinVarName($args);
 }
 
-// getCssVar('button', 'text-color') => var(--etfma-button-text-color)
+// getCssVar('button', 'text-color') => var(--el-button-text-color)
 @function getCssVar($args...) {
   @return var(#{joinVarName($args)});
 }
 
-// getCssVarWithDefault(('button', 'text-color'), red) => var(--etfma-button-text-color, red)
+// getCssVarWithDefault(('button', 'text-color'), red) => var(--el-button-text-color, red)
 @function getCssVarWithDefault($args, $default) {
   @return var(#{joinVarName($args)}, #{$default});
 }
 
-// bem('block', 'element', 'modifier') => 'etfma-block__element--modifier'
+// bem('block', 'element', 'modifier') => 'el-block__element--modifier'
 @function bem($block, $element: '', $modifier: '') {
-  $name: $block;
+  $name: config.$namespace + config.$common-separator + $block;
 
   @if $element != '' {
     $name: $name + config.$element-separator + $element;
@@ -83,5 +80,6 @@
     $name: $name + config.$modifier-separator + $modifier;
   }
 
+  // @debug $name;
   @return $name;
 }

@@ -13,19 +13,20 @@
     watchEffect,
   } from 'vue';
   import { useResizeObserver } from '@vueuse/core';
-  import { lodash, flattedChildren } from '@etfma/shared';
   import { EtfmaIcon } from '../../icon';
   import { More } from './svg';
+  import { flattedChildren, lodash } from '@etfma/shared';
   import { useNamespace } from '@etfma/hooks';
   import Menubar from './utils/menu-bar';
-  import EtfmaMenuCollapseTransition from './menu-collapse-transition.vue';
-  import EtfmaSubMenu from './sub-menu';
+  import ElMenuCollapseTransition from './menu-collapse-transition.vue';
+  import ElSubMenu from './sub-menu';
   import { useMenuCssVar } from './use-menu-css-var';
 
-  import { menuEmits, menuProps, type MenuProvider, type SubMenuProvider } from './types';
-  import type { Router } from '@etfma/types';
+  import { MenuProvider, SubMenuProvider } from './types';
+  import type { Router } from 'vue-router';
   import type { VNode, VNodeArrayChildren } from 'vue';
   import type { UseResizeObserverReturn } from '@vueuse/core';
+  import { menuEmits, menuProps } from './props';
 
   export default defineComponent({
     name: 'EtfmMenu',
@@ -35,8 +36,8 @@
       const instance = getCurrentInstance()!;
       const router = instance.appContext.config.globalProperties.$router as Router;
       const menu = ref<HTMLUListElement>();
-      const nsMenu = useNamespace('menu');
-      const nsSubMenu = useNamespace('sub-menu');
+      const nsMenu = useNamespace('menu', { isCssModule: false });
+      const nsSubMenu = useNamespace('sub-menu', { isCssModule: false });
 
       // data
       const sliceIndex = ref(-1);
@@ -236,10 +237,7 @@
             subMenus,
             activeIndex,
             isMenuPopup,
-            ns: {
-              nsMenu,
-              nsSubMenu,
-            },
+
             addMenuItem,
             removeMenuItem,
             addSubMenu,
@@ -261,7 +259,7 @@
       // lifecycle
       onMounted(() => {
         if (props.mode === 'horizontal') {
-          new Menubar(instance.vnode.el!);
+          new Menubar(instance.vnode.el!, nsMenu.namespace.value);
         }
       });
 
@@ -293,7 +291,7 @@
             slot = slotDefault;
             vShowMore.push(
               h(
-                EtfmaSubMenu,
+                ElSubMenu,
                 {
                   index: 'sub-menu-more',
                   class: nsSubMenu.e('hide-arrow'),
@@ -333,7 +331,7 @@
         );
 
         if (props.collapseTransition && props.mode === 'vertical') {
-          return h(EtfmaMenuCollapseTransition, () => vMenu);
+          return h(ElMenuCollapseTransition, () => vMenu);
         }
 
         return vMenu;
@@ -341,7 +339,7 @@
     },
   });
 </script>
-<style lang="scss" module>
+<style lang="scss">
   @mixin menu-item {
     display: flex;
     align-items: center;
@@ -397,10 +395,10 @@
     box-sizing: border-box;
 
     @include m(vertical) {
-      &:not(.menu--collapse):not(.menu--popup-container) {
-        & .menu-item,
-        & .sub-menu__title,
-        & .menu-item-group__title {
+      &:not(.#{$namespace}-menu--collapse):not(.#{$namespace}-menu--popup-container) {
+        & .#{$namespace}-menu-item,
+        & .#{$namespace}-sub-menu__title,
+        & .#{$namespace}-menu-item-group__title {
           white-space: nowrap;
           padding-left: calc(
             #{getCssVar('menu-base-level-padding')} + #{getCssVar('menu-level')} * #{getCssVar(
@@ -417,7 +415,7 @@
       border-bottom: none;
       border-right: none;
 
-      & > .menu-item {
+      & > .#{$namespace}-menu-item {
         display: inline-flex;
         justify-content: center;
         align-items: center;
@@ -437,26 +435,26 @@
           background-color: #fff;
         }
       }
-      & > .sub-menu {
+      & > .#{$namespace}-sub-menu {
         &:focus,
         &:hover {
           outline: none;
         }
 
         &:hover {
-          .sub-menu__title {
+          .#{$namespace}-sub-menu__title {
             color: getCssVar('menu-hover-text-color');
           }
         }
 
         &.is-active {
-          .sub-menu__title {
+          .#{$namespace}-sub-menu__title {
             border-bottom: 2px solid getCssVar('menu-active-color');
             color: getCssVar('menu-active-color');
           }
         }
 
-        & .sub-menu__title {
+        & .#{$namespace}-sub-menu__title {
           height: 100%;
           border-bottom: 2px solid transparent;
           color: getCssVar('menu-text-color');
@@ -466,9 +464,9 @@
           }
         }
       }
-      & .menu {
-        & .menu-item,
-        & .sub-menu__title {
+      & .#{$namespace}-menu {
+        & .#{$namespace}-menu-item,
+        & .#{$namespace}-sub-menu__title {
           background-color: getCssVar('menu-bg-color');
           display: flex;
           align-items: center;
@@ -478,22 +476,22 @@
           color: getCssVar('menu-text-color');
         }
 
-        & .sub-menu__title {
+        & .#{$namespace}-sub-menu__title {
           padding-right: 40px;
         }
 
-        & .menu-item.is-active,
-        & .sub-menu.is-active > .sub-menu__title {
+        & .#{$namespace}-menu-item.is-active,
+        & .#{$namespace}-sub-menu.is-active > .#{$namespace}-sub-menu__title {
           color: getCssVar('menu-active-color');
         }
       }
-      & .menu-item:not(.is-disabled):hover,
-      & .menu-item:not(.is-disabled):focus {
+      & .#{$namespace}-menu-item:not(.is-disabled):hover,
+      & .#{$namespace}-menu-item:not(.is-disabled):focus {
         outline: none;
         color: getCssVar('menu-hover-text-color');
         background-color: getCssVar('menu-hover-bg-color');
       }
-      & > .menu-item.is-active {
+      & > .#{$namespace}-menu-item.is-active {
         border-bottom: 2px solid getCssVar('menu-active-color');
         color: getCssVar('menu-active-color') !important;
       }
@@ -501,17 +499,20 @@
     @include m(collapse) {
       width: calc(#{getCssVar('menu-icon-width')} + #{getCssVar('menu-base-level-padding')} * 2);
 
-      > .menu-item,
-      > .sub-menu > .sub-menu__title,
-      > .menu-item-group > ul > .sub-menu > .sub-menu__title {
-        [class^='icon'] {
+      > .#{$namespace}-menu-item,
+      > .#{$namespace}-sub-menu > .#{$namespace}-sub-menu__title,
+      > .#{$namespace}-menu-item-group
+        > ul
+        > .#{$namespace}-sub-menu
+        > .#{$namespace}-sub-menu__title {
+        [class^='#{$namespace}-icon'] {
           margin: 0;
           vertical-align: middle;
           width: getCssVar('menu-icon-width');
           text-align: center;
         }
 
-        .sub-menu__icon-arrow {
+        .#{$namespace}-sub-menu__icon-arrow {
           display: none;
         }
 
@@ -524,11 +525,11 @@
         }
       }
 
-      > .menu-item.is-active i {
+      > .#{$namespace}-menu-item.is-active i {
         color: inherit;
       }
 
-      .menu .sub-menu {
+      .#{$namespace}-menu .#{$namespace}-sub-menu {
         min-width: 200px;
       }
     }
@@ -541,7 +542,7 @@
       box-shadow: getCssVar('box-shadow-light');
     }
 
-    .icon {
+    .#{$namespace}-icon {
       flex-shrink: 0;
     }
   }
@@ -549,7 +550,7 @@
   @include b(menu-item) {
     @include menu-item;
 
-    & [class^='icon'] {
+    & [class^='#{$namespace}-icon'] {
       margin-right: 5px;
       width: getCssVar('menu-icon-width');
       text-align: center;
@@ -562,7 +563,7 @@
         color: inherit;
       }
     }
-    .menu-tooltip__trigger {
+    .#{$namespace}-menu-tooltip__trigger {
       position: absolute;
       left: 0;
       top: 0;
@@ -590,43 +591,43 @@
         background-color: getCssVar('menu-hover-bg-color');
       }
     }
-    & .menu {
+    & .#{$namespace}-menu {
       border: none;
     }
-    & .menu-item {
+    & .#{$namespace}-menu-item {
       height: getCssVar('menu-sub-item-height');
       line-height: getCssVar('menu-sub-item-height');
     }
     @include e(hide-arrow) {
-      .sub-menu__icon-arrow {
+      .#{$namespace}-sub-menu__icon-arrow {
         display: none !important;
       }
     }
     @include when(active) {
-      .sub-menu__title {
+      .#{$namespace}-sub-menu__title {
         border-bottom-color: getCssVar('menu-active-color');
       }
     }
     @include when(disabled) {
-      .sub-menu__title,
-      .menu-item {
+      .#{$namespace}-sub-menu__title,
+      .#{$namespace}-menu-item {
         opacity: 0.25;
         cursor: not-allowed;
         background: none !important;
       }
     }
-    .icon {
+    .#{$namespace}-icon {
       vertical-align: middle;
       margin-right: 5px;
       width: getCssVar('menu-icon-width');
       text-align: center;
       font-size: 18px;
 
-      &.sub-menu__icon-more {
+      &.#{$namespace}-sub-menu__icon-more {
         margin-right: 0 !important;
       }
     }
-    .sub-menu__icon-arrow {
+    .#{$namespace}-sub-menu__icon-arrow {
       position: absolute;
       top: 50%;
       right: getCssVar('menu-base-level-padding');
@@ -650,7 +651,9 @@
     }
   }
 
-  .horizontal-collapse-transition .sub-menu__title .sub-menu__icon-arrow {
+  .horizontal-collapse-transition
+    .#{$namespace}-sub-menu__title
+    .#{$namespace}-sub-menu__icon-arrow {
     transition: getCssVar('transition-duration-fast');
     opacity: 0;
   }

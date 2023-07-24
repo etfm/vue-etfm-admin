@@ -82,7 +82,7 @@
   import { addUnit, lodash } from '@etfma/shared';
 
   export default defineComponent({
-    name: 'ElDropdown',
+    name: 'EtfmDropdown',
     components: {
       ElScrollbar,
       ElDropdownCollection,
@@ -96,7 +96,7 @@
     emits: ['visible-change', 'click', 'command'],
     setup(props, { emit }) {
       const _instance = getCurrentInstance();
-      const ns = useNamespace('dropdown');
+      const ns = useNamespace('dropdown', { isCssModule: false });
 
       const triggeringElementRef = ref();
       const referenceElementRef = ref();
@@ -214,7 +214,7 @@
         onItemLeave,
       });
 
-      provide('etfmaDropdown', {
+      provide('etfmDropdown', {
         instance: _instance,
         dropdownSize,
         handleClick,
@@ -260,26 +260,23 @@
     },
   });
 </script>
-<style lang="scss" module>
+<style lang="scss">
   @use 'sass:map';
 
   @include b(dropdown) {
-    @each $size in (large, small) {
-      @include m($size) {
-        .dropdown__caret-button {
-          width: map.get($dropdown-caret-width, $size);
-        }
-      }
-    }
+    @include set-component-css-var('dropdown', $dropdown);
 
-    position: relative;
     display: inline-flex;
+    position: relative;
+    color: getCssVar('text-color', 'regular');
     font-size: getCssVar('font-size', 'base');
     line-height: 1;
-    color: getCssVar('text-color', 'regular');
     vertical-align: top;
 
-    @include set-component-css-var('dropdown', $dropdown);
+    &.is-disabled {
+      color: getCssVar('text-color', 'placeholder');
+      cursor: not-allowed;
+    }
 
     @include e(popper) {
       @include set-component-css-var('dropdown', $dropdown);
@@ -292,38 +289,33 @@
         getCssVar('dropdown-menu-box-shadow')
       );
 
-      @include b(scrollbar__bar) {
-        z-index: calc(#{getCssVar('dropdown', 'menu-index')} + 1);
-      }
-
-      @include b(dropdown__list) {
-        box-sizing: border-box;
-        padding: 0;
-        margin: 0;
-        list-style: none;
-      }
-
-      .dropdown-menu {
+      .#{$namespace}-dropdown-menu {
         border: none;
       }
 
       #{& + '-selfdefine'} {
         outline: none;
       }
+
+      @include b(scrollbar__bar) {
+        z-index: calc(#{getCssVar('dropdown', 'menu-index')} + 1);
+      }
+
+      @include b(dropdown__list) {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
     }
 
-    &.is-disabled {
-      color: getCssVar('text-color', 'placeholder');
-      cursor: not-allowed;
-    }
-
-    & .dropdown__caret-button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: map.get($dropdown-caret-width, 'default');
-      padding-right: 0;
+    & .#{$namespace}-dropdown__caret-button {
       padding-left: 0;
+      padding-right: 0;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      width: map.get($dropdown-caret-width, 'default');
       border-left: none;
 
       > span {
@@ -331,30 +323,110 @@
       }
 
       &::before {
+        content: '';
         position: absolute;
+        display: block;
+        width: 1px;
         top: -1px;
         bottom: -1px;
         left: 0;
-        display: block;
-        width: 1px;
-        content: '';
         background: getCssVar('overlay-color', 'lighter');
       }
 
-      &.button::before {
+      &.#{$namespace}-button::before {
         background: getCssVar('border-color');
         opacity: 0.5;
       }
 
-      & .dropdown__icon {
-        padding-left: 0;
+      & .#{$namespace}-dropdown__icon {
         font-size: inherit;
+        padding-left: 0;
       }
     }
 
-    .dropdown-selfdefine {
+    .#{$namespace}-dropdown-selfdefine {
       // 自定义
       outline: none;
+    }
+
+    @each $size in (large, small) {
+      @include m($size) {
+        .#{$namespace}-dropdown__caret-button {
+          width: map.get($dropdown-caret-width, $size);
+        }
+      }
+    }
+  }
+
+  $dropdown-menu-padding-vertical: () !default;
+  $dropdown-menu-padding-vertical: map.merge(
+    (
+      'large': 8px,
+      'default': 6px,
+      'small': 4px,
+    ),
+    $dropdown-menu-padding-vertical
+  );
+
+  @include b(dropdown-menu) {
+    position: relative;
+    top: 0;
+    left: 0;
+    z-index: getCssVar('dropdown-menu-index');
+    padding: map.get($dropdown-menu-padding-vertical, 'default')-$border-width 0;
+    margin: 0;
+    background-color: getCssVar('bg-color', 'overlay');
+    border: none;
+    border-radius: getCssVar('border-radius-base');
+    box-shadow: none;
+    list-style: none;
+
+    @include e(item) {
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+      list-style: none;
+      line-height: map.get($dropdown-item-line-height, 'default');
+      padding: map.get($dropdown-item-padding, 'default');
+      margin: 0;
+      font-size: getCssVar('font-size', 'base');
+      color: getCssVar('text-color', 'regular');
+      cursor: pointer;
+      outline: none;
+      &:not(.is-disabled):focus {
+        background-color: getCssVar('dropdown-menuItem-hover-fill');
+        color: getCssVar('dropdown-menuItem-hover-color');
+      }
+
+      i {
+        margin-right: 5px;
+      }
+
+      @include m(divided) {
+        margin: map.get($dropdown-item-divided-margin, 'default');
+        border-top: 1px solid getCssVar('border-color-lighter');
+      }
+
+      @include when(disabled) {
+        cursor: not-allowed;
+        color: getCssVar('text-color-disabled');
+      }
+    }
+
+    @each $size in (large, small) {
+      @include m($size) {
+        padding: map.get($dropdown-menu-padding-vertical, $size)-$border-width 0;
+
+        @include e(item) {
+          padding: map.get($dropdown-item-padding, $size);
+          line-height: map.get($dropdown-item-line-height, $size);
+          font-size: map.get($input-font-size, $size);
+
+          @include m(divided) {
+            margin: map.get($dropdown-item-divided-margin, $size);
+          }
+        }
+      }
     }
   }
 </style>

@@ -1,5 +1,3 @@
-@use '../shared' as *;
-
 .fade-in-linear-enter-active,
 .fade-in-linear-leave-active {
   transition: getCssVar('transition-fade', 'linear');

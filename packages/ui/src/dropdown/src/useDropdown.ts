@@ -6,7 +6,7 @@ import { useNamespace } from '@etfma/hooks';
 import { EVENT_CODE } from '../../focus-trap';
 
 export const useDropdown = () => {
-  const elDropdown = inject<IElDropdownInstance>('etfmaDropdown', {});
+  const elDropdown = inject<IElDropdownInstance>('etfmDropdown', {});
   const _elDropdownSize = computed(() => elDropdown?.dropdownSize);
 
   return {
@@ -24,7 +24,7 @@ export const initDropdownDomEvent = (
     props: { hideOnClick: any; splitButton: any; tabindex: any };
   },
 ) => {
-  const ns = useNamespace('dropdown');
+  const ns = useNamespace('dropdown', { isCssModule: false });
   const menuItems = ref<Nullable<HTMLButtonElement[]>>(null);
   const menuItemsArray = ref<Nullable<HTMLElement[]>>(null);
   const dropdownElm = ref<Nullable<HTMLElement>>(null);

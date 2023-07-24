@@ -1,16 +1,17 @@
 import { triggerEvent } from '@etfma/shared';
-import { EVENT_CODE } from '../../../focus-trap';
 import SubMenu from './submenu';
+import { EVENT_CODE } from '../../../focus-trap';
 
 class MenuItem {
-  public submenu: SubMenu | undefined;
-  constructor(public domNode: HTMLElement) {
-    this.init();
+  public submenu: SubMenu | null = null;
+  constructor(public domNode: HTMLElement, namespace: string) {
+    this.submenu = null;
+    this.init(namespace);
   }
 
-  init(): void {
+  init(namespace: string): void {
     this.domNode.setAttribute('tabindex', '0');
-    const menuChild = this.domNode.querySelector(`.menu`);
+    const menuChild = this.domNode.querySelector(`.${namespace}-menu`);
     if (menuChild) {
       this.submenu = new SubMenu(this, menuChild);
     }

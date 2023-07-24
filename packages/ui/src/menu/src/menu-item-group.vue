@@ -20,5 +20,5 @@
 
   defineProps(menuItemGroupProps);
 
-  const ns = useNamespace('menu-item-group');
+  const ns = useNamespace('menu-item-group', { isCssModule: false });
 </script>

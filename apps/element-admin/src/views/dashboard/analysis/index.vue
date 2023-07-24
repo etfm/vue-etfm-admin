@@ -1,19 +1,15 @@
 <script setup lang="ts">
-  // import { ElSwitch, ElDivider, ElButton } from 'element-plus';
-  // import { reactive } from 'vue';
+  import { ElSwitch, ElDivider, ElButton } from 'element-plus';
+  import { reactive } from 'vue';
   import { skeleton } from '@etfma/core';
   import { useNamespace } from '@etfma/hooks';
   import {
-    // EtfmaTooltip,
-    // EtfmaDropdownItem,
-    // EtfmaDropdownMenu,
-    // EtfmaDropdown,
-    // EtfmaDropdown,
-    // EtfmaDropdownItem,
-    // EtfmaDropdownMenu,
+    EtfmaTooltip,
+    EtfmaDropdown,
+    EtfmaDropdownItem,
+    EtfmaDropdownMenu,
     EtfmaMenu,
     EtfmaSubMenu,
-    EtfmaMenuItemGroup,
     EtfmaMenuItem,
   } from '@etfma/ui';
   import { ref } from 'vue';
@@ -25,41 +21,41 @@
 
   const ns = useNamespace('analysis');
 
-  // const modelArea = reactive({
-  //   isLeft: true,
-  //   isHeader: true,
-  //   isRight: true,
-  //   isBottom: true,
-  //   isToolbar: true,
-  //   isLeftFixed: true,
-  //   isLeftFloat: false,
-  // });
+  const modelArea = reactive({
+    isLeft: true,
+    isHeader: true,
+    isRight: true,
+    isBottom: true,
+    isToolbar: true,
+    isLeftFixed: true,
+    isLeftFloat: false,
+  });
 
-  // const modelWidget = reactive({
-  //   isLeft: true,
-  //   isHeader: true,
-  //   isRight: true,
-  //   isBottom: true,
-  //   isToolbar: true,
-  //   isLeftFixed: true,
-  //   isLeftFloat: false,
-  // });
+  const modelWidget = reactive({
+    isLeft: true,
+    isHeader: true,
+    isRight: true,
+    isBottom: true,
+    isToolbar: true,
+    isLeftFixed: true,
+    isLeftFloat: false,
+  });
 
-  // function handleArea(e, name) {
-  //   if (e) {
-  //     skeleton.showArea(name);
-  //   } else {
-  //     skeleton.hideArea(name);
-  //   }
-  // }
+  function handleArea(e, name) {
+    if (e) {
+      skeleton.showArea(name);
+    } else {
+      skeleton.hideArea(name);
+    }
+  }
 
-  // function handleWidget(e, name) {
-  //   if (e) {
-  //     skeleton.showWidget(name);
-  //   } else {
-  //     skeleton.hideWidget(name);
-  //   }
-  // }
+  function handleWidget(e, name) {
+    if (e) {
+      skeleton.showWidget(name);
+    } else {
+      skeleton.hideWidget(name);
+    }
+  }
 
   skeleton.onHideWidget((name) => {
     console.log('监听隐藏widget事件', name);
@@ -108,8 +104,8 @@
       <etfma-menu-item index="3" disabled>Info</etfma-menu-item>
       <etfma-menu-item index="4">Orders</etfma-menu-item>
     </etfma-menu>
-    <!-- <div class="h-6" /> -->
-    <!-- <etfma-menu
+    <div class="h-6" />
+    <etfma-menu
       :default-active="activeIndex2"
       class="etfma-menu-demo"
       mode="horizontal"
@@ -133,8 +129,8 @@
       </etfma-sub-menu>
       <etfma-menu-item index="3" disabled>Info</etfma-menu-item>
       <etfma-menu-item index="4">Orders</etfma-menu-item>
-    </etfma-menu> -->
-    <!-- <ElDivider content-position="left">Area操作</ElDivider>
+    </etfma-menu>
+    <ElDivider content-position="left">Area操作</ElDivider>
     <div>
       左侧菜单栏：
       <ElSwitch v-model="modelArea.isLeft" @change="(e) => handleArea(e, 'aside')" />
@@ -165,9 +161,9 @@
     </div>
     <ElDivider content-position="left">Widget操作</ElDivider>
     widget显示隐藏：
-    <ElSwitch v-model="modelWidget.isLeft" @change="(e) => handleWidget(e, 'leftArea')" /> -->
+    <ElSwitch v-model="modelWidget.isLeft" @change="(e) => handleWidget(e, 'leftArea')" />
 
-    <!-- <etfma-breadcrumb separator="/">
+    <etfma-breadcrumb separator="/">
       <etfma-breadcrumb-item :to="{ path: '/' }">homepage</etfma-breadcrumb-item>
       <etfma-breadcrumb-item><a href="/">promotion management</a></etfma-breadcrumb-item>
       <etfma-breadcrumb-item>promotion list</etfma-breadcrumb-item>
@@ -191,8 +187,8 @@
     <EtfmaTooltip placement="top">
       <template #content> multiple lines<br />second line </template>
       Top center
-    </EtfmaTooltip> -->
-    <!-- <EtfmaTooltip effect="light" content="I am an EtfmaTooltip">
+    </EtfmaTooltip>
+    <EtfmaTooltip effect="light" content="I am an EtfmaTooltip">
       <span> Some content </span>
     </EtfmaTooltip>
 
@@ -235,8 +231,8 @@
           <etfma-dropdown-item divided>Action 5</etfma-dropdown-item>
         </etfma-dropdown-menu>
       </template>
-    </etfma-dropdown> -->
-    <!-- <EtfmaDropdown>
+    </etfma-dropdown>
+    <EtfmaDropdown>
       <span class="etfma-dropdown-link"> Dropdown List </span>
       <template #dropdown>
         <EtfmaDropdownMenu>
@@ -247,7 +243,7 @@
           <EtfmaDropdownItem divided>Action 5</EtfmaDropdownItem>
         </EtfmaDropdownMenu>
       </template>
-    </EtfmaDropdown> -->
+    </EtfmaDropdown>
   </div>
 </template>
 <style scoped lang="scss" module>

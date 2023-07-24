@@ -22,7 +22,7 @@
   import { composeEventHandlers, whenMouse } from '@etfma/shared';
 
   export default defineComponent({
-    name: 'ElDropdownItem',
+    name: 'EtfmDropdownItem',
     components: {
       ElDropdownCollectionItem,
       EtfmaRovingFocusItem,

@@ -73,7 +73,7 @@ export const subMenuProps = buildProps({
 } as const);
 export type SubMenuProps = ExtractPropTypes<typeof subMenuProps>;
 
-const COMPONENT_NAME = 'EtfmaSubMenu';
+const COMPONENT_NAME = 'EtfmSubMenu';
 export default defineComponent({
   name: COMPONENT_NAME,
   props: subMenuProps,
@@ -95,8 +95,8 @@ export default defineComponent({
       instance,
       computed(() => props.index),
     );
-    const nsMenu = useNamespace('menu');
-    const nsSubMenu = useNamespace('sub-menu');
+    const nsMenu = useNamespace('menu', { isCssModule: false });
+    const nsSubMenu = useNamespace('sub-menu', { isCssModule: false });
 
     // inject
     const rootMenu = inject<MenuProvider>('rootMenu');
@@ -256,7 +256,7 @@ export default defineComponent({
       ));
 
       if (appendToBody.value && deepDispatch) {
-        if (instance.parent?.type.name === 'EtfmaSubMenu') {
+        if (instance.parent?.type.name === 'EtfmSubMenu') {
           subMenu?.handleMouseleave?.(true);
         }
       }

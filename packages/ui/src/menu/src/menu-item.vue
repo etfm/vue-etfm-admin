@@ -54,13 +54,11 @@
   const emit = defineEmits(menuItemEmits);
   const instance = getCurrentInstance()!;
   const rootMenu = inject<MenuProvider>('rootMenu');
-  const nsMenu = useNamespace('menu');
-  const nsMenuItem = useNamespace('menu-item');
+  const nsMenu = useNamespace('menu', { isCssModule: false });
+  const nsMenuItem = useNamespace('menu-item', { isCssModule: false });
   if (!rootMenu) loggerError(COMPONENT_NAME, 'can not inject root menu');
 
   const { parentMenu, indexPath } = useMenu(instance, toRef(props as any, 'index'));
-
-  console.log(parentMenu.value, '----------------');
 
   const subMenu = inject<SubMenuProvider>(`subMenu:${parentMenu.value.uid}`);
   if (!subMenu) loggerError(COMPONENT_NAME, 'can not inject sub menu');

@@ -1,6 +1,7 @@
-import { buildProps } from '@etfma/shared';
-import { iconPropType } from '../../menu';
-import type { ExtractPropTypes } from 'vue';
+import { buildProps, definePropType } from '@etfma/shared';
+import type { Component, ExtractPropTypes } from 'vue';
+
+export const iconPropType = definePropType<string | Component>([String, Object, Function]);
 
 export const breadcrumbProps = buildProps({
   /**

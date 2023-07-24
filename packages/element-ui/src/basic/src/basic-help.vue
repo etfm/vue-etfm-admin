@@ -34,4 +34,4 @@
     return true;
   });
 </script>
-<style scoped lang="scss"></style>
+<style module lang="scss"></style>

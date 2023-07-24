@@ -4,7 +4,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "types": ["unplugin-vue-define-options/macros-global", "vite/client"],
-    "moduleResolution": "bundler"
+    "moduleResolution": "node"
   },
   "vueCompilerOptions": {
     "target": 3,

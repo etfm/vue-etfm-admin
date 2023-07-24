@@ -51,7 +51,7 @@
     <slot />
   </div>
 </template>
-<style scoped lang="scss">
+<style module lang="scss">
   @include b(tab-pane-tag) {
     margin: 4px 3px;
     cursor: pointer;

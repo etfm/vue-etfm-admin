@@ -37,7 +37,7 @@
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss" module>
   @include b(basic-drawer-header) {
     display: flex;
     align-items: center;

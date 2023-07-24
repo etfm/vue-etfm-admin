@@ -4,7 +4,7 @@
   import { Icon } from '@etfma/icon';
   import { computed } from 'vue';
 
-  const ns = useNamespace('basic-menu-item-content');
+  useNamespace('basic-menu-item-content');
 
   defineOptions({
     name: 'BasicMenuItemContent',
@@ -45,4 +45,4 @@
   <span v-if="showTitle">{{ menu.name }}</span>
 </template>
 
-<style lang="scss" scoped module></style>
+<style lang="scss" module></style>

@@ -174,7 +174,7 @@
     />
   </div>
 </template>
-<style scoped lang="scss">
+<style module lang="scss">
   @include b('phm') {
     position: relative;
     width: 100%;

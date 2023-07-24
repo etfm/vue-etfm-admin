@@ -8,7 +8,7 @@ import { definePropType, buildProps } from '@etfma/shared';
 import { EVENT_CODE } from '../../focus-trap';
 import { createCollectionWithScope } from '../../collection';
 
-export const iconPropType = definePropType<string | Component>([String, Object, Function]);
+const iconPropType = definePropType<string | Component>([String, Object, Function]);
 
 export interface IElDropdownInstance {
   instance?: ComponentInternalInstance;

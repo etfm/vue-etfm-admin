@@ -156,7 +156,7 @@
     </template>
   </ElDrawer>
 </template>
-<style lang="scss" scoped>
+<style lang="scss" module>
   @include b(basic-drawer) {
   }
 </style>

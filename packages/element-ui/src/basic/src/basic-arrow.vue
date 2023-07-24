@@ -27,7 +27,7 @@
     ];
   });
 </script>
-<style lang="scss" scoped>
+<style lang="scss" module>
   @include b(basic-arrow) {
     display: inline-block;
     cursor: pointer;

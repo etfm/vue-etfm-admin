@@ -26,7 +26,7 @@
   <DrawerSetting @register="register" />
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss" module>
   @include b(p-setting) {
     padding: 0 16px;
     outline: none;

@@ -16,7 +16,7 @@
     showTitle?: boolean;
   }
 
-  const props = withDefaults(defineProps<Props>(), {
+  withDefaults(defineProps<Props>(), {
     showTitle: true,
   });
 </script>
@@ -29,4 +29,4 @@
   </EtfmaMenuItem>
 </template>
 
-<style lang="scss" scoped module></style>
+<style lang="scss" module></style>

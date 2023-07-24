@@ -52,4 +52,4 @@
   </EtfmaSubMenu>
 </template>
 
-<style module lang="scss" scoped></style>
+<style module lang="scss"></style>

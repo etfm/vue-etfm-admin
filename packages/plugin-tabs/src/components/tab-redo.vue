@@ -33,7 +33,7 @@
     @click="handleRedo"
   />
 </template>
-<style scoped lang="scss">
+<style module lang="scss">
   @include b(tab-redo) {
     margin: 0 8px;
     cursor: pointer;

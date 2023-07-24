@@ -152,7 +152,7 @@
   </EtfmaMenu>
 </template>
 
-<style scoped lang="scss">
+<style module lang="scss">
   @include b('basic-menu') {
     width: 100%;
     border-right: none;

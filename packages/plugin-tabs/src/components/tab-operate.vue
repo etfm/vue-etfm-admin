@@ -51,7 +51,7 @@
   </div>
 </template>
 
-<style scoped lang="scss">
+<style module lang="scss">
   @include b(op) {
     cursor: pointer;
     outline: none;

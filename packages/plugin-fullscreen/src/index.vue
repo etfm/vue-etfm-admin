@@ -40,7 +40,7 @@
     <Icon :icon="getIcon" :size="22"></Icon>
   </div>
 </template>
-<style lang="scss" scoped>
+<style lang="scss" module>
   @include b(pf) {
     display: flex;
     align-items: center;

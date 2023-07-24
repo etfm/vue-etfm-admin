@@ -154,7 +154,7 @@
     <slot name="right" />
   </div>
 </template>
-<style scoped lang="scss">
+<style module lang="scss">
   @include b(tabs) {
     display: flex;
     flex: 1;

@@ -41,7 +41,7 @@
     <Icon :icon="icon" color="#C0C4CC" />
   </div>
 </template>
-<style scoped lang="scss">
+<style module lang="scss">
   @include b('layout-trigger') {
     width: 24px;
     height: 24px;

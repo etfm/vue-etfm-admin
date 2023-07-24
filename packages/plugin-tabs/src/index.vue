@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { computed, ref, unref, watch } from 'vue';
-  import { RouteLocationNormalized, RouteMeta, useRouter } from 'vue-router';
+  import { RouteLocationNormalized, RouteMeta, useRouter } from '@etfma/core';
   import { useMultipleTab } from './hooks/use-multiple-tab';
   import { EtfmaTag } from '@etfma/ui';
   import Tabs from './components/tabs.vue';
@@ -118,7 +118,7 @@
     </template>
   </Tabs>
 </template>
-<style scoped lang="scss">
+<style module lang="scss">
   @include b(tabs-main-arrow-down) {
     margin: 0 8px;
     outline: none;

@@ -163,7 +163,7 @@
     </div>
   </div>
 </template>
-<style scoped lang="scss" module>
+<style lang="scss" module>
   @include b('pa') {
     position: relative;
     height: 100%;

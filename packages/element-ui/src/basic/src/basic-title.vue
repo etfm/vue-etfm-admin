@@ -20,7 +20,7 @@
     <BasicHelp :class="ns.b()" v-if="helpMessage" :text="helpMessage" />
   </span>
 </template>
-<style lang="scss" scoped>
+<style lang="scss" module>
   @include b(basic-title) {
     display: flex;
     position: relative;

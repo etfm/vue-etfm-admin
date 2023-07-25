@@ -15,7 +15,6 @@
   "sideEffects": false,
   "exports": {
     ".": {
-      "development": "./src/index.ts",
       "types": "./dist/index.d.ts",
       "default": "./dist/index.mjs"
     }
@@ -37,7 +36,10 @@
     "@etfma/core": "workspace:^",
     "@etfma/design": "workspace:^",
     "@etfma/hooks": "workspace:*",
-    "@etfma/shared": "workspace:^"
+    "@etfma/shared": "workspace:^",
+    "vue": "^3.3.4",
+    "vue-i18n": "^9.2.2",
+    "vue-router": "^4.1.6"
   },
   "devDependencies": {
     "@etfma/types": "workspace:^0.0.0"

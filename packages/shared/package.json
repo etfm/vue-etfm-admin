@@ -39,7 +39,8 @@
     "@vueuse/shared": "^9.13.0",
     "dayjs": "^1.11.7",
     "lodash-es": "^4.17.21",
-    "qs": "^6.11.2"
+    "qs": "^6.11.2",
+    "vue": "^3.3.4"
   },
   "devDependencies": {
     "@etfma/types": "workspace:^0.0.0",

@@ -3,7 +3,8 @@
   "extends": "@etfma/ts/web.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "types": ["unplugin-vue-define-options/macros-global"]
+    "types": ["unplugin-vue-define-options/macros-global"],
+    "moduleResolution": "Node"
   },
   "vueCompilerOptions": {
     "target": 3,

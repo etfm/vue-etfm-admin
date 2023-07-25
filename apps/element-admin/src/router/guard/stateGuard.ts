@@ -4,7 +4,7 @@ import { useUserStore } from '@/store/user';
 import { usePermissionStore } from '@/store/permission';
 import { PageEnum } from '../enum';
 // import { removeTabChangeListener } from '@/logics/mitt';
-import { Router } from '@etfma/core';
+import type { Router } from 'vue-router';
 
 export function createStateGuard(router: Router) {
   router.afterEach((to) => {

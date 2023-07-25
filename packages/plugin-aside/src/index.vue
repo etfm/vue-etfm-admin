@@ -3,9 +3,8 @@
   import { useNamespace } from '@etfma/hooks';
   import Trigger from './components/trigger/index.vue';
   import { EtfmaScrollbar } from '@etfma/ui';
-  import { reactive, watch, computed } from 'vue';
-  import { event, material, type AppRouteRecordRaw } from '@etfma/core';
-  import { useRouter } from '@etfma/core';
+  import { computed, reactive, watch } from 'vue';
+  import { event, material, type AppRouteRecordRaw, useRouter } from '@etfma/core';
   import { MenuRecordRaw } from '@etfma/types';
   import { useMenu } from './hooks/use-menu';
   import { MenuTypeEnum } from './enum';
@@ -54,7 +53,7 @@
     menus: () => [],
   });
 
-  const { push, currentRoute } = useRouter();
+  const { currentRoute, push } = useRouter();
 
   const ns = useNamespace('pa');
   const { getMenu, transformRouteToMenu } = useMenu();
@@ -120,7 +119,6 @@
    */
   material.onChangeAssets('routes', (routes: AppRouteRecordRaw[]) => {
     if (model.type === MenuTypeEnum.SPLIT_MENU) return;
-
     const transfromMenus = transformRouteToMenu(routes);
     const menus = getMenu(transfromMenus);
     model.menus = menus;

@@ -7,7 +7,8 @@
 import { createPermissionGuard } from './permissionGuard';
 import { createStateGuard } from './stateGuard';
 // import { setRouteChange } from '@/logics/mitt';
-import { RouteLocationNormalized, Router, event } from '@etfma/core';
+import { event } from '@etfma/core';
+import type { RouteLocationNormalized, Router } from 'vue-router';
 // import nProgress from 'nprogress'
 // import projectSetting from '/@/settings/projectSetting'
 // import { createParamMenuGuard } from './paramMenuGuard'

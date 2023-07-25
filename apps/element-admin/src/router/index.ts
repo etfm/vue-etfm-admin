@@ -2,13 +2,9 @@ import { mainOutRoutes } from './mainOut';
 import { PAGE_NOT_FOUND_ROUTE } from './basic';
 import { BASE_HOME } from './constant';
 import { loggerWarning, traverseTree } from '@etfma/shared';
-import {
-  AppRouteModule,
-  AppRouteRecordRaw,
-  RouteRecordName,
-  RouteRecordRaw,
-  globalRouter,
-} from '@etfma/core';
+import { AppRouteModule, AppRouteRecordRaw, globalRouter } from '@etfma/core';
+
+import { RouteRecordName, RouteRecordRaw } from 'vue-router';
 
 // import.meta.globEager() 直接引入所有的模块 Vite 独有的功能
 const modules = import.meta.glob('./modules/**/*.ts');

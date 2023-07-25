@@ -15,7 +15,6 @@
   "sideEffects": false,
   "exports": {
     ".": {
-      "development": "./src/index.ts",
       "default": "./dist/index.mjs",
       "types": "./dist/index.d.ts"
     }
@@ -42,9 +41,7 @@
     "events": "^3.3.0",
     "intl-messageformat": "^10.3.5",
     "power-di": "^2.4.37",
-    "store": "^2.0.12",
-    "vue-i18n": "^9.2.2",
-    "vue-router": "^4.1.6"
+    "store": "^2.0.12"
   },
   "devDependencies": {
     "@etfma/types": "workspace:^0.0.0",
@@ -53,7 +50,9 @@
     "strict-event-emitter-types": "^2.0.0"
   },
   "peerDependencies": {
-    "vue": "^3.3.4"
+    "vue": "^3.3.4",
+    "vue-i18n": "^9.2.2",
+    "vue-router": "^4.1.6"
   },
   "publishConfig": {
     "access": "public",

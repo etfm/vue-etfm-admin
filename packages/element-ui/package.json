@@ -40,10 +40,13 @@
     "@etfma/hooks": "workspace:*",
     "@etfma/icon": "workspace:^0.0.0",
     "@etfma/shared": "workspace:*",
-    "@etfma/ui": "workspace:^0.0.0"
+    "@etfma/ui": "workspace:^0.0.0",
+    "element-plus": "^2.3.2",
+    "vue": "^3.3.4"
   },
   "devDependencies": {
-    "@etfma/types": "workspace:*"
+    "@etfma/types": "workspace:*",
+    "unplugin-element-plus": "^0.7.0"
   },
   "publishConfig": {
     "access": "public",

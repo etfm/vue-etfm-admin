@@ -1,4 +1,13 @@
-import { PRE, PRE_DARK, PRE_LIGHT, WHITE, BLACK } from './token';
+import {
+  PRE,
+  PRE_DARK,
+  PRE_LIGHT,
+  WHITE,
+  BLACK,
+  ETFM_PRE,
+  ETFM_PRE_LIGHT,
+  ETFM_PRE_DARK,
+} from './token';
 import { onBeforeMount } from 'vue';
 
 const html = document.documentElement;
@@ -31,16 +40,19 @@ const changeTheme = (color?: string) => {
   if (!color) return;
   // 设置主要颜色
   html.style.setProperty(PRE, color);
+  html.style.setProperty(ETFM_PRE, color);
   // 循环设置次级颜色
   for (let i = 1; i < 10; i += 1) {
     html.style.setProperty(`${PRE_LIGHT}-${i}`, mix(color, WHITE, i * 0.1));
+    html.style.setProperty(`${ETFM_PRE_LIGHT}-${i}`, mix(color, WHITE, i * 0.1));
   }
   // 设置主要暗色
   const dark = mix(color, BLACK, 0.2);
   html.style.setProperty(`${PRE_DARK}-2`, dark);
+  html.style.setProperty(`${ETFM_PRE_DARK}-2`, dark);
 };
 
-export function useElementPlusTheme(color?: string) {
+export function useTheme(color?: string) {
   onBeforeMount(() => changeTheme(color));
 
   return {

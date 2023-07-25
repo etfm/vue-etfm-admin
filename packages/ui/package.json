@@ -41,7 +41,9 @@
     "@etfma/hooks": "workspace:*",
     "@etfma/shared": "workspace:*",
     "@popperjs/core": "^2.11.8",
-    "@vueuse/core": "^9.13.0"
+    "@vueuse/core": "^9.13.0",
+    "vue": "^3.3.4",
+    "vue-router": "^4.1.6"
   },
   "devDependencies": {
     "@etfma/types": "workspace:*",

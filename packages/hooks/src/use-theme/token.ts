@@ -4,8 +4,8 @@ const PRE_LIGHT = `${PRE}-light`;
 const PRE_DARK = `${PRE}-dark`;
 
 const ETFM_PRE = '--etfm-color-primary';
-const ETFM_PRE_LIGHT = `${PRE}-light`;
-const ETFM_PRE_DARK = `${PRE}-dark`;
+const ETFM_PRE_LIGHT = `${ETFM_PRE}-light`;
+const ETFM_PRE_DARK = `${ETFM_PRE}-dark`;
 
 /** 白色 */
 const WHITE = '#ffffff';

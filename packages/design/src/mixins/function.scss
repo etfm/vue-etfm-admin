@@ -1,3 +1,5 @@
+@use 'sass:string';
+@use 'sass:color';
 @use 'config';
 
 // BEM support Func
@@ -82,4 +84,19 @@
 
   // @debug $name;
   @return $name;
+}
+
+@function rgb2hex($color) {
+  @return unquote('#' + #{string.slice(color.ie-hex-str($color), 4)});
+}
+
+// rgba color above solid color
+@function mix-overlay-color($upper, $lower) {
+  $opacity: color.alpha($upper);
+
+  $red: color.red($upper) * $opacity + color.red($lower) * (1 - $opacity);
+  $green: color.green($upper) * $opacity + color.green($lower) * (1 - $opacity);
+  $blue: color.blue($upper) * $opacity + color.blue($lower) * (1 - $opacity);
+
+  @return rgb2hex(rgb($red, $green, $blue));
 }

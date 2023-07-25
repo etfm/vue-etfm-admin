@@ -19,7 +19,7 @@
       :stop-popper-mouse-event="false"
       :virtual-ref="triggeringElementRef"
       :disabled="disabled"
-      :transition="`zoom-in-top`"
+      :transition="`${ns.namespace.value}-zoom-in-top`"
       :teleported="teleported"
       pure
       persistent

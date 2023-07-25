@@ -1,14 +1,17 @@
 <template>
-  <transition name="collapse-transition" v-on="on">
+  <transition :name="ns.b()" v-on="on">
     <slot />
   </transition>
 </template>
 <script lang="ts" setup>
+  import { useNamespace } from '@etfma/hooks';
   import type { RendererElement } from '@vue/runtime-core';
 
   defineOptions({
     name: 'EtfmCollapseTransition',
   });
+
+  const ns = useNamespace('collapse-transition', { isCssModule: false });
 
   const on = {
     beforeEnter(el: RendererElement) {

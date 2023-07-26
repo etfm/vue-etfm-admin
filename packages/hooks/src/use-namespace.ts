@@ -31,6 +31,7 @@ const _bem = (
 
   if (options.isCssModule) {
     const $style = useCssModule();
+
     return $style[cls];
   } else {
     return cls;

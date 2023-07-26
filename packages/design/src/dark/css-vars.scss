@@ -1,6 +1,7 @@
 // CSS3 var
 @use './var' as *;
-@use '../shared' as *;
+@use '../mixins/_var.scss' as *;
+@use '../mixins/mixins.scss' as *;
 
 html.dark {
   color-scheme: dark;

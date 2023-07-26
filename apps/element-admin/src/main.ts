@@ -1,5 +1,5 @@
-import '@etfma/design';
 import 'uno.css';
+import './styles/common.scss';
 
 import { plugins, init } from '@etfma/core';
 import PluginHttp from '@etfma/plugin-http';

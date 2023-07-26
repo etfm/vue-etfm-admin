@@ -16,7 +16,7 @@
     inheritAttrs: false,
   });
   const props = defineProps(iconProps);
-  const ns = useNamespace('icon');
+  const ns = useNamespace('icon', { isCssModule: false });
 
   const style = computed<CSSProperties>(() => {
     const { size, color } = props;
@@ -28,7 +28,7 @@
     };
   });
 </script>
-<style lang="scss" scoped module>
+<style lang="scss" scoped>
   @keyframes rotating {
     0% {
       transform: rotateZ(0deg);

@@ -3,6 +3,7 @@
   import { BasicDrawer, useDrawerInner } from '@etfma/element-ui';
   import { reactive } from 'vue';
   import { useTheme } from '@etfma/hooks';
+  import DarkMode from './components/dark-mode/index.vue';
 
   const { changeTheme } = useTheme();
 
@@ -20,6 +21,8 @@
 <template>
   <BasicDrawer @register="register" title="项目设置">
     <ElDivider> 主题 </ElDivider>
+    <DarkMode />
+
     <ElColorPicker v-model="model.color" @change="handleColorChange" />
 
     <ElDivider> 导航栏模式 </ElDivider>

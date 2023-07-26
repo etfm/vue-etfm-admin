@@ -2,7 +2,7 @@
 @use 'sass:math';
 
 @use '../common/var.scss' as common;
-@use '../shared' as *;
+@use '../mixins/mixins.scss' as *;
 
 $colors: () !default;
 @each $type in common.$types {

@@ -20,6 +20,12 @@
     },
     "./shared": {
       "default": "./src/_shared.scss"
+    },
+    "./dark": {
+      "default": "./src/dark/css-vars.scss"
+    },
+    "./light": {
+      "default": "./src/index.scss"
     }
   },
   "main": "./dist/index.mjs",

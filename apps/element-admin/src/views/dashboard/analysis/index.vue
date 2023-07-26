@@ -84,7 +84,7 @@
 </script>
 
 <template>
-  <div class="bg-white p-5 m-5" :class="[ns.b()]">
+  <div class="p-5 m-5" :class="[ns.b()]">
     <etfma-menu :default-active="activeIndex" class="etfma-menu-demo" @select="handleSelect">
       <etfma-menu-item index="1">Processing Center</etfma-menu-item>
       <etfma-sub-menu index="2">
@@ -244,6 +244,7 @@
     display: block;
     flex-direction: column;
     align-items: center;
+    // background-color: getCssVar();
   }
 </style>
 <style>

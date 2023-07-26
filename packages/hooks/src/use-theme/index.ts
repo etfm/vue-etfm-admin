@@ -7,11 +7,18 @@ import {
   ETFM_PRE,
   ETFM_PRE_LIGHT,
   ETFM_PRE_DARK,
+  DARK_WHITE,
+  DARK_BLOCK,
 } from './token';
-import { onBeforeMount } from 'vue';
+import { onBeforeMount, ref } from 'vue';
+
+import { useDark } from '@vueuse/core';
 
 const html = document.documentElement;
 
+const colorRef = ref('#409eff');
+
+const isDark = useDark();
 /**
  * 混合颜色
  */
@@ -37,17 +44,32 @@ const mix = (color1: string, color2: string, weight: number) => {
  * @param color 颜色
  */
 const changeTheme = (color?: string) => {
-  if (!color) return;
+  if (color) {
+    colorRef.value = color;
+  }
+
+  let colors = {
+    WHITE,
+    BLACK,
+  };
+
+  if (isDark.value) {
+    colors = {
+      WHITE: DARK_WHITE,
+      BLACK: DARK_BLOCK,
+    };
+  }
+
   // 设置主要颜色
-  html.style.setProperty(PRE, color);
-  html.style.setProperty(ETFM_PRE, color);
+  html.style.setProperty(PRE, colorRef.value);
+  html.style.setProperty(ETFM_PRE, colorRef.value);
   // 循环设置次级颜色
   for (let i = 1; i < 10; i += 1) {
-    html.style.setProperty(`${PRE_LIGHT}-${i}`, mix(color, WHITE, i * 0.1));
-    html.style.setProperty(`${ETFM_PRE_LIGHT}-${i}`, mix(color, WHITE, i * 0.1));
+    html.style.setProperty(`${PRE_LIGHT}-${i}`, mix(colorRef.value, colors.WHITE, i * 0.1));
+    html.style.setProperty(`${ETFM_PRE_LIGHT}-${i}`, mix(colorRef.value, colors.WHITE, i * 0.1));
   }
   // 设置主要暗色
-  const dark = mix(color, BLACK, 0.2);
+  const dark = mix(colorRef.value, colors.BLACK, 0.2);
   html.style.setProperty(`${PRE_DARK}-2`, dark);
   html.style.setProperty(`${ETFM_PRE_DARK}-2`, dark);
 };

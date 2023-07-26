@@ -5,13 +5,19 @@
   import { EtfmaIcon } from '@etfma/ui';
   import { computed, unref } from 'vue';
   import { useDark, useToggle } from '@vueuse/core';
+  import { useTheme } from '@etfma/hooks';
 
   defineOptions({
     name: 'DarkMode',
   });
 
   const ns = useNamespace('dark-mode');
-  const isDark = useDark();
+  const { changeTheme } = useTheme();
+  const isDark = useDark({
+    onChanged() {
+      changeTheme();
+    },
+  });
   const toggle = useToggle(isDark);
 
   const getClass = computed(() => [
@@ -23,7 +29,6 @@
 
   function toggleDarkMode() {
     toggle();
-    console.log(isDark.value);
   }
 </script>
 <template>

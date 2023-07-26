@@ -1,5 +1,6 @@
 import 'uno.css';
 import './styles/common.scss';
+import 'element-plus/theme-chalk/dark/css-vars.css';
 
 import { plugins, init } from '@etfma/core';
 import PluginHttp from '@etfma/plugin-http';

@@ -77,7 +77,6 @@
   });
 
   const activeIndex = ref('1');
-  const activeIndex2 = ref('1');
   const handleSelect = (key: string, keyPath: string[]) => {
     console.log(key, keyPath);
   };
@@ -102,31 +101,7 @@
       <etfma-menu-item index="3" disabled>Info</etfma-menu-item>
       <etfma-menu-item index="4">Orders</etfma-menu-item>
     </etfma-menu>
-    <div class="h-6" />
-    <etfma-menu
-      :default-active="activeIndex2"
-      class="etfma-menu-demo"
-      background-color="#545c64"
-      text-color="#fff"
-      active-text-color="#ffd04b"
-      @select="handleSelect"
-    >
-      <etfma-menu-item index="1">Processing Center</etfma-menu-item>
-      <etfma-sub-menu index="2">
-        <template #title>Workspace</template>
-        <etfma-menu-item index="2-1">item one</etfma-menu-item>
-        <etfma-menu-item index="2-2">item two</etfma-menu-item>
-        <etfma-menu-item index="2-3">item three</etfma-menu-item>
-        <etfma-sub-menu index="2-4">
-          <template #title>item four</template>
-          <etfma-menu-item index="2-4-1">item one</etfma-menu-item>
-          <etfma-menu-item index="2-4-2">item two</etfma-menu-item>
-          <etfma-menu-item index="2-4-3">item three</etfma-menu-item>
-        </etfma-sub-menu>
-      </etfma-sub-menu>
-      <etfma-menu-item index="3" disabled>Info</etfma-menu-item>
-      <etfma-menu-item index="4">Orders</etfma-menu-item>
-    </etfma-menu>
+
     <ElDivider content-position="left">Area操作</ElDivider>
     <div>
       左侧菜单栏：

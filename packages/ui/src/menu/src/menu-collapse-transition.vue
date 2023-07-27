@@ -17,13 +17,13 @@
       const listeners = {
         onBeforeEnter: (el) => (el.style.opacity = '0.2'),
         onEnter(el, done) {
-          addClass(el, `${ns.namespace.value}-opacity-transition`);
+          addClass(el, `${ns.namespace}-opacity-transition`);
           el.style.opacity = '1';
           done();
         },
 
         onAfterEnter(el) {
-          removeClass(el, `${ns.namespace.value}-opacity-transition`);
+          removeClass(el, `${ns.namespace}-opacity-transition`);
           el.style.opacity = '';
         },
 

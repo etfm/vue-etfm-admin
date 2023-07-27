@@ -4,6 +4,7 @@ import { unref } from 'vue';
 import { I18n, IEditor, IGlobalI18n, I18nContext } from '@etfma/types';
 import { engineConfig } from '../config';
 import { lodash } from '@etfma/shared';
+import { editor } from '../editor';
 
 const loadLocalePool: string[] = [];
 
@@ -38,12 +39,6 @@ export class GlobalI18n implements IGlobalI18n {
   constructor(editor: IEditor) {
     this._opts = INTL_OPTIONS;
 
-    engineConfig.onceGot('i18n').then((args: I18nContext) => {
-      this._opts = lodash.merge(this._opts, args);
-
-      this.init();
-    });
-
     editor.onGot('locale', (args: any) => {
       const locale = this._opts.locale;
 
@@ -51,7 +46,12 @@ export class GlobalI18n implements IGlobalI18n {
     });
   }
 
-  init() {
+  setConfig(args: I18nContext) {
+    this._opts = lodash.merge(this._opts, args);
+  }
+
+  init(args?: I18nContext) {
+    this._opts = lodash.merge(this._opts, args);
     this.setLoadLocalePool(this._opts.locale);
 
     this._i18n = createI18n({
@@ -95,3 +95,5 @@ export class GlobalI18n implements IGlobalI18n {
     }
   }
 }
+
+export const globalI18n = new GlobalI18n(editor);

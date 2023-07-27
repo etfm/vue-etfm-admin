@@ -3,11 +3,9 @@
  * 去除了namespace,增加了cssModule
  */
 
-import { computed, inject, ref, unref, useCssModule } from 'vue';
+import { useCssModule } from 'vue';
 
-import type { InjectionKey, Ref } from 'vue';
-
-export const defaultNamespace = 'etfm';
+let defaultNamespace = 'etfm';
 const statePrefix = 'is-';
 
 const _bem = (
@@ -38,38 +36,34 @@ const _bem = (
   }
 };
 
-export const namespaceContextKey: InjectionKey<Ref<string | undefined>> =
-  Symbol('namespaceContextKey');
+export const useGetNamespace = (namespaceOverrides?: string) => {
+  return namespaceOverrides || defaultNamespace;
+};
 
-export const useGetDerivedNamespace = (namespaceOverrides?: Ref<string | undefined>) => {
-  const derivedNamespace = namespaceOverrides || inject(namespaceContextKey, ref(defaultNamespace));
-  const namespace = computed(() => {
-    return unref(derivedNamespace) || defaultNamespace;
-  });
-  return namespace;
+export const useSetNamespace = (namespaceOverrides: string) => {
+  defaultNamespace = namespaceOverrides;
 };
 
 export interface NamespaceOptios {
   isCssModule?: boolean;
-  namespaceOverrides?: Ref<string | undefined>;
+  namespaceOverrides?: string;
 }
 
 export const useNamespace = (block: string, options: NamespaceOptios = { isCssModule: true }) => {
-  const namespace = useGetDerivedNamespace(options.namespaceOverrides);
-  const b = (blockSuffix = '') => _bem(namespace.value, block, blockSuffix, '', '', options);
-  const e = (element?: string) =>
-    element ? _bem(namespace.value, block, '', element, '', options) : '';
+  const namespace = useGetNamespace(options.namespaceOverrides);
+  const b = (blockSuffix = '') => _bem(namespace, block, blockSuffix, '', '', options);
+  const e = (element?: string) => (element ? _bem(namespace, block, '', element, '', options) : '');
   const m = (modifier?: string) =>
-    modifier ? _bem(namespace.value, block, '', '', modifier, options) : '';
+    modifier ? _bem(namespace, block, '', '', modifier, options) : '';
   const be = (blockSuffix?: string, element?: string) =>
-    blockSuffix && element ? _bem(namespace.value, block, blockSuffix, element, '', options) : '';
+    blockSuffix && element ? _bem(namespace, block, blockSuffix, element, '', options) : '';
   const em = (element?: string, modifier?: string) =>
-    element && modifier ? _bem(namespace.value, block, '', element, modifier, options) : '';
+    element && modifier ? _bem(namespace, block, '', element, modifier, options) : '';
   const bm = (blockSuffix?: string, modifier?: string) =>
-    blockSuffix && modifier ? _bem(namespace.value, block, blockSuffix, '', modifier, options) : '';
+    blockSuffix && modifier ? _bem(namespace, block, blockSuffix, '', modifier, options) : '';
   const bem = (blockSuffix?: string, element?: string, modifier?: string) =>
     blockSuffix && element && modifier
-      ? _bem(namespace.value, block, blockSuffix, element, modifier, options)
+      ? _bem(namespace, block, blockSuffix, element, modifier, options)
       : '';
   const is: {
     (name: string, state: boolean | undefined): string;
@@ -90,7 +84,7 @@ export const useNamespace = (block: string, options: NamespaceOptios = { isCssMo
     const styles: Record<string, string> = {};
     for (const key in object) {
       if (object[key]) {
-        styles[`--${namespace.value}-${key}`] = object[key];
+        styles[`--${namespace}-${key}`] = object[key];
       }
     }
     return styles;
@@ -100,14 +94,14 @@ export const useNamespace = (block: string, options: NamespaceOptios = { isCssMo
     const styles: Record<string, string> = {};
     for (const key in object) {
       if (object[key]) {
-        styles[`--${namespace.value}-${block}-${key}`] = object[key];
+        styles[`--${namespace}-${block}-${key}`] = object[key];
       }
     }
     return styles;
   };
 
-  const cssVarName = (name: string) => `--${namespace.value}-${name}`;
-  const cssVarBlockName = (name: string) => `--${namespace.value}-${block}-${name}`;
+  const cssVarName = (name: string) => `--${namespace}-${name}`;
+  const cssVarBlockName = (name: string) => `--${namespace}-${block}-${name}`;
 
   return {
     namespace,

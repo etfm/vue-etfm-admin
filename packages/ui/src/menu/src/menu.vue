@@ -259,7 +259,7 @@
       // lifecycle
       onMounted(() => {
         if (props.mode === 'horizontal') {
-          new Menubar(instance.vnode.el!, nsMenu.namespace.value);
+          new Menubar(instance.vnode.el!, nsMenu.namespace);
         }
       });
 

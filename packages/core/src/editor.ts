@@ -2,9 +2,17 @@ import { EventEmitter } from 'events';
 import { observable, define } from './obx';
 import { EventBus } from './event-bus';
 import type { IEditor, IPublicTypeEditorGetResult, IPublicTypeEditorValueKey } from '@etfma/types';
+import { EngineConfig, engineConfig } from './config';
+import { Logger } from '@etfma/shared';
+
+// inner instance keys which should not be stored in config
+const keyBlacklist = ['skeleton', 'plugins', 'material', 'innerPlugins', 'routes', 'locale', 'app'];
+const keyAssetsList = ['routes', 'locale'];
+const logger = new Logger({ bizName: 'material' });
 
 export class Editor extends EventEmitter implements IEditor {
   context = new Map<IPublicTypeEditorValueKey, any>();
+  config: EngineConfig;
 
   eventBus: EventBus;
 
@@ -20,6 +28,7 @@ export class Editor extends EventEmitter implements IEditor {
     super();
     this.setMaxListeners(200);
     this.eventBus = new EventBus(this);
+    this.config = engineConfig;
     this.makeObservable();
   }
 
@@ -45,9 +54,21 @@ export class Editor extends EventEmitter implements IEditor {
   }
 
   async setAssets(key: string, assets: any) {
-    if (!key) return;
-    this.context.set(key, assets);
-    this.notifyGot(key);
+    if (keyAssetsList.includes(key)) {
+      await this.set(key, assets);
+    } else {
+      logger.warn(`failed to config ${key} to material, 资源注册只支持${keyAssetsList}`);
+    }
+  }
+
+  registerAssets(data: any, key?: IPublicTypeEditorValueKey) {
+    // 避免覆盖别的资源
+    if (keyAssetsList.includes(key || data)) {
+      logger.warn(`failed to config ${key || data} to material, 该资源已被注册：${keyAssetsList}`);
+      return;
+    }
+    keyAssetsList.push(key || data);
+    this.set(key || data, data);
   }
 
   onceGot<T = undefined, KeyOrType extends IPublicTypeEditorValueKey = any>(
@@ -77,8 +98,12 @@ export class Editor extends EventEmitter implements IEditor {
   }
 
   register(data: any, key?: IPublicTypeEditorValueKey): void {
-    this.context.set(key || data, data);
-    this.notifyGot(key || data);
+    if (keyBlacklist.includes(key || data)) {
+      logger.warn(`failed to config ${key || data} to global, 该配置已被注册：${keyBlacklist}`);
+      return;
+    }
+    keyBlacklist.push(key || data);
+    this.set(key || data, data);
   }
 
   destroy(): void {
@@ -133,5 +158,7 @@ export class Editor extends EventEmitter implements IEditor {
     }
   }
 }
+
+export const editor = new Editor();
 
 export const commonEvent = new EventBus(new EventEmitter());

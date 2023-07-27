@@ -9,51 +9,59 @@ import type {
 const logger = new Logger({ bizName: 'Config' });
 
 // this default behavior will be different later
-const STRICT_PLUGIN_MODE_DEFAULT = true;
+// const STRICT_PLUGIN_MODE_DEFAULT = true;
 
 // used in strict mode, when only options in this VALID_ENGINE_OPTIONS can be accepted
 // type and description are only used for developer`s assistance, won`t affect runtime
 const VALID_ENGINE_OPTIONS = {
   i18n: {
     type: 'object',
+    storage: true,
     description: '语言',
+  },
+  theme: {
+    type: 'object',
+    storage: true,
+    description: '主题',
   },
   router: {
     type: 'object',
+    storage: false,
     description: '路由， 继承vue-router所有配置',
   },
-  enableStrictPluginMode: {
-    type: 'boolean',
-    default: STRICT_PLUGIN_MODE_DEFAULT,
-    description:
-      '开启严格插件模式，默认值：STRICT_PLUGIN_MODE_DEFAULT , 严格模式下，插件将无法通过 engineOptions 传递自定义配置项',
+  ENGINE_VERSION: {
+    type: 'string',
+    storage: true,
+    description: 'Etfm-Admin-Engine 版本',
   },
+  // enableStrict: {
+  //   type: 'boolean',
+  //   storage: false,
+  //   default: STRICT_PLUGIN_MODE_DEFAULT,
+  //   description:
+  //     '开启严格插件模式，默认值：STRICT_PLUGIN_MODE_DEFAULT , 严格模式下，插件将无法通过自定义配置项',
+  // },
 };
 
-const getStrictModeValue = (
-  engineOptions: IPublicTypeEngineOptions,
-  defaultValue: boolean,
-): boolean => {
-  if (!engineOptions || !lodash.isPlainObject(engineOptions)) {
-    return defaultValue;
-  }
-  if (
-    engineOptions.enableStrictPluginMode === undefined ||
-    engineOptions.enableStrictPluginMode === null
-  ) {
-    return defaultValue;
-  }
-  return engineOptions.enableStrictPluginMode;
-};
+const STORE_MODULE = 'CONFIG';
+
+// const getStrictModeValue = (
+//   engineOptions: IPublicTypeEngineOptions,
+//   defaultValue: boolean,
+// ): boolean => {
+//   if (!engineOptions || !lodash.isPlainObject(engineOptions)) {
+//     return defaultValue;
+//   }
+//   if (
+//     engineOptions.enableStrictPluginMode === undefined ||
+//     engineOptions.enableStrictPluginMode === null
+//   ) {
+//     return defaultValue;
+//   }
+//   return engineOptions.enableStrictPluginMode;
+// };
 
 export interface IEngineConfig extends IPublicModelEngineConfig {
-  /**
-   * if engineOptions.strictPluginMode === true, only accept propertied predefined in EngineOptions.
-   *
-   * @param {IPublicTypeEngineOptions} engineOptions
-   */
-  setEngineOptions(engineOptions: IPublicTypeEngineOptions): void;
-
   notifyGot(key: string): void;
 
   setWait(key: string, resolve: (data: any) => void, once?: boolean): void;
@@ -81,6 +89,17 @@ export class EngineConfig implements IEngineConfig {
   constructor(config?: { [key: string]: any }) {
     this.config = config || {};
     this.preference = new Preference();
+
+    const configs = this.preference.getModule(STORE_MODULE);
+    const prefix = this.preference.getStoragePrefix(STORE_MODULE);
+
+    for (const key in configs) {
+      if (Object.prototype.hasOwnProperty.call(configs, key)) {
+        const configKey = key.split(prefix)[1] || '';
+
+        configKey && (this.config[configKey] = configs[key]);
+      }
+    }
   }
 
   /**
@@ -106,20 +125,26 @@ export class EngineConfig implements IEngineConfig {
    * @param value
    */
   set(key: string, value: any) {
-    this.config[key] = value;
-    this.notifyGot(key);
-  }
+    // const strictMode = getStrictModeValue({ [key]: value }, STRICT_PLUGIN_MODE_DEFAULT) === true;
+    // if (strictMode) {
+    const result = VALID_ENGINE_OPTIONS[key];
+    const isValidKey = () => {
+      return !(result === undefined || result === null);
+    };
 
-  /**
-   * 批量设值，set 的对象版本
-   * @param config
-   */
-  setConfig(config: { [key: string]: any }) {
-    if (config) {
-      Object.keys(config).forEach((key) => {
-        this.set(key, config[key]);
-      });
+    if (isValidKey()) {
+      this.config[key] = value;
+      result.storage && this.preference.set(key, value, STORE_MODULE);
+      this.notifyGot(key);
+    } else {
+      logger.warn(
+        `failed to config ${key} to engineConfig, only predefined options can be set under strict mode, predefined options: ${VALID_ENGINE_OPTIONS}`,
+      );
     }
+    // }
+    // else {
+    //   this.preference.set(key, value, STORE_MODULE);
+    // }
   }
 
   /**
@@ -127,28 +152,13 @@ export class EngineConfig implements IEngineConfig {
    *
    * @param {IPublicTypeEngineOptions} engineOptions
    */
-  setEngineOptions(engineOptions: IPublicTypeEngineOptions) {
+  setConfig(engineOptions: IPublicTypeEngineOptions) {
     if (!engineOptions || !lodash.isPlainObject(engineOptions)) {
       return;
     }
-    const strictMode = getStrictModeValue(engineOptions, STRICT_PLUGIN_MODE_DEFAULT) === true;
-    if (strictMode) {
-      const isValidKey = (key: string) => {
-        const result = (VALID_ENGINE_OPTIONS as any)[key];
-        return !(result === undefined || result === null);
-      };
-      Object.keys(engineOptions).forEach((key) => {
-        if (isValidKey(key)) {
-          this.set(key, (engineOptions as any)[key]);
-        } else {
-          logger.warn(
-            `failed to config ${key} to engineConfig, only predefined options can be set under strict mode, predefined options: ${VALID_ENGINE_OPTIONS}`,
-          );
-        }
-      });
-    } else {
-      this.setConfig(engineOptions as any);
-    }
+    Object.keys(engineOptions).forEach((key) => {
+      this.set(key, (engineOptions as any)[key]);
+    });
   }
 
   /**

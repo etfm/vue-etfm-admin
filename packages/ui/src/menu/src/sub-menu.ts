@@ -140,8 +140,8 @@ export default defineComponent({
     });
     const menuTransitionName = computed(() =>
       rootMenu?.props.collapse
-        ? `${nsMenu.namespace.value}-zoom-in-left`
-        : `${nsMenu.namespace.value}-zoom-in-top`,
+        ? `${nsMenu.namespace}-zoom-in-left`
+        : `${nsMenu.namespace}-zoom-in-top`,
     );
     const fallbackPlacements = computed<Placement[]>(() =>
       mode.value === 'horizontal' && isFirstLevel.value

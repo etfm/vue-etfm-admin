@@ -1,18 +1,47 @@
 import { Skeleton as InnerSkeleton } from '../layout/skeleton';
 import { Workbench as InnerWorkbench } from '../layout/layouts';
-import { skeletonSymbol } from './symbols';
+import { editorSymbol, skeletonSymbol } from './symbols';
 import { h } from 'vue';
-import { IPublicApiCommon, IPublicApiCommonSkeletonCabin } from '@etfma/types';
+import {
+  IPublicApiCommon,
+  IPublicApiCommonSkeletonCabin,
+  IPublicApiI18n,
+  IPublicApiRouter,
+} from '@etfma/types';
+import { globalI18n } from '../intl/i18n';
+import { Editor } from '../editor';
+import { globalRouter } from '../router/router';
+
+export interface IPublicApiCommonUtils {}
+class Utils implements IPublicApiCommonUtils {
+  constructor(editor: Editor) {
+    this[editorSymbol] = editor;
+  }
+
+  createIntl(): IPublicApiI18n {
+    return globalI18n;
+  }
+
+  createRouter(): IPublicApiRouter {
+    return globalRouter;
+  }
+}
 
 export class Common implements IPublicApiCommon {
   private readonly __skeletonCabin: SkeletonCabin;
+  private readonly __utils: Utils;
 
-  constructor(skeleton: InnerSkeleton) {
+  constructor(editor: Editor, skeleton: InnerSkeleton) {
     this.__skeletonCabin = new SkeletonCabin(skeleton);
+    this.__utils = new Utils(editor);
   }
 
   get skeletonCabin(): SkeletonCabin {
     return this.__skeletonCabin;
+  }
+
+  get utils() {
+    return this.__utils;
   }
 }
 

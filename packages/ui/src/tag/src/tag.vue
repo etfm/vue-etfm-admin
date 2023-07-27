@@ -12,7 +12,7 @@
       <Close />
     </etfma-icon>
   </span>
-  <transition v-else :name="`${ns.namespace.value}-zoom-in-center`" appear>
+  <transition v-else :name="`${ns.namespace}-zoom-in-center`" appear>
     <span :class="containerKls" :style="{ backgroundColor: color }" @click="handleClick">
       <span :class="ns.e('content')">
         <slot />

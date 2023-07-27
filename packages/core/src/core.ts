@@ -1,16 +1,7 @@
 import { createApp } from 'vue';
-import { Editor, commonEvent } from './editor';
+import { editor, commonEvent } from './editor';
 import { Skeleton as InnerSkeleton } from './layout';
-import {
-  Skeleton,
-  Material,
-  Event,
-  Global,
-  Plugins,
-  Config,
-  GlobalI18n,
-  GlobalRouter,
-} from './shell';
+import { Skeleton, Material, Event, Global, Plugins, Config } from './shell';
 import { lodash, Logger } from '@etfma/shared';
 
 import jsonPkg from '../../../package.json';
@@ -18,7 +9,6 @@ import { engineConfig } from './config';
 
 import symbols from './symbols';
 import classes from './classes';
-import { globalContext } from './ioc-context';
 import {
   IPluginContextApiAssembler,
   IPluginContextPrivate,
@@ -29,48 +19,36 @@ import {
 } from '@etfma/types';
 import { PluginManager } from './plugin';
 
-import { GlobalRouter as InnerGlobalRouter } from './router/router';
-import { INTL_OPTIONS, GlobalI18n as InnerGlobalI18n } from './intl/i18n';
+import { globalI18n } from './intl/i18n';
 import { Common } from './shell/common';
-import { ROUTER_OPTIONS } from './router/constants';
 import { App } from './layout/layouts';
+import { globalRouter } from './router/router';
 
 export * from './router';
 export * from './intl';
 
 export * from './types';
 
-const global = new Global(globalContext);
-
-const editor = new Editor();
-globalContext.register(editor, Editor);
-globalContext.register(editor, 'editor');
+const global = new Global(editor);
 
 const innerSkeleton = new InnerSkeleton(editor);
 editor.set('skeleton', innerSkeleton);
-const common = new Common(innerSkeleton);
+
+const common = new Common(editor, innerSkeleton);
+editor.set('common', common);
 
 const app = createApp(App);
-
 editor.set('app', app);
-engineConfig.set('app', app);
-globalContext.register(app, 'app');
 
 const material = new Material(editor);
 editor.set('material', material);
 
 const skeleton = new Skeleton(innerSkeleton);
+
 const config = new Config(engineConfig);
+
 const event = new Event(commonEvent, { prefix: 'common' });
 const logger = new Logger({ bizName: 'common' });
-
-const innerGlobalRouter = new InnerGlobalRouter(editor);
-editor.set('router', innerGlobalRouter);
-const globalRouter = new GlobalRouter(innerGlobalRouter);
-
-const innerGlobalI18n = new InnerGlobalI18n(editor);
-editor.set('i18n', innerGlobalI18n);
-const globalI18n = new GlobalI18n(innerGlobalI18n);
 
 let plugins: IPublicApiPlugins;
 
@@ -85,8 +63,6 @@ const pluginContextApiAssembler: IPluginContextApiAssembler = {
     const eventPrefix = meta?.eventPrefix || 'common';
     context.event = new Event(commonEvent, { prefix: eventPrefix });
     context.config = config;
-    context.globalRouter = globalRouter;
-    context.globalI18n = globalI18n;
     context.global = global;
     context.common = common;
     context.plugins = plugins;
@@ -99,22 +75,14 @@ plugins = new Plugins(innerPlugins).toProxy();
 editor.set('innerPlugins', innerPlugins);
 editor.set('plugins', plugins);
 
-export {
-  skeleton,
-  plugins,
-  material,
-  config,
-  event,
-  logger,
-  global,
-  common,
-  globalRouter,
-  globalI18n,
-};
+export { skeleton, plugins, material, config, event, logger, global, common };
 export const __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED = {
   symbols,
   classes,
 };
+
+// 全局属性
+(window as any).EtfmEngine = editor;
 
 export const version = jsonPkg.version;
 engineConfig.set('ENGINE_VERSION', version);
@@ -142,9 +110,9 @@ export async function init(
     }
   }
 
-  engineOptions = merge(engineOptions);
+  engineConfig.setConfig(engineOptions);
 
-  engineConfig.setEngineOptions(engineOptions);
+  initInnerUtils(engineOptions);
 
   await plugins.init(pluginPreference);
 
@@ -153,20 +121,30 @@ export async function init(
   app.mount(engineContainer as Element);
 }
 
-function merge(engineOptions: IPublicTypeEngineOptions) {
-  // 触发通知router挂载到vue上
-  const router = lodash.merge(ROUTER_OPTIONS, engineOptions?.router);
-  // 触发通知i18n挂载到vue上
-  const i18n = lodash.merge(INTL_OPTIONS, engineOptions?.i18n);
+function initInnerUtils(engineOptions) {
+  globalI18n.setConfig(engineOptions.i18n!);
+  globalI18n.init();
 
-  return {
-    ...engineOptions,
-    router,
-    i18n,
-  };
+  globalRouter.setConfig(engineOptions.router!);
+  globalRouter.init();
 }
 
+// function merge(engineOptions: IPublicTypeEngineOptions) {
+//   // 触发通知router挂载到vue上
+//   const router = lodash.merge(ROUTER_OPTIONS, engineOptions?.router);
+//   // 触发通知i18n挂载到vue上
+//   const i18n = lodash.merge(INTL_OPTIONS, engineOptions?.i18n);
+
+//   return {
+//     ...engineOptions,
+//     router,
+//     i18n,
+//   };
+// }
+
 function use() {
-  app.use(globalRouter.router);
-  app.use(globalI18n.i18n);
+  const router = common.utils.createRouter().router;
+  const i18n = common.utils.createIntl().i18n;
+  app.use(router);
+  app.use(i18n);
 }

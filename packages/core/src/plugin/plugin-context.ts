@@ -30,8 +30,6 @@ export default class PluginContext implements IPublicModelPluginContext {
   preference: IPluginPreferenceMananger;
   material: IPublicApiMaterial;
   pluginEvent: IPublicApiEvent;
-  globalRouter: IPublicApiRouter;
-  globalI18n: IPublicApiI18n;
 
   constructor(options: IPluginContextOptions, contextApiAssembler: IPluginContextApiAssembler) {
     const { pluginName = 'anonymous', meta = {} } = options;

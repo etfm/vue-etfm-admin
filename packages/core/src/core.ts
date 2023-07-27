@@ -23,6 +23,7 @@ import { globalI18n } from './intl/i18n';
 import { Common } from './shell/common';
 import { App } from './layout/layouts';
 import { globalRouter } from './router/router';
+import { globalTheme } from './theme/theme';
 
 export * from './router';
 export * from './intl';
@@ -112,7 +113,7 @@ export async function init(
 
   engineConfig.setConfig(engineOptions);
 
-  initInnerUtils(engineOptions);
+  initInnerUtils();
 
   await plugins.init(pluginPreference);
 
@@ -121,26 +122,11 @@ export async function init(
   app.mount(engineContainer as Element);
 }
 
-function initInnerUtils(engineOptions) {
-  globalI18n.setConfig(engineOptions.i18n!);
+function initInnerUtils() {
   globalI18n.init();
-
-  globalRouter.setConfig(engineOptions.router!);
   globalRouter.init();
+  globalTheme.init();
 }
-
-// function merge(engineOptions: IPublicTypeEngineOptions) {
-//   // 触发通知router挂载到vue上
-//   const router = lodash.merge(ROUTER_OPTIONS, engineOptions?.router);
-//   // 触发通知i18n挂载到vue上
-//   const i18n = lodash.merge(INTL_OPTIONS, engineOptions?.i18n);
-
-//   return {
-//     ...engineOptions,
-//     router,
-//     i18n,
-//   };
-// }
 
 function use() {
   const router = common.utils.createRouter().router;

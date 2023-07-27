@@ -9,6 +9,7 @@ import { mix } from './utils';
 
 import { vueUse } from '@etfma/hooks';
 import { engineConfig } from '../config';
+import { lodash } from '@etfma/shared';
 
 interface IPublicTheme {
   color: string;
@@ -48,27 +49,50 @@ export class Theme implements IPublicTheme {
     };
   }
 
-  constructor(options?: ThemeOptins) {
-    this._color = options?.color || DEFAULT_PRIMARY_COLOR;
-    this._isDark = options?.isDark || this._isDark;
-    this.mixDarkColor = options?.mixDarkColor || DEFAULT_DARK;
-    this.mixLightColor = options?.mixLightColor || DEFAULT_LIGHT;
-    this.overrides = options?.overrides || {};
+  constructor() {
+    this.setConfig({
+      color: DEFAULT_PRIMARY_COLOR,
+      mixDarkColor: DEFAULT_DARK,
+      mixLightColor: DEFAULT_LIGHT,
+      overrides: {},
+      isDark: false,
+    });
 
     engineConfig.onGot('theme', (options: ThemeOptins) => {
-      for (const key in options) {
-        this[key] = options[key];
-      }
+      this.setConfig({
+        color: options.color || this.color,
+        mixDarkColor: options.mixDarkColor || this.mixDarkColor,
+        mixLightColor: options.mixDarkColor || this.mixLightColor,
+        overrides: options.overrides || this.overrides,
+        isDark: options.isDark || this.isDark,
+      });
 
       this.setCssVar();
     });
+  }
+
+  setConfig(options: ThemeOptins) {
+    this._color = options.color;
+    this.mixDarkColor = options.mixDarkColor;
+    this.mixLightColor = options.mixLightColor;
+    this.overrides = options.overrides;
+    this._isDark = options.isDark;
+  }
+
+  /**
+   * 初始化主题
+   */
+  init() {
+    this.setCssVar();
   }
 
   /**
    * 切换主图颜色
    */
   changeTheme(color?: string) {
-    engineConfig.set('theme', { color });
+    const args = engineConfig.get('theme');
+
+    engineConfig.set('theme', lodash.merge(args, { color }));
   }
 
   /**
@@ -106,3 +130,5 @@ export class Theme implements IPublicTheme {
     return defaujltPrimaryColors;
   }
 }
+
+export const globalTheme = new Theme();

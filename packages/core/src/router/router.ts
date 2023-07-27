@@ -5,6 +5,7 @@ import { filter, lodash } from '@etfma/shared';
 import { flatMultiLevelRoutes, routeRemoveFilter } from './utils';
 import { DEFAULT_REDIRECT, ROUTER_OPTIONS } from './constants';
 import { editor } from '../editor';
+import { engineConfig } from '../config';
 
 export class GlobalRouter implements IGlobalRouter {
   private _router: Router;
@@ -25,11 +26,8 @@ export class GlobalRouter implements IGlobalRouter {
     return this._router;
   }
 
-  setConfig(args: RouterContext) {
-    this._opts = lodash.merge(this._opts, args);
-  }
-
-  init(args?: RouterContext) {
+  init() {
+    const args = engineConfig.get('router');
     this._opts = lodash.merge(this._opts, args);
 
     const routeList = this.getRouters(this._opts.routes);

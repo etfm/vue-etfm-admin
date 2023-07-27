@@ -46,12 +46,10 @@ export class GlobalI18n implements IGlobalI18n {
     });
   }
 
-  setConfig(args: I18nContext) {
+  init() {
+    const args = engineConfig.get('i18n');
     this._opts = lodash.merge(this._opts, args);
-  }
 
-  init(args?: I18nContext) {
-    this._opts = lodash.merge(this._opts, args);
     this.setLoadLocalePool(this._opts.locale);
 
     this._i18n = createI18n({
@@ -69,7 +67,8 @@ export class GlobalI18n implements IGlobalI18n {
     this.setI18nLanguage(locale);
 
     // 同步全部配置
-    engineConfig.set('i18n', { locale });
+    const args = engineConfig.get('i18n');
+    engineConfig.set('i18n', lodash.merge(args, { locale }));
 
     return locale;
   }

@@ -7,10 +7,12 @@ import {
   IPublicApiCommonSkeletonCabin,
   IPublicApiI18n,
   IPublicApiRouter,
+  IPublicApiTheme,
 } from '@etfma/types';
 import { globalI18n } from '../intl/i18n';
 import { Editor } from '../editor';
 import { globalRouter } from '../router/router';
+import { globalTheme } from '../theme/theme';
 
 export interface IPublicApiCommonUtils {}
 class Utils implements IPublicApiCommonUtils {
@@ -24,6 +26,10 @@ class Utils implements IPublicApiCommonUtils {
 
   createRouter(): IPublicApiRouter {
     return globalRouter;
+  }
+
+  createTheme(): IPublicApiTheme {
+    return globalTheme;
   }
 }
 

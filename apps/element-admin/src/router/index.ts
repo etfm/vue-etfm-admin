@@ -2,7 +2,7 @@ import { mainOutRoutes } from './mainOut';
 import { PAGE_NOT_FOUND_ROUTE } from './basic';
 import { BASE_HOME } from './constant';
 import { loggerWarning, traverseTree } from '@etfma/shared';
-import { AppRouteModule, AppRouteRecordRaw, globalRouter } from '@etfma/core';
+import { AppRouteModule, AppRouteRecordRaw, common } from '@etfma/core';
 
 import { RouteRecordName, RouteRecordRaw } from 'vue-router';
 
@@ -67,8 +67,9 @@ const staticRouteNames = traverseTree<AppRouteRecordRaw, RouteRecordName | undef
  * @description 重置路由
  */
 function resetRoutes() {
-  const routes = globalRouter.router.getRoutes();
-  const { hasRoute, removeRoute } = globalRouter.router;
+  const router = common.utils.createRouter().router;
+  const routes = router.getRoutes();
+  const { hasRoute, removeRoute } = router;
   routes.forEach(({ name }) => {
     // 存在于路由表且非白名单才需要删除
     if (name && !staticRouteNames.includes(name) && hasRoute(name)) {

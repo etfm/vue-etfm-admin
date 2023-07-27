@@ -5,5 +5,3 @@ export * from './material';
 export * from './skeleton';
 export * from './plugins';
 export * from './skeleton-item';
-export * from './i18n';
-export * from './router';

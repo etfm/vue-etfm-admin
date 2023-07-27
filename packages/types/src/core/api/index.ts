@@ -8,3 +8,4 @@ export * from './plugins';
 export * from './router';
 export * from './i18n';
 export * from './common';
+export * from './theme';

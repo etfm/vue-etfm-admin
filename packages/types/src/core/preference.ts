@@ -9,6 +9,12 @@ export interface IPublicModelPreference {
    */
   get(key: string, module: string): any;
 
+  getModule(module: string): any;
+
+  getStoragePrefix(module: string): string;
+
+  getAll(): any;
+
   /**
    * check if local storage contain certain key
    */

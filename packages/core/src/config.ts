@@ -89,17 +89,6 @@ export class EngineConfig implements IEngineConfig {
   constructor(config?: { [key: string]: any }) {
     this.config = config || {};
     this.preference = new Preference();
-
-    const configs = this.preference.getModule(STORE_MODULE);
-    const prefix = this.preference.getStoragePrefix(STORE_MODULE);
-
-    for (const key in configs) {
-      if (Object.prototype.hasOwnProperty.call(configs, key)) {
-        const configKey = key.split(prefix)[1] || '';
-
-        configKey && (this.config[configKey] = configs[key]);
-      }
-    }
   }
 
   /**
@@ -147,11 +136,6 @@ export class EngineConfig implements IEngineConfig {
     // }
   }
 
-  /**
-   * if engineOptions.strictPluginMode === true, only accept propertied predefined in EngineOptions.
-   *
-   * @param {IPublicTypeEngineOptions} engineOptions
-   */
   setConfig(engineOptions: IPublicTypeEngineOptions) {
     if (!engineOptions || !lodash.isPlainObject(engineOptions)) {
       return;
@@ -159,6 +143,32 @@ export class EngineConfig implements IEngineConfig {
     Object.keys(engineOptions).forEach((key) => {
       this.set(key, (engineOptions as any)[key]);
     });
+  }
+
+  /**
+   * if engineOptions.strictPluginMode === true, only accept propertied predefined in EngineOptions.
+   *
+   * @param {IPublicTypeEngineOptions} engineOptions
+   */
+  setEngineOptions(engineOptions: IPublicTypeEngineOptions) {
+    const moudle = this.getStorageMoudle();
+    const configs = lodash.merge(engineOptions, moudle);
+    this.setConfig(configs);
+  }
+
+  getStorageMoudle() {
+    const configs = {};
+    const moudle = this.preference.getModule(STORE_MODULE);
+    for (const key in moudle) {
+      if (Object.prototype.hasOwnProperty.call(moudle, key)) {
+        const prefix = this.preference.getStoragePrefix(STORE_MODULE);
+        const value = key.split(prefix)[1];
+
+        configs[key] = value;
+      }
+    }
+
+    return configs;
   }
 
   /**

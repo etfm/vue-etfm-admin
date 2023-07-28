@@ -1,6 +1,5 @@
 import type { RegKeyType } from '../../common';
 import { IPublicTypeEditorGetResult } from '../core';
-import type { RegisterOptions } from 'power-di';
 
 export interface IPublicApiGlobal {
   get<T = undefined, KeyOrType = any>(
@@ -11,5 +10,5 @@ export interface IPublicApiGlobal {
 
   has(keyOrType: KeyType, deep?: boolean): boolean;
 
-  register(data: any, key?: RegKeyType, options?: RegisterOptions): void;
+  register(data: any, key?: RegKeyType): void;
 }

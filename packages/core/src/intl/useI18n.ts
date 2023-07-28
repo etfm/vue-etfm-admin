@@ -1,4 +1,4 @@
-import { globalI18n } from '../core';
+import { globalI18n } from './i18n';
 
 type I18nGlobalTranslation = {
   (key: string): string;

@@ -95,7 +95,7 @@
   });
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" module>
   @include b('login') {
     display: flex;
     width: 100%;

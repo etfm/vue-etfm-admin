@@ -38,6 +38,7 @@
     "@etfma/design": "workspace:^0.0.0",
     "@etfma/hooks": "workspace:^0.0.0",
     "@etfma/shared": "workspace:*",
+    "@etfma/ui": "workspace:^",
     "classnames": "^2.3.2",
     "events": "^3.3.0",
     "intl-messageformat": "^10.3.5",

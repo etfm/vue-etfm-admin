@@ -57,13 +57,14 @@
     }),
   );
 </script>
-<style lang="scss" scoped module>
+<style lang="scss" module>
   @include b('aside-area') {
     display: none;
     flex-direction: column;
     flex-shrink: 0;
     height: 100%;
     overflow: hidden;
+    border-right: 1px solid getCssVar('border-color');
 
     @include when('visible') {
       display: flex;

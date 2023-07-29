@@ -54,11 +54,12 @@
     }),
   );
 </script>
-<style lang="scss" module scoped>
+<style lang="scss" module>
   @include b('toolbar-area') {
     display: none;
     width: 100%;
     background-color: getCssVar('toolbar-area', 'bg-color');
+    border-bottom: 1px solid getCssVar('border-color');
 
     @include set-component-css-var('toolbar-area', $toolbar-area);
 

@@ -14,6 +14,12 @@ const logger = new Logger({ bizName: 'Config' });
 // used in strict mode, when only options in this VALID_ENGINE_OPTIONS can be accepted
 // type and description are only used for developer`s assistance, won`t affect runtime
 const VALID_ENGINE_OPTIONS = {
+  layout: {
+    type: 'string',
+    storage: true,
+    default: 'aside',
+    description: '布局',
+  },
   i18n: {
     type: 'object',
     storage: true,

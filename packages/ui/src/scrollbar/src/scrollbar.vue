@@ -183,7 +183,7 @@
     handleScroll,
   });
 </script>
-<style lang="scss" scoped module>
+<style lang="scss" module>
   @include b(scrollbar) {
     @include set-component-css-var('scrollbar', $scrollbar);
   }
@@ -196,6 +196,8 @@
     @include e(wrap) {
       height: 100%;
       overflow: auto;
+      display: flex;
+      flex-direction: column;
 
       @include m(hidden-default) {
         scrollbar-width: none;

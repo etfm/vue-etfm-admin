@@ -58,11 +58,13 @@
   );
 </script>
 
-<style lang="scss" scoped module>
+<style lang="scss" module>
   @include b('header-area') {
     display: none;
     width: 100%;
     background-color: getCssVar('header-area', 'bg-color');
+    border-bottom: 1px solid getCssVar('border-color');
+    min-height: 60px;
 
     @include set-component-css-var('header-area', $header-area);
 

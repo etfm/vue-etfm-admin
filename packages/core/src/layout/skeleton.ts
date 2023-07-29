@@ -33,7 +33,11 @@ export class Skeleton implements ISkeleton {
 
   readonly widgets: IWidget[] = [];
 
-  constructor(readonly editor: Editor) {
+  readonly editor: Editor;
+
+  constructor(editor: Editor) {
+    this.editor = editor;
+
     this.aside = new Area(
       this,
       'aside',

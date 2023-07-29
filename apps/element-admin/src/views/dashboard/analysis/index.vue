@@ -83,143 +83,151 @@
 </script>
 
 <template>
-  <div class="p-5 m-5" :class="[ns.b()]">
-    <etfma-menu :default-active="activeIndex" class="etfma-menu-demo" @select="handleSelect">
-      <etfma-menu-item index="1">Processing Center</etfma-menu-item>
-      <etfma-sub-menu index="2">
-        <template #title>Workspace</template>
-        <etfma-menu-item index="2-1">item one</etfma-menu-item>
-        <etfma-menu-item index="2-2">item two</etfma-menu-item>
-        <etfma-menu-item index="2-3">item three</etfma-menu-item>
-        <etfma-sub-menu index="2-4">
-          <template #title>item four</template>
-          <etfma-menu-item index="2-4-1">item one</etfma-menu-item>
-          <etfma-menu-item index="2-4-2">item two</etfma-menu-item>
-          <etfma-menu-item index="2-4-3">item three</etfma-menu-item>
+  <div class="p-5 pt-0" :class="[ns.b()]">
+    <div class="p-5" :class="ns.e('body')">
+      <etfma-menu :default-active="activeIndex" class="etfma-menu-demo" @select="handleSelect">
+        <etfma-menu-item index="1">Processing Center</etfma-menu-item>
+        <etfma-sub-menu index="2">
+          <template #title>Workspace</template>
+          <etfma-menu-item index="2-1">item one</etfma-menu-item>
+          <etfma-menu-item index="2-2">item two</etfma-menu-item>
+          <etfma-menu-item index="2-3">item three</etfma-menu-item>
+          <etfma-sub-menu index="2-4">
+            <template #title>item four</template>
+            <etfma-menu-item index="2-4-1">item one</etfma-menu-item>
+            <etfma-menu-item index="2-4-2">item two</etfma-menu-item>
+            <etfma-menu-item index="2-4-3">item three</etfma-menu-item>
+          </etfma-sub-menu>
         </etfma-sub-menu>
-      </etfma-sub-menu>
-      <etfma-menu-item index="3" disabled>Info</etfma-menu-item>
-      <etfma-menu-item index="4">Orders</etfma-menu-item>
-    </etfma-menu>
+        <etfma-menu-item index="3" disabled>Info</etfma-menu-item>
+        <etfma-menu-item index="4">Orders</etfma-menu-item>
+      </etfma-menu>
 
-    <ElDivider content-position="left">Area操作</ElDivider>
-    <div>
-      左侧菜单栏：
-      <ElSwitch v-model="modelArea.isLeft" @change="(e) => handleArea(e, 'aside')" />
-    </div>
-    <div>
-      顶部显示栏：
-      <ElSwitch v-model="modelArea.isHeader" @change="(e) => handleArea(e, 'header')" />
-    </div>
-    <div>
-      底部显示栏：
-      <ElSwitch v-model="modelArea.isBottom" @change="(e) => handleArea(e, 'footer')" />
-    </div>
-    <div>
-      Toolbar操作栏：
-      <ElSwitch v-model="modelArea.isToolbar" @change="(e) => handleArea(e, 'toolbar')" />
-    </div>
-    <div>
-      Breadcrumb操作栏：
-      <ElSwitch v-model="modelArea.isToolbar" @change="(e) => handleArea(e, 'breadcrumb')" />
-    </div>
-    <div>
-      Fixed:
-      <ElSwitch v-model="modelArea.isLeftFixed" @change="(e) => handleArea(e, 'fixed')" />
-    </div>
-    <div>
-      Float:
-      <ElSwitch v-model="modelArea.isLeftFloat" @change="(e) => handleArea(e, 'float')" />
-    </div>
-    <ElDivider content-position="left">Widget操作</ElDivider>
-    widget显示隐藏：
-    <ElSwitch v-model="modelWidget.isLeft" @change="(e) => handleWidget(e, 'leftArea')" />
+      <ElDivider content-position="left">Area操作</ElDivider>
+      <div>
+        左侧菜单栏：
+        <ElSwitch v-model="modelArea.isLeft" @change="(e) => handleArea(e, 'aside')" />
+      </div>
+      <div>
+        顶部显示栏：
+        <ElSwitch v-model="modelArea.isHeader" @change="(e) => handleArea(e, 'header')" />
+      </div>
+      <div>
+        底部显示栏：
+        <ElSwitch v-model="modelArea.isBottom" @change="(e) => handleArea(e, 'footer')" />
+      </div>
+      <div>
+        Toolbar操作栏：
+        <ElSwitch v-model="modelArea.isToolbar" @change="(e) => handleArea(e, 'toolbar')" />
+      </div>
+      <div>
+        Breadcrumb操作栏：
+        <ElSwitch v-model="modelArea.isToolbar" @change="(e) => handleArea(e, 'breadcrumb')" />
+      </div>
+      <div>
+        Fixed:
+        <ElSwitch v-model="modelArea.isLeftFixed" @change="(e) => handleArea(e, 'fixed')" />
+      </div>
+      <div>
+        Float:
+        <ElSwitch v-model="modelArea.isLeftFloat" @change="(e) => handleArea(e, 'float')" />
+      </div>
+      <ElDivider content-position="left">Widget操作</ElDivider>
+      widget显示隐藏：
+      <ElSwitch v-model="modelWidget.isLeft" @change="(e) => handleWidget(e, 'leftArea')" />
 
-    <etfma-breadcrumb separator="/">
-      <etfma-breadcrumb-item :to="{ path: '/' }">homepage</etfma-breadcrumb-item>
-      <etfma-breadcrumb-item><a href="/">promotion management</a></etfma-breadcrumb-item>
-      <etfma-breadcrumb-item>promotion list</etfma-breadcrumb-item>
-      <etfma-breadcrumb-item>promotion detail</etfma-breadcrumb-item>
-    </etfma-breadcrumb>
+      <etfma-breadcrumb separator="/">
+        <etfma-breadcrumb-item :to="{ path: '/' }">homepage</etfma-breadcrumb-item>
+        <etfma-breadcrumb-item><a href="/">promotion management</a></etfma-breadcrumb-item>
+        <etfma-breadcrumb-item>promotion list</etfma-breadcrumb-item>
+        <etfma-breadcrumb-item>promotion detail</etfma-breadcrumb-item>
+      </etfma-breadcrumb>
 
-    <EtfmaTag>Tag 1</EtfmaTag>
-    <EtfmaTag class="ml-2" type="success">Tag 2</EtfmaTag>
-    <EtfmaTag class="ml-2" type="info">Tag 3</EtfmaTag>
-    <EtfmaTag class="ml-2" type="warning">Tag 4</EtfmaTag>
-    <EtfmaTag class="ml-2" type="danger">Tag 5</EtfmaTag>
+      <EtfmaTag>Tag 1</EtfmaTag>
+      <EtfmaTag class="ml-2" type="success">Tag 2</EtfmaTag>
+      <EtfmaTag class="ml-2" type="info">Tag 3</EtfmaTag>
+      <EtfmaTag class="ml-2" type="warning">Tag 4</EtfmaTag>
+      <EtfmaTag class="ml-2" type="danger">Tag 5</EtfmaTag>
 
-    <EtfmaTag class="mx-1" size="large" effect="plain" round>Large</EtfmaTag>
-    <EtfmaTag class="mx-1" effect="light">Default</EtfmaTag>
-    <EtfmaTag class="mx-1" size="small" effect="dark">Small</EtfmaTag>
+      <EtfmaTag class="mx-1" size="large" effect="plain" round>Large</EtfmaTag>
+      <EtfmaTag class="mx-1" effect="light">Default</EtfmaTag>
+      <EtfmaTag class="mx-1" size="small" effect="dark">Small</EtfmaTag>
 
-    <EtfmaTooltip placement="top">
-      <template #content> multiple lines<br />second line </template>
-      Top center
-    </EtfmaTooltip>
-    <EtfmaTooltip effect="light" content="I am an EtfmaTooltip">
-      <span> Some content </span>
-    </EtfmaTooltip>
+      <EtfmaTooltip placement="top">
+        <template #content> multiple lines<br />second line </template>
+        Top center
+      </EtfmaTooltip>
+      <EtfmaTooltip effect="light" content="I am an EtfmaTooltip">
+        <span> Some content </span>
+      </EtfmaTooltip>
 
-    <EtfmaTooltip content="<span>The content can be <strong>HTML</strong></span>" raw-content>
-      <el-button>hover me</el-button>
-    </EtfmaTooltip>
+      <EtfmaTooltip content="<span>The content can be <strong>HTML</strong></span>" raw-content>
+        <el-button>hover me</el-button>
+      </EtfmaTooltip>
 
-    <etfma-dropdown :hide-on-click="false" size="large" trigger="click">
-      <span class="etfma-dropdown-link"> Dropdown List </span>
-      <template #dropdown>
-        <etfma-dropdown-menu>
-          <etfma-dropdown-item>Action 1</etfma-dropdown-item>
-          <etfma-dropdown-item>Action 2</etfma-dropdown-item>
-          <etfma-dropdown-item>Action 3</etfma-dropdown-item>
-          <etfma-dropdown-item disabled>Action 4</etfma-dropdown-item>
-          <etfma-dropdown-item divided>Action 5</etfma-dropdown-item>
-        </etfma-dropdown-menu>
-      </template>
-    </etfma-dropdown>
-    <etfma-dropdown :hide-on-click="false" trigger="click">
-      <span class="etfma-dropdown-link"> Dropdown List </span>
-      <template #dropdown>
-        <etfma-dropdown-menu>
-          <etfma-dropdown-item>Action 1</etfma-dropdown-item>
-          <etfma-dropdown-item>Action 2</etfma-dropdown-item>
-          <etfma-dropdown-item>Action 3</etfma-dropdown-item>
-          <etfma-dropdown-item disabled>Action 4</etfma-dropdown-item>
-          <etfma-dropdown-item divided>Action 5</etfma-dropdown-item>
-        </etfma-dropdown-menu>
-      </template>
-    </etfma-dropdown>
-    <etfma-dropdown :hide-on-click="false" size="small" trigger="click">
-      <span class="etfma-dropdown-link"> Dropdown List </span>
-      <template #dropdown>
-        <etfma-dropdown-menu>
-          <etfma-dropdown-item>Action 1</etfma-dropdown-item>
-          <etfma-dropdown-item>Action 2</etfma-dropdown-item>
-          <etfma-dropdown-item>Action 3</etfma-dropdown-item>
-          <etfma-dropdown-item disabled>Action 4</etfma-dropdown-item>
-          <etfma-dropdown-item divided>Action 5</etfma-dropdown-item>
-        </etfma-dropdown-menu>
-      </template>
-    </etfma-dropdown>
-    <EtfmaDropdown>
-      <span class="etfma-dropdown-link"> Dropdown List </span>
-      <template #dropdown>
-        <EtfmaDropdownMenu>
-          <EtfmaDropdownItem>Action 1</EtfmaDropdownItem>
-          <EtfmaDropdownItem>Action 2</EtfmaDropdownItem>
-          <EtfmaDropdownItem>Action 3</EtfmaDropdownItem>
-          <EtfmaDropdownItem disabled>Action 4</EtfmaDropdownItem>
-          <EtfmaDropdownItem divided>Action 5</EtfmaDropdownItem>
-        </EtfmaDropdownMenu>
-      </template>
-    </EtfmaDropdown>
+      <etfma-dropdown :hide-on-click="false" size="large" trigger="click">
+        <span class="etfma-dropdown-link"> Dropdown List </span>
+        <template #dropdown>
+          <etfma-dropdown-menu>
+            <etfma-dropdown-item>Action 1</etfma-dropdown-item>
+            <etfma-dropdown-item>Action 2</etfma-dropdown-item>
+            <etfma-dropdown-item>Action 3</etfma-dropdown-item>
+            <etfma-dropdown-item disabled>Action 4</etfma-dropdown-item>
+            <etfma-dropdown-item divided>Action 5</etfma-dropdown-item>
+          </etfma-dropdown-menu>
+        </template>
+      </etfma-dropdown>
+      <etfma-dropdown :hide-on-click="false" trigger="click">
+        <span class="etfma-dropdown-link"> Dropdown List </span>
+        <template #dropdown>
+          <etfma-dropdown-menu>
+            <etfma-dropdown-item>Action 1</etfma-dropdown-item>
+            <etfma-dropdown-item>Action 2</etfma-dropdown-item>
+            <etfma-dropdown-item>Action 3</etfma-dropdown-item>
+            <etfma-dropdown-item disabled>Action 4</etfma-dropdown-item>
+            <etfma-dropdown-item divided>Action 5</etfma-dropdown-item>
+          </etfma-dropdown-menu>
+        </template>
+      </etfma-dropdown>
+      <etfma-dropdown :hide-on-click="false" size="small" trigger="click">
+        <span class="etfma-dropdown-link"> Dropdown List </span>
+        <template #dropdown>
+          <etfma-dropdown-menu>
+            <etfma-dropdown-item>Action 1</etfma-dropdown-item>
+            <etfma-dropdown-item>Action 2</etfma-dropdown-item>
+            <etfma-dropdown-item>Action 3</etfma-dropdown-item>
+            <etfma-dropdown-item disabled>Action 4</etfma-dropdown-item>
+            <etfma-dropdown-item divided>Action 5</etfma-dropdown-item>
+          </etfma-dropdown-menu>
+        </template>
+      </etfma-dropdown>
+      <EtfmaDropdown>
+        <span class="etfma-dropdown-link"> Dropdown List </span>
+        <template #dropdown>
+          <EtfmaDropdownMenu>
+            <EtfmaDropdownItem>Action 1</EtfmaDropdownItem>
+            <EtfmaDropdownItem>Action 2</EtfmaDropdownItem>
+            <EtfmaDropdownItem>Action 3</EtfmaDropdownItem>
+            <EtfmaDropdownItem disabled>Action 4</EtfmaDropdownItem>
+            <EtfmaDropdownItem divided>Action 5</EtfmaDropdownItem>
+          </EtfmaDropdownMenu>
+        </template>
+      </EtfmaDropdown>
+    </div>
   </div>
 </template>
 <style scoped lang="scss" module>
   @include b('analysis') {
-    display: block;
+    display: flex;
+    flex: 1;
     flex-direction: column;
     align-items: center;
-    // background-color: getCssVar();
+    background-color: getCssVar('fill-color');
+
+    @include e('body') {
+      background-color: getCssVar('bg-color');
+      height: 100%;
+    }
   }
 </style>
 <style>

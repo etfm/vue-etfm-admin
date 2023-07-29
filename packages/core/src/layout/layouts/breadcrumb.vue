@@ -55,10 +55,11 @@
   );
 </script>
 
-<style lang="scss" scoped module>
+<style lang="scss" module>
   @include b('breadcrumb-area') {
     display: none;
     width: 100%;
+    background-color: getCssVar('fill-color');
 
     @include when('visible') {
       display: flex;

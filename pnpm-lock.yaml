@@ -440,6 +440,9 @@ importers:
       '@etfma/shared':
         specifier: workspace:*
         version: link:../shared
+      '@etfma/ui':
+        specifier: workspace:^
+        version: link:../ui
       classnames:
         specifier: ^2.3.2
         version: 2.3.2

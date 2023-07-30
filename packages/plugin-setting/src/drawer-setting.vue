@@ -2,10 +2,10 @@
   import { ElDivider, ElColorPicker } from 'element-plus';
   import { BasicDrawer, useDrawerInner } from '@etfma/element-ui';
   import { reactive } from 'vue';
-  import { useTheme } from '@etfma/hooks';
   import DarkMode from './components/dark-mode/index.vue';
+  import { common } from '@etfma/core';
 
-  // const { changeTheme } = useTheme();
+  const { changeTheme } = common.utils.createTheme();
 
   const [register] = useDrawerInner();
 
@@ -14,7 +14,7 @@
   });
 
   function handleColorChange(c: string | null) {
-    // changeTheme(c!);
+    changeTheme(c!);
   }
 </script>
 

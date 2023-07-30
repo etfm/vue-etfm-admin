@@ -3,29 +3,30 @@
   import Moon from '../../icon/moon.vue';
   import Sun from '../../icon/sun.vue';
   import { EtfmaIcon } from '@etfma/ui';
-  import { computed, unref } from 'vue';
-  import { useDark, useToggle } from '@vueuse/core';
-  import { useTheme } from '@etfma/hooks';
+  import { computed, ref, unref } from 'vue';
+  import { common } from '@etfma/core';
 
   defineOptions({
     name: 'DarkMode',
   });
 
   const ns = useNamespace('dark-mode');
-  const { changeTheme } = useTheme();
-  const isDark = useDark({
-    onChanged() {
-      changeTheme();
-    },
-  });
-  const toggle = useToggle(isDark);
+  // const { changeTheme } = useTheme();
+
+  const { toggle, onChange, isDark } = common.utils.createTheme();
+
+  const isDarkRef = ref(isDark);
 
   const getClass = computed(() => [
     ns.b('switch'),
     {
-      [`${ns.bm('switch', 'dark')}`]: unref(isDark),
+      [`${ns.bm('switch', 'dark')}`]: unref(isDarkRef),
     },
   ]);
+
+  onChange((flag) => {
+    isDarkRef.value = flag;
+  });
 
   function toggleDarkMode() {
     toggle();

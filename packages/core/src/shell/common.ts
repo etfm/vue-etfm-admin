@@ -8,11 +8,12 @@ import {
   IPublicApiI18n,
   IPublicApiRouter,
   IPublicApiTheme,
+  IPublicTypeDisposable,
 } from '@etfma/types';
 import { globalI18n } from '../intl/i18n';
-import { Editor } from '../editor';
+import { Editor, editor } from '../editor';
 import { globalRouter } from '../router/router';
-import { globalTheme } from '../theme/theme';
+import { ThemeEvent, globalTheme } from '../theme/theme';
 
 export interface IPublicApiCommonUtils {}
 class Utils implements IPublicApiCommonUtils {
@@ -28,8 +29,8 @@ class Utils implements IPublicApiCommonUtils {
     return globalRouter;
   }
 
-  createTheme(): IPublicApiTheme {
-    return globalTheme;
+  createTheme() {
+    return new Theme();
   }
 }
 
@@ -63,5 +64,27 @@ class SkeletonCabin implements IPublicApiCommonSkeletonCabin {
     return h(InnerWorkbench, {
       skeleton: innerSkeleton,
     });
+  }
+}
+
+class Theme implements IPublicApiTheme {
+  get isDark(): boolean {
+    return globalTheme.isDark;
+  }
+  get color(): string {
+    return globalTheme.color;
+  }
+  changeTheme(color?: string) {
+    globalTheme.changeTheme(color);
+  }
+  mix(color1: string, color2: string, weight: number) {
+    return globalTheme.mix(color1, color2, weight);
+  }
+  toggle() {
+    globalTheme.toggle();
+  }
+  onChange(fn: (data: any) => void): IPublicTypeDisposable {
+    editor.eventBus.on(ThemeEvent.THEME_DAKE, fn);
+    return () => editor.eventBus.off(ThemeEvent.THEME_DAKE, fn);
   }
 }

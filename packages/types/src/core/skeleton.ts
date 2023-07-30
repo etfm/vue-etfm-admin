@@ -1,7 +1,6 @@
 import { IPublicApiSkeleton } from './api/skeleton';
 import { IArea } from './area';
 import { IEditor } from './core';
-import { IPanel } from './panel';
 import { IWidget } from './widget';
 import { IPublicTypeSkeletonConfig } from './widget-base-config';
 
@@ -52,10 +51,7 @@ export interface ISkeleton
 
   getWidget(name: string): IWidget | undefined;
 
-  add(
-    config: IPublicTypeSkeletonConfig,
-    extraConfig?: Record<string, any>,
-  ): IWidget | IPanel | undefined;
+  add(config: IPublicTypeSkeletonConfig, extraConfig?: Record<string, any>): IWidget | undefined;
 
   postEvent(event: SkeletonEvents, ...args: any[]): void;
 }

@@ -30,8 +30,6 @@ const _bem = (
   if (options.isCssModule) {
     const $style = useCssModule();
 
-    console.log($style, cls);
-
     return $style[cls];
   } else {
     return cls;

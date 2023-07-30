@@ -5,7 +5,7 @@
   import { useTheme } from '@etfma/hooks';
   import DarkMode from './components/dark-mode/index.vue';
 
-  const { changeTheme } = useTheme();
+  // const { changeTheme } = useTheme();
 
   const [register] = useDrawerInner();
 
@@ -14,7 +14,7 @@
   });
 
   function handleColorChange(c: string | null) {
-    changeTheme(c!);
+    // changeTheme(c!);
   }
 </script>
 

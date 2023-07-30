@@ -227,6 +227,8 @@
     @include e('body') {
       background-color: getCssVar('bg-color');
       height: 100%;
+      width: 100%;
+      box-sizing: border-box;
     }
   }
 </style>

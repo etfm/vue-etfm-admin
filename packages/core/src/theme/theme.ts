@@ -1,20 +1,21 @@
-import { ClassType } from '@etfma/types';
+import { ClassType, IEditor } from '@etfma/types';
 import {
   DEFAULT_PRIMARY_VAR,
   DEFAULT_LIGHT,
   DEFAULT_DARK,
   DEFAULT_PRIMARY_COLOR,
 } from './constants';
-import { mix } from './utils';
 
 import { vueUse } from '@etfma/hooks';
 import { engineConfig } from '../config';
 import { lodash } from '@etfma/shared';
+import { editor } from '../editor';
 
 interface IPublicTheme {
   color: string;
   isDark: boolean;
   changeTheme: ClassType;
+  mix: (color1: string, color2: string, weight: number) => string;
 }
 
 interface ThemeOptins {
@@ -25,11 +26,16 @@ interface ThemeOptins {
   overrides: Record<string, any>;
 }
 
+export enum ThemeEvent {
+  THEME_DAKE = 'theme.dark',
+}
+
 export class Theme implements IPublicTheme {
   private _isDark: boolean = false;
   private _color: string;
   private mixLightColor;
   private mixDarkColor;
+  private readonly editor: IEditor;
 
   private overrides;
 
@@ -43,19 +49,23 @@ export class Theme implements IPublicTheme {
 
   get cssVar() {
     const defaultCssVar = this.defaultCssVar();
+
     return {
       ...defaultCssVar,
       ...this.overrides,
     };
   }
 
-  constructor() {
+  constructor(editor: IEditor) {
+    this.editor = editor;
+    const isDark = vueUse.useDark();
+
     this.setConfig({
       color: DEFAULT_PRIMARY_COLOR,
       mixDarkColor: DEFAULT_DARK,
       mixLightColor: DEFAULT_LIGHT,
       overrides: {},
-      isDark: false,
+      isDark: isDark.value,
     });
 
     engineConfig.onGot('theme', (options: ThemeOptins) => {
@@ -87,6 +97,17 @@ export class Theme implements IPublicTheme {
   }
 
   /**
+   * 主题切换
+   */
+  toggle() {
+    this._isDark = !this.isDark;
+    document.documentElement.className = this.isDark ? 'dark' : '';
+    engineConfig.set('theme', { isDark: this._isDark });
+
+    this.editor.emit(ThemeEvent.THEME_DAKE, this._isDark);
+  }
+
+  /**
    * 切换主图颜色
    */
   changeTheme(color?: string) {
@@ -99,13 +120,18 @@ export class Theme implements IPublicTheme {
    * 设置css变量
    */
   setCssVar() {
-    vueUse.useCssVar(this.cssVar);
+    for (const key in this.cssVar) {
+      if (Object.prototype.hasOwnProperty.call(this.cssVar, key)) {
+        document.documentElement.style.setProperty(key, this.cssVar[key]);
+      }
+    }
   }
 
   /**
    * 默认的主题颜色
    */
   defaultCssVar() {
+    const aa = '--el-color-primary';
     const defaujltPrimaryColors = {
       LIGHT: this.mixLightColor,
       DARK: this.mixDarkColor,
@@ -116,19 +142,39 @@ export class Theme implements IPublicTheme {
       defaujltPrimaryColors.DARK = this.mixLightColor;
     }
     const cssVar: Record<string, any> = {
-      DEFAULT_PRIMARY_VAR: defaujltPrimaryColors.LIGHT,
-      [`${DEFAULT_PRIMARY_VAR}-dark-2`]: mix(this.color, defaujltPrimaryColors.DARK, 0.2),
+      [DEFAULT_PRIMARY_VAR]: this.color,
+      [aa]: this.color,
+      [`${DEFAULT_PRIMARY_VAR}-dark-2`]: this.mix(this.color, defaujltPrimaryColors.DARK, 0.2),
+      [`${aa}-dark-2`]: this.mix(this.color, defaujltPrimaryColors.DARK, 0.2),
     };
     for (let i = 1; i < 10; i += 1) {
-      cssVar[`${DEFAULT_PRIMARY_VAR}-light-${i}`] = mix(
+      cssVar[`${DEFAULT_PRIMARY_VAR}-light-${i}`] = this.mix(
         this.color,
         defaujltPrimaryColors.LIGHT,
         i * 0.1,
       );
+      cssVar[`${aa}-light-${i}`] = this.mix(this.color, defaujltPrimaryColors.LIGHT, i * 0.1);
     }
 
-    return defaujltPrimaryColors;
+    return cssVar;
+  }
+
+  mix(color1: string, color2: string, weight: number) {
+    weight = Math.max(Math.min(Number(weight), 1), 0);
+    const r1 = parseInt(color1.substring(1, 3), 16);
+    const g1 = parseInt(color1.substring(3, 5), 16);
+    const b1 = parseInt(color1.substring(5, 7), 16);
+    const r2 = parseInt(color2.substring(1, 3), 16);
+    const g2 = parseInt(color2.substring(3, 5), 16);
+    const b2 = parseInt(color2.substring(5, 7), 16);
+    const r = Math.round(r1 * (1 - weight) + r2 * weight);
+    const g = Math.round(g1 * (1 - weight) + g2 * weight);
+    const b = Math.round(b1 * (1 - weight) + b2 * weight);
+    const _r = ('0' + (r || 0).toString(16)).slice(-2);
+    const _g = ('0' + (g || 0).toString(16)).slice(-2);
+    const _b = ('0' + (b || 0).toString(16)).slice(-2);
+    return '#' + _r + _g + _b;
   }
 }
 
-export const globalTheme = new Theme();
+export const globalTheme = new Theme(editor);

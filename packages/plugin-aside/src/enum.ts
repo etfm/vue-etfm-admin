@@ -1,4 +1,5 @@
 export enum MenuTypeEnum {
-  MENU = 'MENU',
-  SPLIT_MENU = 'SPLIT_MENU',
+  ASIDE = 'aside',
+  TOP = 'top',
+  MIX = 'mix',
 }

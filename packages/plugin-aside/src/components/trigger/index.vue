@@ -34,10 +34,7 @@
   };
 </script>
 <template>
-  <div
-    :class="[ns.b(), 'flex justify-center items-center rounded cursor-pointer']"
-    @click="toggleCollapsed"
-  >
+  <div :class="[ns.b()]" @click="toggleCollapsed">
     <Icon :icon="icon" color="#C0C4CC" />
   </div>
 </template>
@@ -45,7 +42,12 @@
   @include b('layout-trigger') {
     width: 24px;
     height: 24px;
-    background-color: getCssVar('fill-color', 'lighter');
+    background-color: getCssVar('fill-color');
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    cursor: pointer;
 
     &:hover {
       background-color: getCssVar('fill-color', 'dark');

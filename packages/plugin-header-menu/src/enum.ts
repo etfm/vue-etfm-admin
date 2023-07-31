@@ -1,6 +1,7 @@
 export enum MenuTypeEnum {
-  MENU = 'MENU',
-  SPLIT_MENU = 'SPLIT_MENU',
+  TOP = 'top',
+  MIX = 'mix',
+  ASIDE = 'aside',
 }
 
 export enum TriggerEnum {

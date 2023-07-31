@@ -53,7 +53,7 @@ async function boostrap() {
 
   await plugins.register(PluginAside);
 
-  await plugins.register(PluginHeaderMenu, { visible: false });
+  await plugins.register(PluginHeaderMenu, { visible: true });
 
   await plugins.register(PluginAppLogo);
 

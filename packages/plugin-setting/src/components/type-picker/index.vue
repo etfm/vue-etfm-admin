@@ -2,13 +2,25 @@
   import { useNamespace } from '@etfma/hooks';
   import { EtfmaTooltip } from '@etfma/ui';
   import { ref } from 'vue';
-  import { config } from '@etfma/core';
+  import { config, skeleton } from '@etfma/core';
 
   const ns = useNamespace('type-picker');
   const def = ref('aside');
 
   config.onGot('layout', (arg: string) => {
     def.value = arg;
+
+    if (arg == 'top' || arg == 'mix') {
+      skeleton.showWidget('PluginHeaderMenu');
+    }
+    if (arg == 'top') {
+      skeleton.hideArea('aside');
+    }
+
+    if (arg == 'aside') {
+      skeleton.showArea('aside');
+      skeleton.hideWidget('PluginHeaderMenu');
+    }
   });
 
   const menuTypeList = ref([

@@ -2,7 +2,7 @@
   import { BasicMenu, MenuModeEnum } from '@etfma/bs-ui';
   import { useNamespace } from '@etfma/hooks';
   import { computed, reactive, ref, unref, watch } from 'vue';
-  import { event, material, type AppRouteRecordRaw } from '@etfma/core';
+  import { event, material, type AppRouteRecordRaw, config } from '@etfma/core';
   import { useRouter } from 'vue-router';
   import { MenuRecordRaw } from '@etfma/types';
   import { useMenu } from './hooks/use-menu';
@@ -49,7 +49,7 @@
     defaultActive: '',
     uniqueOpened: true,
     menuTrigger: TriggerEnum.HOVER,
-    type: MenuTypeEnum.MENU,
+    type: MenuTypeEnum.TOP,
     menus: () => [],
   });
 
@@ -72,7 +72,7 @@
   watch(
     currentRoute,
     (router) => {
-      if (model.type === MenuTypeEnum.SPLIT_MENU) {
+      if (model.type === MenuTypeEnum.MIX) {
         const parent = router.matched && !lodash.isEmpty(router.matched) && router.matched[0];
         model.defaultActive = parent ? parent.path : '';
       } else {
@@ -83,6 +83,15 @@
       immediate: true,
     },
   );
+
+  config.onGot('layout', (l: MenuTypeEnum) => {
+    model.type = l;
+    if (l == MenuTypeEnum.ASIDE) {
+      model.mode = MenuModeEnum.VERTICAL;
+    } else {
+      model.mode = MenuModeEnum.HORIZONTAL;
+    }
+  });
 
   /**
    * 设置默认激活的index
@@ -122,14 +131,14 @@
 
     menuList.value = menus;
 
-    if (model.type === MenuTypeEnum.SPLIT_MENU) {
+    if (model.type === MenuTypeEnum.MIX) {
       setSplitMenu(menuList.value, model.defaultActive);
     }
   });
 
   const menus = computed(() => {
     const list = lodash.cloneDeep(menuList.value);
-    if (model.type === MenuTypeEnum.SPLIT_MENU) {
+    if (model.type === MenuTypeEnum.MIX) {
       return list.map((menu) => {
         delete menu.children;
         return menu;
@@ -143,7 +152,7 @@
    * 跳转路由
    */
   function handleClick(path: string) {
-    if (model.type === MenuTypeEnum.SPLIT_MENU) {
+    if (model.type === MenuTypeEnum.MIX) {
       setSplitMenu(unref(menuList), path);
     } else {
       push(path);

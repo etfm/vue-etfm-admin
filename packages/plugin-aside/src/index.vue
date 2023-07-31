@@ -4,7 +4,7 @@
   import Trigger from './components/trigger/index.vue';
   import { EtfmaScrollbar } from '@etfma/ui';
   import { computed, reactive, watch } from 'vue';
-  import { event, material, type AppRouteRecordRaw, useRouter } from '@etfma/core';
+  import { event, material, type AppRouteRecordRaw, useRouter, config } from '@etfma/core';
   import { MenuRecordRaw } from '@etfma/types';
   import { useMenu } from './hooks/use-menu';
   import { MenuTypeEnum } from './enum';
@@ -49,7 +49,7 @@
     collapse: false,
     defaultActive: '',
     uniqueOpened: true,
-    type: MenuTypeEnum.MENU,
+    type: MenuTypeEnum.ASIDE,
     menus: () => [],
   });
 
@@ -75,6 +75,10 @@
       immediate: true,
     },
   );
+
+  config.onGot('layout', (l: MenuTypeEnum) => {
+    model.type = l;
+  });
 
   /**
    * 监听是否折叠
@@ -107,7 +111,7 @@
    * @description 当只有路由类型 MenuTypeEnum.SPLIT_MENU 时才会赋值路由生效
    */
   event.on('aside:routes', (e: MenuRecordRaw[]) => {
-    if (model.type === MenuTypeEnum.SPLIT_MENU) {
+    if (model.type === MenuTypeEnum.MIX) {
       model.menus = e;
     }
   });
@@ -118,7 +122,7 @@
    * 具体参数请查看文档
    */
   material.onChangeAssets('routes', (routes: AppRouteRecordRaw[]) => {
-    if (model.type === MenuTypeEnum.SPLIT_MENU) return;
+    if (model.type === MenuTypeEnum.MIX) return;
     const transfromMenus = transformRouteToMenu(routes);
     const menus = getMenu(transfromMenus);
     model.menus = menus;
@@ -145,7 +149,7 @@
 </script>
 <template>
   <div :class="[ns.b()]">
-    <EtfmaScrollbar class="h-full">
+    <EtfmaScrollbar :class="ns.e('scrollbar')">
       <BasicMenu
         :class="ns.b()"
         :style="getWrapper"
@@ -156,7 +160,7 @@
         @menu-click="handleClick"
       ></BasicMenu>
     </EtfmaScrollbar>
-    <div class="absolute right-5 bottom-3">
+    <div :class="ns.e('trigger')">
       <Trigger :collapse="model.collapse" @toggle="toggleCollapsed" />
     </div>
   </div>
@@ -166,5 +170,15 @@
     position: relative;
     height: 100%;
     background-color: getCssVar('menu-bg-color');
+
+    @include e(scrollbar) {
+      height: 100%;
+    }
+
+    @include e(trigger) {
+      position: absolute;
+      right: 20px;
+      bottom: 12px;
+    }
   }
 </style>

@@ -17,7 +17,7 @@ const VALID_ENGINE_OPTIONS = {
   layout: {
     type: 'string',
     storage: true,
-    default: 'aside',
+    defaultValue: 'aside',
     description: '布局',
   },
   i18n: {
@@ -146,6 +146,7 @@ export class EngineConfig implements IEngineConfig {
     if (!engineOptions || !lodash.isPlainObject(engineOptions)) {
       return;
     }
+
     Object.keys(engineOptions).forEach((key) => {
       this.set(key, (engineOptions as any)[key]);
     });
@@ -158,8 +159,22 @@ export class EngineConfig implements IEngineConfig {
    */
   setEngineOptions(engineOptions: IPublicTypeEngineOptions) {
     const moudle = this.getStorageMoudle();
-    const configs = lodash.merge(engineOptions, moudle);
+    const defaultMoudle = this.getDefaultMoudle();
+
+    const configs = lodash.merge(defaultMoudle, engineOptions, moudle);
     this.setConfig(configs);
+  }
+
+  getDefaultMoudle() {
+    const config = {};
+
+    for (const key in VALID_ENGINE_OPTIONS) {
+      if (Object.prototype.hasOwnProperty.call(VALID_ENGINE_OPTIONS, key)) {
+        config[key] = VALID_ENGINE_OPTIONS[key]?.defaultValue;
+      }
+    }
+
+    return config;
   }
 
   getStorageMoudle() {
@@ -170,7 +185,7 @@ export class EngineConfig implements IEngineConfig {
         const prefix = this.preference.getStoragePrefix(STORE_MODULE);
         const value = key.split(prefix)[1];
 
-        configs[key] = value;
+        configs[value] = moudle[key];
       }
     }
 

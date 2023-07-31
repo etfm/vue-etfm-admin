@@ -19,17 +19,11 @@ export class Widget implements IWidget {
     return this._visible;
   }
 
-  inited = false;
-
   _disabled = false;
 
   private _body: any;
 
   get body() {
-    if (this.inited) {
-      return this._body;
-    }
-    this.inited = true;
     const { content, contentProps } = this.config;
     this._body = createElement(content, {
       ...contentProps,
@@ -64,7 +58,6 @@ export class Widget implements IWidget {
   makeObservable() {
     define(this, {
       _visible: observable.ref,
-      inited: observable.ref,
       _disabled: observable.ref,
     });
   }
@@ -104,7 +97,7 @@ export class Widget implements IWidget {
     if (flag) {
       this._visible = true;
       this.skeleton.postEvent(SkeletonEvents.WIDGET_SHOW, this.name, this);
-    } else if (this.inited) {
+    } else {
       this._visible = false;
       this.skeleton.postEvent(SkeletonEvents.WIDGET_HIDE, this.name, this);
     }

@@ -70,11 +70,11 @@ export class Theme implements IPublicTheme {
 
     engineConfig.onGot('theme', (options: ThemeOptins) => {
       this.setConfig({
-        color: options.color || this.color,
-        mixDarkColor: options.mixDarkColor || this.mixDarkColor,
-        mixLightColor: options.mixDarkColor || this.mixLightColor,
-        overrides: options.overrides || this.overrides,
-        isDark: options.isDark || this.isDark,
+        color: options?.color || this.color,
+        mixDarkColor: options?.mixDarkColor || this.mixDarkColor,
+        mixLightColor: options?.mixDarkColor || this.mixLightColor,
+        overrides: options?.overrides || this.overrides,
+        isDark: options?.isDark || this.isDark,
       });
 
       this.setCssVar();

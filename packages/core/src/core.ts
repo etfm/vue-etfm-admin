@@ -111,7 +111,7 @@ export async function init(
     }
   }
 
-  engineConfig.setConfig(engineOptions);
+  engineConfig.setEngineOptions(engineOptions);
 
   initInnerUtils();
 

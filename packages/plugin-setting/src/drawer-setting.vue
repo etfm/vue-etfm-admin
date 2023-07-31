@@ -1,21 +1,11 @@
 <script setup lang="ts">
-  import { ElDivider, ElColorPicker } from 'element-plus';
+  import { ElDivider } from 'element-plus';
   import { BasicDrawer, useDrawerInner } from '@etfma/element-ui';
-  import { reactive } from 'vue';
   import DarkMode from './components/dark-mode/index.vue';
-  import { common } from '@etfma/core';
-
-  const { changeTheme } = common.utils.createTheme();
+  import ColorMode from './components/color-mode/index.vue';
+  import TypePicker from './components/type-picker/index.vue';
 
   const [register] = useDrawerInner();
-
-  const model = reactive({
-    color: '#ffffff',
-  });
-
-  function handleColorChange(c: string | null) {
-    changeTheme(c!);
-  }
 </script>
 
 <template>
@@ -23,9 +13,11 @@
     <ElDivider> 主题 </ElDivider>
     <DarkMode />
 
-    <ElColorPicker v-model="model.color" @change="handleColorChange" />
+    <ElDivider> 颜色主题 </ElDivider>
+    <ColorMode />
 
     <ElDivider> 导航栏模式 </ElDivider>
+    <TypePicker />
 
     <ElDivider> 界面功能 </ElDivider>
 

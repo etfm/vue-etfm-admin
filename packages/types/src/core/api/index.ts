@@ -9,3 +9,4 @@ export * from './router';
 export * from './i18n';
 export * from './common';
 export * from './theme';
+export * from './config';

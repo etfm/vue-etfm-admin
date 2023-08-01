@@ -18,3 +18,4 @@ export * from './skeleton';
 export * from './i18n';
 export * from './router';
 export * from './material';
+export * from './theme';

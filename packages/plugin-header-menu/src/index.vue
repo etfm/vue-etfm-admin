@@ -70,11 +70,12 @@
   const menuList = ref<MenuRecordRaw[]>([]);
 
   watch(
-    currentRoute,
-    (router) => {
+    [() => currentRoute.value, () => model.type],
+    ([router]) => {
       if (model.type === MenuTypeEnum.MIX) {
         const parent = router.matched && !lodash.isEmpty(router.matched) && router.matched[0];
         model.defaultActive = parent ? parent.path : '';
+        setSplitMenu(unref(menuList), model.defaultActive);
       } else {
         model.defaultActive = router.fullPath;
       }

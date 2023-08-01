@@ -1,4 +1,4 @@
-import { ClassType, IEditor } from '@etfma/types';
+import { IEditor, IPublicTheme, IPublicThemeOptins } from '@etfma/types';
 import {
   DEFAULT_PRIMARY_VAR,
   DEFAULT_LIGHT,
@@ -10,21 +10,6 @@ import { vueUse } from '@etfma/hooks';
 import { engineConfig } from '../config';
 import { lodash } from '@etfma/shared';
 import { editor } from '../editor';
-
-interface IPublicTheme {
-  color: string;
-  isDark: boolean;
-  changeTheme: ClassType;
-  mix: (color1: string, color2: string, weight: number) => string;
-}
-
-interface ThemeOptins {
-  color: string;
-  isDark: boolean;
-  mixLightColor: string;
-  mixDarkColor: string;
-  overrides: Record<string, any>;
-}
 
 export enum ThemeEvent {
   THEME_DAKE = 'theme.dark',
@@ -68,7 +53,7 @@ export class Theme implements IPublicTheme {
       isDark: isDark.value,
     });
 
-    engineConfig.onGot('theme', (options: ThemeOptins) => {
+    engineConfig.onGot('theme', (options: IPublicThemeOptins) => {
       this.setConfig({
         color: options?.color || this.color,
         mixDarkColor: options?.mixDarkColor || this.mixDarkColor,
@@ -81,7 +66,7 @@ export class Theme implements IPublicTheme {
     });
   }
 
-  setConfig(options: ThemeOptins) {
+  setConfig(options: IPublicThemeOptins) {
     this._color = options.color;
     this.mixDarkColor = options.mixDarkColor;
     this.mixLightColor = options.mixLightColor;

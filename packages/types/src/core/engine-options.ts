@@ -1,7 +1,18 @@
 import { I18nContext } from '../locale';
 import { RouterContext } from '../router';
+import { IPublicThemeOptins } from './theme';
 
 export interface IPublicTypeEngineOptions {
+  /**
+   * 布局配置
+   * @default 'aside'
+   */
+  layout?: IPublicLayoutType;
+  /**
+   * 主题配置
+   * @default
+   */
+  theme?: IPublicThemeOptins;
   /**
    * 多语言配置
    * @default
@@ -13,7 +24,7 @@ export interface IPublicTypeEngineOptions {
    * enable strict plugin mode, default value: false
    * under strict mode, customed engineOption is not accepted.
    */
-  enableStrictPluginMode?: boolean;
+  // enableStrictPluginMode?: boolean;
 
   /**
    * 路由配置
@@ -21,3 +32,7 @@ export interface IPublicTypeEngineOptions {
    */
   router?: RouterContext;
 }
+
+export type IPluginTypeConfig = keyof IPublicTypeEngineOptions;
+
+export type IPublicLayoutType = 'mix' | 'aside' | 'top';

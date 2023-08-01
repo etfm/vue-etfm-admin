@@ -4,6 +4,7 @@ import type {
   IPublicApiEvent,
   IPublicPluginContext,
   IPublicPlugin,
+  IPublicLayoutType,
 } from '@etfma/types';
 
 export {
@@ -12,4 +13,5 @@ export {
   IPublicApiEvent,
   IPublicPluginContext,
   IPublicPlugin,
+  IPublicLayoutType,
 };

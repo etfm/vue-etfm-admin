@@ -1,27 +1,28 @@
 import {
-  IPublicModelEngineConfig,
+  IPluginTypeConfig,
+  IPublicApiConfig,
   IPublicModelPreference,
   IPublicTypeDisposable,
 } from '@etfma/types';
 import { IEngineConfig } from '../config';
 import { configSymbol } from './symbols';
 
-export class Config implements IPublicModelEngineConfig {
+export class Config implements IPublicApiConfig {
   private readonly [configSymbol]: IEngineConfig;
 
   constructor(innerEngineConfig: IEngineConfig) {
     this[configSymbol] = innerEngineConfig;
   }
 
-  has(key: string): boolean {
+  has(key: IPluginTypeConfig): boolean {
     return this[configSymbol].has(key);
   }
 
-  get(key: string, defaultValue?: any): any {
+  get(key: IPluginTypeConfig, defaultValue?: any): any {
     return this[configSymbol].get(key, defaultValue);
   }
 
-  set(key: string, value: any): void {
+  set(key: IPluginTypeConfig, value: any): void {
     this[configSymbol].set(key, value);
   }
 
@@ -29,11 +30,11 @@ export class Config implements IPublicModelEngineConfig {
     this[configSymbol].setConfig(config);
   }
 
-  onceGot(key: string): Promise<any> {
+  onceGot(key: IPluginTypeConfig): Promise<any> {
     return this[configSymbol].onceGot(key);
   }
 
-  onGot(key: string, fn: (data: any) => void): IPublicTypeDisposable {
+  onGot(key: IPluginTypeConfig, fn: (data: any) => void): IPublicTypeDisposable {
     return this[configSymbol].onGot(key, fn);
   }
 

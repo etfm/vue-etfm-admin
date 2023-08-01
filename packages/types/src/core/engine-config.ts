@@ -1,4 +1,5 @@
 import { IPublicTypeDisposable } from './disposable';
+import { IPluginTypeConfig } from './engine-options';
 import { IPublicModelPreference } from './preference';
 
 export interface IPublicModelEngineConfig {
@@ -8,7 +9,7 @@ export interface IPublicModelEngineConfig {
    * @param key
    * @returns
    */
-  has(key: string): boolean;
+  has(key: IPluginTypeConfig): boolean;
 
   /**
    * 获取指定 key 的值
@@ -17,7 +18,7 @@ export interface IPublicModelEngineConfig {
    * @param defaultValue
    * @returns
    */
-  get(key: string, defaultValue?: any): any;
+  get(key: IPluginTypeConfig, defaultValue?: any): any;
 
   /**
    * 设置指定 key 的值
@@ -25,7 +26,7 @@ export interface IPublicModelEngineConfig {
    * @param key
    * @param value
    */
-  set(key: string, value: any): void;
+  set(key: IPluginTypeConfig, value: any): void;
 
   /**
    * 批量设值，set 的对象版本
@@ -42,7 +43,7 @@ export interface IPublicModelEngineConfig {
    * @param key
    * @returns
    */
-  onceGot(key: string): Promise<any>;
+  onceGot(key: IPluginTypeConfig): Promise<any>;
 
   /**
    * 获取指定 key 的值，函数回调模式，若多次被赋值，回调会被多次调用
@@ -52,7 +53,7 @@ export interface IPublicModelEngineConfig {
    * @param fn
    * @returns
    */
-  onGot(key: string, fn: (data: any) => void): IPublicTypeDisposable;
+  onGot(key: IPluginTypeConfig, fn: (data: any) => void): IPublicTypeDisposable;
 
   /**
    * 获取全局 Preference, 用于管理全局浏览器侧用户 Preference

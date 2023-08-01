@@ -162,6 +162,7 @@ export class EngineConfig implements IEngineConfig {
     const defaultMoudle = this.getDefaultMoudle();
 
     const configs = lodash.merge(defaultMoudle, engineOptions, moudle);
+
     this.setConfig(configs);
   }
 

@@ -2,7 +2,7 @@
   import { ElDivider } from 'element-plus';
   import { BasicDrawer, useDrawerInner } from '@etfma/element-ui';
   import DarkMode from './components/dark-mode/index.vue';
-  import ColorMode from './components/color-mode/index.vue';
+  import ColorPicker from './components/color-mode/index.vue';
   import TypePicker from './components/type-picker/index.vue';
 
   const [register] = useDrawerInner();
@@ -14,7 +14,7 @@
     <DarkMode />
 
     <ElDivider> 颜色主题 </ElDivider>
-    <ColorMode />
+    <ColorPicker />
 
     <ElDivider> 导航栏模式 </ElDivider>
     <TypePicker />

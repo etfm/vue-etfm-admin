@@ -55,11 +55,11 @@ export class Theme implements IPublicTheme {
 
     engineConfig.onGot('theme', (options: IPublicThemeOptins) => {
       this.setConfig({
-        color: options?.color || this.color,
-        mixDarkColor: options?.mixDarkColor || this.mixDarkColor,
-        mixLightColor: options?.mixDarkColor || this.mixLightColor,
-        overrides: options?.overrides || this.overrides,
-        isDark: options?.isDark || this.isDark,
+        color: options?.color ?? this.color,
+        mixDarkColor: options?.mixDarkColor ?? this.mixDarkColor,
+        mixLightColor: options?.mixDarkColor ?? this.mixLightColor,
+        overrides: options?.overrides ?? this.overrides,
+        isDark: options?.isDark ?? this.isDark,
       });
 
       this.setCssVar();
@@ -78,6 +78,8 @@ export class Theme implements IPublicTheme {
    * 初始化主题
    */
   init() {
+    console.log(this);
+
     this.setCssVar();
   }
 
@@ -86,7 +88,7 @@ export class Theme implements IPublicTheme {
    */
   toggle() {
     this._isDark = !this.isDark;
-    document.documentElement.className = this.isDark ? 'dark' : '';
+
     engineConfig.set('theme', { isDark: this._isDark });
 
     this.editor.emit(ThemeEvent.THEME_DAKE, this._isDark);
@@ -105,6 +107,8 @@ export class Theme implements IPublicTheme {
    * 设置css变量
    */
   setCssVar() {
+    document.documentElement.className = this.isDark ? 'dark' : '';
+
     for (const key in this.cssVar) {
       if (Object.prototype.hasOwnProperty.call(this.cssVar, key)) {
         document.documentElement.style.setProperty(key, this.cssVar[key]);

@@ -78,8 +78,6 @@ export class Theme implements IPublicTheme {
    * 初始化主题
    */
   init() {
-    console.log(this);
-
     this.setCssVar();
   }
 

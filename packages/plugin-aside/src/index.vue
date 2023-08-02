@@ -149,7 +149,7 @@
 </script>
 <template>
   <div :class="[ns.b()]">
-    <EtfmaScrollbar :class="ns.e('scrollbar')">
+    <EtfmaScrollbar :class="ns.e('scrollbar')" :viewClass="ns.e('scrollbar')">
       <BasicMenu
         :class="ns.b()"
         :style="getWrapper"

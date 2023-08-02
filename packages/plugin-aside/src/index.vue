@@ -144,7 +144,7 @@
   };
 
   const getWrapper = computed<CSSProperties | null>(() => {
-    return model.collapse ? null : { width: '220px' };
+    return model.collapse ? null : { width: '210px' };
   });
 </script>
 <template>

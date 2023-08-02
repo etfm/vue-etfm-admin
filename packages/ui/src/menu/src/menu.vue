@@ -355,6 +355,7 @@
       background-color getCssVar('transition-duration'), color getCssVar('transition-duration');
     box-sizing: border-box;
     white-space: nowrap;
+    margin-bottom: 4px;
 
     * {
       vertical-align: bottom;
@@ -393,6 +394,7 @@
     padding-left: 0;
     background-color: getCssVar('menu-bg-color');
     box-sizing: border-box;
+    padding: 8px;
 
     @include m(vertical) {
       &:not(.#{$namespace}-menu--collapse):not(.#{$namespace}-menu--popup-container) {
@@ -559,6 +561,7 @@
     }
     @include when(active) {
       color: getCssVar('menu-active-color');
+      background-color: getCssVar('menu-active-bg-color');
       i {
         color: inherit;
       }
@@ -593,6 +596,7 @@
     }
     & .#{$namespace}-menu {
       border: none;
+      padding: 0;
     }
     & .#{$namespace}-menu-item {
       height: getCssVar('menu-sub-item-height');

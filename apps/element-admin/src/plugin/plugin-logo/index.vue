@@ -28,7 +28,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 220px;
+    width: 210px;
 
     @include e(title) {
       overflow: hidden;

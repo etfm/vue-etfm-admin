@@ -330,13 +330,14 @@ $transition-function: map.merge(
 $menu: () !default;
 $menu: map.merge(
   (
-    'active-color': getCssVar('color-primary'),
+    'active-color': getCssVar('color-white'),
+    'active-bg-color': getCssVar('color-primary'),
     'text-color': getCssVar('text-color-primary'),
     'hover-text-color': getCssVar('color-primary'),
     'bg-color': getCssVar('fill-color', 'blank'),
     'hover-bg-color': getCssVar('color-primary-light-9'),
-    'item-height': 56px,
-    'sub-item-height': calc(#{getCssVar('menu-item-height')} - 6px),
+    'item-height': 40px,
+    'sub-item-height': calc(#{getCssVar('menu-item-height')}),
     'horizontal-sub-item-height': 36px,
     'item-font-size': getCssVar('font-size-base'),
     'item-hover-fill': getCssVar('color-primary-light-9'),

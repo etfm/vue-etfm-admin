@@ -15,7 +15,6 @@
   const def = ref('#ffffff');
 
   const colors = ref([
-    '#ffffff',
     '#1b2a47',
     '#f5222d',
     '#fa541c',
@@ -46,10 +45,7 @@
           ]"
           :style="{ background: color }"
         >
-          <Icon
-            icon="material-symbols:check-small"
-            :color="color === '#ffffff' ? 'black' : 'white'"
-          />
+          <Icon icon="material-symbols:check-small" color="white" />
         </span>
       </template>
     </div>

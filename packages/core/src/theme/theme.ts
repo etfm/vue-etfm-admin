@@ -104,7 +104,8 @@ export class Theme implements IPublicTheme {
   /**
    * 设置css变量
    */
-  setCssVar() {
+  setCssVar(overrides?: Record<string, any>) {
+    overrides && (this.overrides = overrides);
     document.documentElement.className = this.isDark ? 'dark' : '';
 
     for (const key in this.cssVar) {

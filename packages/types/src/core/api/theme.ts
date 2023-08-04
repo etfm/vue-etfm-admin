@@ -5,4 +5,5 @@ export interface IPublicApiTheme {
   mix: (color1: string, color2: string, weight: number) => string;
   toggle: () => void;
   onChange: (fn: any) => void;
+  setCssVar: (overrides: Record<string, any>) => void;
 }

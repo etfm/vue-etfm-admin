@@ -16,9 +16,7 @@ interface DefineOptions {
 
 export function defineApplicationConfig(defineOptions: DefineOptions = {}) {
   console.log();
-  console.log(
-    colors.bgBlue('当前处于开发测试阶段，还会有大量更新，仅供参考，请勿用于实际项目！\n'),
-  );
+  console.log(colors.bgBlue('当前处于开发测试阶段，还会有大量更新，仅供参考，请勿用于实际项目！'));
   console.log();
   const { overrides = {} } = defineOptions;
 

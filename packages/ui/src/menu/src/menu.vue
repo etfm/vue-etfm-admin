@@ -355,7 +355,7 @@
       background-color getCssVar('transition-duration'), color getCssVar('transition-duration');
     box-sizing: border-box;
     white-space: nowrap;
-    margin-bottom: 4px;
+    background-color: #000;
 
     * {
       vertical-align: bottom;

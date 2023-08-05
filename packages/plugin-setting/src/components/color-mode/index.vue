@@ -12,10 +12,10 @@
   });
 
   const ns = useNamespace('setting-color');
-  const def = ref('#ffffff');
+  const def = ref('#409eff');
 
   const colors = ref([
-    '#1b2a47',
+    '#409eff',
     '#f5222d',
     '#fa541c',
     '#fadb14',

@@ -29,6 +29,10 @@
     def.value = color!;
     changeTheme(color!);
   }
+
+  // --etfm-menu-bg-color: #001529 (背景颜色)
+  // --etfm-menu-bg-sub-menu-item-color： #0f0303（子菜单颜色）
+  rgba(254, 254, 254, 0.65);
 </script>
 
 <template>

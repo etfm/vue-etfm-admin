@@ -355,7 +355,6 @@
       background-color getCssVar('transition-duration'), color getCssVar('transition-duration');
     box-sizing: border-box;
     white-space: nowrap;
-    background-color: #000;
 
     * {
       vertical-align: bottom;
@@ -394,7 +393,6 @@
     padding-left: 0;
     background-color: getCssVar('menu-bg-color');
     box-sizing: border-box;
-    padding: 8px;
 
     @include m(vertical) {
       &:not(.#{$namespace}-menu--collapse):not(.#{$namespace}-menu--popup-container) {
@@ -601,6 +599,7 @@
     & .#{$namespace}-menu-item {
       height: getCssVar('menu-sub-item-height');
       line-height: getCssVar('menu-sub-item-height');
+      background-color: getCssVar('menu-bg-sub-menu-item-color');
     }
     @include e(hide-arrow) {
       .#{$namespace}-sub-menu__icon-arrow {
@@ -610,6 +609,20 @@
     @include when(active) {
       .#{$namespace}-sub-menu__title {
         border-bottom-color: getCssVar('menu-active-color');
+      }
+
+      * {
+        z-index: 1;
+      }
+
+      .is-active:before {
+        background: var(--el-color-primary) !important;
+        border-radius: 3px;
+        clear: both;
+        content: '';
+        inset: 0 8px;
+        margin: 4px 0;
+        position: absolute;
       }
     }
     @include when(disabled) {

@@ -336,6 +336,7 @@ $menu: map.merge(
     'hover-text-color': getCssVar('color-primary'),
     'bg-color': getCssVar('fill-color', 'blank'),
     'hover-bg-color': getCssVar('color-primary-light-9'),
+    'bg-sub-menu-item-color': #0f0303,
     'item-height': 40px,
     'sub-item-height': calc(#{getCssVar('menu-item-height')}),
     'horizontal-sub-item-height': 36px,

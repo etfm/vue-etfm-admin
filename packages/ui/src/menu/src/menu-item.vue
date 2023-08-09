@@ -20,7 +20,10 @@
       </div>
     </etfma-tooltip>
     <template v-else>
-      <slot />
+      <span v-if="$slots.default">
+        <slot />
+      </span>
+
       <slot name="title" />
     </template>
   </li>

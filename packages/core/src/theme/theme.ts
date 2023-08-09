@@ -95,10 +95,10 @@ export class Theme implements IPublicTheme {
   /**
    * 切换主图颜色
    */
-  changeTheme(color?: string) {
+  changeTheme(color?: string, opts?: IPublicThemeOptins) {
     const args = engineConfig.get('theme');
 
-    engineConfig.set('theme', lodash.merge(args, { color }));
+    engineConfig.set('theme', lodash.merge(args, { ...opts, color }));
   }
 
   /**

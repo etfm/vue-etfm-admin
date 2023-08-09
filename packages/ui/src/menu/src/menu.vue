@@ -370,7 +370,7 @@
     }
 
     &:hover {
-      background-color: getCssVar('menu-hover-bg-color');
+      color: getCssVar('menu-active-color') !important;
     }
 
     @include when(disabled) {
@@ -406,6 +406,12 @@
               )}
           );
         }
+      }
+    }
+
+    @include m(inline) {
+      & > .#{$namespace}-sub-menu {
+        background-color: getCssVar('menu-bg-sub-menu-item-color');
       }
     }
 
@@ -559,7 +565,22 @@
     }
     @include when(active) {
       color: getCssVar('menu-active-color');
-      background-color: getCssVar('menu-active-bg-color');
+      // background-color: getCssVar('menu-active-bg-color');
+
+      * {
+        z-index: 1;
+      }
+
+      &:before {
+        background: var(--el-color-primary) !important;
+        border-radius: 3px;
+        clear: both;
+        content: '';
+        inset: 0 8px;
+        margin: 4px 0;
+        position: absolute;
+      }
+
       i {
         color: inherit;
       }
@@ -589,7 +610,7 @@
       );
 
       &:hover {
-        background-color: getCssVar('menu-hover-bg-color');
+        // background-color: getCssVar('menu-hover-bg-color');
       }
     }
     & .#{$namespace}-menu {
@@ -607,22 +628,9 @@
       }
     }
     @include when(active) {
-      .#{$namespace}-sub-menu__title {
+      > .#{$namespace}-sub-menu__title {
         border-bottom-color: getCssVar('menu-active-color');
-      }
-
-      * {
-        z-index: 1;
-      }
-
-      .is-active:before {
-        background: var(--el-color-primary) !important;
-        border-radius: 3px;
-        clear: both;
-        content: '';
-        inset: 0 8px;
-        margin: 4px 0;
-        position: absolute;
+        color: getCssVar('menu-active-color');
       }
     }
     @include when(disabled) {

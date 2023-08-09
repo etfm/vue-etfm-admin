@@ -8,6 +8,7 @@ import {
   IPublicApiI18n,
   IPublicApiRouter,
   IPublicApiTheme,
+  IPublicThemeOptins,
   IPublicTypeDisposable,
 } from '@etfma/types';
 import { globalI18n } from '../intl/i18n';
@@ -74,8 +75,8 @@ class Theme implements IPublicApiTheme {
   get color(): string {
     return globalTheme.color;
   }
-  changeTheme(color?: string) {
-    globalTheme.changeTheme(color);
+  changeTheme(color?: string, opts: IPublicThemeOptins) {
+    globalTheme.changeTheme(color, opts);
   }
   mix(color1: string, color2: string, weight: number) {
     return globalTheme.mix(color1, color2, weight);

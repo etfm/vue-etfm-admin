@@ -27,12 +27,21 @@
 
   function handleColorChange(color: string | null) {
     def.value = color!;
-    changeTheme(color!);
+
+    const cssVar = ns.cssVar({
+      'menu-bg-color': '#001529',
+      'menu-bg-sub-menu-item-color': '#0f0303',
+      'menu-text-color': 'rgba(254,254,254,0.65)',
+    });
+
+    console.log('cssvar:', cssVar);
+
+    changeTheme(color!, { overrides: cssVar });
   }
 
   // --etfm-menu-bg-color: #001529 (背景颜色)
   // --etfm-menu-bg-sub-menu-item-color： #0f0303（子菜单颜色）
-  rgba(254, 254, 254, 0.65);
+  // --etfm-menu-text-color: rgba(254,254,254,0.65) (菜单文字)
 </script>
 
 <template>

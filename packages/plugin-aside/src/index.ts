@@ -3,6 +3,7 @@ import { lodash } from '@etfma/shared';
 import { skeleton, config } from '@etfma/core';
 import { h } from 'vue';
 import Aside from './index.vue';
+import { useTheme } from './theme';
 
 const PluginAside: IPublicPlugin = (ctx: IPublicPluginContext, options) => {
   return {
@@ -24,6 +25,8 @@ const PluginAside: IPublicPlugin = (ctx: IPublicPluginContext, options) => {
           skeleton.hideArea('aside');
         }
       });
+
+      useTheme();
     },
   };
 };

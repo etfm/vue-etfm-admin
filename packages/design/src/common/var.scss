@@ -261,6 +261,15 @@ $float-area: map.merge(
   $float-area
 );
 
+// Aside-Area
+$aside-area: () !default;
+$aside-area: map.merge(
+  (
+    'bg-color': getCssVar('bg-color'),
+  ),
+  $aside-area
+);
+
 // Header-Area
 $header-area: () !default;
 $header-area: map.merge(
@@ -330,13 +339,14 @@ $transition-function: map.merge(
 $menu: () !default;
 $menu: map.merge(
   (
-    'active-color': getCssVar('color-white'),
+    'active-color': getCssVar('color-primary'),
     'active-bg-color': getCssVar('color-primary'),
     'text-color': getCssVar('text-color-primary'),
     'hover-text-color': getCssVar('color-primary'),
     'bg-color': getCssVar('fill-color', 'blank'),
     'hover-bg-color': getCssVar('color-primary-light-9'),
     'bg-sub-menu-item-color': #0f0303,
+    'bg-sub-menu-item-active-color': rgba(242, 243, 245),
     'item-height': 40px,
     'sub-item-height': calc(#{getCssVar('menu-item-height')}),
     'horizontal-sub-item-height': 36px,

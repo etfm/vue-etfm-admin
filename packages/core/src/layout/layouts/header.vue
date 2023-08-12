@@ -59,14 +59,17 @@
 </script>
 
 <style lang="scss" module>
+  :root {
+    @include set-component-css-var('header-area', $header-area);
+  }
+
   @include b('header-area') {
     display: none;
     width: 100%;
     background-color: getCssVar('header-area', 'bg-color');
-    border-bottom: 1px solid getCssVar('border-color');
+    box-shadow: 0 0 1px 0 #888;
     min-height: 60px;
-
-    @include set-component-css-var('header-area', $header-area);
+    margin-bottom: 1px;
 
     @include when('visible') {
       display: flex;

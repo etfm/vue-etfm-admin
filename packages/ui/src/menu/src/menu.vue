@@ -370,7 +370,7 @@
     }
 
     &:hover {
-      color: getCssVar('menu-active-color') !important;
+      // color: getCssVar('menu-active-color') !important;
     }
 
     @include when(disabled) {
@@ -391,7 +391,6 @@
     position: relative;
     margin: 0;
     padding-left: 0;
-    background-color: getCssVar('menu-bg-color');
     box-sizing: border-box;
 
     @include m(vertical) {
@@ -556,6 +555,28 @@
   @include b(menu-item) {
     @include menu-item;
 
+    &:hover {
+      // background-color: getCssVar('menu-hover-bg-color'); // 需要重置
+      // border-radius: 3px;
+      // clear: both;
+      // inset: 0 8px;
+      // margin: 4px 0;
+
+      * {
+        z-index: 1;
+      }
+
+      &:before {
+        background-color: getCssVar('menu-bg-sub-menu-item-active-color') !important;
+        border-radius: 3px;
+        clear: both;
+        content: '';
+        inset: 0 8px;
+        margin: 2px 0;
+        position: absolute;
+      }
+    }
+
     & [class^='#{$namespace}-icon'] {
       margin-right: 5px;
       width: getCssVar('menu-icon-width');
@@ -572,12 +593,12 @@
       }
 
       &:before {
-        background: var(--el-color-primary) !important;
+        background-color: getCssVar('menu-bg-sub-menu-item-active-color') !important;
         border-radius: 3px;
         clear: both;
         content: '';
         inset: 0 8px;
-        margin: 4px 0;
+        margin: 2px 0;
         position: absolute;
       }
 
@@ -610,7 +631,21 @@
       );
 
       &:hover {
-        // background-color: getCssVar('menu-hover-bg-color');
+        // background-color: getCssVar('menu-hover-bg-color'); // 需要重置
+
+        * {
+          z-index: 1;
+        }
+
+        &:before {
+          background-color: getCssVar('menu-bg-sub-menu-item-active-color') !important;
+          border-radius: 3px;
+          clear: both;
+          content: '';
+          inset: 0 8px;
+          margin: 2px 0;
+          position: absolute;
+        }
       }
     }
     & .#{$namespace}-menu {
@@ -620,7 +655,7 @@
     & .#{$namespace}-menu-item {
       height: getCssVar('menu-sub-item-height');
       line-height: getCssVar('menu-sub-item-height');
-      background-color: getCssVar('menu-bg-sub-menu-item-color');
+      // background-color: getCssVar('menu-bg-sub-menu-item-color'); //需要重置
     }
     @include e(hide-arrow) {
       .#{$namespace}-sub-menu__icon-arrow {

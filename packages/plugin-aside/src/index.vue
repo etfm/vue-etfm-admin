@@ -169,7 +169,6 @@
   @include b('pa') {
     position: relative;
     height: 100%;
-    background-color: getCssVar('menu-bg-color');
 
     @include e(scrollbar) {
       height: 100%;

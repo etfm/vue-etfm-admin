@@ -96,6 +96,7 @@
       display: flex;
       flex: 1;
       overflow: hidden;
+      margin-left: 1px;
     }
 
     @include b('workbench-center') {

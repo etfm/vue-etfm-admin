@@ -13,8 +13,10 @@
     <ElDivider> 主题 </ElDivider>
     <DarkMode />
 
-    <ElDivider> 颜色主题 </ElDivider>
-    <ColorPicker />
+    <ElDivider> 亮色主题 </ElDivider>
+    <ColorPicker theme="light" />
+    <ElDivider> 暗色主题 </ElDivider>
+    <ColorPicker theme="dark" />
 
     <ElDivider> 导航栏模式 </ElDivider>
     <TypePicker />

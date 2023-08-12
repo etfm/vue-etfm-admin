@@ -11,6 +11,14 @@
     name: 'setting-color',
   });
 
+  interface Props {
+    theme: 'light' | 'dark';
+  }
+
+  withDefaults(defineProps<Props>(), {
+    theme: 'light',
+  });
+
   const ns = useNamespace('setting-color');
   const def = ref('#409eff');
 

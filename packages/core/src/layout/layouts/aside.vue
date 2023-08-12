@@ -58,13 +58,18 @@
   );
 </script>
 <style lang="scss" module>
+  :root {
+    @include set-component-css-var('aside-area', $aside-area);
+  }
+
   @include b('aside-area') {
     display: none;
     flex-direction: column;
     flex-shrink: 0;
     height: 100%;
     overflow: hidden;
-    border-right: 1px solid getCssVar('border-color');
+    box-shadow: 0 0 1px #888;
+    background-color: getCssVar('aside-area', 'bg-color');
 
     @include when('visible') {
       display: flex;

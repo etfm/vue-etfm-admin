@@ -369,10 +369,6 @@
       outline: none;
     }
 
-    &:hover {
-      // color: getCssVar('menu-active-color') !important;
-    }
-
     @include when(disabled) {
       opacity: 0.25;
       cursor: not-allowed;
@@ -409,9 +405,8 @@
     }
 
     @include m(inline) {
-      & > .#{$namespace}-sub-menu {
-        background-color: getCssVar('menu-bg-sub-menu-item-color');
-      }
+      padding: 5px 0 !important;
+      background-color: getCssVar('menu-bg-sub-menu-item-color');
     }
 
     @include m(horizontal) {
@@ -434,22 +429,11 @@
         a:hover {
           color: inherit;
         }
-
-        &:not(.is-disabled):hover,
-        &:not(.is-disabled):focus {
-          background-color: #fff;
-        }
       }
       & > .#{$namespace}-sub-menu {
         &:focus,
         &:hover {
           outline: none;
-        }
-
-        &:hover {
-          .#{$namespace}-sub-menu__title {
-            color: getCssVar('menu-hover-text-color');
-          }
         }
 
         &.is-active {
@@ -465,14 +449,28 @@
           color: getCssVar('menu-text-color');
 
           &:hover {
-            background-color: getCssVar('bg-color', 'overlay');
+            margin: 0;
+
+            * {
+              z-index: 1;
+            }
+
+            &:before {
+              background-color: getCssVar('menu-bg-sub-menu-item-hover-color') !important;
+              border-radius: 3px;
+              clear: both;
+              content: '';
+              inset: 0;
+              margin: 2px 0;
+              position: absolute;
+            }
           }
         }
       }
       & .#{$namespace}-menu {
         & .#{$namespace}-menu-item,
         & .#{$namespace}-sub-menu__title {
-          background-color: getCssVar('menu-bg-color');
+          background-color: getCssVar('menu-bg-sub-menu-item-color');
           display: flex;
           align-items: center;
           height: getCssVar('menu-horizontal-sub-item-height');
@@ -487,18 +485,31 @@
 
         & .#{$namespace}-menu-item.is-active,
         & .#{$namespace}-sub-menu.is-active > .#{$namespace}-sub-menu__title {
-          color: getCssVar('menu-active-color');
+          color: getCssVar('menu-active-color') !important;
         }
       }
       & .#{$namespace}-menu-item:not(.is-disabled):hover,
       & .#{$namespace}-menu-item:not(.is-disabled):focus {
         outline: none;
         color: getCssVar('menu-hover-text-color');
-        background-color: getCssVar('menu-hover-bg-color');
       }
       & > .#{$namespace}-menu-item.is-active {
         border-bottom: 2px solid getCssVar('menu-active-color');
         color: getCssVar('menu-active-color') !important;
+
+        * {
+          z-index: 1;
+        }
+
+        &:before {
+          background-color: getCssVar('menu-bg-sub-menu-item-hover-color') !important;
+          border-radius: 3px;
+          clear: both;
+          content: '';
+          inset: 0;
+          margin: 2px 0;
+          position: absolute;
+        }
       }
     }
     @include m(collapse) {
@@ -545,6 +556,7 @@
       padding: 5px 0;
       border-radius: getCssVar('border-radius-small');
       box-shadow: getCssVar('box-shadow-light');
+      background-color: getCssVar('menu-bg-sub-menu-item-color');
     }
 
     .#{$namespace}-icon {
@@ -556,18 +568,14 @@
     @include menu-item;
 
     &:hover {
-      // background-color: getCssVar('menu-hover-bg-color'); // 需要重置
-      // border-radius: 3px;
-      // clear: both;
-      // inset: 0 8px;
-      // margin: 4px 0;
+      color: getCssVar('menu-hover-text-color');
 
       * {
         z-index: 1;
       }
 
       &:before {
-        background-color: getCssVar('menu-bg-sub-menu-item-active-color') !important;
+        background-color: getCssVar('menu-bg-sub-menu-item-hover-color') !important;
         border-radius: 3px;
         clear: both;
         content: '';
@@ -586,7 +594,6 @@
     }
     @include when(active) {
       color: getCssVar('menu-active-color');
-      // background-color: getCssVar('menu-active-bg-color');
 
       * {
         z-index: 1;
@@ -631,14 +638,12 @@
       );
 
       &:hover {
-        // background-color: getCssVar('menu-hover-bg-color'); // 需要重置
-
         * {
           z-index: 1;
         }
 
         &:before {
-          background-color: getCssVar('menu-bg-sub-menu-item-active-color') !important;
+          background-color: getCssVar('menu-bg-sub-menu-item-hover-color') !important;
           border-radius: 3px;
           clear: both;
           content: '';
@@ -655,7 +660,7 @@
     & .#{$namespace}-menu-item {
       height: getCssVar('menu-sub-item-height');
       line-height: getCssVar('menu-sub-item-height');
-      // background-color: getCssVar('menu-bg-sub-menu-item-color'); //需要重置
+      background-color: getCssVar('menu-bg-sub-menu-item-color'); //需要重置
     }
     @include e(hide-arrow) {
       .#{$namespace}-sub-menu__icon-arrow {

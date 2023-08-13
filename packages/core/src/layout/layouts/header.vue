@@ -68,7 +68,7 @@
     width: 100%;
     background-color: getCssVar('header-area', 'bg-color');
     box-shadow: 0 0 1px 0 #888;
-    min-height: 60px;
+    min-height: 48px;
     margin-bottom: 1px;
 
     @include when('visible') {

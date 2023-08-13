@@ -15,7 +15,7 @@
 </script>
 <template>
   <div :class="[ns.b()]" @click="handleGoHome">
-    <img style="height: 60px" src="@/assets/images/logo.png" />
+    <img style="height: 48px" src="@/assets/images/logo.png" />
 
     <div :class="[ns.e('title')]">
       {{ title }}

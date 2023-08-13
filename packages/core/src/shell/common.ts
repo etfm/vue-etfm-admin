@@ -72,21 +72,35 @@ class Theme implements IPublicApiTheme {
   get isDark(): boolean {
     return globalTheme.isDark;
   }
+
   get color(): string {
     return globalTheme.color;
   }
+
+  get overrides(): Record<string, any> {
+    return globalTheme.overrides;
+  }
+
+  get cssVar(): Record<string, any> {
+    return globalTheme.cssVar;
+  }
+
   changeTheme(color?: string, opts?: Partial<IPublicThemeOptins>) {
     globalTheme.changeTheme(color, opts);
   }
+
   setCssVar(overrides: Record<string, any>) {
     globalTheme.setCssVar(overrides);
   }
+
   mix(color1: string, color2: string, weight: number) {
     return globalTheme.mix(color1, color2, weight);
   }
+
   toggle() {
     globalTheme.toggle();
   }
+
   onChange(fn: (data: any) => void): IPublicTypeDisposable {
     editor.eventBus.on(ThemeEvent.THEME_DAKE, fn);
     return () => editor.eventBus.off(ThemeEvent.THEME_DAKE, fn);

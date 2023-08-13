@@ -22,7 +22,11 @@ export class Theme implements IPublicTheme {
   private mixDarkColor;
   private readonly editor: IEditor;
 
-  private overrides;
+  private _overrides: Record<string, any>;
+
+  get overrides() {
+    return this._overrides;
+  }
 
   get isDark() {
     return this._isDark;
@@ -68,10 +72,10 @@ export class Theme implements IPublicTheme {
 
   setConfig(options: IPublicThemeOptins) {
     this._color = options.color;
+    this._overrides = options.overrides;
+    this._isDark = options.isDark;
     this.mixDarkColor = options.mixDarkColor;
     this.mixLightColor = options.mixLightColor;
-    this.overrides = options.overrides;
-    this._isDark = options.isDark;
   }
 
   /**
@@ -105,7 +109,7 @@ export class Theme implements IPublicTheme {
    * 设置css变量
    */
   setCssVar(overrides?: Record<string, any>) {
-    overrides && (this.overrides = overrides);
+    overrides && (this._overrides = overrides);
     document.documentElement.className = this.isDark ? 'dark' : '';
 
     for (const key in this.cssVar) {

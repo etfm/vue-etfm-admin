@@ -1,11 +1,9 @@
 <script lang="ts" setup>
   import { useNamespace } from '@etfma/hooks';
-  import { ref } from 'vue';
+  import { computed, ref } from 'vue';
   import { ElColorPicker } from 'element-plus';
-  import { common } from '@etfma/core';
   import { Icon } from '@etfma/icon';
-
-  const { changeTheme } = common.utils.createTheme();
+  import { useColor } from './useColor';
 
   defineOptions({
     name: 'setting-color',
@@ -15,13 +13,14 @@
     theme: 'light' | 'dark';
   }
 
-  withDefaults(defineProps<Props>(), {
+  const props = withDefaults(defineProps<Props>(), {
     theme: 'light',
   });
 
   const ns = useNamespace('setting-color');
-  const def = ref('#409eff');
+  const { changLight, changeDark } = useColor(props);
 
+  const def = ref('#409eff');
   const colors = ref([
     '#409eff',
     '#f5222d',
@@ -33,15 +32,17 @@
     '#722ed1',
   ]);
 
+  const hasColorPicker = computed(() => props.theme === 'light');
+
   function handleColorChange(color: string | null) {
     def.value = color!;
 
-    changeTheme(color!);
+    if (props.theme === 'dark') {
+      changeDark(color!);
+    } else {
+      changLight(color!);
+    }
   }
-
-  // --etfm-menu-bg-color: #001529 (背景颜色)
-  // --etfm-menu-bg-sub-menu-item-color： #0f0303（子菜单颜色）
-  // --etfm-menu-text-color: rgba(254,254,254,0.65) (菜单文字)
 </script>
 
 <template>
@@ -62,7 +63,7 @@
         </span>
       </template>
     </div>
-    <ElColorPicker v-model="def" @change="handleColorChange"> </ElColorPicker>
+    <ElColorPicker v-if="hasColorPicker" v-model="def" @change="handleColorChange"> </ElColorPicker>
   </div>
 </template>
 <style lang="scss" module>

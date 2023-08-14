@@ -1,7 +1,7 @@
 import { createApp } from 'vue';
 import { editor, commonEvent } from './editor';
 import { Skeleton as InnerSkeleton } from './layout';
-import { Skeleton, Material, Event, Global, Plugins, Config } from './shell';
+import { Skeleton, Material, Event, Global, Plugins, Config, Theme } from './shell';
 import { lodash, Logger } from '@etfma/shared';
 
 import jsonPkg from '../../../package.json';
@@ -37,6 +37,9 @@ editor.set('skeleton', innerSkeleton);
 
 const common = new Common(editor, innerSkeleton);
 editor.set('common', common);
+
+const theme = new Theme(editor, globalTheme);
+editor.set('theme', theme);
 
 const app = createApp(App);
 editor.set('app', app);
@@ -76,7 +79,7 @@ plugins = new Plugins(innerPlugins).toProxy();
 editor.set('innerPlugins', innerPlugins);
 editor.set('plugins', plugins);
 
-export { skeleton, plugins, material, config, event, logger, global, common };
+export { skeleton, plugins, material, config, event, logger, global, common, theme };
 export const __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED = {
   symbols,
   classes,

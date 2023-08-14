@@ -9,3 +9,4 @@ export const configSymbol = Symbol('configSymbol');
 export const pluginsSymbol = Symbol('plugins');
 export const pluginInstanceSymbol = Symbol('plugin-instance');
 export const skeletonItemSymbol = Symbol('skeletonItem');
+export const themeSymbol = Symbol('themeSymbol');

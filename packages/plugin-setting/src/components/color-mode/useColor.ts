@@ -1,5 +1,6 @@
 import { useNamespace } from '@etfma/hooks';
-import { common, config } from '@etfma/core';
+import { theme } from '@etfma/core';
+import { config } from '@etfma/core';
 
 const ns = useNamespace('');
 
@@ -59,11 +60,10 @@ const cssLightMap = ns.cssVar({
   'menu-bg-sub-menu-item-hover-color': `rgba(242, 243, 245)`,
   'menu-hover-text-color': 'initial',
 });
-export function useColor(props: { theme: 'light' | 'dark' }) {
-  const { changeTheme, cssVar, setCssVar, color } = common.utils.createTheme();
 
+export function useColor(props: { theme: 'light' | 'dark' }) {
   function changLight(color: string) {
-    changeTheme(color, { overrides: cssLightMap });
+    theme.changeTheme(color, { overrides: cssLightMap });
   }
   // #0f0303
   function changeDark(color: string) {
@@ -95,23 +95,37 @@ export function useColor(props: { theme: 'light' | 'dark' }) {
       }),
     };
 
-    changeTheme(color, { overrides });
+    theme.changeTheme(color, { overrides });
+
+    console.log(theme.cssVar);
   }
 
   config.onGot('layout', (layout: string) => {
+    // console.log(cssVar, color);
+
     if (layout !== 'aside') {
       if (props.theme === 'dark') {
-        setCssVar({
-          ...cssVar,
+        theme.setCssVar({
+          ...theme.cssVar,
           ...ns.cssVar({
-            'header-area-bg-color': darkBgColorMap[color],
+            'header-area-bg-color': darkBgColorMap[theme.color],
           }),
         });
       } else {
-        setCssVar({
-          ...cssVar,
-        });
+        // setCssVar({
+        //   ...cssVar,
+        //   ...ns.cssVar({
+        //     'header-area-bg-color': `var(${ns.cssVarName('bg-color')})`,
+        //   }),
+        // });
       }
+    } else {
+      // setCssVar({
+      //   ...cssVar,
+      //   ...ns.cssVar({
+      //     'header-area-bg-color': `var(${ns.cssVarName('bg-color')})`,
+      //   }),
+      // });
     }
   });
 

@@ -7,14 +7,10 @@ import {
   IPublicApiCommonSkeletonCabin,
   IPublicApiI18n,
   IPublicApiRouter,
-  IPublicApiTheme,
-  IPublicThemeOptins,
-  IPublicTypeDisposable,
 } from '@etfma/types';
 import { globalI18n } from '../intl/i18n';
-import { Editor, editor } from '../editor';
+import { Editor } from '../editor';
 import { globalRouter } from '../router/router';
-import { ThemeEvent, globalTheme } from '../theme/theme';
 
 export interface IPublicApiCommonUtils {}
 class Utils implements IPublicApiCommonUtils {
@@ -28,10 +24,6 @@ class Utils implements IPublicApiCommonUtils {
 
   createRouter(): IPublicApiRouter {
     return globalRouter;
-  }
-
-  createTheme() {
-    return new Theme();
   }
 }
 
@@ -65,44 +57,5 @@ class SkeletonCabin implements IPublicApiCommonSkeletonCabin {
     return h(InnerWorkbench, {
       skeleton: innerSkeleton,
     });
-  }
-}
-
-class Theme implements IPublicApiTheme {
-  get isDark(): boolean {
-    return globalTheme.isDark;
-  }
-
-  get color(): string {
-    return globalTheme.color;
-  }
-
-  get overrides(): Record<string, any> {
-    return globalTheme.overrides;
-  }
-
-  get cssVar(): Record<string, any> {
-    return globalTheme.cssVar;
-  }
-
-  changeTheme(color?: string, opts?: Partial<IPublicThemeOptins>) {
-    globalTheme.changeTheme(color, opts);
-  }
-
-  setCssVar(overrides: Record<string, any>) {
-    globalTheme.setCssVar(overrides);
-  }
-
-  mix(color1: string, color2: string, weight: number) {
-    return globalTheme.mix(color1, color2, weight);
-  }
-
-  toggle() {
-    globalTheme.toggle();
-  }
-
-  onChange(fn: (data: any) => void): IPublicTypeDisposable {
-    editor.eventBus.on(ThemeEvent.THEME_DAKE, fn);
-    return () => editor.eventBus.off(ThemeEvent.THEME_DAKE, fn);
   }
 }

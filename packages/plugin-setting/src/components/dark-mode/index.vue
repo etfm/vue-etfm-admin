@@ -4,7 +4,7 @@
   import Sun from '../../icon/sun.vue';
   import { EtfmaIcon } from '@etfma/ui';
   import { computed, ref, unref } from 'vue';
-  import { common } from '@etfma/core';
+  import { theme } from '@etfma/core';
 
   defineOptions({
     name: 'DarkMode',
@@ -57,9 +57,7 @@
   //   }),
   // };
 
-  const { toggle, onChange, isDark } = common.utils.createTheme();
-
-  const isDarkRef = ref(isDark);
+  const isDarkRef = ref(theme.isDark);
 
   const getClass = computed(() => [
     ns.b('switch'),
@@ -68,12 +66,12 @@
     },
   ]);
 
-  onChange((flag) => {
+  theme.onChange((flag) => {
     isDarkRef.value = flag;
   });
 
   function toggleDarkMode() {
-    toggle();
+    theme.toggle();
   }
 </script>
 <template>

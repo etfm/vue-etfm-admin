@@ -6,7 +6,16 @@ import { EngineConfig, engineConfig } from './config';
 import { Logger } from '@etfma/shared';
 
 // inner instance keys which should not be stored in config
-const keyBlacklist = ['skeleton', 'plugins', 'material', 'innerPlugins', 'routes', 'locale', 'app'];
+const keyBlacklist = [
+  'skeleton',
+  'plugins',
+  'material',
+  'innerPlugins',
+  'routes',
+  'locale',
+  'app',
+  'theme',
+];
 const keyAssetsList = ['routes', 'locale'];
 const logger = new Logger({ bizName: 'material' });
 

@@ -85,8 +85,6 @@ export function useColor(props: { theme: 'light' | 'dark' }) {
     };
 
     theme.changeTheme(color, { overrides });
-
-    console.log(theme.cssVar);
   }
 
   config.onGot('layout', (layout: string) => {

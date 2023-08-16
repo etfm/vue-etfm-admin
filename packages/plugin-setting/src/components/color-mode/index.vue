@@ -3,7 +3,6 @@
   import { computed, ref } from 'vue';
   import { ElColorPicker } from 'element-plus';
   import { Icon } from '@etfma/icon';
-  import { useColor } from './useColor';
 
   defineOptions({
     name: 'setting-color',
@@ -17,8 +16,11 @@
     theme: 'light',
   });
 
+  const emit = defineEmits<{
+    change: [color: string];
+  }>();
+
   const ns = useNamespace('setting-color');
-  const { changLight, changeDark } = useColor(props);
 
   const def = ref('#409eff');
   const colors = ref([
@@ -37,11 +39,7 @@
   function handleColorChange(color: string | null) {
     def.value = color!;
 
-    if (props.theme === 'dark') {
-      changeDark(color!);
-    } else {
-      changLight(color!);
-    }
+    emit('change', color!);
   }
 </script>
 

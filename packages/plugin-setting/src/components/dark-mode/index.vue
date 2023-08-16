@@ -22,8 +22,6 @@
   ]);
 
   theme.onChange((flag) => {
-    console.log(flag, '------');
-
     isDarkRef.value = flag;
 
     if (flag) {

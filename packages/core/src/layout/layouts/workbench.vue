@@ -53,7 +53,7 @@
         return (
           <div id="workbench" class={workbenchClass}>
             {layout === 'aside' && <AsideArea area={skeleton.aside} />}
-            {layout !== 'aside' && <HeaderArea area={skeleton.header} />}
+            {/* {layout !== 'aside' && <HeaderArea area={skeleton.header} />} */}
             {layout === 'aside' && <FloatArea area={skeleton.float} />}
             {layout === 'aside' && <FixedArea area={skeleton.fixed} />}
 

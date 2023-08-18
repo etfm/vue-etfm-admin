@@ -5,6 +5,7 @@ import { IWidget } from './widget';
 import { IPublicTypeSkeletonConfig } from './widget-base-config';
 
 export enum SkeletonEvents {
+  ADD_WIDGET = 'skeleton.add.widget',
   WIDGET_SHOW = 'skeleton.widget.show',
   WIDGET_HIDE = 'skeleton.widget.hide',
   WIDGET_DISABLE = 'skeleton.widget.disable',

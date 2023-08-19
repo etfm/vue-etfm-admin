@@ -1,7 +1,7 @@
 <script lang="tsx">
   import { useNamespace } from '@etfma/hooks';
   import type { CSSProperties, PropType } from 'vue';
-  import { computed, defineComponent, ref } from 'vue';
+  import { computed, defineComponent, ref, unref } from 'vue';
   import { Skeleton } from '../skeleton';
 
   export default defineComponent({
@@ -71,6 +71,24 @@
         };
       });
 
+      const area = computed(() => {
+        const block: any[] = [];
+        unref(widgets)
+          .slice()
+          .sort((a, b) => {
+            const index1 = a.config?.index || 0;
+            const index2 = b.config?.index || 0;
+            return index1 === index2 ? 0 : index1 > index2 ? 1 : -1;
+          })
+          .forEach((item) => {
+            const content = item.content;
+
+            block.push(content);
+          });
+
+        return block;
+      });
+
       props.skeleton.onWidget((config, list: any) => {
         if (config.area === 'footer') {
           widgets.value = list;
@@ -80,14 +98,14 @@
       return {
         b,
         style,
-        widgets,
+        area,
       };
     },
     render() {
-      const { style, b, widgets } = this;
+      const { style, b, area } = this;
       return (
         <footer class={b()} style={style}>
-          {widgets.map((item) => item.content)}
+          {area}
         </footer>
       );
     },

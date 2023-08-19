@@ -5,7 +5,7 @@
   import LayoutFooter from './layout-footer.vue';
   import LayoutHeader from './layout-header.vue';
   import LayoutSide from './layout-side.vue';
-  import LayoutTab from './layout-tab.vue';
+  import LayoutToolbar from './layout-toolbar.vue';
   import { Skeleton } from '../skeleton';
   import { useNamespace } from '@etfma/hooks';
 
@@ -314,10 +314,6 @@
       :background-color="sideBackgroundColor"
       @extra-visible="handleExtraVisible"
     >
-      <slot name="side"></slot>
-      <template #extra>
-        <slot name="side-extra"></slot>
-      </template>
     </LayoutSide>
 
     <div :class="e('main')">
@@ -331,11 +327,10 @@
         :full-width="!isSideMode"
         :background-color="headerBackgroundColor"
       >
-        <slot name="header"></slot>
       </LayoutHeader>
-
-      <LayoutTab
+      <LayoutToolbar
         v-if="tabVisible"
+        :skeleton="skeleton"
         :background-color="tabBackgroundColor"
         :top="tabTop"
         :z-index="zIndex"
@@ -343,7 +338,7 @@
         :fixed="getHeaderFixed"
       >
         <slot name="tab"></slot>
-      </LayoutTab>
+      </LayoutToolbar>
 
       <LayoutContent
         :skeleton="skeleton"

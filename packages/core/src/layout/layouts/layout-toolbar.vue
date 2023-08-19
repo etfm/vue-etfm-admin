@@ -5,7 +5,7 @@
   import { Skeleton } from '../skeleton';
 
   export default defineComponent({
-    name: 'LayoutHeader',
+    name: 'LayoutToolbar',
     props: {
       /**
        * 框架实例
@@ -14,14 +14,6 @@
       skeleton: {
         type: Object as PropType<Skeleton>,
         required: true,
-      },
-      /**
-       * 是否显示
-       * @default true
-       */
-      show: {
-        type: Boolean,
-        default: true,
       },
       /**
        * zIndex
@@ -38,13 +30,14 @@
       backgroundColor: {
         type: String,
       },
+
       /**
        * 高度
-       * @default 60
+       * @default 30
        */
       height: {
         type: Number,
-        default: 60,
+        default: 30,
       },
       /**
        * 是否固定在顶部
@@ -55,47 +48,41 @@
         default: true,
       },
       /**
-       * 横屏
-       * @default false
+       * top 值
+       * @default 0
        */
-      fullWidth: {
-        type: Boolean,
-        default: false,
+      top: {
+        type: Number,
+        default: 0,
       },
     },
     setup(props) {
-      const { b, e } = useNamespace('header');
+      const { b, e } = useNamespace('toolbar');
 
-      const widgets = ref<any[]>(props.skeleton.header);
+      const widgets = ref<any[]>(props.skeleton.toolbar);
 
-      const hiddenHeaderStyle = computed((): CSSProperties => {
-        const { height, show, fixed } = props;
-        const heightValue = `${height}px`;
-
+      const hiddenStyle = computed((): CSSProperties => {
+        const { height, zIndex, top, fixed } = props;
         return {
-          marginTop: show ? 0 : `-${heightValue}`,
-          height: heightValue,
-          lineHeight: heightValue,
+          top: `${top}px`,
+          height: `${height}px`,
+          zIndex,
           display: fixed ? 'flex' : 'none',
         };
       });
 
       const style = computed((): CSSProperties => {
-        const { backgroundColor, height, fixed, zIndex, show, fullWidth } = props;
-        const right = !show || !fullWidth ? undefined : 0;
-
+        const { backgroundColor, fixed } = props;
         return {
+          ...hiddenStyle.value,
           position: fixed ? 'fixed' : 'static',
-          marginTop: show ? 0 : `-${height}px`,
+          display: 'flex',
           backgroundColor,
-          height: `${height}px`,
-          zIndex,
-          right,
         };
       });
 
       props.skeleton.onWidget((config, list: any) => {
-        if (config.area === 'header') {
+        if (config.area === 'toolbar') {
           widgets.value = list;
         }
       });
@@ -132,22 +119,21 @@
       return {
         b,
         e,
-        hiddenHeaderStyle,
         style,
+        hiddenStyle,
         area,
       };
     },
     render() {
-      const { b, e, hiddenHeaderStyle, style, area } = this;
-
+      const { b, e, style, hiddenStyle, area } = this;
       return (
         <>
-          <div style={hiddenHeaderStyle} class={e('hide')}></div>
-          <header style={style} class={b()}>
+          <div class={e('hide')} style={hiddenStyle}></div>
+          <section class={b()} style={style}>
             {area.left}
             {area.center}
             {area.right}
-          </header>
+          </section>
         </>
       );
     },
@@ -155,16 +141,12 @@
 </script>
 
 <style scoped module lang="scss">
-  @include b('header') {
-    top: 0;
+  @include b('toolbar') {
     width: 100%;
     transition: all 0.3s ease 0s;
 
     @include e('hide') {
-      flex: 0 0 auto;
-      width: 100%;
       background: transparent;
-      transition: all 0.3s ease 0s;
     }
   }
 </style>

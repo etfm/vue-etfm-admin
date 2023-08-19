@@ -165,16 +165,23 @@
         const left: any[] = [];
         const center: any[] = [];
         const right: any[] = [];
-        unref(asideWidgetList).forEach((item) => {
-          const content = item.content;
-          if (item.align === 'center') {
-            center.push(content);
-          } else if (item.align === 'right') {
-            right.push(content);
-          } else {
-            left.push(content);
-          }
-        });
+        unref(asideWidgetList)
+          .slice()
+          .sort((a, b) => {
+            const index1 = a.config?.index || 0;
+            const index2 = b.config?.index || 0;
+            return index1 === index2 ? 0 : index1 > index2 ? 1 : -1;
+          })
+          .forEach((item) => {
+            const content = item.content;
+            if (item.align === 'center') {
+              center.push(content);
+            } else if (item.align === 'right') {
+              right.push(content);
+            } else {
+              left.push(content);
+            }
+          });
 
         return {
           left,
@@ -187,16 +194,23 @@
         const left: any[] = [];
         const center: any[] = [];
         const right: any[] = [];
-        unref(extraWidgetList).forEach((item) => {
-          const content = item.content;
-          if (item.align === 'center') {
-            center.push(content);
-          } else if (item.align === 'right') {
-            right.push(content);
-          } else {
-            left.push(content);
-          }
-        });
+        unref(extraWidgetList)
+          .slice()
+          .sort((a, b) => {
+            const index1 = a.config?.index || 0;
+            const index2 = b.config?.index || 0;
+            return index1 === index2 ? 0 : index1 > index2 ? 1 : -1;
+          })
+          .forEach((item) => {
+            const content = item.content;
+            if (item.align === 'center') {
+              center.push(content);
+            } else if (item.align === 'right') {
+              right.push(content);
+            } else {
+              left.push(content);
+            }
+          });
 
         return {
           left,

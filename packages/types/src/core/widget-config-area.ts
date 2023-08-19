@@ -5,8 +5,6 @@ export type IPublicTypeWidgetConfigArea =
   | 'aside'
   | 'header'
   | 'toolbar'
-  | 'breadcrumb'
+  | 'extra'
   | 'main'
-  | 'footer'
-  | 'fixed'
-  | 'float';
+  | 'footer';

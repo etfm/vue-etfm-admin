@@ -1,59 +1,89 @@
-<script setup lang="ts">
-  import type { CSSProperties } from 'vue';
-  import { computed } from 'vue';
+<script lang="tsx">
+  import type { CSSProperties, PropType } from 'vue';
+  import { computed, defineComponent, ref } from 'vue';
+  import { Skeleton } from '../skeleton';
 
-  defineOptions({ name: 'VbenLayoutContent' });
+  export default defineComponent({
+    name: 'LayoutContent',
+    props: {
+      /**
+       * 框架实例
+       * @default
+       */
+      skeleton: {
+        type: Object as PropType<Skeleton>,
+        required: true,
+      },
+      /**
+       * padding
+       * @default 16
+       */
+      padding: {
+        type: Number,
+        default: 16,
+      },
+      /**
+       * paddingBottom
+       * @default 16
+       */
+      paddingBottom: {
+        type: Number,
+        default: 16,
+      },
+      /**
+       * paddingTop
+       * @default 16
+       */
+      paddingTop: {
+        type: Number,
+        default: 16,
+      },
+      /**
+       * paddingLeft
+       * @default 16
+       */
+      paddingLeft: {
+        type: Number,
+        default: 16,
+      },
+      /**
+       * paddingRight
+       * @default 16
+       */
 
-  interface Props {
-    /**
-     * padding
-     * @default 16
-     */
-    padding?: number;
-    /**
-     * paddingBottom
-     * @default 16
-     */
-    paddingBottom?: number;
-    /**
-     * paddingTop
-     * @default 16
-     */
-    paddingTop?: number;
-    /**
-     * paddingLeft
-     * @default 16
-     */
-    paddingLeft?: number;
-    /**
-     * paddingRight
-     * @default 16
-     */
-    paddingRight?: number;
-  }
+      paddingRight: {
+        type: Number,
+        default: 16,
+      },
+    },
+    setup(props) {
+      const widgetList = ref<any[]>(props.skeleton.main);
+      const style = computed((): CSSProperties => {
+        const { padding, paddingBottom, paddingTop, paddingLeft, paddingRight } = props;
+        return {
+          padding: `${padding}px`,
+          paddingBottom: `${paddingBottom}px`,
+          paddingTop: `${paddingTop}px`,
+          paddingLeft: `${paddingLeft}px`,
+          paddingRight: `${paddingRight}px`,
+        };
+      });
 
-  const props = withDefaults(defineProps<Props>(), {
-    padding: 16,
-    paddingBottom: 16,
-    paddingTop: 16,
-    paddingLeft: 16,
-    paddingRight: 16,
-  });
+      props.skeleton.onWidget((config, list: any) => {
+        if (config.area === 'main') {
+          widgetList.value = list;
+        }
+      });
 
-  const style = computed((): CSSProperties => {
-    const { padding, paddingBottom, paddingTop, paddingLeft, paddingRight } = props;
-    return {
-      padding: `${padding}px`,
-      paddingBottom: `${paddingBottom}px`,
-      paddingTop: `${paddingTop}px`,
-      paddingLeft: `${paddingLeft}px`,
-      paddingRight: `${paddingRight}px`,
-    };
+      return {
+        style,
+        widgetList,
+      };
+    },
+
+    render() {
+      const { style, widgetList } = this;
+      return <main style={style}>{widgetList.map((item) => item.content)}</main>;
+    },
   });
 </script>
-
-<template>
-  <main :style="style">
-    <slot></slot>
-  </main>
-</template>

@@ -5,9 +5,9 @@ export interface IWidget {
   readonly name: string;
   readonly content: any;
   readonly align?: string;
-  readonly isWidget: true;
+  // readonly isWidget: true;
   readonly visible: boolean;
-  readonly disabled?: boolean;
+  // readonly disabled?: boolean;
   readonly body: any;
   readonly skeleton: ISkeleton;
   readonly config: IPublicTypeWidgetBaseConfig;
@@ -18,8 +18,8 @@ export interface IWidget {
   show(): void;
   hide(): void;
   toggle(): void;
-  enable?(): void;
-  disable?(): void;
+  // enable?(): void;
+  // disable?(): void;
 }
 
 export interface WidgetConfig extends IPublicTypeWidgetBaseConfig {

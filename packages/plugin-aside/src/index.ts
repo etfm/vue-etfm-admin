@@ -17,13 +17,13 @@ const PluginAside: IPublicPlugin = (ctx: IPublicPluginContext, options) => {
         contentProps: opts,
       });
 
-      config.onGot('layout', (l: string) => {
-        if (l === 'aside' || l === 'mix') {
-          skeleton.showArea('aside');
-        } else {
-          skeleton.hideArea('aside');
-        }
-      });
+      // config.onGot('layout', (l: string) => {
+      //   if (l === 'aside' || l === 'mix') {
+      //     skeleton.showArea('aside');
+      //   } else {
+      //     skeleton.hideArea('aside');
+      //   }
+      // });
     },
   };
 };

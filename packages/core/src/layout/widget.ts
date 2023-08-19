@@ -1,12 +1,15 @@
-import { define, observable } from '../obx';
 import { WidgetView } from './components/widget';
 import { createElement, uniqueId } from '../utils';
 import { getEvent } from '../shell';
-import { ISkeleton, IWidget, SkeletonEvents, WidgetConfig } from '@etfma/types';
+import {
+  IPublicTypeDisposable,
+  ISkeleton,
+  IWidget,
+  SkeletonEvents,
+  WidgetConfig,
+} from '@etfma/types';
 
 export class Widget implements IWidget {
-  readonly isWidget = true;
-
   readonly id = uniqueId('widget');
 
   readonly name: string;
@@ -18,8 +21,6 @@ export class Widget implements IWidget {
   get visible(): boolean {
     return this._visible;
   }
-
-  _disabled = false;
 
   private _body: any;
 
@@ -42,24 +43,14 @@ export class Widget implements IWidget {
   }
 
   constructor(readonly skeleton: ISkeleton, readonly config: WidgetConfig) {
-    this.makeObservable();
-
-    const { props = {}, name, visible = true, disabled = false } = config;
+    const { props = {}, name, visible = true } = config;
     this.name = name;
     this.align = props.align;
     this._visible = visible;
-    this._disabled = disabled;
 
     if (props.onInit) {
       props.onInit.call(this, this);
     }
-  }
-
-  makeObservable() {
-    define(this, {
-      _visible: observable.ref,
-      _disabled: observable.ref,
-    });
   }
 
   getId() {
@@ -82,12 +73,12 @@ export class Widget implements IWidget {
     this.setVisible(true);
   }
 
-  isFloatArea(): boolean {
-    return this.config?.area === 'float';
-  }
-
-  isFixedArea(): boolean {
-    return this.config?.area === 'fixed';
+  onVisible(listener: (...args: any[]) => void): IPublicTypeDisposable {
+    this.skeleton.editor.eventBus.on(SkeletonEvents.WIDGET_SHOW, (name: any, widget: any) => {
+      const { skeleton, ...rest } = widget;
+      listener(name, rest);
+    });
+    return () => this.skeleton.editor.eventBus.off(SkeletonEvents.WIDGET_SHOW, listener);
   }
 
   setVisible(flag: boolean) {
@@ -106,30 +97,4 @@ export class Widget implements IWidget {
   toggle() {
     this.setVisible(!this._visible);
   }
-
-  setDisabled(flag: boolean) {
-    if (this._disabled === flag) return;
-    this._disabled = flag;
-    if (this._disabled) {
-      this.skeleton.postEvent(SkeletonEvents.WIDGET_DISABLE, this.name, this);
-    } else {
-      this.skeleton.postEvent(SkeletonEvents.WIDGET_ENABLE, this.name, this);
-    }
-  }
-
-  disable() {
-    this.setDisabled(true);
-  }
-
-  enable() {
-    this.setDisabled(false);
-  }
-
-  get disabled(): boolean {
-    return this._disabled;
-  }
-}
-
-export function isWidget(obj: any): obj is IWidget {
-  return obj && obj.isWidget;
 }

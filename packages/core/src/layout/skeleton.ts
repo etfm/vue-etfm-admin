@@ -1,10 +1,10 @@
-import { Widget, isWidget } from './widget';
-import { Area } from './area';
+import { Widget } from './widget';
 import { isVNode } from 'vue';
 import { Logger, lodash } from '@etfma/shared';
 import { Editor } from '../editor';
 
 import {
+  IPublicTypeDisposable,
   IPublicTypeWidgetBaseConfig,
   ISkeleton,
   IWidget,
@@ -15,21 +15,17 @@ import {
 const logger = new Logger({ bizName: 'skeleton' });
 
 export class Skeleton implements ISkeleton {
-  readonly aside: Area;
+  readonly aside: IWidget[] = [];
 
-  readonly header: Area;
+  readonly header: IWidget[] = [];
 
-  readonly toolbar: Area;
+  readonly toolbar: IWidget[] = [];
 
-  readonly breadcrumb: Area;
+  readonly main: IWidget[] = [];
 
-  readonly fixed: Area;
+  readonly footer: IWidget[] = [];
 
-  readonly float: Area;
-
-  readonly main: Area;
-
-  readonly footer: Area;
+  readonly extra: IWidget[] = [];
 
   readonly widgets: IWidget[] = [];
 
@@ -37,96 +33,6 @@ export class Skeleton implements ISkeleton {
 
   constructor(editor: Editor) {
     this.editor = editor;
-
-    this.aside = new Area(
-      this,
-      'aside',
-      (config) => {
-        if (isWidget(config)) {
-          return config;
-        }
-        return this.createWidget(config);
-      },
-      true,
-    );
-    this.header = new Area(
-      this,
-      'header',
-      (config) => {
-        if (isWidget(config)) {
-          return config;
-        }
-        return this.createWidget(config);
-      },
-      true,
-    );
-    this.toolbar = new Area(
-      this,
-      'toolbar',
-      (config) => {
-        if (isWidget(config)) {
-          return config;
-        }
-        return this.createWidget(config);
-      },
-      true,
-    );
-    this.breadcrumb = new Area(
-      this,
-      'breadcrumb',
-      (config) => {
-        if (isWidget(config)) {
-          return config;
-        }
-        return this.createWidget(config);
-      },
-      true,
-    );
-    this.fixed = new Area(
-      this,
-      'fixed',
-      (config) => {
-        if (isWidget(config)) {
-          return config;
-        }
-        return this.createWidget(config);
-      },
-      true,
-    );
-    this.float = new Area(
-      this,
-      'float',
-      (config) => {
-        if (isWidget(config)) {
-          return config;
-        }
-
-        return this.createWidget(config);
-      },
-      false,
-    );
-    this.main = new Area(
-      this,
-      'main',
-      (config) => {
-        if (isWidget(config)) {
-          return config;
-        }
-        return this.createWidget(config);
-      },
-      true,
-    );
-    this.footer = new Area(
-      this,
-      'footer',
-      (config) => {
-        if (isWidget(config)) {
-          return config;
-        }
-        return this.createWidget(config);
-      },
-      true,
-    );
   }
 
   postEvent(event: SkeletonEvents, ...args: any[]) {
@@ -134,11 +40,7 @@ export class Skeleton implements ISkeleton {
   }
 
   createWidget(config: IPublicTypeWidgetBaseConfig | IWidget) {
-    if (isWidget(config)) {
-      return config;
-    }
-
-    config = this.parseConfig(config);
+    config = this.parseConfig(config as IPublicTypeWidgetBaseConfig);
     const widget: IWidget = new Widget(this, config as WidgetConfig);
     this.widgets.push(widget);
     return widget;
@@ -179,6 +81,22 @@ export class Skeleton implements ISkeleton {
     return restConfig;
   }
 
+  setWidget(config: IWidget, widgets) {
+    widgets.push(config);
+    this.postEvent(SkeletonEvents.ADD_WIDGET, config, widgets, this);
+    return widgets;
+  }
+
+  onWidget(listener: (...args: any[]) => void): IPublicTypeDisposable {
+    this.editor.eventBus.on(
+      SkeletonEvents.ADD_WIDGET,
+      (config: any, widgets: IWidget[], skeleton: any) => {
+        listener(config, widgets, skeleton);
+      },
+    );
+    return () => this.editor.eventBus.off(SkeletonEvents.WIDGET_SHOW, listener);
+  }
+
   add(config: IPublicTypeWidgetBaseConfig, extraConfig?: Record<string, any>) {
     const parsedConfig = {
       ...this.parseConfig(config),
@@ -187,23 +105,21 @@ export class Skeleton implements ISkeleton {
 
     const { area } = parsedConfig;
 
+    const widget = this.createWidget(parsedConfig);
+
     switch (area) {
       case 'aside':
-        return this.aside.add(parsedConfig);
+        return this.setWidget(widget, this.aside);
       case 'header':
-        return this.header.add(parsedConfig);
+        return this.setWidget(widget, this.header);
       case 'toolbar':
-        return this.toolbar.add(parsedConfig);
-      case 'breadcrumb':
-        return this.breadcrumb.add(parsedConfig);
+        return this.setWidget(widget, this.toolbar);
       case 'main':
-        return this.main.add(parsedConfig);
+        return this.setWidget(widget, this.main);
       case 'footer':
-        return this.footer.add(parsedConfig);
-      case 'fixed':
-        return this.fixed.add(parsedConfig);
-      case 'float':
-        return this.float.add(parsedConfig);
+        return this.setWidget(widget, this.footer);
+      case 'extra':
+        return this.setWidget(widget, this.extra);
       default:
         logger.warn(`${config.name} not supported`);
     }

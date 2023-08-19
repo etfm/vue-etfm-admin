@@ -1,63 +1,98 @@
-<script setup lang="ts">
-  import { useNamespace } from '@vben/hooks';
-  import type { CSSProperties } from 'vue';
-  import { computed } from 'vue';
+<script lang="tsx">
+  import { useNamespace } from '@etfma/hooks';
+  import type { CSSProperties, PropType } from 'vue';
+  import { computed, defineComponent, ref } from 'vue';
+  import { Skeleton } from '../skeleton';
 
-  defineOptions({ name: 'VbenLayoutFooter' });
+  export default defineComponent({
+    name: 'LayoutFooter',
+    props: {
+      /**
+       * 框架实例
+       * @default
+       */
+      skeleton: {
+        type: Object as PropType<Skeleton>,
+        required: true,
+      },
+      /**
+       * 是否显示
+       * @default true
+       */
+      show: {
+        type: Boolean,
+        default: true,
+      },
+      /**
+       * zIndex
+       * @default 0
+       */
+      zIndex: {
+        type: Number,
+        default: 0,
+      },
+      /**
+       * 背景颜色
+       * @default
+       */
+      backgroundColor: {
+        type: String,
+      },
+      /**
+       * 高度
+       * @default 32
+       */
+      height: {
+        type: Number,
+        default: 32,
+      },
+      /**
+       * 是否固定在顶部
+       * @default true
+       */
+      fixed: {
+        type: Boolean,
+        default: true,
+      },
+    },
+    setup(props) {
+      const { b } = useNamespace('footer');
 
-  interface Props {
-    /**
-     * 是否显示
-     * @default true
-     */
-    show?: boolean;
-    /**
-     * zIndex
-     * @default 0
-     */
-    zIndex?: number;
-    /**
-     * 背景颜色
-     */
-    backgroundColor: string;
-    /**
-     * 高度
-     * @default 32
-     */
-    height?: number;
-    /**
-     * 是否固定在顶部
-     * @default true
-     */
-    fixed?: boolean;
-  }
+      const widgets = ref<any[]>(props.skeleton.footer);
 
-  const props = withDefaults(defineProps<Props>(), {
-    show: true,
-    zIndex: 0,
-    height: 32,
-    fixed: true,
-  });
+      const style = computed((): CSSProperties => {
+        const { backgroundColor, height, fixed, zIndex, show } = props;
+        return {
+          position: fixed ? 'fixed' : 'static',
+          zIndex,
+          backgroundColor,
+          height: `${height}px`,
+          marginBottom: show ? '0' : `-${height}px`,
+        };
+      });
 
-  const { b } = useNamespace('footer');
+      props.skeleton.onWidget((config, list: any) => {
+        if (config.area === 'footer') {
+          widgets.value = list;
+        }
+      });
 
-  const style = computed((): CSSProperties => {
-    const { backgroundColor, height, fixed, zIndex, show } = props;
-    return {
-      position: fixed ? 'fixed' : 'static',
-      zIndex,
-      backgroundColor,
-      height: `${height}px`,
-      marginBottom: show ? '0' : `-${height}px`,
-    };
+      return {
+        b,
+        style,
+        widgets,
+      };
+    },
+    render() {
+      const { style, b, widgets } = this;
+      return (
+        <footer class={b()} style={style}>
+          {widgets.map((item) => item.content)}
+        </footer>
+      );
+    },
   });
 </script>
-
-<template>
-  <footer :class="b()" :style="style">
-    <slot></slot>
-  </footer>
-</template>
 
 <style scoped module lang="scss">
   @include b('footer') {

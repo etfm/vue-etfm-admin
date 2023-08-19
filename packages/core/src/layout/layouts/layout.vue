@@ -1,121 +1,378 @@
-<script lang="tsx">
-  import { defineComponent, PropType, ref, computed } from 'vue';
-  import { observer } from '../../obx';
+<script setup lang="ts">
+  import type { CSSProperties } from 'vue';
+  import { computed, watchEffect } from 'vue';
+  import LayoutContent from './layout-content.vue';
+  import LayoutFooter from './layout-footer.vue';
+  import LayoutHeader from './layout-header.vue';
+  import LayoutSide from './layout-side.vue';
+  import LayoutTab from './layout-tab.vue';
   import { Skeleton } from '../skeleton';
   import { useNamespace } from '@etfma/hooks';
 
-  import HeaderArea from './header.vue';
-  import AsideArea from './aside.vue';
-  import FloatArea from './float.vue';
-  import FixedArea from './fixed.vue';
-  import ToolbarArea from './toolbar.vue';
-  import MainArea from './main.vue';
-  import FooterArea from './footer.vue';
-  import BreadcrumbArea from './breadcrumb.vue';
+  defineOptions({
+    name: 'VbenLayout',
+  });
 
-  export default observer(
-    defineComponent({
-      name: 'Workbench',
-      props: {
-        skeleton: {
-          type: Object as PropType<Skeleton>,
-          required: true,
-        },
-      },
-      setup(props) {
-        const ns = useNamespace('workbench');
+  interface Props {
+    /**
+     * 框架实例
+     * @default
+     */
+    skeleton: Skeleton;
+    /**
+     * 布局方式
+     * side-nav 侧边菜单布局
+     * header-nav 顶部菜单布局
+     * mixed-nav 侧边&顶部菜单布局
+     * side-mixed-nav 侧边混合菜单布局
+     * full-content 全屏内容布局
+     * @default side-nav
+     */
+    layout?: 'side-nav' | 'header-nav' | 'mixed-nav' | 'side-mixed-nav' | 'full-content';
+    /**
+     * 是否移动端显示
+     * @default false
+     */
+    isMobile?: boolean;
+    /**
+     * zIndex
+     * @default 100
+     */
+    zIndex?: number;
+    /**
+     * header是否显示
+     * @default true
+     */
+    headerVisible?: boolean;
+    /**
+     * header高度
+     * @default 48
+     */
+    headerHeight?: number;
+    /**
+     * header是否固定在顶部
+     * @default true
+     */
+    headerFixed?: boolean;
+    /**
+     * 背景颜色
+     * @default #fff
+     */
+    headerBackgroundColor?: string;
+    /**
+     * 侧边栏是否可见
+     * @default true
+     */
+    sideVisible?: boolean;
+    /**
+     * 侧边栏宽度
+     * @default 180
+     */
+    sideWidth?: number;
+    /**
+     * 混合侧边栏宽度
+     * @default 80
+     */
+    sideMixedWidth?: number;
+    /**
+     * 侧边栏背景颜色
+     * @default #fff
+     */
+    sideBackgroundColor?: string;
+    /**
+     * 侧边菜单折叠状态
+     * @default false
+     */
+    sideCollapse?: boolean;
+    /**
+     *  侧边菜单折叠宽度
+     * @default 48
+     */
+    sideCollapseWidth?: number;
+    /**
+     * padding
+     * @default 16
+     */
+    contentPadding?: number;
+    /**
+     * paddingBottom
+     * @default 16
+     */
+    contentPaddingBottom?: number;
+    /**
+     * paddingTop
+     * @default 16
+     */
+    contentPaddingTop?: number;
+    /**
+     * paddingLeft
+     * @default 16
+     */
+    contentPaddingLeft?: number;
+    /**
+     * paddingRight
+     * @default 16
+     */
+    contentPaddingRight?: number;
+    /**
+     * footer 是否可见
+     * @default false
+     */
+    footerVisible?: boolean;
+    /**
+     * footer 高度
+     * @default 32
+     */
+    footerHeight?: number;
+    /**
+     * footer 是否固定
+     * @default true
+     */
+    footerFixed?: boolean;
+    /**
+     * footer背景颜色
+     * @default #fff
+     */
+    footerBackgroundColor?: string;
+    /**
+     * tab是否可见
+     * @default true
+     */
+    tabVisible?: boolean;
+    /**
+     * tab高度
+     * @default 30
+     */
+    tabHeight?: number;
+    /**
+     * footer背景颜色
+     * @default #fff
+     */
+    tabBackgroundColor?: string;
+    /**
+     * 混合侧边扩展区域是否可见
+     * @default false
+     */
+    mixedExtraVisible?: boolean;
+    /**
+     * 固定混合侧边菜单
+     * @default false
+     */
+    fixedMixedExtra?: boolean;
+  }
 
-        const { config } = props.skeleton.editor;
+  const props = withDefaults(defineProps<Props>(), {
+    layout: 'side-nav',
+    zIndex: 1000,
+    isMobile: false,
+    headerVisible: true,
+    headerHeight: 48,
+    headerFixed: true,
+    headerBackgroundColor: '#fff',
+    sideVisible: true,
+    sideWidth: 180,
+    sideMixedWidth: 80,
+    sideCollapse: false,
+    sideCollapseWidth: 48,
+    sideBackgroundColor: '#fff',
+    contentPadding: 16,
+    contentPaddingBottom: 16,
+    contentPaddingTop: 16,
+    contentPaddingLeft: 16,
+    contentPaddingRight: 16,
+    footerBackgroundColor: '#fff',
+    footerHeight: 32,
+    footerFixed: true,
+    footerVisible: false,
+    tabVisible: true,
+    tabHeight: 30,
+    tabBackgroundColor: '#fff',
+    mixedExtraVisible: false,
+    fixedMixedExtra: false,
+  });
 
-        const layout = ref('aside');
+  const emit = defineEmits(['update:mixed-extra-visible', 'update:side-collapse']);
 
-        config.onGot('layout', (args: string) => {
-          layout.value = args;
-        });
+  const { b, e } = useNamespace('layout');
 
-        const workbenchClass = computed(() => {
-          return [ns.b(), layout.value === 'aside' ? ns.m('row') : ns.m('column')];
-        });
+  const sideCollapseState = computed({
+    get() {
+      return props.sideCollapse;
+    },
+    set(collapse) {
+      emit('update:side-collapse', collapse);
+    },
+  });
 
-        const bodyClass = computed(() => {
-          return [ns.b('body'), layout.value === 'aside' ? ns.m('column') : ns.m('row')];
-        });
+  /**
+   * 动态获取侧边区域是否可见
+   */
+  const getSideVisible = computed(() => {
+    const { layout, sideVisible } = props;
+    return layout !== 'header-nav' && sideVisible;
+  });
 
-        /**
-         * 是否侧边栏模式，包含混合侧边
-         */
-        const isSideMode = computed(() => ['side-nav', 'side-mixed-nav'].includes(props.layout));
+  /**
+   * 侧边区域离顶部高度
+   */
+  const sidePaddingTop = computed(() => {
+    const { layout, headerHeight, isMobile } = props;
+    return layout === 'mixed-nav' && !isMobile ? headerHeight : 0;
+  });
 
-        /**
-         * 是否全屏显示content，不需要侧边、底部、顶部、tab区域
-         */
-        const fullContent = computed(() => props.layout === 'full-content');
+  /**
+   * 动态获取侧边宽度
+   */
+  const getSiderWidth = computed(() => {
+    const { layout, sideWidth, isMobile, sideCollapseWidth, sideMixedWidth } = props;
+    let width = 0;
+    if (sideCollapseState.value) {
+      width = isMobile ? 0 : sideCollapseWidth;
+    } else {
+      if (layout === 'side-mixed-nav' && !isMobile) {
+        width = sideMixedWidth;
+      } else {
+        width = sideWidth;
+      }
+    }
+    return width;
+  });
 
-        /**
-         * 是否侧边混合模式
-         */
-        const isSideMixed = computed(() => props.layout === 'side-mixed-nav');
+  /**
+   * 是否侧边栏模式，包含混合侧边
+   */
+  const isSideMode = computed(() => ['side-nav', 'side-mixed-nav'].includes(props.layout));
 
-        /**
-         * 遮罩可见性
-         */
-        const maskVisible = computed(() => !sideCollapseState.value && props.isMobile);
+  /**
+   * 是否全屏显示content，不需要侧边、底部、顶部、tab区域
+   */
+  const fullContent = computed(() => props.layout === 'full-content');
 
-        /**
-         * header fixed值
-         */
-        const getHeaderFixed = computed(() =>
-          props.layout === 'mixed-nav' ? true : props.headerFixed,
-        );
+  /**
+   * 是否侧边混合模式
+   */
+  const isSideMixed = computed(() => props.layout === 'side-mixed-nav');
 
-        /**
-         * tab top 值
-         */
-        const tabTop = computed(() => (fullContent.value ? 0 : props.headerHeight));
+  /**
+   * 遮罩可见性
+   */
+  const maskVisible = computed(() => !sideCollapseState.value && props.isMobile);
 
-        /**
-         * 侧边栏z-index
-         */
-        const sideZIndex = computed(() => {
-          const { zIndex, isMobile } = props;
-          const offset = isMobile || isSideMode.value ? 1 : -1;
-          return zIndex + offset;
-        });
+  /**
+   * header fixed值
+   */
+  const getHeaderFixed = computed(() => (props.layout === 'mixed-nav' ? true : props.headerFixed));
 
-        const maskStyle = computed((): CSSProperties => {
-          return {
-            zIndex: props.zIndex,
-          };
-        });
+  /**
+   * tab top 值
+   */
+  const tabTop = computed(() => (fullContent.value ? 0 : props.headerHeight));
 
-        watchEffect(() => {
-          sideCollapseState.value = props.isMobile;
-        });
+  /**
+   * 侧边栏z-index
+   */
+  const sideZIndex = computed(() => {
+    const { zIndex, isMobile } = props;
+    const offset = isMobile || isSideMode.value ? 1 : -1;
+    return zIndex + offset;
+  });
 
-        function handleExtraVisible(visible: boolean) {
-          emit('update:mixed-extra-visible', visible);
-        }
+  const maskStyle = computed((): CSSProperties => {
+    return {
+      zIndex: props.zIndex,
+    };
+  });
 
-        function handleClickMask() {
-          sideCollapseState.value = true;
-        }
+  watchEffect(() => {
+    sideCollapseState.value = props.isMobile;
+  });
 
-        return {
-          ns,
-          workbenchClass,
-          bodyClass,
-          layout,
-        };
-      },
-      render() {
-        const { ns, skeleton, workbenchClass, layout, bodyClass } = this;
-        return <div id="workbench" class={workbenchClass}></div>;
-      },
-    }),
-  );
+  function handleExtraVisible(visible: boolean) {
+    emit('update:mixed-extra-visible', visible);
+  }
+
+  function handleClickMask() {
+    sideCollapseState.value = true;
+  }
 </script>
 
-<style lang="scss" module>
+<template>
+  <div :class="b()">
+    <slot></slot>
+    <LayoutSide
+      v-if="getSideVisible"
+      :skeleton="skeleton"
+      :show="!fullContent"
+      :width="getSiderWidth"
+      :side-extra-width="sideWidth"
+      :mixed-extra-visible="mixedExtraVisible"
+      :z-index="sideZIndex"
+      :dom-visible="!isMobile"
+      :is-side-mixed="isSideMixed"
+      :padding-top="sidePaddingTop"
+      :fixed-mixed-extra="fixedMixedExtra"
+      :background-color="sideBackgroundColor"
+      @extra-visible="handleExtraVisible"
+    >
+      <slot name="side"></slot>
+      <template #extra>
+        <slot name="side-extra"></slot>
+      </template>
+    </LayoutSide>
+
+    <div :class="e('main')">
+      <LayoutHeader
+        v-if="headerVisible"
+        :skeleton="skeleton"
+        :show="!fullContent"
+        :z-index="zIndex"
+        :height="headerHeight"
+        :fixed="getHeaderFixed"
+        :full-width="!isSideMode"
+        :background-color="headerBackgroundColor"
+      >
+        <slot name="header"></slot>
+      </LayoutHeader>
+
+      <LayoutTab
+        v-if="tabVisible"
+        :background-color="tabBackgroundColor"
+        :top="tabTop"
+        :z-index="zIndex"
+        :height="tabHeight"
+        :fixed="getHeaderFixed"
+      >
+        <slot name="tab"></slot>
+      </LayoutTab>
+
+      <LayoutContent
+        :skeleton="skeleton"
+        :padding="contentPadding"
+        :padding-top="contentPaddingTop"
+        :padding-right="contentPaddingRight"
+        :padding-bottom="contentPaddingBottom"
+        :padding-left="contentPaddingLeft"
+      >
+        <slot name="content"></slot>
+      </LayoutContent>
+
+      <LayoutFooter
+        v-if="footerVisible"
+        :skeleton="skeleton"
+        :show="!fullContent"
+        :zIndex="zIndex"
+        :height="footerHeight"
+        :fixed="footerFixed"
+        :background-color="footerBackgroundColor"
+      >
+        <slot name="footer"></slot>
+      </LayoutFooter>
+    </div>
+    <div v-if="maskVisible" :class="e('mask')" :style="maskStyle" @click="handleClickMask"></div>
+  </div>
+</template>
+
+<style scoped module lang="scss">
   @include b('layout') {
     display: flex;
 

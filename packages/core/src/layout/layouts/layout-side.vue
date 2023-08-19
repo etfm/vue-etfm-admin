@@ -1,140 +1,244 @@
-<script setup lang="ts">
-  import { useNamespace } from '@vben/hooks';
+<script lang="tsx">
+  import { useNamespace } from '@etfma/hooks';
   import { onClickOutside } from '@vueuse/core';
-  import type { CSSProperties } from 'vue';
-  import { computed, ref, shallowRef, watchEffect } from 'vue';
+  import type { CSSProperties, PropType } from 'vue';
+  import { computed, defineComponent, ref, shallowRef, unref, watchEffect } from 'vue';
+  import { Skeleton } from '../skeleton';
 
-  defineOptions({ name: 'VbenLayoutSide' });
+  export default defineComponent({
+    name: 'LayoutSide',
+    props: {
+      /**
+       * 框架实例
+       * @default
+       */
+      skeleton: {
+        type: Object as PropType<Skeleton>,
+        required: true,
+      },
+      /**
+       * 是否显示
+       * @default true
+       */
+      show: {
+        type: Boolean,
+        default: true,
+      },
+      /**
+       * 隐藏的dom是否可见
+       * @default true
+       */
+      domVisible: {
+        type: Boolean,
+        default: true,
+      },
+      /**
+       * zIndex
+       * @default 0
+       */
+      zIndex: {
+        type: Number,
+        default: 0,
+      },
+      /**
+       * 背景颜色
+       */
+      backgroundColor: {
+        type: String,
+      },
+      /**
+       * 宽度
+       * @default 180
+       */
+      width: {
+        type: Number,
+        default: 180,
+      },
+      /**
+       * 扩展区域宽度
+       * @default 180
+       */
+      sideExtraWidth: {
+        type: Number,
+        default: 180,
+      },
+      /**
+       * 是否侧边混合模式
+       * @default false
+       */
+      fixedMixedExtra: {
+        type: Boolean,
+        default: false,
+      },
+      /**
+       * 是否侧边混合模式
+       * @default false
+       */
+      isSideMixed: {
+        type: Boolean,
+        default: false,
+      },
+      /**
+       * 顶部padding
+       * @default 60
+       */
+      paddingTop: {
+        type: Number,
+        default: 60,
+      },
+      /**
+       * 混合侧边扩展区域是否可见
+       * @default false
+       */
+      mixedExtraVisible: {
+        type: Boolean,
+        default: false,
+      },
+    },
+    emits: ['extraVisible'],
+    setup(props, { emit }) {
+      const { b, e } = useNamespace('side');
 
-  interface Props {
-    /**
-     * 是否显示
-     * @default true
-     */
-    show?: boolean;
-    /**
-     * 隐藏的dom是否可见
-     * @default true
-     */
-    domVisible?: boolean;
-    /**
-     * zIndex
-     * @default 0
-     */
-    zIndex?: number;
-    /**
-     * 背景颜色
-     */
-    backgroundColor: string;
-    /**
-     * 宽度
-     * @default 180
-     */
-    width?: number;
-    /**
-     * 扩展区域宽度
-     * @default 180
-     */
-    sideExtraWidth?: number;
-    /**
-     * 固定扩展区域
-     * @default false
-     */
-    fixedMixedExtra?: boolean;
-    /**
-     * 是否侧边混合模式
-     * @default false
-     */
-    isSideMixed?: boolean;
-    /**
-     * 顶部padding
-     * @default 60
-     */
-    paddingTop?: number;
-    /**
-     * 混合侧边扩展区域是否可见
-     * @default false
-     */
-    mixedExtraVisible?: boolean;
-  }
+      const asideRef = shallowRef<HTMLDivElement | null>();
+      const extraVisible = ref(false);
+      const asideWidgetList = ref<any[]>(props.skeleton.aside);
+      const extraWidgetList = ref<any[]>(props.skeleton.extra);
 
-  const props = withDefaults(defineProps<Props>(), {
-    show: true,
-    zIndex: 0,
-    width: 180,
-    sideExtraWidth: 180,
-    paddingTop: 60,
-    isSideMixed: false,
-    fixedMixedExtra: false,
-    mixedExtraVisible: false,
-    domVisible: true,
-  });
+      const hiddenSideStyle = computed((): CSSProperties => {
+        const { backgroundColor, width, show, fixedMixedExtra, isSideMixed, sideExtraWidth } =
+          props;
+        const widthValue = `${width + (isSideMixed && fixedMixedExtra ? sideExtraWidth : 0)}px`;
 
-  const { b, e } = useNamespace('side');
+        return {
+          marginLeft: show ? 0 : `-${widthValue}`,
+          flex: `0 0 ${widthValue}`,
+          width: widthValue,
+          minWidth: widthValue,
+          maxWidth: widthValue,
+          backgroundColor,
+        };
+      });
 
-  const emit = defineEmits(['extraVisible']);
+      const style = computed((): CSSProperties => {
+        const { paddingTop, zIndex } = props;
+        return {
+          ...hiddenSideStyle.value,
+          paddingTop: `${paddingTop}px`,
+          zIndex,
+        };
+      });
 
-  const asideRef = shallowRef<HTMLDivElement | null>();
-  const extraVisible = ref(false);
+      const extraStyle = computed((): CSSProperties => {
+        const { backgroundColor, zIndex, sideExtraWidth, width } = props;
 
-  const hiddenSideStyle = computed((): CSSProperties => {
-    const { backgroundColor, width, show, fixedMixedExtra, isSideMixed, sideExtraWidth } = props;
-    const widthValue = `${width + (isSideMixed && fixedMixedExtra ? sideExtraWidth : 0)}px`;
+        return {
+          zIndex,
+          left: `${width}px`,
+          width: extraVisible.value ? `${sideExtraWidth}px` : 0,
+          backgroundColor,
+        };
+      });
 
-    return {
-      marginLeft: show ? 0 : `-${widthValue}`,
-      flex: `0 0 ${widthValue}`,
-      width: widthValue,
-      minWidth: widthValue,
-      maxWidth: widthValue,
-      backgroundColor,
-    };
-  });
+      watchEffect(() => {
+        extraVisible.value = props.fixedMixedExtra ? true : props.mixedExtraVisible;
+      });
 
-  const style = computed((): CSSProperties => {
-    const { paddingTop, zIndex } = props;
-    return {
-      ...hiddenSideStyle.value,
-      paddingTop: `${paddingTop}px`,
-      zIndex,
-    };
-  });
+      onClickOutside(asideRef, (event) => {
+        const { fixedMixedExtra, width } = props;
+        // 防止点击 aside 区域关闭
+        if (!fixedMixedExtra && event.clientX >= width) {
+          if (extraVisible.value) {
+            emit('extraVisible', false);
+          }
+        }
+      });
 
-  const extraStyle = computed((): CSSProperties => {
-    const { backgroundColor, zIndex, sideExtraWidth, width } = props;
+      props.skeleton.onWidget((config, list: any) => {
+        if (config.area === 'aside') {
+          asideWidgetList.value = list;
+        } else if (config.area === 'extra') {
+          extraWidgetList.value = list;
+        }
+      });
 
-    return {
-      zIndex,
-      left: `${width}px`,
-      width: extraVisible.value ? `${sideExtraWidth}px` : 0,
-      backgroundColor,
-    };
-  });
+      const aside = computed(() => {
+        const left: any[] = [];
+        const center: any[] = [];
+        const right: any[] = [];
+        unref(asideWidgetList).forEach((item) => {
+          const content = item.content;
+          if (item.align === 'center') {
+            center.push(content);
+          } else if (item.align === 'right') {
+            right.push(content);
+          } else {
+            left.push(content);
+          }
+        });
 
-  watchEffect(() => {
-    extraVisible.value = props.fixedMixedExtra ? true : props.mixedExtraVisible;
-  });
+        return {
+          left,
+          center,
+          right,
+        };
+      });
 
-  onClickOutside(asideRef, (event) => {
-    const { fixedMixedExtra, width } = props;
-    // 防止点击 aside 区域关闭
-    if (!fixedMixedExtra && event.clientX >= width) {
-      if (extraVisible.value) {
-        emit('extraVisible', false);
-      }
-    }
+      const extra = computed(() => {
+        const left: any[] = [];
+        const center: any[] = [];
+        const right: any[] = [];
+        unref(extraWidgetList).forEach((item) => {
+          const content = item.content;
+          if (item.align === 'center') {
+            center.push(content);
+          } else if (item.align === 'right') {
+            right.push(content);
+          } else {
+            left.push(content);
+          }
+        });
+
+        return {
+          left,
+          center,
+          right,
+        };
+      });
+
+      return {
+        b,
+        e,
+        style,
+        extra,
+        aside,
+        extraStyle,
+        hiddenSideStyle,
+        asideRef,
+      };
+    },
+    render() {
+      const { domVisible, hiddenSideStyle, e, b, style, isSideMixed, extraStyle, aside, extra } =
+        this;
+      return (
+        <>
+          {domVisible && <div style={hiddenSideStyle} class={e('hide')}></div>}
+          <aside style={style} class={b()}>
+            {aside.left}
+            {aside.center}
+            {aside.right}
+            {isSideMixed && (
+              <div ref="asideRef" style={extraStyle} class={e('extra')}>
+                {extra.left}
+                {extra.center}
+                {extra.right}
+              </div>
+            )}
+          </aside>
+        </>
+      );
+    },
   });
 </script>
-
-<template>
-  <div v-if="domVisible" :style="hiddenSideStyle" :class="e('hide')"></div>
-  <aside :style="style" :class="b()">
-    <slot></slot>
-    <div v-if="isSideMixed" ref="asideRef" :style="extraStyle" :class="e('extra')">
-      <slot name="extra"></slot>
-    </div>
-  </aside>
-</template>
 
 <style scoped module lang="scss">
   @include b('side') {

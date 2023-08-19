@@ -32,21 +32,23 @@ export interface ISkeleton
   > {
   editor: IEditor;
 
-  readonly aside: IArea;
+  readonly aside: IWidget[];
 
-  readonly header: IArea;
+  readonly header: IWidget[];
 
-  readonly toolbar: IArea;
+  readonly toolbar: IWidget[];
 
-  readonly breadcrumb: IArea;
+  readonly extra: IWidget[];
 
-  readonly fixed: IArea;
+  // readonly breadcrumb: IArea;
 
-  readonly float: IArea;
+  // readonly fixed: IArea;
+  //
+  // readonly float: IArea;
 
-  readonly main: IArea;
+  readonly main: IWidget[];
 
-  readonly footer: IArea;
+  readonly footer: IWidget[];
 
   readonly widgets: IWidget[];
 

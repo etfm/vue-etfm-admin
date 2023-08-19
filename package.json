@@ -18,6 +18,7 @@
     "@element-plus/icons-vue": "^2.1.0",
     "@etfma/design": "workspace:*",
     "@iconify/iconify": "^3.1.0",
+    "@vueuse/core": "^9.13.0",
     "classnames": "^2.3.2",
     "element-plus": "^2.3.2",
     "events": "^3.3.0",

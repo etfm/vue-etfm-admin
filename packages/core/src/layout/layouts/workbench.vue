@@ -1,110 +1,192 @@
-<script lang="tsx">
-  import { defineComponent, PropType, ref, computed } from 'vue';
-  import { observer } from '../../obx';
+<script setup lang="ts">
   import { Skeleton } from '../skeleton';
-  import { useNamespace } from '@etfma/hooks';
+  import Layout from './layout.vue';
+  import { engineConfig } from '../../config';
+  import { ref } from 'vue';
+  import { deepMerge } from '@etfma/shared';
 
-  import HeaderArea from './header.vue';
-  import AsideArea from './aside.vue';
-  import FloatArea from './float.vue';
-  import FixedArea from './fixed.vue';
-  import ToolbarArea from './toolbar.vue';
-  import MainArea from './main.vue';
-  import FooterArea from './footer.vue';
-  import BreadcrumbArea from './breadcrumb.vue';
+  interface Props {
+    skeleton: Skeleton;
+  }
 
-  export default observer(
-    defineComponent({
-      name: 'Workbench',
-      props: {
-        skeleton: {
-          type: Object as PropType<Skeleton>,
-          required: true,
-        },
-      },
-      setup(props) {
-        const ns = useNamespace('workbench');
+  withDefaults(defineProps<Props>(), {});
 
-        const { config } = props.skeleton.editor;
+  const model = ref<{
+    /**
+     * 布局方式
+     * side-nav 侧边菜单布局
+     * header-nav 顶部菜单布局
+     * mixed-nav 侧边&顶部菜单布局
+     * side-mixed-nav 侧边混合菜单布局
+     * full-content 全屏内容布局
+     * @default side-nav
+     */
+    layout?: 'side-nav' | 'header-nav' | 'mixed-nav' | 'side-mixed-nav' | 'full-content';
+    /**
+     * 是否移动端显示
+     * @default false
+     */
+    isMobile?: boolean;
+    /**
+     * zIndex
+     * @default 100
+     */
+    zIndex?: number;
+    /**
+     * header是否显示
+     * @default true
+     */
+    headerVisible?: boolean;
+    /**
+     * header高度
+     * @default 48
+     */
+    headerHeight?: number;
+    /**
+     * header是否固定在顶部
+     * @default true
+     */
+    headerFixed?: boolean;
+    /**
+     * 背景颜色
+     * @default #fff
+     */
+    headerBackgroundColor?: string;
+    /**
+     * 侧边栏是否可见
+     * @default true
+     */
+    sideVisible?: boolean;
+    /**
+     * 侧边栏宽度
+     * @default 180
+     */
+    sideWidth?: number;
+    /**
+     * 混合侧边栏宽度
+     * @default 80
+     */
+    sideMixedWidth?: number;
+    /**
+     * 侧边栏背景颜色
+     * @default #fff
+     */
+    sideBackgroundColor?: string;
+    /**
+     * 侧边菜单折叠状态
+     * @default false
+     */
+    sideCollapse?: boolean;
+    /**
+     *  侧边菜单折叠宽度
+     * @default 48
+     */
+    sideCollapseWidth?: number;
+    /**
+     * padding
+     * @default 16
+     */
+    contentPadding?: number;
+    /**
+     * paddingBottom
+     * @default 16
+     */
+    contentPaddingBottom?: number;
+    /**
+     * paddingTop
+     * @default 16
+     */
+    contentPaddingTop?: number;
+    /**
+     * paddingLeft
+     * @default 16
+     */
+    contentPaddingLeft?: number;
+    /**
+     * paddingRight
+     * @default 16
+     */
+    contentPaddingRight?: number;
+    /**
+     * footer 是否可见
+     * @default false
+     */
+    footerVisible?: boolean;
+    /**
+     * footer 高度
+     * @default 32
+     */
+    footerHeight?: number;
+    /**
+     * footer 是否固定
+     * @default true
+     */
+    footerFixed?: boolean;
+    /**
+     * footer背景颜色
+     * @default #fff
+     */
+    footerBackgroundColor?: string;
+    /**
+     * tab是否可见
+     * @default true
+     */
+    tabVisible?: boolean;
+    /**
+     * tab高度
+     * @default 30
+     */
+    tabHeight?: number;
+    /**
+     * footer背景颜色
+     * @default #fff
+     */
+    tabBackgroundColor?: string;
+    /**
+     * 混合侧边扩展区域是否可见
+     * @default false
+     */
+    mixedExtraVisible?: boolean;
+    /**
+     * 固定混合侧边菜单
+     * @default false
+     */
+    fixedMixedExtra?: boolean;
+  }>({
+    layout: 'side-nav',
+    zIndex: 1000,
+    isMobile: false,
+    headerVisible: true,
+    headerHeight: 48,
+    headerFixed: true,
+    headerBackgroundColor: '#fff',
+    sideVisible: true,
+    sideWidth: 180,
+    sideMixedWidth: 80,
+    sideCollapse: false,
+    sideCollapseWidth: 48,
+    sideBackgroundColor: '#fff',
+    contentPadding: 16,
+    contentPaddingBottom: 16,
+    contentPaddingTop: 16,
+    contentPaddingLeft: 16,
+    contentPaddingRight: 16,
+    footerBackgroundColor: '#fff',
+    footerHeight: 32,
+    footerFixed: true,
+    footerVisible: false,
+    tabVisible: true,
+    tabHeight: 30,
+    tabBackgroundColor: '#fff',
+    mixedExtraVisible: false,
+    fixedMixedExtra: false,
+  });
 
-        const layout = ref('aside');
-
-        config.onGot('layout', (args: string) => {
-          layout.value = args;
-        });
-
-        const workbenchClass = computed(() => {
-          return [ns.b(), layout.value === 'aside' ? ns.m('row') : ns.m('column')];
-        });
-
-        const bodyClass = computed(() => {
-          return [ns.b('body'), layout.value === 'aside' ? ns.m('column') : ns.m('row')];
-        });
-
-        return {
-          ns,
-          workbenchClass,
-          bodyClass,
-          layout,
-        };
-      },
-      render() {
-        const { ns, skeleton, workbenchClass, layout, bodyClass } = this;
-        return (
-          <div id="workbench" class={workbenchClass}>
-            {layout === 'aside' && <AsideArea area={skeleton.aside} />}
-            {/* {layout !== 'aside' && <HeaderArea area={skeleton.header} />} */}
-            {layout === 'aside' && <FloatArea area={skeleton.float} />}
-            {layout === 'aside' && <FixedArea area={skeleton.fixed} />}
-
-            <div id="workbench-body" class={bodyClass}>
-              {layout === 'aside' && <HeaderArea area={skeleton.header} />}
-              {layout !== 'aside' && <AsideArea area={skeleton.aside} />}
-              {layout !== 'aside' && <FloatArea area={skeleton.float} />}
-              {layout !== 'aside' && <FixedArea area={skeleton.fixed} />}
-
-              <div class={ns.b('center')}>
-                <ToolbarArea area={skeleton.toolbar} />
-                <BreadcrumbArea area={skeleton.breadcrumb} />
-                <MainArea area={skeleton.main} />
-                <FooterArea area={skeleton.footer} />
-              </div>
-            </div>
-          </div>
-        );
-      },
-    }),
-  );
+  engineConfig.onGot('layout', (layout) => {
+    // model.value = deepMerge(model.value, layout);
+  });
 </script>
 
-<style lang="scss" module>
-  @include b('workbench') {
-    display: flex;
-    height: 100%;
-    background-color: getCssVar('bg-color');
-
-    @include m('column') {
-      flex-direction: column;
-    }
-
-    @include m('row') {
-      flex-direction: row;
-    }
-
-    @include b('workbench-body') {
-      position: relative;
-      display: flex;
-      flex: 1;
-      overflow: hidden;
-      margin-left: 1px;
-    }
-
-    @include b('workbench-center') {
-      z-index: 10;
-      display: flex;
-      flex: 1;
-      flex-direction: column;
-      overflow: hidden;
-    }
-  }
-</style>
+<template>
+  <Layout v-bind="model" :skeleton="skeleton"> </Layout>
+</template>

@@ -13,7 +13,7 @@ import PluginAside from '@etfma/plugin-aside';
 import { staticRoutes } from './router';
 import PluginAppLogo from './plugin/plugin-logo';
 import PluginTabs from '@etfma/plugin-tabs';
-// import PluginBreadcrumb from '@etfma/plugin-breadcrumb';
+import PluginBreadcrumb from '@etfma/plugin-breadcrumb';
 import PluginBreadcrumbFullscreen from '@etfma/plugin-breadcrumb-fullscreen';
 import PluginFullscreen from '@etfma/plugin-fullscreen';
 import PluginHeaderMenu from '@etfma/plugin-header-menu';
@@ -55,19 +55,19 @@ async function boostrap() {
 
   // await plugins.register(PluginHeaderMenu, { visible: true });
 
-  // await plugins.register(PluginAppLogo);
+  await plugins.register(PluginAppLogo);
 
   await plugins.register(PluginTabs);
 
   await plugins.register(PluginDesigner);
 
-  // await plugins.register(PluginBreadcrumb);
+  await plugins.register(PluginBreadcrumb);
 
-  // await plugins.register(PluginBreadcrumbFullscreen);
+  await plugins.register(PluginBreadcrumbFullscreen);
 
-  // await plugins.register(PluginFullscreen);
+  await plugins.register(PluginFullscreen);
 
-  // await plugins.register(PluginUser);
+  await plugins.register(PluginUser);
 
   // await plugins.register(PluginSetting);
 

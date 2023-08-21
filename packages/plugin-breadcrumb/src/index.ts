@@ -12,7 +12,7 @@ const PluginBreadcrumb: IPublicPlugin = (ctx: IPublicPluginContext, options) => 
 
       skeleton.add({
         name: 'PluginBreadcrumb',
-        area: 'breadcrumb',
+        area: 'header',
         content: h(Breadcrumb),
         contentProps: opts,
       });

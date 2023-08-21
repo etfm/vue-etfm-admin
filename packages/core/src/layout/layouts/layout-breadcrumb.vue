@@ -5,7 +5,7 @@
   import { Skeleton } from '../skeleton';
 
   export default defineComponent({
-    name: 'LayoutToolbar',
+    name: 'LayoutBreadcrumb',
     props: {
       /**
        * 框架实例
@@ -32,11 +32,11 @@
       },
       /**
        * 高度
-       * @default 30
+       * @default 56
        */
       height: {
         type: Number,
-        default: 30,
+        default: 56,
       },
       /**
        * 是否固定在顶部
@@ -81,7 +81,7 @@
       });
 
       props.skeleton.onWidget((config, list: any) => {
-        if (config.area === 'toolbar') {
+        if (config.area === 'breadcrumb') {
           widgets.value = list;
         }
       });
@@ -140,7 +140,7 @@
 </script>
 
 <style scoped module lang="scss">
-  @include b('toolbar') {
+  @include b('breadcrumb') {
     width: 100%;
     transition: all 0.3s ease 0s;
 

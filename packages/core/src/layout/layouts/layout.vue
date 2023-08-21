@@ -8,6 +8,7 @@
   import LayoutToolbar from './layout-toolbar.vue';
   import { Skeleton } from '../skeleton';
   import { useNamespace } from '@etfma/hooks';
+  import LayoutBreadcrumb from './layout-breadcrumb.vue';
 
   defineOptions({
     name: 'VbenLayout',
@@ -337,8 +338,16 @@
         :height="tabHeight"
         :fixed="getHeaderFixed"
       >
-        <slot name="tab"></slot>
       </LayoutToolbar>
+      <LayoutBreadcrumb
+        v-if="tabVisible"
+        :skeleton="skeleton"
+        :background-color="tabBackgroundColor"
+        :top="tabTop"
+        :z-index="zIndex"
+        :height="tabHeight"
+        :fixed="getHeaderFixed"
+      />
 
       <LayoutContent
         :skeleton="skeleton"
@@ -348,7 +357,6 @@
         :padding-bottom="contentPaddingBottom"
         :padding-left="contentPaddingLeft"
       >
-        <slot name="content"></slot>
       </LayoutContent>
 
       <LayoutFooter
@@ -360,7 +368,6 @@
         :fixed="footerFixed"
         :background-color="footerBackgroundColor"
       >
-        <slot name="footer"></slot>
       </LayoutFooter>
     </div>
     <div v-if="maskVisible" :class="e('mask')" :style="maskStyle" @click="handleClickMask"></div>

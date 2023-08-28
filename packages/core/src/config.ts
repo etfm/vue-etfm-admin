@@ -15,9 +15,37 @@ const logger = new Logger({ bizName: 'Config' });
 // type and description are only used for developer`s assistance, won`t affect runtime
 const VALID_ENGINE_OPTIONS = {
   layout: {
-    type: 'string',
+    type: 'object',
     storage: true,
-    defaultValue: 'aside',
+    defaultValue: {
+      layout: 'side-nav',
+      zIndex: 1000,
+      isMobile: false,
+      headerVisible: true,
+      headerHeight: 48,
+      headerFixed: true,
+      headerBackgroundColor: '#fff',
+      sideVisible: true,
+      sideWidth: 180,
+      sideMixedWidth: 80,
+      sideCollapse: false,
+      sideCollapseWidth: 48,
+      sideBackgroundColor: '#fff',
+      contentPadding: 16,
+      contentPaddingBottom: 16,
+      contentPaddingTop: 16,
+      contentPaddingLeft: 16,
+      contentPaddingRight: 16,
+      footerBackgroundColor: '#fff',
+      footerHeight: 32,
+      footerFixed: true,
+      footerVisible: false,
+      tabVisible: true,
+      tabHeight: 30,
+      tabBackgroundColor: '#fff',
+      mixedExtraVisible: false,
+      fixedMixedExtra: false,
+    },
     description: '布局',
   },
   i18n: {
@@ -40,32 +68,9 @@ const VALID_ENGINE_OPTIONS = {
     storage: true,
     description: 'Etfm-Admin-Engine 版本',
   },
-  // enableStrict: {
-  //   type: 'boolean',
-  //   storage: false,
-  //   default: STRICT_PLUGIN_MODE_DEFAULT,
-  //   description:
-  //     '开启严格插件模式，默认值：STRICT_PLUGIN_MODE_DEFAULT , 严格模式下，插件将无法通过自定义配置项',
-  // },
 };
 
 const STORE_MODULE = 'CONFIG';
-
-// const getStrictModeValue = (
-//   engineOptions: IPublicTypeEngineOptions,
-//   defaultValue: boolean,
-// ): boolean => {
-//   if (!engineOptions || !lodash.isPlainObject(engineOptions)) {
-//     return defaultValue;
-//   }
-//   if (
-//     engineOptions.enableStrictPluginMode === undefined ||
-//     engineOptions.enableStrictPluginMode === null
-//   ) {
-//     return defaultValue;
-//   }
-//   return engineOptions.enableStrictPluginMode;
-// };
 
 export interface IEngineConfig extends IPublicModelEngineConfig {
   notifyGot(key: string): void;
@@ -120,11 +125,12 @@ export class EngineConfig implements IEngineConfig {
    * @param value
    */
   set(key: string, value: any) {
-    // const strictMode = getStrictModeValue({ [key]: value }, STRICT_PLUGIN_MODE_DEFAULT) === true;
-    // if (strictMode) {
     const result = VALID_ENGINE_OPTIONS[key];
     const isValidKey = () => {
-      return !(result === undefined || result === null);
+      return (
+        !(result === undefined || result === null) &&
+        (typeof value == null || typeof value == 'undefined' || typeof value === result.type)
+      );
     };
 
     if (isValidKey()) {
@@ -133,13 +139,12 @@ export class EngineConfig implements IEngineConfig {
       this.notifyGot(key);
     } else {
       logger.warn(
-        `failed to config ${key} to engineConfig, only predefined options can be set under strict mode, predefined options: ${VALID_ENGINE_OPTIONS}`,
+        'failed to config',
+        key,
+        `to engineConfig, only predefined options can be set under strict mode, predefined options: `,
+        VALID_ENGINE_OPTIONS,
       );
     }
-    // }
-    // else {
-    //   this.preference.set(key, value, STORE_MODULE);
-    // }
   }
 
   setConfig(engineOptions: IPublicTypeEngineOptions) {

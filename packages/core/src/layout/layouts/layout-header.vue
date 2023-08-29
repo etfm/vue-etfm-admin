@@ -47,6 +47,14 @@
         default: 60,
       },
       /**
+       * 宽度
+       * @default 0
+       */
+      width: {
+        type: String,
+        default: 0,
+      },
+      /**
        * 是否固定在顶部
        * @default true
        */
@@ -81,14 +89,17 @@
       });
 
       const style = computed((): CSSProperties => {
-        const { backgroundColor, height, fixed, zIndex, show, fullWidth } = props;
+        const { backgroundColor, height, fixed, zIndex, show, fullWidth, width } = props;
         const right = !show || !fullWidth ? undefined : 0;
+
+        console.log(width);
 
         return {
           position: fixed ? 'fixed' : 'static',
           marginTop: show ? 0 : `-${height}px`,
           backgroundColor,
           height: `${height}px`,
+          width,
           zIndex,
           right,
         };
@@ -144,9 +155,9 @@
         <>
           <div style={hiddenHeaderStyle} class={e('hide')}></div>
           <header style={style} class={b()}>
-            <div class={b('left')}>{area.left}</div>
-            <div class={b('center')}>{area.center}</div>
-            <div class={b('right')}>{area.right}</div>
+            <div class={e('left')}>{area.left}</div>
+            <div class={e('center')}>{area.center}</div>
+            <div class={e('right')}>{area.right}</div>
           </header>
         </>
       );
@@ -155,11 +166,16 @@
 </script>
 
 <style scoped module lang="scss">
+  :root {
+    @include set-component-css-var('header', $header-area);
+  }
   @include b('header') {
     top: 0;
     width: 100%;
     transition: all 0.3s ease 0s;
     display: flex;
+    background-color: getCssVar('header', 'bg-color');
+    // box-shadow: 0 0 1px #888;
 
     @include e('hide') {
       flex: 0 0 auto;
@@ -168,18 +184,18 @@
       transition: all 0.3s ease 0s;
     }
 
-    @include b('header-left') {
+    @include e('left') {
       display: flex;
       align-items: center;
     }
 
-    @include b('header-center') {
+    @include e('center') {
       display: flex;
       flex: 1;
       align-items: center;
     }
 
-    @include b('header-right') {
+    @include e('right') {
       display: flex;
       align-items: center;
     }

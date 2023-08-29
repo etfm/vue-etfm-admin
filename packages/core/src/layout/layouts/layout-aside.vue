@@ -266,7 +266,9 @@
     left: 0;
     height: 100%;
     overflow: hidden;
-    box-shadow: 2px 0 8px 0 rgb(29 35 41 / 5%);
+    flex-shrink: 0;
+    // box-shadow: 2px 0 8px 0 rgb(29 35 41 / 5%);
+    box-shadow: 0 0 1px #888;
     transition: all 0.2s ease 0s;
     background-color: getCssVar('aside', 'bg-color');
 

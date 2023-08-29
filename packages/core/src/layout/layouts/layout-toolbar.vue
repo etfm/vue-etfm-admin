@@ -39,6 +39,14 @@
         default: 30,
       },
       /**
+       * 宽度
+       * @default 0
+       */
+      width: {
+        type: String,
+        default: 0,
+      },
+      /**
        * 是否固定在顶部
        * @default true
        */
@@ -71,12 +79,13 @@
       });
 
       const style = computed((): CSSProperties => {
-        const { backgroundColor, fixed } = props;
+        const { backgroundColor, fixed, width } = props;
         return {
           ...hiddenStyle.value,
           position: fixed ? 'fixed' : 'static',
           display: 'flex',
           backgroundColor,
+          width,
         };
       });
 
@@ -129,9 +138,9 @@
         <>
           <div class={e('hide')} style={hiddenStyle}></div>
           <section class={b()} style={style}>
-            {area.left}
-            {area.center}
-            {area.right}
+            <div class={e('left')}>{area.left}</div>
+            <div class={e('center')}>{area.center}</div>
+            <div class={e('right')}>{area.right}</div>
           </section>
         </>
       );
@@ -141,11 +150,31 @@
 
 <style scoped module lang="scss">
   @include b('toolbar') {
+    @include set-component-css-var('toolbar', $toolbar-area);
+
     width: 100%;
     transition: all 0.3s ease 0s;
+    background-color: getCssVar('toolbar', 'bg-color');
+    box-shadow: 0 0 1px #888;
 
     @include e('hide') {
       background: transparent;
+    }
+
+    @include e('left') {
+      display: flex;
+      align-items: center;
+    }
+
+    @include e('center') {
+      display: flex;
+      flex: 1;
+      align-items: center;
+    }
+
+    @include e('right') {
+      display: flex;
+      align-items: center;
     }
   }
 </style>

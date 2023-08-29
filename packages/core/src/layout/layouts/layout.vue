@@ -23,38 +23,7 @@ s<script setup lang="ts">
     skeleton: Skeleton;
   }
 
-  const props = withDefaults(defineProps<Props>(), {
-    layout: 'side-nav',
-    zIndex: 1000,
-    isMobile: false,
-    headerVisible: true,
-    headerHeight: 48,
-    headerFixed: true,
-    headerBackgroundColor: '#fff',
-    sideVisible: true,
-    sideWidth: 180,
-    sideMixedWidth: 80,
-    sideCollapse: false,
-    sideCollapseWidth: 48,
-    sideBackgroundColor: '#fff',
-    contentPadding: 16,
-    contentPaddingBottom: 16,
-    contentPaddingTop: 16,
-    contentPaddingLeft: 16,
-    contentPaddingRight: 16,
-    footerBackgroundColor: '#fff',
-    footerHeight: 32,
-    footerFixed: true,
-    footerVisible: false,
-    tabVisible: true,
-    tabHeight: 30,
-    tabBackgroundColor: '#fff',
-    breadcrumbVisible: true,
-    breadcrumbHeight: 30,
-    breadcrumbBackgroundColor: '#fff',
-    mixedExtraVisible: false,
-    fixedMixedExtra: false,
-  });
+  const props = withDefaults(defineProps<Props>(), {});
 
   const emit = defineEmits(['update:mixed-extra-visible', 'update:side-collapse']);
 
@@ -92,21 +61,28 @@ s<script setup lang="ts">
     const { layout, sideWidth, isMobile, sideCollapseWidth, sideMixedWidth } = props;
     let width = 0;
     if (sideCollapseState.value) {
-      width = isMobile ? 0 : sideCollapseWidth;
+      width = isMobile ? 0 : sideCollapseWidth!;
     } else {
       if (layout === 'side-mixed-nav' && !isMobile) {
-        width = sideMixedWidth;
+        width = sideMixedWidth!;
       } else {
-        width = sideWidth;
+        width = sideWidth!;
       }
     }
     return width;
   });
 
   /**
+   * 去除aside后，容器的宽
+   */
+  const getMainWidth = computed(() => {
+    return `calc(100% - ${getSiderWidth.value}px)`;
+  });
+
+  /**
    * 是否侧边栏模式，包含混合侧边
    */
-  const isSideMode = computed(() => ['side-nav', 'side-mixed-nav'].includes(props.layout));
+  const isSideMode = computed(() => ['side-nav', 'side-mixed-nav'].includes(props.layout!));
 
   /**
    * 是否全屏显示content，不需要侧边、底部、顶部、tab区域
@@ -139,11 +115,11 @@ s<script setup lang="ts">
   const breadcrumbTop = computed(() => {
     let top = 0;
     if (props.headerVisible) {
-      top += props.headerHeight;
+      top += props.headerHeight!;
     }
 
     if (props.tabVisible) {
-      top += props.tabHeight;
+      top += props.tabHeight!;
     }
     return top;
   });
@@ -154,7 +130,7 @@ s<script setup lang="ts">
   const sideZIndex = computed(() => {
     const { zIndex, isMobile } = props;
     const offset = isMobile || isSideMode.value ? 1 : -1;
-    return zIndex + offset;
+    return zIndex! + offset;
   });
 
   const maskStyle = computed((): CSSProperties => {
@@ -203,6 +179,7 @@ s<script setup lang="ts">
         :show="!fullContent"
         :z-index="zIndex"
         :height="headerHeight"
+        :width="getMainWidth"
         :fixed="getHeaderFixed"
         :full-width="!isSideMode"
         :background-color="headerBackgroundColor"
@@ -211,6 +188,7 @@ s<script setup lang="ts">
       <LayoutToolbar
         v-if="tabVisible"
         :skeleton="skeleton"
+        :width="getMainWidth"
         :background-color="tabBackgroundColor"
         :top="tabTop"
         :z-index="zIndex"
@@ -221,6 +199,7 @@ s<script setup lang="ts">
       <LayoutBreadcrumb
         v-if="breadcrumbVisible"
         :skeleton="skeleton"
+        :width="getMainWidth"
         :background-color="breadcrumbBackgroundColor"
         :top="breadcrumbTop"
         :z-index="zIndex"
@@ -231,6 +210,7 @@ s<script setup lang="ts">
       <LayoutContent
         :skeleton="skeleton"
         :padding="contentPadding"
+        :width="getMainWidth"
         :padding-top="contentPaddingTop"
         :padding-right="contentPaddingRight"
         :padding-bottom="contentPaddingBottom"
@@ -241,6 +221,7 @@ s<script setup lang="ts">
       <LayoutFooter
         v-if="footerVisible"
         :skeleton="skeleton"
+        :width="getMainWidth"
         :show="!fullContent"
         :zIndex="zIndex"
         :height="footerHeight"

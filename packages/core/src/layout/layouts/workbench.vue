@@ -15,7 +15,6 @@
   const model = ref<IPublicLayout>({});
 
   engineConfig.onGot('layout', (layout) => {
-    console.log(layout, '============');
     model.value = deepMerge(model.value, layout);
   });
 </script>

@@ -167,6 +167,21 @@ export interface IPublicLayout {
    */
   tabBackgroundColor?: string;
   /**
+   * breadcrumb是否可见
+   * @default true
+   */
+  breadcrumbVisible?: boolean;
+  /**
+   * breadcrumb高度
+   * @default 30
+   */
+  breadcrumbHeight?: number;
+  /**
+   * breadcrumb 背景颜色
+   * @default #fff
+   */
+  breadcrumbBackgroundColor?: string;
+  /**
    * 混合侧边扩展区域是否可见
    * @default false
    */

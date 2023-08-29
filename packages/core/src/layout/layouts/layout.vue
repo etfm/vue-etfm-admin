@@ -1,10 +1,10 @@
-<script setup lang="ts">
+s<script setup lang="ts">
   import type { CSSProperties } from 'vue';
   import { computed, watchEffect } from 'vue';
   import LayoutContent from './layout-content.vue';
   import LayoutFooter from './layout-footer.vue';
   import LayoutHeader from './layout-header.vue';
-  import LayoutSide from './layout-side.vue';
+  import LayoutAside from './layout-aside.vue';
   import LayoutToolbar from './layout-toolbar.vue';
   import { Skeleton } from '../skeleton';
   import { useNamespace } from '@etfma/hooks';
@@ -12,7 +12,7 @@
   import type { IPublicLayout } from '@etfma/types';
 
   defineOptions({
-    name: 'VbenLayout',
+    name: 'Layout',
   });
 
   interface Props extends IPublicLayout {
@@ -49,6 +49,9 @@
     tabVisible: true,
     tabHeight: 30,
     tabBackgroundColor: '#fff',
+    breadcrumbVisible: true,
+    breadcrumbHeight: 30,
+    breadcrumbBackgroundColor: '#fff',
     mixedExtraVisible: false,
     fixedMixedExtra: false,
   });
@@ -131,6 +134,21 @@
   const tabTop = computed(() => (fullContent.value ? 0 : props.headerHeight));
 
   /**
+   * breadcrumb top 值
+   */
+  const breadcrumbTop = computed(() => {
+    let top = 0;
+    if (props.headerVisible) {
+      top += props.headerHeight;
+    }
+
+    if (props.tabVisible) {
+      top += props.tabHeight;
+    }
+    return top;
+  });
+
+  /**
    * 侧边栏z-index
    */
   const sideZIndex = computed(() => {
@@ -161,7 +179,7 @@
 <template>
   <div :class="b()">
     <slot></slot>
-    <LayoutSide
+    <LayoutAside
       v-if="getSideVisible"
       :skeleton="skeleton"
       :show="!fullContent"
@@ -176,7 +194,7 @@
       :background-color="sideBackgroundColor"
       @extra-visible="handleExtraVisible"
     >
-    </LayoutSide>
+    </LayoutAside>
 
     <div :class="e('main')">
       <LayoutHeader
@@ -201,12 +219,12 @@
       >
       </LayoutToolbar>
       <LayoutBreadcrumb
-        v-if="tabVisible"
+        v-if="breadcrumbVisible"
         :skeleton="skeleton"
-        :background-color="tabBackgroundColor"
-        :top="tabTop"
+        :background-color="breadcrumbBackgroundColor"
+        :top="breadcrumbTop"
         :z-index="zIndex"
-        :height="tabHeight"
+        :height="breadcrumbHeight"
         :fixed="getHeaderFixed"
       />
 
@@ -243,6 +261,7 @@
       display: flex;
       flex: auto;
       flex-direction: column;
+      position: relative;
     }
 
     @include e('mask') {

@@ -144,9 +144,9 @@
         <>
           <div style={hiddenHeaderStyle} class={e('hide')}></div>
           <header style={style} class={b()}>
-            {area.left}
-            {area.center}
-            {area.right}
+            <div class={b('left')}>{area.left}</div>
+            <div class={b('center')}>{area.center}</div>
+            <div class={b('right')}>{area.right}</div>
           </header>
         </>
       );
@@ -159,12 +159,29 @@
     top: 0;
     width: 100%;
     transition: all 0.3s ease 0s;
+    display: flex;
 
     @include e('hide') {
       flex: 0 0 auto;
       width: 100%;
       background: transparent;
       transition: all 0.3s ease 0s;
+    }
+
+    @include b('header-left') {
+      display: flex;
+      align-items: center;
+    }
+
+    @include b('header-center') {
+      display: flex;
+      flex: 1;
+      align-items: center;
+    }
+
+    @include b('header-right') {
+      display: flex;
+      align-items: center;
     }
   }
 </style>

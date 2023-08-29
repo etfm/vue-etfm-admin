@@ -1,5 +1,4 @@
 import { IPublicApiSkeleton } from './api/skeleton';
-import { IArea } from './area';
 import { IEditor } from './core';
 import { IWidget } from './widget';
 import { IPublicTypeSkeletonConfig } from './widget-base-config';
@@ -40,7 +39,7 @@ export interface ISkeleton
 
   readonly extra: IWidget[];
 
-  // readonly breadcrumb: IArea;
+  readonly breadcrumb: IWidget[];
 
   // readonly fixed: IArea;
   //

@@ -3,10 +3,11 @@
   import { onClickOutside } from '@vueuse/core';
   import type { CSSProperties, PropType } from 'vue';
   import { computed, defineComponent, ref, shallowRef, unref, watchEffect } from 'vue';
-  import { Skeleton } from '../skeleton';
+  import { Skeleton } from '../skeleton.js';
+  import { IWidget } from '@etfma/types';
 
   export default defineComponent({
-    name: 'LayoutSide',
+    name: 'LayoutAside',
     props: {
       /**
        * 框架实例
@@ -97,12 +98,12 @@
     },
     emits: ['extraVisible'],
     setup(props, { emit }) {
-      const { b, e } = useNamespace('side');
+      const { b, e } = useNamespace('aside');
 
       const asideRef = shallowRef<HTMLDivElement | null>();
       const extraVisible = ref(false);
-      const asideWidgetList = ref<any[]>(props.skeleton.aside);
-      const extraWidgetList = ref<any[]>(props.skeleton.extra);
+      const asideWidgetList = ref<IWidget[]>(props.skeleton.aside);
+      const extraWidgetList = ref<IWidget[]>(props.skeleton.extra);
 
       const hiddenSideStyle = computed((): CSSProperties => {
         const { backgroundColor, width, show, fixedMixedExtra, isSideMixed, sideExtraWidth } =
@@ -255,7 +256,11 @@
 </script>
 
 <style scoped module lang="scss">
-  @include b('side') {
+  :root {
+    @include set-component-css-var('aside', $aside-area);
+  }
+
+  @include b('aside') {
     position: fixed;
     top: 0;
     left: 0;
@@ -263,6 +268,7 @@
     overflow: hidden;
     box-shadow: 2px 0 8px 0 rgb(29 35 41 / 5%);
     transition: all 0.2s ease 0s;
+    background-color: getCssVar('aside', 'bg-color');
 
     @include e('hide') {
       height: 100%;

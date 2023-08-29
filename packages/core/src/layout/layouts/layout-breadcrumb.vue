@@ -56,9 +56,9 @@
       },
     },
     setup(props) {
-      const { b, e } = useNamespace('toolbar');
+      const { b, e } = useNamespace('breadcrumb');
 
-      const widgets = ref<any[]>(props.skeleton.toolbar);
+      const widgets = ref<any[]>(props.skeleton.breadcrumb);
 
       const hiddenStyle = computed((): CSSProperties => {
         const { height, zIndex, top, fixed } = props;

@@ -21,6 +21,8 @@ export class Skeleton implements ISkeleton {
 
   readonly toolbar: IWidget[] = [];
 
+  readonly breadcrumb: IWidget[] = [];
+
   readonly main: IWidget[] = [];
 
   readonly footer: IWidget[] = [];
@@ -110,6 +112,8 @@ export class Skeleton implements ISkeleton {
     switch (area) {
       case 'aside':
         return this.setWidget(widget, this.aside);
+      case 'breadcrumb':
+        return this.setWidget(widget, this.breadcrumb);
       case 'header':
         return this.setWidget(widget, this.header);
       case 'toolbar':

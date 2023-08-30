@@ -513,7 +513,16 @@
       }
     }
     @include m(collapse) {
-      width: calc(#{getCssVar('menu-icon-width')} + #{getCssVar('menu-base-level-padding')} * 2);
+      // width: calc(#{getCssVar('menu-icon-width')} + #{getCssVar('menu-base-level-padding')} * 2);
+
+      & .#{$namespace}-menu-item,
+      & .#{$namespace}-sub-menu__title,
+      & .#{$namespace}-menu-item-group__title {
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
 
       > .#{$namespace}-menu-item,
       > .#{$namespace}-sub-menu > .#{$namespace}-sub-menu__title,

@@ -29,7 +29,7 @@
 
   const instance = getCurrentInstance()!;
   const breadcrumbContext = inject(breadcrumbKey, undefined)!;
-  const ns = useNamespace('breadcrumb');
+  const ns = useNamespace('breadcrumb', { isCssModule: false });
 
   const { separator, separatorIcon } = toRefs(breadcrumbContext);
   const router = instance.appContext.config.globalProperties.$router as Router;
@@ -41,7 +41,7 @@
     props.replace ? router.replace(props.to) : router.push(props.to);
   };
 </script>
-<style lang="scss" scope module>
+<style lang="scss" scope>
   @include b(breadcrumb) {
     @include e(separator) {
       margin: 0 9px;
@@ -81,8 +81,8 @@
       }
 
       &:last-child {
-        .breadcrumb__inner,
-        .breadcrumb__inner a {
+        .#{$namespace}-breadcrumb__inner,
+        .#{$namespace}-breadcrumb__inner a {
           &,
           &:hover {
             font-weight: normal;
@@ -91,7 +91,7 @@
           }
         }
 
-        .breadcrumb__separator {
+        .#{$namespace}-breadcrumb__separator {
           display: none;
         }
       }

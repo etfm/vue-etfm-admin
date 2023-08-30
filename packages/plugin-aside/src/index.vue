@@ -5,9 +5,8 @@
   import { EtfmaScrollbar } from '@etfma/ui';
   import { computed, reactive, watch } from 'vue';
   import { event, material, type AppRouteRecordRaw, useRouter, config } from '@etfma/core';
-  import { MenuRecordRaw } from '@etfma/types';
+  import { IPublicLayout, LayoutType, MenuRecordRaw } from '@etfma/types';
   import { useMenu } from './hooks/use-menu';
-  import { MenuTypeEnum } from './enum';
   import type { CSSProperties } from 'vue';
 
   defineOptions({
@@ -40,16 +39,16 @@
 
     /**
      * 菜单的类型
-     *  @default MenuTypeEnum.MENU
+     *  @default side-nav
      */
-    type?: MenuTypeEnum;
+    type?: LayoutType;
   }
 
   const props = withDefaults(defineProps<Props>(), {
     collapse: false,
     defaultActive: '',
     uniqueOpened: true,
-    type: MenuTypeEnum.ASIDE,
+    type: 'side-nav',
     menus: () => [],
   });
 
@@ -64,6 +63,7 @@
     menus: props.menus,
     uniqueOpened: props.uniqueOpened,
     type: props.type,
+    width: 0,
   });
 
   watch(
@@ -76,8 +76,10 @@
     },
   );
 
-  config.onGot('layout', (l: MenuTypeEnum) => {
-    model.type = l;
+  config.onGot('layout', (l: IPublicLayout) => {
+    model.type = l.layout!;
+    model.collapse = !!l.sideCollapse;
+    model.width = l.sideCollapseWidth!;
   });
 
   /**
@@ -111,7 +113,7 @@
    * @description 当只有路由类型 MenuTypeEnum.SPLIT_MENU 时才会赋值路由生效
    */
   event.on('aside:routes', (e: MenuRecordRaw[]) => {
-    if (model.type === MenuTypeEnum.MIX) {
+    if (model.type === 'mixed-nav') {
       model.menus = e;
     }
   });
@@ -122,7 +124,7 @@
    * 具体参数请查看文档
    */
   material.onChangeAssets('routes', (routes: AppRouteRecordRaw[]) => {
-    if (model.type === MenuTypeEnum.MIX) return;
+    if (model.type === 'mixed-nav') return;
     const transfromMenus = transformRouteToMenu(routes);
     const menus = getMenu(transfromMenus);
     model.menus = menus;
@@ -140,16 +142,23 @@
    * @param collapse
    */
   const toggleCollapsed = (collapse: boolean) => {
-    event.emit('aside:collapse', !collapse);
+    config.set('layout', { sideCollapse: !collapse });
   };
 
   const getWrapper = computed<CSSProperties | null>(() => {
-    return model.collapse ? null : { width: '210px' };
+    return model.collapse ? { width: `${model.width}px` } : { width: 'calc(100%)' };
+  });
+
+  const triggerClass = computed(() => {
+    return {
+      [ns.e('trigger')]: true,
+      [ns.e('collapse')]: model.collapse,
+    };
   });
 </script>
 <template>
   <div :class="[ns.b()]">
-    <EtfmaScrollbar :class="ns.e('scrollbar')" :viewClass="ns.e('scrollbar')">
+    <EtfmaScrollbar :class="ns.e('scrollbar')" :style="getWrapper">
       <BasicMenu
         :class="ns.b()"
         :style="getWrapper"
@@ -160,7 +169,7 @@
         @menu-click="handleClick"
       ></BasicMenu>
     </EtfmaScrollbar>
-    <div :class="ns.e('trigger')">
+    <div :class="triggerClass">
       <Trigger :collapse="model.collapse" @toggle="toggleCollapsed" />
     </div>
   </div>
@@ -178,6 +187,14 @@
       position: absolute;
       right: 20px;
       bottom: 12px;
+    }
+
+    @include e(collapse) {
+      right: 0;
+      left: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 </style>

@@ -2,6 +2,7 @@
   import type { CSSProperties, PropType } from 'vue';
   import { computed, defineComponent, ref, unref } from 'vue';
   import { Skeleton } from '../skeleton';
+  import { useNamespace } from '@etfma/hooks';
 
   export default defineComponent({
     name: 'LayoutContent',
@@ -58,6 +59,8 @@
     },
     setup(props) {
       const widgets = ref<any[]>(props.skeleton.main);
+
+      const { b } = useNamespace('main');
       const style = computed((): CSSProperties => {
         const { padding, paddingBottom, paddingTop, paddingLeft, paddingRight } = props;
         return {
@@ -96,13 +99,30 @@
       return {
         style,
         area,
+        b,
       };
     },
 
     render() {
-      const { style, area } = this;
+      const { style, area, b } = this;
 
-      return <main style={style}>{area}</main>;
+      return (
+        <main class={b()} style={style}>
+          {area}
+        </main>
+      );
     },
   });
 </script>
+<style scoped lang="scss" module>
+  @include b('main') {
+    flex: 1;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    box-sizing: border-box;
+    background-color: getCssVar('fill-color');
+  }
+</style>

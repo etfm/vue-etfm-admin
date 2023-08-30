@@ -39,8 +39,6 @@ export interface ISkeleton
 
   readonly extra: IWidget[];
 
-  readonly breadcrumb: IWidget[];
-
   // readonly fixed: IArea;
   //
   // readonly float: IArea;

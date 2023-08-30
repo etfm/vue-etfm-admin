@@ -11,6 +11,7 @@
     "type-check": "vue-tsc --noEmit"
   },
   "dependencies": {
+    "@etfma/bs-ui": "workspace:*",
     "@etfma/core": "workspace:*",
     "@etfma/design": "workspace:*",
     "@etfma/element-ui": "workspace:^0.0.0",

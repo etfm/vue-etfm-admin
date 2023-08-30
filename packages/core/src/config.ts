@@ -1,4 +1,4 @@
-import { Logger, lodash } from '@etfma/shared';
+import { Logger, deepMerge, lodash } from '@etfma/shared';
 import Preference from './utils/preference';
 import type {
   IPublicModelEngineConfig,
@@ -31,19 +31,20 @@ const VALID_ENGINE_OPTIONS = {
       sideCollapse: false,
       sideCollapseWidth: 48,
       sideBackgroundColor: '',
-      contentPadding: 16,
-      contentPaddingBottom: 16,
-      contentPaddingTop: 16,
-      contentPaddingLeft: 16,
-      contentPaddingRight: 16,
-      footerBackgroundColor: '#fff',
+      contentPadding: 0,
+      contentPaddingBottom: 0,
+      contentPaddingTop: 0,
+      contentPaddingLeft: 0,
+      contentPaddingRight: 0,
+      contentBackgroundColor: '',
+      footerBackgroundColor: '',
       footerHeight: 32,
       footerFixed: true,
       footerVisible: false,
       tabVisible: true,
       tabHeight: 30,
       tabBackgroundColor: '',
-      breadcrumbVisible: true,
+      breadcrumbVisible: false,
       breadcrumbHeight: 56,
       breadcrumbBackgroundColor: '',
       mixedExtraVisible: false,
@@ -127,8 +128,9 @@ export class EngineConfig implements IEngineConfig {
    * @param key
    * @param value
    */
-  set(key: string, value: any) {
-    const result = VALID_ENGINE_OPTIONS[key];
+  set(key: string, value: any, cover: boolean = false) {
+    const keys = key.split('.');
+    const result = VALID_ENGINE_OPTIONS[keys[0]];
     const isValidKey = () => {
       return (
         !(result === undefined || result === null) &&
@@ -137,8 +139,16 @@ export class EngineConfig implements IEngineConfig {
     };
 
     if (isValidKey()) {
-      this.config[key] = value;
-      result.storage && this.preference.set(key, value, STORE_MODULE);
+      if (cover) {
+        lodash.set(this.config, key, value);
+      } else {
+        const mergeValues = lodash.isPlainObject(value)
+          ? deepMerge(lodash.get(this.config, key), value)
+          : value;
+        lodash.set(this.config, key, mergeValues);
+      }
+
+      result.storage && this.preference.set(STORE_MODULE, this.config, STORE_MODULE);
       this.notifyGot(key);
     } else {
       logger.warn(
@@ -187,18 +197,18 @@ export class EngineConfig implements IEngineConfig {
   }
 
   getStorageMoudle() {
-    const configs = {};
-    const moudle = this.preference.getModule(STORE_MODULE);
-    for (const key in moudle) {
-      if (Object.prototype.hasOwnProperty.call(moudle, key)) {
-        const prefix = this.preference.getStoragePrefix(STORE_MODULE);
-        const value = key.split(prefix)[1];
+    // const configs = {};
+    // const moudle = this.preference.getModule(STORE_MODULE);
+    // for (const key in moudle) {
+    //   if (Object.prototype.hasOwnProperty.call(moudle, key)) {
+    //     const prefix = this.preference.getStoragePrefix(STORE_MODULE);
+    //     const value = key.split(prefix)[1];
 
-        configs[value] = moudle[key];
-      }
-    }
-
-    return configs;
+    //     configs[value] = moudle[key];
+    //   }
+    // }
+    // return configs;
+    return this.preference.get(STORE_MODULE, STORE_MODULE);
   }
 
   /**
@@ -208,7 +218,7 @@ export class EngineConfig implements IEngineConfig {
    * @returns
    */
   onceGot(key: string): Promise<any> {
-    const val = this.config[key];
+    const val = lodash.get(this.config, key);
     if (val !== undefined) {
       return Promise.resolve(val);
     }
@@ -224,7 +234,7 @@ export class EngineConfig implements IEngineConfig {
    * @returns
    */
   onGot(key: string, fn: (data: any) => void): () => void {
-    const val = this.config?.[key];
+    const val = lodash.get(this.config, key);
     if (val !== undefined) {
       fn(val);
     }

@@ -92,15 +92,13 @@
         const { backgroundColor, height, fixed, zIndex, show, fullWidth, width } = props;
         const right = !show || !fullWidth ? undefined : 0;
 
-        console.log(width);
-
         return {
           position: fixed ? 'fixed' : 'static',
           marginTop: show ? 0 : `-${height}px`,
           backgroundColor,
           height: `${height}px`,
           width,
-          zIndex,
+          zIndex: zIndex + 1,
           right,
         };
       });
@@ -175,7 +173,8 @@
     transition: all 0.3s ease 0s;
     display: flex;
     background-color: getCssVar('header', 'bg-color');
-    // box-shadow: 0 0 1px #888;
+    // z-index: 1001;
+    box-shadow: 1px 0 1px #888;
 
     @include e('hide') {
       flex: 0 0 auto;

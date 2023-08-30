@@ -22,8 +22,8 @@ export class Config implements IPublicApiConfig {
     return this[configSymbol].get(key, defaultValue);
   }
 
-  set(key: IPluginTypeConfig, value: any): void {
-    this[configSymbol].set(key, value);
+  set(key: IPluginTypeConfig, value: any, cover?: boolean): void {
+    this[configSymbol].set(key, value, cover);
   }
 
   setConfig(config: { [key: string]: any }): void {

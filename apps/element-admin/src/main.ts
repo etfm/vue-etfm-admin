@@ -13,13 +13,13 @@ import PluginAside from '@etfma/plugin-aside';
 import { staticRoutes } from './router';
 import PluginAppLogo from './plugin/plugin-logo';
 import PluginTabs from '@etfma/plugin-tabs';
-import PluginBreadcrumb from '@etfma/plugin-breadcrumb';
+// import PluginBreadcrumb from '@etfma/plugin-breadcrumb';
 import PluginBreadcrumbFullscreen from '@etfma/plugin-breadcrumb-fullscreen';
 import PluginFullscreen from '@etfma/plugin-fullscreen';
-import PluginHeaderMenu from '@etfma/plugin-header-menu';
+// import PluginHeaderMenu from '@etfma/plugin-header-menu';
 import PluginUser from './plugin/plugin-user';
 import PluginInit from './plugin/plugin-init';
-import PluginSetting from '@etfma/plugin-setting';
+// import PluginSetting from '@etfma/plugin-setting';
 import { getAppEnvConfig } from './utils/env';
 import { transformObjToRoute } from './router/helper/routerHelper';
 
@@ -61,7 +61,7 @@ async function boostrap() {
 
   await plugins.register(PluginDesigner);
 
-  await plugins.register(PluginBreadcrumb);
+  // await plugins.register(PluginBreadcrumb);
 
   await plugins.register(PluginBreadcrumbFullscreen);
 

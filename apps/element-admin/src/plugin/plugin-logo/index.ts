@@ -11,15 +11,15 @@ import AppLogo from './index.vue';
 const PluginAppLogo: IPublicPlugin = (_: IPublicPluginContext) => {
   return {
     init() {
-      skeleton.add({
-        name: 'PluginHeaderAppLogo',
-        area: 'header',
-        props: {
-          align: 'left',
-        },
-        visible: false,
-        content: h(AppLogo),
-      });
+      // skeleton.add({
+      //   name: 'PluginHeaderAppLogo',
+      //   area: 'header',
+      //   props: {
+      //     align: 'left',
+      //   },
+      //   visible: false,
+      //   content: h(AppLogo),
+      // });
 
       skeleton.add({
         name: 'PluginAsideAppLogo',
@@ -31,15 +31,15 @@ const PluginAppLogo: IPublicPlugin = (_: IPublicPluginContext) => {
         content: h(AppLogo),
       });
 
-      config.onGot('layout', (l: string) => {
-        if (l === 'aside') {
-          skeleton.hideWidget('PluginHeaderAppLogo');
-          skeleton.showWidget('PluginAsideAppLogo');
-        } else {
-          skeleton.hideWidget('PluginAsideAppLogo');
-          skeleton.showWidget('PluginHeaderAppLogo');
-        }
-      });
+      // config.onGot('layout', (l: string) => {
+      //   if (l === 'aside') {
+      //     skeleton.hideWidget('PluginHeaderAppLogo');
+      //     skeleton.showWidget('PluginAsideAppLogo');
+      //   } else {
+      //     skeleton.hideWidget('PluginAsideAppLogo');
+      //     skeleton.showWidget('PluginHeaderAppLogo');
+      //   }
+      // });
     },
   };
 };

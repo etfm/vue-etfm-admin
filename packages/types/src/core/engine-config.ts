@@ -26,7 +26,7 @@ export interface IPublicModelEngineConfig {
    * @param key
    * @param value
    */
-  set(key: IPluginTypeConfig, value: any): void;
+  set(key: IPluginTypeConfig, value: any, cover?: boolean): void;
 
   /**
    * 批量设值，set 的对象版本

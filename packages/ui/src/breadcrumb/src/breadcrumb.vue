@@ -16,7 +16,7 @@
 
   const props = defineProps(breadcrumbProps);
 
-  const ns = useNamespace('breadcrumb');
+  const ns = useNamespace('breadcrumb', { isCssModule: false });
   const breadcrumb = ref<HTMLDivElement>();
 
   provide(breadcrumbKey, props);
@@ -28,7 +28,7 @@
     }
   });
 </script>
-<style lang="scss" scoped module>
+<style lang="scss" scoped>
   @include b(breadcrumb) {
     font-size: 14px;
     line-height: 1;

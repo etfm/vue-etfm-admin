@@ -8,7 +8,6 @@ s<script setup lang="ts">
   import LayoutToolbar from './layout-toolbar.vue';
   import { Skeleton } from '../skeleton';
   import { useNamespace } from '@etfma/hooks';
-  import LayoutBreadcrumb from './layout-breadcrumb.vue';
   import type { IPublicLayout } from '@etfma/types';
 
   defineOptions({
@@ -110,18 +109,10 @@ s<script setup lang="ts">
   const tabTop = computed(() => (fullContent.value ? 0 : props.headerHeight));
 
   /**
-   * breadcrumb top 值
+   * 计算contentPaddingTop的高度
    */
-  const breadcrumbTop = computed(() => {
-    let top = 0;
-    if (props.headerVisible) {
-      top += props.headerHeight!;
-    }
-
-    if (props.tabVisible) {
-      top += props.tabHeight!;
-    }
-    return top;
+  const getContentPaddingTop = computed(() => {
+    return props.breadcrumbVisible ? 0 : props.contentPaddingTop;
   });
 
   /**
@@ -173,45 +164,36 @@ s<script setup lang="ts">
     </LayoutAside>
 
     <div :class="e('main')">
-      <LayoutHeader
-        v-if="headerVisible"
-        :skeleton="skeleton"
-        :show="!fullContent"
-        :z-index="zIndex"
-        :height="headerHeight"
-        :width="getMainWidth"
-        :fixed="getHeaderFixed"
-        :full-width="!isSideMode"
-        :background-color="headerBackgroundColor"
-      >
-      </LayoutHeader>
-      <LayoutToolbar
-        v-if="tabVisible"
-        :skeleton="skeleton"
-        :width="getMainWidth"
-        :background-color="tabBackgroundColor"
-        :top="tabTop"
-        :z-index="zIndex"
-        :height="tabHeight"
-        :fixed="getHeaderFixed"
-      >
-      </LayoutToolbar>
-      <LayoutBreadcrumb
-        v-if="breadcrumbVisible"
-        :skeleton="skeleton"
-        :width="getMainWidth"
-        :background-color="breadcrumbBackgroundColor"
-        :top="breadcrumbTop"
-        :z-index="zIndex"
-        :height="breadcrumbHeight"
-        :fixed="getHeaderFixed"
-      />
+      <div :class="e('shadow')">
+        <LayoutHeader
+          v-if="headerVisible"
+          :skeleton="skeleton"
+          :show="!fullContent"
+          :z-index="zIndex"
+          :height="headerHeight"
+          :width="getMainWidth"
+          :fixed="getHeaderFixed"
+          :full-width="!isSideMode"
+          :background-color="headerBackgroundColor"
+        >
+        </LayoutHeader>
+        <LayoutToolbar
+          v-if="tabVisible"
+          :skeleton="skeleton"
+          :width="getMainWidth"
+          :background-color="tabBackgroundColor"
+          :top="tabTop"
+          :z-index="zIndex"
+          :height="tabHeight"
+          :fixed="getHeaderFixed"
+        >
+        </LayoutToolbar>
+      </div>
 
       <LayoutContent
         :skeleton="skeleton"
         :padding="contentPadding"
-        :width="getMainWidth"
-        :padding-top="contentPaddingTop"
+        :padding-top="getContentPaddingTop"
         :padding-right="contentPaddingRight"
         :padding-bottom="contentPaddingBottom"
         :padding-left="contentPaddingLeft"
@@ -237,12 +219,17 @@ s<script setup lang="ts">
 <style scoped module lang="scss">
   @include b('layout') {
     display: flex;
+    height: 100%;
 
     @include e('main') {
       display: flex;
       flex: auto;
       flex-direction: column;
       position: relative;
+    }
+
+    @include e('shadow') {
+      box-shadow: 2px 0 8px 0 rgb(29 35 41 / 5%);
     }
 
     @include e('mask') {

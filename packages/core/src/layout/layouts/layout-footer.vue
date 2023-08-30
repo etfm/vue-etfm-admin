@@ -47,6 +47,14 @@
         default: 32,
       },
       /**
+       * 宽度
+       * @default 0
+       */
+      width: {
+        type: String,
+        default: 0,
+      },
+      /**
        * 是否固定在顶部
        * @default true
        */
@@ -61,12 +69,13 @@
       const widgets = ref<any[]>(props.skeleton.footer);
 
       const style = computed((): CSSProperties => {
-        const { backgroundColor, height, fixed, zIndex, show } = props;
+        const { backgroundColor, height, fixed, zIndex, show, width } = props;
         return {
           position: fixed ? 'fixed' : 'static',
           zIndex,
           backgroundColor,
           height: `${height}px`,
+          width,
           marginBottom: show ? '0' : `-${height}px`,
         };
       });
@@ -115,7 +124,6 @@
 <style scoped module lang="scss">
   @include b('footer') {
     bottom: 0;
-    width: 100%;
     transition: all 0.3s;
   }
 </style>

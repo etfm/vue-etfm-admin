@@ -35,6 +35,13 @@ export interface IPublicTypeEngineOptions {
 
 export type IPluginTypeConfig = keyof IPublicTypeEngineOptions;
 
+export type LayoutType =
+  | 'side-nav'
+  | 'header-nav'
+  | 'mixed-nav'
+  | 'side-mixed-nav'
+  | 'full-content';
+
 export interface IPublicLayout {
   /**
    * 布局方式
@@ -45,7 +52,7 @@ export interface IPublicLayout {
    * full-content 全屏内容布局
    * @default side-nav
    */
-  layout?: 'side-nav' | 'header-nav' | 'mixed-nav' | 'side-mixed-nav' | 'full-content';
+  layout?: LayoutType;
   /**
    * 是否移动端显示
    * @default false
@@ -131,6 +138,11 @@ export interface IPublicLayout {
    * @default 16
    */
   contentPaddingRight?: number;
+  /**
+   * content背景颜色
+   * @default #fff
+   */
+  contentBackgroundColor?: string;
   /**
    * footer 是否可见
    * @default false

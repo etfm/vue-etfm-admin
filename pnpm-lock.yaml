@@ -143,6 +143,9 @@ importers:
 
   apps/element-admin:
     dependencies:
+      '@etfma/bs-ui':
+        specifier: workspace:*
+        version: link:../../packages/bs-ui
       '@etfma/core':
         specifier: workspace:*
         version: link:../../packages/core

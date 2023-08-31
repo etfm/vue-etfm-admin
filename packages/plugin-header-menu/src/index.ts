@@ -1,4 +1,4 @@
-import { IPiniaContext, IPublicPlugin, IPublicPluginContext } from '@etfma/types';
+import { IPiniaContext, IPublicPlugin, IPublicPluginContext, LayoutType } from '@etfma/types';
 import { lodash } from '@etfma/shared';
 import Menu from './index.vue';
 import { skeleton, config } from '@etfma/core';
@@ -19,8 +19,8 @@ const PluginHeaderMenu: IPublicPlugin = (ctx: IPublicPluginContext, options) => 
         visible: opts.visible,
       });
 
-      config.onGot('layout', (layout: string) => {
-        if (layout === 'top' || layout === 'mix') {
+      config.onGot('layout', (layout: LayoutType) => {
+        if (layout === 'header-nav' || layout === 'mixed-nav') {
           skeleton.showWidget('PluginHeaderMenu');
         } else {
           skeleton.hideWidget('PluginHeaderMenu');

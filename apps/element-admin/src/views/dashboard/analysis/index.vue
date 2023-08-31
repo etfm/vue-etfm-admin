@@ -24,6 +24,10 @@
   function handleSiderCollapse(c) {
     config.set('layout.sideCollapse', c);
   }
+
+  function handleLayout(value) {
+    config.set('layout', value);
+  }
 </script>
 
 <template>
@@ -40,7 +44,7 @@
         <ElCheckbox v-model="model.isMobile" class="mx-5">isMobile</ElCheckbox>
         <hr />
         <div>切换布局</div>
-        <ElRadioGroup v-model="model.layout">
+        <ElRadioGroup v-model="model.layout" @change="handleLayout">
           <ElRadioButton label="side-nav"></ElRadioButton>
           <ElRadioButton label="header-nav"></ElRadioButton>
           <ElRadioButton label="mixed-nav"></ElRadioButton>

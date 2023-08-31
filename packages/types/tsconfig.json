@@ -3,6 +3,6 @@
   "extends": "@etfma/ts/web.json",
   "include": ["src"],
   "compilerOptions": {
-    "types": ["vite/client", "../../typings/module"]
+    "types": ["vite/client"]
   }
 }

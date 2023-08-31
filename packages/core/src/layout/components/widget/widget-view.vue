@@ -14,8 +14,16 @@
     setup(props) {
       const visible = ref(props.widget.visible);
 
-      props.widget.onVisible((_, widget) => {
-        visible.value = widget.visible;
+      props.widget.onVisible((name, widget) => {
+        if (props.widget.name === name) {
+          visible.value = widget.visible;
+        }
+      });
+
+      props.widget.onHide((name, widget) => {
+        if (props.widget.name === name) {
+          visible.value = widget.visible;
+        }
       });
 
       return {

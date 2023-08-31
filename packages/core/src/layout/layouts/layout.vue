@@ -72,10 +72,27 @@ s<script setup lang="ts">
   });
 
   /**
-   * 去除aside后，容器的宽
+   * header 宽度
    */
-  const getMainWidth = computed(() => {
-    return `calc(100% - ${getSiderWidth.value}px)`;
+  const getHeaderWidth = computed(() => {
+    const { layout } = props;
+    if (layout === 'header-nav' || layout === 'mixed-nav') {
+      return `calc(100%)`;
+    } else {
+      return `calc(100% - ${getSiderWidth.value}px)`;
+    }
+  });
+
+  /**
+   * footer tab 宽度
+   */
+  const getFooterAndTabWidth = computed(() => {
+    const { layout } = props;
+    if (layout === 'header-nav' || layout === 'full-content') {
+      return `calc(100%)`;
+    } else {
+      return `calc(100% - ${getSiderWidth.value}px)`;
+    }
   });
 
   /**
@@ -171,7 +188,7 @@ s<script setup lang="ts">
           :show="!fullContent"
           :z-index="zIndex"
           :height="headerHeight"
-          :width="getMainWidth"
+          :width="getHeaderWidth"
           :fixed="getHeaderFixed"
           :full-width="!isSideMode"
           :background-color="headerBackgroundColor"
@@ -180,7 +197,7 @@ s<script setup lang="ts">
         <LayoutToolbar
           v-if="tabVisible"
           :skeleton="skeleton"
-          :width="getMainWidth"
+          :width="getFooterAndTabWidth"
           :background-color="tabBackgroundColor"
           :top="tabTop"
           :z-index="zIndex"
@@ -203,7 +220,7 @@ s<script setup lang="ts">
       <LayoutFooter
         v-if="footerVisible"
         :skeleton="skeleton"
-        :width="getMainWidth"
+        :width="getFooterAndTabWidth"
         :show="!fullContent"
         :zIndex="zIndex"
         :height="footerHeight"

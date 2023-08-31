@@ -79,10 +79,16 @@ export class Widget implements IWidget {
 
   onVisible(listener: (...args: any[]) => void): IPublicTypeDisposable {
     this.skeleton.editor.eventBus.on(SkeletonEvents.WIDGET_SHOW, (name: any, widget: any) => {
-      const { skeleton, ...rest } = widget;
-      listener(name, rest);
+      listener(name, widget);
     });
     return () => this.skeleton.editor.eventBus.off(SkeletonEvents.WIDGET_SHOW, listener);
+  }
+
+  onHide(listener: (...args: any[]) => void): IPublicTypeDisposable {
+    this.skeleton.editor.eventBus.on(SkeletonEvents.WIDGET_HIDE, (name: any, widget: any) => {
+      listener(name, widget);
+    });
+    return () => this.skeleton.editor.eventBus.off(SkeletonEvents.WIDGET_HIDE, listener);
   }
 
   setVisible(flag: boolean) {
@@ -91,6 +97,7 @@ export class Widget implements IWidget {
     }
     if (flag) {
       this._visible = true;
+
       this.skeleton.postEvent(SkeletonEvents.WIDGET_SHOW, this.name, this);
     } else {
       this._visible = false;

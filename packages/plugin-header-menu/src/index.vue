@@ -4,9 +4,9 @@
   import { computed, reactive, ref, unref, watch } from 'vue';
   import { event, material, type AppRouteRecordRaw, config } from '@etfma/core';
   import { useRouter } from 'vue-router';
-  import { MenuRecordRaw } from '@etfma/types';
+  import { LayoutType, MenuRecordRaw } from '@etfma/types';
   import { useMenu } from './hooks/use-menu';
-  import { MenuTypeEnum, TriggerEnum } from './enum';
+  import { TriggerEnum } from './enum';
   import { lodash } from '@etfma/shared';
 
   defineOptions({
@@ -40,16 +40,16 @@
 
     /**
      * 菜单的类型
-     *  @default MenuTypeEnum.MENU
+     *  @default header-nav
      */
-    type?: MenuTypeEnum;
+    type?: LayoutType;
   }
 
   const props = withDefaults(defineProps<Props>(), {
     defaultActive: '',
     uniqueOpened: true,
     menuTrigger: TriggerEnum.HOVER,
-    type: MenuTypeEnum.TOP,
+    type: 'header-nav',
     menus: () => [],
   });
 
@@ -72,7 +72,7 @@
   watch(
     [() => currentRoute.value, () => model.type],
     ([router]) => {
-      if (model.type === MenuTypeEnum.MIX) {
+      if (model.type === 'mixed-nav') {
         const parent = router.matched && !lodash.isEmpty(router.matched) && router.matched[0];
         model.defaultActive = parent ? parent.path : '';
         setSplitMenu(unref(menuList), model.defaultActive);
@@ -85,13 +85,8 @@
     },
   );
 
-  config.onGot('layout', (l: MenuTypeEnum) => {
+  config.onGot('layout', (l: LayoutType) => {
     model.type = l;
-    if (l == MenuTypeEnum.ASIDE) {
-      model.mode = MenuModeEnum.VERTICAL;
-    } else {
-      model.mode = MenuModeEnum.HORIZONTAL;
-    }
   });
 
   /**
@@ -132,14 +127,14 @@
 
     menuList.value = menus;
 
-    if (model.type === MenuTypeEnum.MIX) {
+    if (model.type === 'mixed-nav') {
       setSplitMenu(menuList.value, model.defaultActive);
     }
   });
 
   const menus = computed(() => {
     const list = lodash.cloneDeep(menuList.value);
-    if (model.type === MenuTypeEnum.MIX) {
+    if (model.type === 'mixed-nav') {
       return list.map((menu) => {
         delete menu.children;
         return menu;
@@ -151,9 +146,10 @@
 
   /**
    * 跳转路由
+   * @param path
    */
   function handleClick(path: string) {
-    if (model.type === MenuTypeEnum.MIX) {
+    if (model.type === 'mixed-nav') {
       setSplitMenu(unref(menuList), path);
     } else {
       push(path);
@@ -162,6 +158,8 @@
 
   /**
    * 设置菜单
+   * @param menus
+   * @param path
    */
   function setSplitMenu(menus: MenuRecordRaw[], path: string) {
     const m = menus.find((menu) => menu.path === path);

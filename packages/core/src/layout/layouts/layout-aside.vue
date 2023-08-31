@@ -124,6 +124,7 @@
         return {
           ...hiddenSideStyle.value,
           paddingTop: `${paddingTop}px`,
+          height: `calc(100% - ${paddingTop}px)`,
           zIndex,
         };
       });

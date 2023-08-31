@@ -54,7 +54,7 @@ const VALID_ENGINE_OPTIONS = {
   'layout.headerBackgroundColor': {
     type: 'string',
     storage: true,
-    defaultValue: '#fff',
+    defaultValue: '',
     description: 'header背景颜色',
   },
   'layout.sideVisible': {

@@ -3,6 +3,7 @@ import { createElement, uniqueId } from '../utils';
 import { getEvent } from '../shell';
 import {
   IPublicTypeDisposable,
+  IPublicTypeWidgetConfigArea,
   ISkeleton,
   IWidget,
   SkeletonEvents,
@@ -13,6 +14,8 @@ export class Widget implements IWidget {
   readonly id = uniqueId('widget');
 
   readonly name: string;
+
+  readonly area: IPublicTypeWidgetConfigArea;
 
   readonly align?: string;
 
@@ -43,8 +46,9 @@ export class Widget implements IWidget {
   }
 
   constructor(readonly skeleton: ISkeleton, readonly config: WidgetConfig) {
-    const { props = {}, name, visible = true } = config;
+    const { props = {}, name, visible = true, area } = config;
     this.name = name;
+    this.area = area;
     this.align = props.align;
     this._visible = visible;
 

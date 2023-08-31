@@ -1,4 +1,4 @@
-import { common } from '../core';
+import { skeleton } from '../core';
 import Redirect from './redirect';
 
 export const REDIRECT_NAME = 'Redirect';
@@ -11,7 +11,7 @@ export const ROUTER_OPTIONS = {
 
 export const DEFAULT_REDIRECT = {
   path: '/redirect',
-  component: () => Promise.resolve(common.skeletonCabin.Workbench),
+  component: () => Promise.resolve(skeleton.Workbench),
   name: 'RedirectTo',
   meta: {
     title: REDIRECT_NAME,

@@ -8,3 +8,5 @@ export type IPublicTypeWidgetConfigArea =
   | 'extra'
   | 'main'
   | 'footer';
+
+export type IPublicTypeWidgetConfigAreaVisible = Omit<IPublicTypeWidgetConfigArea, 'main'>;

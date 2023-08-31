@@ -5,7 +5,7 @@
   import { EtfmaScrollbar } from '@etfma/ui';
   import { computed, reactive, watch } from 'vue';
   import { event, material, type AppRouteRecordRaw, useRouter, config } from '@etfma/core';
-  import { IPublicLayout, LayoutType, MenuRecordRaw } from '@etfma/types';
+  import { LayoutType, MenuRecordRaw } from '@etfma/types';
   import { useMenu } from './hooks/use-menu';
   import type { CSSProperties } from 'vue';
 
@@ -76,19 +76,16 @@
     },
   );
 
-  config.onGot('layout', (l: IPublicLayout) => {
-    model.type = l.layout!;
-    model.collapse = !!l.sideCollapse;
-    model.width = l.sideCollapseWidth!;
+  config.onGot('layout', (arg) => {
+    model.type = arg;
   });
 
-  /**
-   * 监听是否折叠
-   */
-  event.on('aside:collapse', (e: boolean) => {
-    if (e != model.collapse) {
-      model.collapse = e;
-    }
+  config.onGot('layout.sideCollapse', (arg) => {
+    model.collapse = !!arg;
+  });
+
+  config.onGot('layout.sideCollapseWidth', (arg) => {
+    model.width = arg!;
   });
 
   /**
@@ -142,7 +139,7 @@
    * @param collapse
    */
   const toggleCollapsed = (collapse: boolean) => {
-    config.set('layout', { sideCollapse: !collapse });
+    config.set('layout.sideCollapse', !collapse);
   };
 
   const getWrapper = computed<CSSProperties | null>(() => {

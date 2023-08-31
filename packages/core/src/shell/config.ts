@@ -1,6 +1,7 @@
 import {
   IPluginTypeConfig,
   IPublicApiConfig,
+  IPublicKeyType,
   IPublicModelPreference,
   IPublicTypeDisposable,
 } from '@etfma/types';
@@ -18,15 +19,15 @@ export class Config implements IPublicApiConfig {
     return this[configSymbol].has(key);
   }
 
-  get(key: IPluginTypeConfig, defaultValue?: any): any {
+  get(key: IPluginTypeConfig, defaultValue?: IPublicKeyType): any {
     return this[configSymbol].get(key, defaultValue);
   }
 
-  set(key: IPluginTypeConfig, value: any, cover?: boolean): void {
-    this[configSymbol].set(key, value, cover);
+  set(key: IPluginTypeConfig, value: IPublicKeyType): void {
+    this[configSymbol].set(key, value);
   }
 
-  setConfig(config: { [key: string]: any }): void {
+  setConfig(config: { [key: string]: IPublicKeyType }): void {
     this[configSymbol].setConfig(config);
   }
 

@@ -4,7 +4,7 @@ import { getAuthCache, setAuthCache } from '@/cache/auth';
 import type { GetUserInfoModel, LoginParams } from '@/api/sys/model/userModel';
 import { doLogout, getUserInfo, loginApi } from '@/api/sys/user';
 // import { useI18n } from '@/hooks/web/useI18n';
-import { common } from '@etfma/core';
+import { router as etfmRouter } from '@etfma/core';
 import { usePermissionStore } from '@/store/permission';
 import type { Nullable, Recordable } from '@etfma/types';
 import { PageEnum } from '@/enums/pageEnum';
@@ -110,7 +110,8 @@ export const useUserStore = defineStore({
         if (!permissionStore.isDynamicAddedRoute) {
           await permissionStore.buildRoutesAction();
         }
-        const { router } = common.utils.createRouter();
+        const router = etfmRouter.router;
+
         goHome && (await router.replace(userInfo?.homePath || PageEnum.BASE_HOME));
       }
       return userInfo;
@@ -144,7 +145,8 @@ export const useUserStore = defineStore({
       this.setToken(undefined);
       this.setSessionTimeout(false);
       this.setUserInfo(null);
-      const { router } = common.utils.createRouter();
+      const router = etfmRouter.router;
+
       goLogin && router.push(PageEnum.BASE_LOGIN);
     },
 

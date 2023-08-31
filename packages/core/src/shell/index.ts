@@ -6,3 +6,5 @@ export * from './skeleton';
 export * from './plugins';
 export * from './skeleton-item';
 export * from './theme';
+export * from './intl';
+export * from './router';

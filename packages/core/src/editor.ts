@@ -1,5 +1,4 @@
 import { EventEmitter } from 'events';
-import { observable, define } from './obx';
 import { EventBus } from './event-bus';
 import type { IEditor, IPublicTypeEditorGetResult, IPublicTypeEditorValueKey } from '@etfma/types';
 import { EngineConfig, engineConfig } from './config';
@@ -38,13 +37,6 @@ export class Editor extends EventEmitter implements IEditor {
     this.setMaxListeners(200);
     this.eventBus = new EventBus(this);
     this.config = engineConfig;
-    this.makeObservable();
-  }
-
-  makeObservable() {
-    define(this, {
-      context: observable.shallow,
-    });
   }
 
   get<T = undefined, KeyOrType = any>(

@@ -1,7 +1,7 @@
 import { createApp } from 'vue';
 import { editor, commonEvent } from './editor';
 import { Skeleton as InnerSkeleton } from './layout';
-import { Skeleton, Material, Event, Global, Plugins, Config, Theme } from './shell';
+import { Skeleton, Material, Event, Global, Plugins, Config, Theme, Intl, Route } from './shell';
 import { lodash, Logger } from '@etfma/shared';
 
 import jsonPkg from '../../../package.json';
@@ -20,10 +20,10 @@ import {
 import { PluginManager } from './plugin';
 
 import { globalI18n } from './intl/i18n';
-import { Common } from './shell/common';
-import { App } from './layout/layouts';
 import { globalRouter } from './router/router';
 import { globalTheme } from './theme/theme';
+
+import { App } from './layout/layouts';
 
 export * from './router';
 export * from './intl';
@@ -35,19 +35,19 @@ const global = new Global(editor);
 const innerSkeleton = new InnerSkeleton(editor);
 editor.set('skeleton', innerSkeleton);
 
-const common = new Common(editor, innerSkeleton);
-editor.set('common', common);
-
 const theme = new Theme(editor, globalTheme);
 editor.set('theme', theme);
 
-const app = createApp(App);
-editor.set('app', app);
+const i18n = new Intl(editor, globalI18n);
+editor.set('i18n', i18n);
+
+const router = new Route(editor, globalRouter);
+editor.set('router', router);
 
 const material = new Material(editor);
 editor.set('material', material);
 
-const skeleton = new Skeleton(innerSkeleton);
+const skeleton = new Skeleton(innerSkeleton, engineConfig);
 
 const config = new Config(engineConfig);
 
@@ -68,7 +68,6 @@ const pluginContextApiAssembler: IPluginContextApiAssembler = {
     context.event = new Event(commonEvent, { prefix: eventPrefix });
     context.config = config;
     context.global = global;
-    context.common = common;
     context.plugins = plugins;
     context.logger = new Logger({ bizName: `plugin:${pluginName}` });
   },
@@ -79,7 +78,7 @@ plugins = new Plugins(innerPlugins).toProxy();
 editor.set('innerPlugins', innerPlugins);
 editor.set('plugins', plugins);
 
-export { skeleton, plugins, material, config, event, logger, global, common, theme };
+export { skeleton, plugins, material, config, event, logger, global, theme, i18n, router };
 export const __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED = {
   symbols,
   classes,
@@ -89,7 +88,7 @@ export const __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED = {
 (window as any).EtfmEngine = editor;
 
 export const version = jsonPkg.version;
-engineConfig.set('ENGINE_VERSION', version);
+engineConfig.set('version', version);
 
 let engineContainer: HTMLElement | undefined;
 
@@ -114,26 +113,27 @@ export async function init(
     }
   }
 
+  const app = createApp(App);
+  editor.set('app', app);
+
   engineConfig.setEngineOptions(engineOptions);
 
-  initInnerUtils();
+  initInner();
 
   await plugins.init(pluginPreference);
 
-  use();
+  use(app);
 
   app.mount(engineContainer as Element);
 }
 
-function initInnerUtils() {
+function initInner() {
   globalI18n.init();
   globalRouter.init();
   globalTheme.init();
 }
 
-function use() {
-  const router = common.utils.createRouter().router;
-  const i18n = common.utils.createIntl().i18n;
-  app.use(router);
-  app.use(i18n);
+function use(app) {
+  app.use(router.router);
+  app.use(i18n.i18n);
 }

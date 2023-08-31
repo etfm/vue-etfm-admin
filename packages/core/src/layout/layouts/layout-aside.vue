@@ -3,8 +3,7 @@
   import { onClickOutside } from '@vueuse/core';
   import type { CSSProperties, PropType } from 'vue';
   import { computed, defineComponent, ref, shallowRef, unref, watchEffect } from 'vue';
-  import { Skeleton } from '../skeleton.js';
-  import { IWidget } from '@etfma/types';
+  import { ISkeleton, IWidget } from '@etfma/types';
 
   export default defineComponent({
     name: 'LayoutAside',
@@ -14,7 +13,7 @@
        * @default
        */
       skeleton: {
-        type: Object as PropType<Skeleton>,
+        type: Object as PropType<ISkeleton>,
         required: true,
       },
       /**

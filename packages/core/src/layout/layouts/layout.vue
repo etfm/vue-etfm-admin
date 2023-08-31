@@ -6,12 +6,12 @@ s<script setup lang="ts">
   import LayoutHeader from './layout-header.vue';
   import LayoutAside from './layout-aside.vue';
   import LayoutToolbar from './layout-toolbar.vue';
-  import { Skeleton } from '../skeleton';
   import { useNamespace } from '@etfma/hooks';
-  import type { IPublicLayout } from '@etfma/types';
+  import type { IPublicLayout, ISkeleton } from '@etfma/types';
 
   defineOptions({
     name: 'Layout',
+    inheritAttrs: false,
   });
 
   interface Props extends IPublicLayout {
@@ -19,7 +19,7 @@ s<script setup lang="ts">
      * 框架实例
      * @default
      */
-    skeleton: Skeleton;
+    skeleton: ISkeleton;
   }
 
   const props = withDefaults(defineProps<Props>(), {});

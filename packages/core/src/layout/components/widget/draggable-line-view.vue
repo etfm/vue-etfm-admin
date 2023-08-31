@@ -4,6 +4,7 @@
   import DraggableLine from '../draggable-line/index.vue';
   import { useNamespace } from '@etfma/hooks';
   import classNames from 'classnames';
+  import { SkeletonEvents } from '@etfma/types';
 
   export default defineComponent({
     name: 'DraggableLineView',
@@ -43,14 +44,13 @@
           containerRef.style.width = `${width}px`;
         }
 
-        // 抛出事件，对于有些需要 panel 插件随着 度变化进行再次渲染的，由panel插件内部监听事件实现
-        const editor = props.widget.skeleton.editor;
-        editor?.eventBus.emit('dockpane.drag', width);
+        const skeleton = props.widget.skeleton;
+        skeleton.postEvent(SkeletonEvents.WIDGET_DRAG, width);
       };
 
       const onDragChange = (type: 'start' | 'end') => {
-        const editor = props.widget.skeleton.editor;
-        editor?.eventBus.emit('dockpane.dragchange', type);
+        const skeleton = props.widget.skeleton;
+        skeleton.postEvent(SkeletonEvents.WIDGET_DRAG_CHANGE, type);
       };
 
       return {
@@ -75,9 +75,6 @@
           onDragEnd={() => this.onDragChange('end')}
           maxIncrement={500}
           maxDecrement={0}
-          // TODO: 优化
-          // maxIncrement={dock.getMaxWidth() - this.cachedSize.width}
-          // maxDecrement={this.cachedSize.width - dock.getWidth()}
         />
       );
     },

@@ -4,17 +4,29 @@ import {
   IPublicTypeDisposable,
   IPublicTypeSkeletonConfig,
   IPublicTypeWidgetConfigArea,
+  IPublicTypeWidgetConfigAreaVisible,
   ISkeleton,
   SkeletonEvents,
 } from '@etfma/types';
 import { SkeletonItem } from './skeleton-item';
-import { skeletonSymbol } from './symbols';
+import { configSymbol, skeletonSymbol } from './symbols';
+import { VNode, h } from 'vue';
+import { Workbench as InnerWorkbench } from '../layout/layouts';
+import { EngineConfig } from '../config';
 
 export class Skeleton implements IPublicApiSkeleton {
   private readonly [skeletonSymbol]: ISkeleton;
+  private readonly [configSymbol]: EngineConfig;
 
-  constructor(skeleton: ISkeleton) {
+  constructor(skeleton: ISkeleton, config: EngineConfig) {
     this[skeletonSymbol] = skeleton;
+    this[configSymbol] = config;
+  }
+
+  get Workbench(): VNode {
+    return h(InnerWorkbench, {
+      skeleton: this[skeletonSymbol],
+    });
   }
 
   /**
@@ -38,17 +50,17 @@ export class Skeleton implements IPublicApiSkeleton {
    * @param config
    * @returns
    */
-  remove(config: IPublicTypeSkeletonConfig): number | undefined {
+  remove(config: IPublicTypeSkeletonConfig): void {
     const { area, name } = config;
     const skeleton = this[skeletonSymbol];
     if (!normalizeArea(area)) {
       return;
     }
-    skeleton[normalizeArea(area)]?.remove(name);
+    skeleton.remove(area, name);
   }
 
   getAreaItems(areaName: IPublicTypeWidgetConfigArea): IPublicModelSkeletonItem[] {
-    return this[skeletonSymbol][normalizeArea(areaName)].items?.map((d) => new SkeletonItem(d));
+    return this[skeletonSymbol][normalizeArea(areaName)]?.map((d) => new SkeletonItem(d));
   }
 
   /**
@@ -60,14 +72,6 @@ export class Skeleton implements IPublicApiSkeleton {
   }
 
   /**
-   * enable widget
-   * @param name
-   */
-  enableWidget(name: string) {
-    this[skeletonSymbol].getWidget(name)?.enable?.();
-  }
-
-  /**
    * 隐藏 widget
    * @param name
    */
@@ -76,27 +80,19 @@ export class Skeleton implements IPublicApiSkeleton {
   }
 
   /**
-   * disable widget，不可点击
-   * @param name
-   */
-  disableWidget(name: string) {
-    this[skeletonSymbol].getWidget(name)?.disable?.();
-  }
-
-  /**
    * show area
    * @param areaName name of area
    */
-  showArea(areaName: string) {
-    (this[skeletonSymbol] as any)[normalizeArea(areaName)]?.show();
+  showArea(areaName: IPublicTypeWidgetConfigAreaVisible) {
+    this[configSymbol].set(normalizeAreaKey(areaName), true);
   }
 
   /**
    * hide area
    * @param areaName name of area
    */
-  hideArea(areaName: string) {
-    (this[skeletonSymbol] as any)[normalizeArea(areaName)]?.hide();
+  hideArea(areaName: IPublicTypeWidgetConfigAreaVisible) {
+    this[configSymbol].set(normalizeAreaKey(areaName), false);
   }
 
   /**
@@ -104,13 +100,10 @@ export class Skeleton implements IPublicApiSkeleton {
    * @param listener
    * @returns
    */
-  onShowArea(listener: (...args: any[]) => void): IPublicTypeDisposable {
-    const { editor } = this[skeletonSymbol];
-    editor.eventBus.on(SkeletonEvents.AREA_SHOW, (name: any, area: any) => {
-      const { skeleton, ...rest } = area;
-      listener(name, rest);
+  onShowArea(areaName: IPublicTypeWidgetConfigAreaVisible, listener: (...args: any[]) => void) {
+    this[configSymbol].onGot(normalizeAreaKey(areaName), (args) => {
+      !!args && listener(args);
     });
-    return () => editor.eventBus.off(SkeletonEvents.AREA_SHOW, listener);
   }
 
   /**
@@ -118,13 +111,10 @@ export class Skeleton implements IPublicApiSkeleton {
    * @param listener
    * @returns
    */
-  onHideArea(listener: (...args: any[]) => void): IPublicTypeDisposable {
-    const { editor } = this[skeletonSymbol];
-    editor.eventBus.on(SkeletonEvents.AREA_HIDE, (name: any, area: any) => {
-      const { skeleton, ...rest } = area;
-      listener(name, rest);
+  onHideArea(areaName: IPublicTypeWidgetConfigAreaVisible, listener: (...args: any[]) => void) {
+    this[configSymbol].onGot(normalizeAreaKey(areaName), (args) => {
+      !!!args && listener(args);
     });
-    return () => editor.eventBus.off(SkeletonEvents.AREA_HIDE, listener);
   }
 
   /**
@@ -166,16 +156,28 @@ function normalizeArea(area: IPublicTypeWidgetConfigArea | string): IPublicTypeW
       return 'header';
     case 'toolbar':
       return 'toolbar';
-    case 'breadcrumb':
-      return 'breadcrumb';
     case 'main':
       return 'main';
     case 'footer':
       return 'footer';
-    case 'fixed':
-      return 'fixed';
-    case 'float':
-      return 'float';
+    case 'extra':
+      return 'extra';
+    default:
+      throw new Error(`${area} not supported`);
+  }
+}
+function normalizeAreaKey(area: IPublicTypeWidgetConfigAreaVisible) {
+  switch (area) {
+    case 'aside':
+      return 'layout.sideVisible';
+    case 'header':
+      return 'layout.headerVisible';
+    case 'toolbar':
+      return 'layout.tabVisible';
+    case 'footer':
+      return 'layout.footerVisible';
+    case 'extra':
+      return 'layout.mixedExtraVisible';
     default:
       throw new Error(`${area} not supported`);
   }

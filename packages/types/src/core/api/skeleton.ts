@@ -1,6 +1,12 @@
+import { VNode } from 'vue';
 import { IPublicTypeWidgetBaseConfig } from '../widget-base-config';
+import { IPublicTypeWidgetConfigArea } from '../widget-config-area';
 
 export interface IPublicApiSkeleton {
+  /**
+   * 页面实例
+   */
+  Workbench: VNode;
   /**
    * 增加一个面板实例
    * @param config
@@ -14,7 +20,7 @@ export interface IPublicApiSkeleton {
    * @param config
    * @returns
    */
-  remove(config: IPublicTypeWidgetBaseConfig): number | undefined;
+  remove(config: IPublicTypeWidgetBaseConfig): void;
 
   /**
    * 显示 widget
@@ -23,22 +29,10 @@ export interface IPublicApiSkeleton {
   showWidget(name: string): void;
 
   /**
-   * enable widget
-   * @param name
-   */
-  enableWidget(name: string): void;
-
-  /**
    * 隐藏 widget
    * @param name
    */
   hideWidget(name: string): void;
-
-  /**
-   * disable widget，不可点击
-   * @param name
-   */
-  disableWidget(name: string): void;
 
   /**
    * show area
@@ -57,14 +51,20 @@ export interface IPublicApiSkeleton {
    * @param listener
    * @returns
    */
-  onShowArea(listener: (...args: unknown[]) => void): () => void;
+  onShowArea(
+    areaName: Omit<IPublicTypeWidgetConfigArea, 'main'>,
+    listener: (...args: unknown[]) => void,
+  ): void;
 
   /**
    * 监听 area 隐藏事件
    * @param listener
    * @returns
    */
-  onHideArea(listener: (...args: unknown[]) => void): () => void;
+  onHideArea(
+    areaName: Omit<IPublicTypeWidgetConfigArea, 'main'>,
+    listener: (...args: unknown[]) => void,
+  ): void;
 
   /**
    * 监听 widget 显示事件

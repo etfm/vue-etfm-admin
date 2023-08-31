@@ -1,3 +1,4 @@
+import { IPublicKeyType } from './api';
 import { IPublicTypeDisposable } from './disposable';
 import { IPluginTypeConfig } from './engine-options';
 import { IPublicModelPreference } from './preference';
@@ -18,7 +19,7 @@ export interface IPublicModelEngineConfig {
    * @param defaultValue
    * @returns
    */
-  get(key: IPluginTypeConfig, defaultValue?: any): any;
+  get(key: IPluginTypeConfig, defaultValue?: IPublicKeyType): any;
 
   /**
    * 设置指定 key 的值
@@ -26,14 +27,14 @@ export interface IPublicModelEngineConfig {
    * @param key
    * @param value
    */
-  set(key: IPluginTypeConfig, value: any, cover?: boolean): void;
+  set(key: IPluginTypeConfig, value: IPublicKeyType): void;
 
   /**
    * 批量设值，set 的对象版本
    * set multiple config key-values
    * @param config
    */
-  setConfig(config: { [key: string]: any }): void;
+  setConfig(config: { [key: string]: IPublicKeyType }): void;
 
   /**
    * 获取指定 key 的值，若此时还未赋值，则等待，若已有值，则直接返回值

@@ -1,8 +1,8 @@
 <script lang="tsx">
   import { useNamespace } from '@etfma/hooks';
+  import { ISkeleton } from '@etfma/types';
   import type { CSSProperties, PropType } from 'vue';
   import { computed, defineComponent, ref, unref } from 'vue';
-  import { Skeleton } from '../skeleton';
 
   export default defineComponent({
     name: 'LayoutToolbar',
@@ -12,7 +12,7 @@
        * @default
        */
       skeleton: {
-        type: Object as PropType<Skeleton>,
+        type: Object as PropType<ISkeleton>,
         required: true,
       },
       /**

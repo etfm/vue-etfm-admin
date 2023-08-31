@@ -5,7 +5,6 @@ import type {
   IPluginContextApiAssembler,
   IPluginContextOptions,
   IPluginPreferenceMananger,
-  IPublicApiCommon,
   IPublicApiEditor,
   IPublicApiEvent,
   IPublicApiGlobal,
@@ -14,6 +13,7 @@ import type {
   IPublicApiPlugins,
   IPublicApiRouter,
   IPublicApiSkeleton,
+  IPublicApiTheme,
   IPublicModelPluginContext,
   IPublicTypePreferenceValueType,
 } from '@etfma/types';
@@ -24,7 +24,9 @@ export default class PluginContext implements IPublicModelPluginContext {
   config: EngineConfig;
   global: IPublicApiGlobal;
   editor: IPublicApiEditor;
-  common: IPublicApiCommon;
+  i18n: IPublicApiI18n;
+  router: IPublicApiRouter;
+  theme: IPublicApiTheme;
   logger: Logger;
   plugins: IPublicApiPlugins;
   preference: IPluginPreferenceMananger;

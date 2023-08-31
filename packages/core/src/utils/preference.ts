@@ -3,7 +3,7 @@ import { Logger } from '@etfma/shared';
 import { IPublicModelPreference } from '@etfma/types';
 
 const logger = new Logger({ bizName: 'Preference' });
-const STORAGE_KEY_PREFIX = 'ETFM';
+const STORAGE_KEY_PREFIX = 'ETFM_ENGINE';
 
 /**
  * used to store user preferences, such as pinned status of a pannel.

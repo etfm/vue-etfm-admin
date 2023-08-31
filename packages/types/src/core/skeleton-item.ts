@@ -1,4 +1,13 @@
-/**
- * @since 1.1.7
- */
-export interface IPublicModelSkeletonItem {}
+import { IPublicTypeWidgetConfigArea } from './widget-config-area';
+
+export interface IPublicModelSkeletonItem {
+  name: string;
+
+  area: IPublicTypeWidgetConfigArea;
+
+  hide(): void;
+
+  show(): void;
+
+  toggle(): void;
+}

@@ -1,25 +1,23 @@
 import { ISkeleton } from './skeleton';
 import { IPublicTypeWidgetBaseConfig } from './widget-base-config';
+import { IPublicTypeWidgetConfigArea } from './widget-config-area';
 
 export interface IWidget {
   readonly name: string;
+  readonly area: IPublicTypeWidgetConfigArea;
   readonly content: any;
   readonly align?: string;
-  // readonly isWidget: true;
   readonly visible: boolean;
-  // readonly disabled?: boolean;
   readonly body: any;
   readonly skeleton: ISkeleton;
   readonly config: IPublicTypeWidgetBaseConfig;
-  [x: string]: any;
-
   getName(): string;
   getContent(): any;
   show(): void;
   hide(): void;
   toggle(): void;
-  // enable?(): void;
-  // disable?(): void;
+
+  [x: string]: any;
 }
 
 export interface WidgetConfig extends IPublicTypeWidgetBaseConfig {

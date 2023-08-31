@@ -1,4 +1,4 @@
-import { common } from '@etfma/core';
+import { skeleton } from '@etfma/core';
 import { eachTree, loggerWarning } from '@etfma/shared';
 import { AppRouteModule, Recordable } from '@etfma/types';
 
@@ -11,7 +11,7 @@ export function transformObjToRoute<T = AppRouteModule>(routeList: AppRouteModul
     const component = route.component as string;
     if (component && typeof component == 'string') {
       if (component.toUpperCase() == 'LAYOUT') {
-        route.component = () => Promise.resolve(common.skeletonCabin.Workbench);
+        route.component = () => Promise.resolve(skeleton.Workbench);
       } else {
         route.component = dynamicImport(dynamicViewsModules, component);
       }

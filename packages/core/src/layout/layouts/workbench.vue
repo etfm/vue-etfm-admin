@@ -1,22 +1,22 @@
 <script setup lang="ts">
-  import { Skeleton } from '../skeleton';
   import Layout from './layout.vue';
-  import { engineConfig } from '../../config';
-  import { ref } from 'vue';
-  import { deepMerge } from '@etfma/shared';
-  import type { IPublicLayout } from '@etfma/types';
+  import { reactive } from 'vue';
+  import type { IPublicLayout, ISkeleton } from '@etfma/types';
+  import { useGotLayoutConfig } from '../hooks';
+
+  defineOptions({
+    inheritAttrs: false,
+  });
 
   interface Props {
-    skeleton: Skeleton;
+    skeleton: ISkeleton;
   }
 
   withDefaults(defineProps<Props>(), {});
 
-  const model = ref<IPublicLayout>({});
+  const model = reactive<IPublicLayout>({});
 
-  engineConfig.onGot('layout', (layout) => {
-    model.value = deepMerge(model.value, layout);
-  });
+  useGotLayoutConfig(model);
 </script>
 
 <template>

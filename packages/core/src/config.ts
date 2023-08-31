@@ -1,6 +1,7 @@
-import { Logger, deepMerge, lodash } from '@etfma/shared';
+import { Logger, lodash } from '@etfma/shared';
 import Preference from './utils/preference';
 import type {
+  IPluginTypeConfig,
   IPublicModelEngineConfig,
   IPublicModelPreference,
   IPublicTypeEngineOptions,
@@ -15,42 +16,172 @@ const logger = new Logger({ bizName: 'Config' });
 // type and description are only used for developer`s assistance, won`t affect runtime
 const VALID_ENGINE_OPTIONS = {
   layout: {
-    type: 'object',
+    type: 'string',
     storage: true,
-    defaultValue: {
-      layout: 'side-nav',
-      zIndex: 1000,
-      isMobile: false,
-      headerVisible: true,
-      headerHeight: 48,
-      headerFixed: true,
-      headerBackgroundColor: '',
-      sideVisible: true,
-      sideWidth: 180,
-      sideMixedWidth: 80,
-      sideCollapse: false,
-      sideCollapseWidth: 48,
-      sideBackgroundColor: '',
-      contentPadding: 0,
-      contentPaddingBottom: 0,
-      contentPaddingTop: 0,
-      contentPaddingLeft: 0,
-      contentPaddingRight: 0,
-      contentBackgroundColor: '',
-      footerBackgroundColor: '',
-      footerHeight: 32,
-      footerFixed: true,
-      footerVisible: false,
-      tabVisible: true,
-      tabHeight: 30,
-      tabBackgroundColor: '',
-      breadcrumbVisible: false,
-      breadcrumbHeight: 56,
-      breadcrumbBackgroundColor: '',
-      mixedExtraVisible: false,
-      fixedMixedExtra: false,
-    },
-    description: '布局',
+    defaultValue: 'side-nav',
+    description: '布局方式',
+  },
+  'layout.zIndex': {
+    type: 'number',
+    storage: true,
+    defaultValue: 1000,
+    description: '布局的层级',
+  },
+  'layout.isMobile': {
+    type: 'boolean',
+    storage: true,
+    defaultValue: false,
+    description: '是否移动端显示',
+  },
+  'layout.headerVisible': {
+    type: 'boolean',
+    storage: true,
+    defaultValue: true,
+    description: 'header是否显示',
+  },
+  'layout.headerHeight': {
+    type: 'number',
+    storage: true,
+    defaultValue: 48,
+    description: 'header是否显示',
+  },
+  'layout.headerFixed': {
+    type: 'boolean',
+    storage: true,
+    defaultValue: true,
+    description: 'header是否固定在顶部',
+  },
+  'layout.headerBackgroundColor': {
+    type: 'string',
+    storage: true,
+    defaultValue: '#fff',
+    description: 'header背景颜色',
+  },
+  'layout.sideVisible': {
+    type: 'boolean',
+    storage: true,
+    defaultValue: true,
+    description: '侧边栏是否可见',
+  },
+  'layout.sideWidth': {
+    type: 'number',
+    storage: true,
+    defaultValue: 180,
+    description: '侧边栏宽度',
+  },
+  'layout.sideMixedWidth': {
+    type: 'number',
+    storage: true,
+    defaultValue: 80,
+    description: '混合侧边栏宽度',
+  },
+  'layout.sideBackgroundColor': {
+    type: 'string',
+    storage: true,
+    defaultValue: '',
+    description: '侧边栏背景颜色',
+  },
+  'layout.sideCollapse': {
+    type: 'boolean',
+    storage: true,
+    defaultValue: false,
+    description: '侧边菜单折叠状态',
+  },
+  'layout.sideCollapseWidth': {
+    type: 'number',
+    storage: true,
+    defaultValue: 48,
+    description: '侧边菜单折叠宽度',
+  },
+  'layout.contentPadding': {
+    type: 'number',
+    storage: true,
+    defaultValue: 0,
+    description: 'padding',
+  },
+  'layout.contentPaddingBottom': {
+    type: 'number',
+    storage: true,
+    defaultValue: 0,
+    description: 'paddingBottom',
+  },
+  'layout.contentPaddingTop': {
+    type: 'number',
+    storage: true,
+    defaultValue: 0,
+    description: 'paddingTop',
+  },
+  'layout.contentPaddingLeft': {
+    type: 'number',
+    storage: true,
+    defaultValue: 0,
+    description: 'paddingLeft',
+  },
+  'layout.contentPaddingRight': {
+    type: 'number',
+    storage: true,
+    defaultValue: 0,
+    description: 'paddingRight',
+  },
+  'layout.contentBackgroundColor': {
+    type: 'string',
+    storage: true,
+    defaultValue: '',
+    description: 'content背景颜色',
+  },
+  'layout.footerVisible': {
+    type: 'boolean',
+    storage: true,
+    defaultValue: false,
+    description: 'footer 是否可见',
+  },
+  'layout.footerHeight': {
+    type: 'number',
+    storage: true,
+    defaultValue: 32,
+    description: 'footer 高度',
+  },
+  'layout.footerFixed': {
+    type: 'boolean',
+    storage: true,
+    defaultValue: true,
+    description: 'footer 是否固定',
+  },
+  'layout.footerBackgroundColor': {
+    type: 'string',
+    storage: true,
+    defaultValue: '',
+    description: 'footer背景颜色',
+  },
+  'layout.tabVisible': {
+    type: 'boolean',
+    storage: true,
+    defaultValue: true,
+    description: 'tab是否可见',
+  },
+  'layout.tabHeight': {
+    type: 'number',
+    storage: true,
+    defaultValue: 30,
+    description: 'tab高度',
+  },
+  'layout.tabBackgroundColor': {
+    type: 'string',
+    storage: true,
+    defaultValue: '',
+    description: 'tab背景颜色',
+  },
+  'layout.mixedExtraVisible': {
+    type: 'boolean',
+    storage: true,
+    defaultValue: false,
+    description: '混合侧边扩展区域是否可见',
+  },
+  'layout.fixedMixedExtra': {
+    type: 'boolean',
+    storage: true,
+    defaultValue: false,
+    description: '固定混合侧边菜单',
   },
   i18n: {
     type: 'object',
@@ -67,10 +198,10 @@ const VALID_ENGINE_OPTIONS = {
     storage: false,
     description: '路由， 继承vue-router所有配置',
   },
-  ENGINE_VERSION: {
+  version: {
     type: 'string',
     storage: true,
-    description: 'Etfm-Admin-Engine 版本',
+    description: 'Etfm-Engine 版本',
   },
 };
 
@@ -110,7 +241,7 @@ export class EngineConfig implements IEngineConfig {
    * 判断指定 key 是否有值
    * @param key
    */
-  has(key: string): boolean {
+  has(key: IPluginTypeConfig): boolean {
     return this.config[key] !== undefined;
   }
 
@@ -119,7 +250,7 @@ export class EngineConfig implements IEngineConfig {
    * @param key
    * @param defaultValue
    */
-  get(key: string, defaultValue?: any): any {
+  get(key: IPluginTypeConfig, defaultValue?: any): any {
     return lodash.get(this.config, key, defaultValue);
   }
 
@@ -128,35 +259,67 @@ export class EngineConfig implements IEngineConfig {
    * @param key
    * @param value
    */
-  set(key: string, value: any, cover: boolean = false) {
-    const keys = key.split('.');
-    const result = VALID_ENGINE_OPTIONS[keys[0]];
+  set(key: IPluginTypeConfig, value: any) {
+    // const keys = key.split('.');
+    // const result = VALID_ENGINE_OPTIONS[keys[0]];
+    // const isValidKey = () => {
+    //   return (
+    //     !(result === undefined || result === null) &&
+    //     (typeof value == null || typeof value == 'undefined' || typeof value === result.type)
+    //   );
+    // };
+
+    // if (isValidKey()) {
+    //   if (cover) {
+    //     lodash.set(this.config, key, value);
+    //   } else {
+    //     const mergeValues = lodash.isPlainObject(value)
+    //       ? deepMerge(lodash.get(this.config, key), value)
+    //       : value;
+    //     lodash.set(this.config, key, mergeValues);
+    //   }
+
+    //   result.storage && this.preference.set(STORE_MODULE, this.config, STORE_MODULE);
+    //   this.notifyGot(key);
+    // } else {
+    //   logger.warn(
+    //     'failed to config',
+    //     key,
+    //     `to engineConfig, only predefined options can be set under strict mode, predefined options: `,
+    //     VALID_ENGINE_OPTIONS,
+    //   );
+    // }
+
+    const result = VALID_ENGINE_OPTIONS[key];
     const isValidKey = () => {
-      return (
-        !(result === undefined || result === null) &&
-        (typeof value == null || typeof value == 'undefined' || typeof value === result.type)
-      );
+      if (result === undefined || result === null) {
+        logger.warn(
+          'failed to config',
+          key,
+          `to engineConfig, only predefined options can be set under strict mode, predefined options: `,
+          VALID_ENGINE_OPTIONS,
+        );
+        return false;
+      }
+
+      if (typeof value != result.type) {
+        logger.warn(
+          'failed to config',
+          key,
+          `to engineConfig, Correct attribute ${
+            result.type
+          }, actual output ${typeof value}, predefined options: `,
+          VALID_ENGINE_OPTIONS,
+        );
+        return false;
+      }
+      return true;
     };
 
     if (isValidKey()) {
-      if (cover) {
-        lodash.set(this.config, key, value);
-      } else {
-        const mergeValues = lodash.isPlainObject(value)
-          ? deepMerge(lodash.get(this.config, key), value)
-          : value;
-        lodash.set(this.config, key, mergeValues);
-      }
-
-      result.storage && this.preference.set(STORE_MODULE, this.config, STORE_MODULE);
+      this.config[key] = value;
+      result.storage && this.preference.set(key, value, STORE_MODULE);
       this.notifyGot(key);
-    } else {
-      logger.warn(
-        'failed to config',
-        key,
-        `to engineConfig, only predefined options can be set under strict mode, predefined options: `,
-        VALID_ENGINE_OPTIONS,
-      );
     }
   }
 
@@ -166,7 +329,7 @@ export class EngineConfig implements IEngineConfig {
     }
 
     Object.keys(engineOptions).forEach((key) => {
-      this.set(key, (engineOptions as any)[key]);
+      this.set(key as IPluginTypeConfig, (engineOptions as any)[key]);
     });
   }
 
@@ -180,7 +343,6 @@ export class EngineConfig implements IEngineConfig {
     const defaultMoudle = this.getDefaultMoudle();
 
     const configs = lodash.merge(defaultMoudle, engineOptions, moudle);
-
     this.setConfig(configs);
   }
 
@@ -197,18 +359,19 @@ export class EngineConfig implements IEngineConfig {
   }
 
   getStorageMoudle() {
-    // const configs = {};
-    // const moudle = this.preference.getModule(STORE_MODULE);
-    // for (const key in moudle) {
-    //   if (Object.prototype.hasOwnProperty.call(moudle, key)) {
-    //     const prefix = this.preference.getStoragePrefix(STORE_MODULE);
-    //     const value = key.split(prefix)[1];
+    const configs = {};
+    const moudle = this.preference.getModule(STORE_MODULE);
+    for (const key in moudle) {
+      if (Object.prototype.hasOwnProperty.call(moudle, key)) {
+        const prefix = this.preference.getStoragePrefix(STORE_MODULE);
+        const value = key.split(prefix)[1];
 
-    //     configs[value] = moudle[key];
-    //   }
-    // }
-    // return configs;
-    return this.preference.get(STORE_MODULE, STORE_MODULE);
+        configs[value] = moudle[key];
+      }
+    }
+
+    return configs;
+    // return this.preference.get(STORE_MODULE, STORE_MODULE);
   }
 
   /**
@@ -217,7 +380,7 @@ export class EngineConfig implements IEngineConfig {
    * @param key
    * @returns
    */
-  onceGot(key: string): Promise<any> {
+  onceGot(key: IPluginTypeConfig): Promise<any> {
     const val = lodash.get(this.config, key);
     if (val !== undefined) {
       return Promise.resolve(val);
@@ -233,7 +396,7 @@ export class EngineConfig implements IEngineConfig {
    * @param fn
    * @returns
    */
-  onGot(key: string, fn: (data: any) => void): () => void {
+  onGot(key: IPluginTypeConfig, fn: (data: any) => void): () => void {
     const val = lodash.get(this.config, key);
     if (val !== undefined) {
       fn(val);
@@ -244,7 +407,7 @@ export class EngineConfig implements IEngineConfig {
     };
   }
 
-  notifyGot(key: string): void {
+  notifyGot(key: IPluginTypeConfig): void {
     let waits = this.waits.get(key);
     if (!waits) {
       return;

@@ -5,7 +5,9 @@ import {
   IPublicApiSkeleton,
   IPublicApiEvent,
   IPublicApiGlobal,
-  IPublicApiCommon,
+  IPublicApiI18n,
+  IPublicApiRouter,
+  IPublicApiTheme,
 } from '../api';
 import { IPublicModelEngineConfig } from '../engine-config';
 import { IPluginPreferenceMananger } from './plugin-manager';
@@ -34,7 +36,11 @@ export interface IPublicModelPluginContext {
 
   get global(): IPublicApiGlobal;
 
-  get common(): IPublicApiCommon;
+  get i18n(): IPublicApiI18n;
+
+  get router(): IPublicApiRouter;
+
+  get theme(): IPublicApiTheme;
 }
 
 export interface IPluginContextPrivate {
@@ -42,7 +48,9 @@ export interface IPluginContextPrivate {
   set event(event: IPublicApiEvent);
   set config(config: IPublicModelEngineConfig);
   set global(global: IPublicApiGlobal);
-  set common(common: IPublicApiCommon);
+  set i18n(i18n: IPublicApiI18n);
+  set router(i18n: IPublicApiRouter);
+  set theme(i18n: IPublicApiTheme);
   set material(material: IPublicApiMaterial);
   set plugins(plugins: IPublicApiPlugins);
   set logger(plugins: IPublicApiLogger);

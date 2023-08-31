@@ -45,7 +45,7 @@ export class PluginManager implements IPluginManager {
   }
 
   isEngineVersionMatched(versionExp: string): boolean {
-    const engineVersion = engineConfig.get('ENGINE_VERSION');
+    const engineVersion = engineConfig.get('version');
     // ref: https://github.com/npm/node-semver#functions
     // 1.0.1-beta should match '^1.0.0'
     return semverSatisfies(engineVersion, versionExp, {
@@ -105,7 +105,7 @@ export class PluginManager implements IPluginManager {
     if (engineVersionExp && !this.isEngineVersionMatched(engineVersionExp)) {
       throw new Error(
         `plugin ${pluginName} skipped, engine check failed, current engine version is ${engineConfig.get(
-          'ENGINE_VERSION',
+          'version',
         )}, meta.engines.version is ${engineVersionExp}`,
       );
     }

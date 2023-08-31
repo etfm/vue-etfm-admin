@@ -6,6 +6,7 @@ import { Editor } from '../editor';
 import {
   IPublicTypeDisposable,
   IPublicTypeWidgetBaseConfig,
+  IPublicTypeWidgetConfigArea,
   ISkeleton,
   IWidget,
   SkeletonEvents,
@@ -33,21 +34,6 @@ export class Skeleton implements ISkeleton {
 
   constructor(editor: Editor) {
     this.editor = editor;
-  }
-
-  postEvent(event: SkeletonEvents, ...args: any[]) {
-    this.editor.eventBus.emit(event, ...args);
-  }
-
-  createWidget(config: IPublicTypeWidgetBaseConfig | IWidget) {
-    config = this.parseConfig(config as IPublicTypeWidgetBaseConfig);
-    const widget: IWidget = new Widget(this, config as WidgetConfig);
-    this.widgets.push(widget);
-    return widget;
-  }
-
-  getWidget(name: string): IWidget | undefined {
-    return this.widgets.find((widget) => widget.name === name);
   }
 
   private parseConfig(config: IPublicTypeWidgetBaseConfig) {
@@ -79,6 +65,21 @@ export class Skeleton implements ISkeleton {
     }
 
     return restConfig;
+  }
+
+  postEvent(event: SkeletonEvents, ...args: any[]) {
+    this.editor.eventBus.emit(event, ...args);
+  }
+
+  createWidget(config: IPublicTypeWidgetBaseConfig | IWidget) {
+    config = this.parseConfig(config as IPublicTypeWidgetBaseConfig);
+    const widget: IWidget = new Widget(this, config as WidgetConfig);
+    this.widgets.push(widget);
+    return widget;
+  }
+
+  getWidget(name: string): IWidget | undefined {
+    return this.widgets.find((widget) => widget.name === name);
   }
 
   setWidget(config: IWidget, widgets) {
@@ -123,5 +124,19 @@ export class Skeleton implements ISkeleton {
       default:
         logger.warn(`${config.name} not supported`);
     }
+  }
+
+  remove(area: IPublicTypeWidgetConfigArea, name: string) {
+    const areaIndex = this[area].findIndex((item) => item.name === name);
+    if (areaIndex > -1) {
+      this[area].splice(areaIndex, 1);
+    }
+
+    const i = this.widgets.findIndex((item) => item.area === area && item.name === name);
+    if (i > -1) {
+      this.widgets.splice(i, 1);
+    }
+
+    this.postEvent(SkeletonEvents.REMOVE_WIDGET, this.widgets[i], this.widgets, this);
   }
 }

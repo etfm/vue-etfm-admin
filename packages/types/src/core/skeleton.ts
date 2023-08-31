@@ -1,14 +1,17 @@
 import { IPublicApiSkeleton } from './api/skeleton';
 import { IEditor } from './core';
+import { IPublicTypeDisposable } from './disposable';
 import { IWidget } from './widget';
 import { IPublicTypeSkeletonConfig } from './widget-base-config';
+import { IPublicTypeWidgetConfigArea } from './widget-config-area';
 
 export enum SkeletonEvents {
   ADD_WIDGET = 'skeleton.add.widget',
+  REMOVE_WIDGET = 'skeleton.remove.widget',
   WIDGET_SHOW = 'skeleton.widget.show',
   WIDGET_HIDE = 'skeleton.widget.hide',
-  WIDGET_DISABLE = 'skeleton.widget.disable',
-  WIDGET_ENABLE = 'skeleton.widget.enable',
+  WIDGET_DRAG_CHANGE = 'skeleton.widget.dragchange',
+  WIDGET_DRAG = 'skeleton.widget.drag',
   AREA_SHOW = 'skeleton.area.show',
   AREA_HIDE = 'skeleton.area.hide',
 }
@@ -16,10 +19,9 @@ export enum SkeletonEvents {
 export interface ISkeleton
   extends Omit<
     IPublicApiSkeleton,
+    | 'Workbench'
     | 'showWidget'
-    | 'enableWidget'
     | 'hideWidget'
-    | 'disableWidget'
     | 'showArea'
     | 'hideArea'
     | 'onShowArea'
@@ -39,10 +41,6 @@ export interface ISkeleton
 
   readonly extra: IWidget[];
 
-  // readonly fixed: IArea;
-  //
-  // readonly float: IArea;
-
   readonly main: IWidget[];
 
   readonly footer: IWidget[];
@@ -54,4 +52,8 @@ export interface ISkeleton
   add(config: IPublicTypeSkeletonConfig, extraConfig?: Record<string, any>): IWidget | undefined;
 
   postEvent(event: SkeletonEvents, ...args: any[]): void;
+
+  remove(area: IPublicTypeWidgetConfigArea, name: string): void;
+
+  onWidget(listener: (...args: any[]) => void): IPublicTypeDisposable;
 }

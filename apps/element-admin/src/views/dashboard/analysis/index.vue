@@ -22,7 +22,7 @@
   });
 
   function handleSiderCollapse(c) {
-    config.set('layout', { sideCollapse: c });
+    config.set('layout.sideCollapse', c);
   }
 </script>
 

@@ -10,3 +10,5 @@ export const pluginsSymbol = Symbol('plugins');
 export const pluginInstanceSymbol = Symbol('plugin-instance');
 export const skeletonItemSymbol = Symbol('skeletonItem');
 export const themeSymbol = Symbol('themeSymbol');
+export const intlSymbol = Symbol('intlSymbol');
+export const routerSymbol = Symbol('routerSymbol');

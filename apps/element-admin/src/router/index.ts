@@ -2,7 +2,7 @@ import { mainOutRoutes } from './mainOut';
 import { PAGE_NOT_FOUND_ROUTE } from './basic';
 import { BASE_HOME } from './constant';
 import { loggerWarning, traverseTree } from '@etfma/shared';
-import { AppRouteModule, AppRouteRecordRaw, common } from '@etfma/core';
+import { AppRouteModule, AppRouteRecordRaw, router as etfmRouter } from '@etfma/core';
 
 import { RouteRecordName, RouteRecordRaw } from 'vue-router';
 
@@ -67,7 +67,7 @@ const staticRouteNames = traverseTree<AppRouteRecordRaw, RouteRecordName | undef
  * @description 重置路由
  */
 function resetRoutes() {
-  const router = common.utils.createRouter().router;
+  const router = etfmRouter.router;
   const routes = router.getRoutes();
   const { hasRoute, removeRoute } = router;
   routes.forEach(({ name }) => {

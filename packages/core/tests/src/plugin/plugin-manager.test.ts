@@ -192,9 +192,9 @@ describe('plugin 测试', () => {
         version: '^1.1.0',
       },
     };
-    engineConfig.set('ENGINE_VERSION', '1.0.1');
+    engineConfig.set('version', '1.0.1');
 
-    console.log('version: ', engineConfig.get('ENGINE_VERSION'));
+    console.log('version: ', engineConfig.get('version'));
     // not match should skip
     pluginManager.register(creator21).catch((e) => {
       expect(e).toEqual(
@@ -218,7 +218,7 @@ describe('plugin 测试', () => {
       },
     };
 
-    engineConfig.set('ENGINE_VERSION', '1.0.3');
+    engineConfig.set('version', '1.0.3');
     pluginManager.register(creator22);
     expect(pluginManager.plugins.length).toBe(1);
 
@@ -233,7 +233,7 @@ describe('plugin 测试', () => {
         version: '1.x',
       },
     };
-    engineConfig.set('ENGINE_VERSION', '1.1.1');
+    engineConfig.set('version', '1.1.1');
     pluginManager.register(creator23);
     expect(pluginManager.plugins.length).toBe(2);
   });

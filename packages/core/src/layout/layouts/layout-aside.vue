@@ -285,6 +285,7 @@
       height: 100%;
       overflow: hidden;
       transition: all 0.2s ease 0s;
+      background-color: #fff;
     }
   }
 </style>

@@ -53,7 +53,7 @@
 </template>
 <style module lang="scss">
   @include b(tab-pane-tag) {
-    margin: 4px 3px;
+    margin: 0 2px;
     cursor: pointer;
   }
 </style>

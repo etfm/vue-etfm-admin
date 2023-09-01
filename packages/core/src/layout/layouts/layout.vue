@@ -1,5 +1,5 @@
 s<script setup lang="ts">
-  import type { CSSProperties } from 'vue';
+  import { CSSProperties } from 'vue';
   import { computed, watchEffect } from 'vue';
   import LayoutContent from './layout-content.vue';
   import LayoutFooter from './layout-footer.vue';
@@ -8,6 +8,7 @@ s<script setup lang="ts">
   import LayoutToolbar from './layout-toolbar.vue';
   import { useNamespace } from '@etfma/hooks';
   import type { IPublicLayout, ISkeleton } from '@etfma/types';
+  import { engineConfig } from '../../config';
 
   defineOptions({
     name: 'Layout',
@@ -34,6 +35,8 @@ s<script setup lang="ts">
     },
     set(collapse) {
       emit('update:side-collapse', collapse);
+
+      engineConfig.set('layout.sideCollapse', collapse);
     },
   });
 
@@ -87,8 +90,8 @@ s<script setup lang="ts">
    * footer tab 宽度
    */
   const getFooterAndTabWidth = computed(() => {
-    const { layout } = props;
-    if (layout === 'header-nav' || layout === 'full-content') {
+    const { layout, sideVisible } = props;
+    if (layout === 'header-nav' || fullContent.value || !sideVisible) {
       return `calc(100%)`;
     } else {
       return `calc(100% - ${getSiderWidth.value}px)`;
@@ -103,7 +106,7 @@ s<script setup lang="ts">
   /**
    * 是否全屏显示content，不需要侧边、底部、顶部、tab区域
    */
-  const fullContent = computed(() => props.layout === 'full-content');
+  const fullContent = computed(() => props.isFullContent);
 
   /**
    * 是否侧边混合模式
@@ -133,6 +136,16 @@ s<script setup lang="ts">
   });
 
   /**
+   * 阴影
+   */
+  // const getHeaderShadow = computed<CSSProperties>(() => {
+  //   return {
+  //     boxShadow: '5px 0 8px 0 rgb(29 35 41 / 5%)',
+  //     zIndex: props.zIndex,
+  //   };
+  // });
+
+  /**
    * 侧边栏z-index
    */
   const sideZIndex = computed(() => {
@@ -153,6 +166,8 @@ s<script setup lang="ts">
 
   function handleExtraVisible(visible: boolean) {
     emit('update:mixed-extra-visible', visible);
+
+    engineConfig.set('layout.mixedExtraVisible', visible);
   }
 
   function handleClickMask() {
@@ -162,7 +177,6 @@ s<script setup lang="ts">
 
 <template>
   <div :class="b()">
-    <slot></slot>
     <LayoutAside
       v-if="getSideVisible"
       :skeleton="skeleton"
@@ -181,31 +195,29 @@ s<script setup lang="ts">
     </LayoutAside>
 
     <div :class="e('main')">
-      <div :class="e('shadow')">
-        <LayoutHeader
-          v-if="headerVisible"
-          :skeleton="skeleton"
-          :show="!fullContent"
-          :z-index="zIndex"
-          :height="headerHeight"
-          :width="getHeaderWidth"
-          :fixed="getHeaderFixed"
-          :full-width="!isSideMode"
-          :background-color="headerBackgroundColor"
-        >
-        </LayoutHeader>
-        <LayoutToolbar
-          v-if="tabVisible"
-          :skeleton="skeleton"
-          :width="getFooterAndTabWidth"
-          :background-color="tabBackgroundColor"
-          :top="tabTop"
-          :z-index="zIndex"
-          :height="tabHeight"
-          :fixed="getHeaderFixed"
-        >
-        </LayoutToolbar>
-      </div>
+      <LayoutHeader
+        v-if="headerVisible"
+        :skeleton="skeleton"
+        :show="!fullContent"
+        :z-index="zIndex"
+        :height="headerHeight"
+        :width="getHeaderWidth"
+        :fixed="getHeaderFixed"
+        :full-width="!isSideMode"
+        :background-color="headerBackgroundColor"
+      >
+      </LayoutHeader>
+      <LayoutToolbar
+        v-if="tabVisible"
+        :skeleton="skeleton"
+        :width="getFooterAndTabWidth"
+        :background-color="tabBackgroundColor"
+        :top="tabTop"
+        :z-index="zIndex"
+        :height="tabHeight"
+        :fixed="getHeaderFixed"
+      >
+      </LayoutToolbar>
 
       <LayoutContent
         :skeleton="skeleton"
@@ -243,10 +255,6 @@ s<script setup lang="ts">
       flex: auto;
       flex-direction: column;
       position: relative;
-    }
-
-    @include e('shadow') {
-      box-shadow: 2px 0 8px 0 rgb(29 35 41 / 5%);
     }
 
     @include e('mask') {

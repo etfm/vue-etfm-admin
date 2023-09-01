@@ -21,6 +21,12 @@ const VALID_ENGINE_OPTIONS = {
     defaultValue: 'side-nav',
     description: '布局方式',
   },
+  'layout.isFullContent': {
+    type: 'boolean',
+    storage: true,
+    defaultValue: false,
+    description: '是否全屏显示content，不需要侧边、底部、顶部、tab区域',
+  },
   'layout.zIndex': {
     type: 'number',
     storage: true,

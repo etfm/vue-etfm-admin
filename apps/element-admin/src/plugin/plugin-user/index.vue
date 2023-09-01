@@ -22,6 +22,7 @@
 <style lang="scss" module>
   @include b(plugin-user) {
     padding: 0 16px;
+    padding-left: 0;
     cursor: pointer;
     outline: none;
   }

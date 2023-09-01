@@ -155,7 +155,6 @@
     width: 100%;
     transition: all 0.3s ease 0s;
     background-color: getCssVar('toolbar', 'bg-color');
-    // box-shadow: 2px 0 8px 0 rgb(29 35 41 / 5%);
 
     @include e('hide') {
       background: transparent;

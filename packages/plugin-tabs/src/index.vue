@@ -91,34 +91,39 @@
 </script>
 
 <template>
-  <div :class="ns.b()"> </div>
-  <Tabs
-    v-model:activeKey="activeKey"
-    :affix="getAffixKey"
-    @tabClick="handleClick"
-    @dropdown-remove="handleClose"
-  >
-    <TabPane v-for="item in getTabList" :key="item.path" :name="item.path" :title="item.title">
-      <TabOperate :store="store" trigger="contextmenu" :tabItem="item">
-        <EtfmaTag
-          :closable="hasClose(item)"
-          :type="item.path === activeKey ? '' : 'info'"
-          @close="handleClose(item.path)"
-          @mouseenter="handleMouseenter(item)"
-          @mouseleave="handleMouseleave"
-          >{{ item.title }}
-        </EtfmaTag>
-      </TabOperate>
-    </TabPane>
-    <template #right>
-      <TabRedo :store="store" />
-      <TabOperate :store="store" :tabItem="currentRoute">
-        <Icon :class="ns.b('arrow-down')" icon="ep:arrow-down-bold" />
-      </TabOperate>
-    </template>
-  </Tabs>
+  <div :class="ns.b()">
+    <Tabs
+      v-model:activeKey="activeKey"
+      :affix="getAffixKey"
+      @tabClick="handleClick"
+      @dropdown-remove="handleClose"
+    >
+      <TabPane v-for="item in getTabList" :key="item.path" :name="item.path" :title="item.title">
+        <TabOperate :store="store" trigger="contextmenu" :tabItem="item">
+          <EtfmaTag
+            :closable="hasClose(item)"
+            :type="item.path === activeKey ? '' : 'info'"
+            @close="handleClose(item.path)"
+            @mouseenter="handleMouseenter(item)"
+            @mouseleave="handleMouseleave"
+            >{{ item.title }}
+          </EtfmaTag>
+        </TabOperate>
+      </TabPane>
+      <template #right>
+        <TabRedo :store="store" />
+        <TabOperate :store="store" :tabItem="currentRoute">
+          <Icon :class="ns.b('arrow-down')" icon="ep:arrow-down-bold" />
+        </TabOperate>
+      </template>
+    </Tabs>
+  </div>
 </template>
 <style module lang="scss">
+  @include b(tabs-main) {
+    width: 100%;
+    height: 100%;
+  }
   @include b(tabs-main-arrow-down) {
     margin: 0 8px;
     outline: none;

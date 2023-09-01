@@ -28,6 +28,12 @@
   function handleLayout(value) {
     config.set('layout', value);
   }
+
+  function handleMixedExtraVisible(f) {
+    console.log('====================', f);
+
+    config.set('layout.mixedExtraVisible', f);
+  }
 </script>
 
 <template>
@@ -39,7 +45,12 @@
         <ElCheckbox v-model="model.siderCollapse" class="mx-5" @change="handleSiderCollapse"
           >折叠菜单</ElCheckbox
         >
-        <ElCheckbox v-model="model.sideMixedExtraVisible" class="mx-5">打开扩展菜单</ElCheckbox>
+        <ElCheckbox
+          v-model="model.sideMixedExtraVisible"
+          @change="handleMixedExtraVisible"
+          class="mx-5"
+          >打开扩展菜单</ElCheckbox
+        >
         <ElCheckbox v-model="model.fixedMixedExtra" class="mx-5">固定扩展菜单</ElCheckbox>
         <ElCheckbox v-model="model.isMobile" class="mx-5">isMobile</ElCheckbox>
         <hr />
@@ -49,7 +60,6 @@
           <ElRadioButton label="header-nav"></ElRadioButton>
           <ElRadioButton label="mixed-nav"></ElRadioButton>
           <ElRadioButton label="side-mixed-nav"></ElRadioButton>
-          <ElRadioButton label="full-content"></ElRadioButton>
         </ElRadioGroup>
         <hr />
       </div>

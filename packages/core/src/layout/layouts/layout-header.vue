@@ -98,7 +98,7 @@
           backgroundColor,
           height: `${height}px`,
           width,
-          zIndex: zIndex + 1,
+          zIndex,
           right,
         };
       });
@@ -164,17 +164,16 @@
 </script>
 
 <style scoped module lang="scss">
-  :root {
-    @include set-component-css-var('header', $header-area);
-  }
   @include b('header') {
+    @include set-component-css-var('header', $header-area);
+
     top: 0;
     width: 100%;
     transition: all 0.3s ease 0s;
     display: flex;
     background-color: getCssVar('header', 'bg-color');
-    // z-index: 1001;
-    box-shadow: 1px 0 1px #888;
+    border-bottom: 1px solid rgba(29, 35, 41, 0.1);
+    box-sizing: border-box;
 
     @include e('hide') {
       flex: 0 0 auto;

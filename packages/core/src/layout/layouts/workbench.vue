@@ -20,5 +20,11 @@
 </script>
 
 <template>
-  <Layout v-bind="model" :skeleton="skeleton"> </Layout>
+  <Layout
+    v-bind="model"
+    v-model:mixed-extra-visible="model.mixedExtraVisible"
+    v-model:side-collapse="model.sideCollapse"
+    :skeleton="skeleton"
+  >
+  </Layout>
 </template>

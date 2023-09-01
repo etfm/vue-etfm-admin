@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { Icon } from '@etfma/icon';
   import { computed, ref, watchEffect } from 'vue';
-  import { skeleton } from '@etfma/core';
+  import { config } from '@etfma/core';
   import { useNamespace } from '@etfma/hooks';
 
   defineOptions({
@@ -53,13 +53,11 @@
   }
 
   function enter() {
-    skeleton.hideArea('header');
-    skeleton.hideArea('aside');
+    config.set('layout.isFullContent', true);
   }
 
   function exit() {
-    skeleton.showArea('header');
-    skeleton.showArea('aside');
+    config.set('layout.isFullContent', false);
   }
 </script>
 <template>
@@ -72,7 +70,6 @@
     display: flex;
     align-items: center;
     justify-items: center;
-    // width: 100%;
     height: 100%;
     padding: 0 8px;
     cursor: pointer;

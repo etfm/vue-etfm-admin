@@ -8,6 +8,7 @@
   import { LayoutType, MenuRecordRaw } from '@etfma/types';
   import { useMenu } from './hooks/use-menu';
   import type { CSSProperties } from 'vue';
+  import MinSider from './mix-sider.vue';
 
   defineOptions({
     name: 'LayoutASide',
@@ -65,6 +66,8 @@
     type: props.type,
     width: 0,
   });
+
+  const isSideMixed = computed(() => model.type === 'side-mixed-nav');
 
   watch(
     currentRoute,
@@ -157,6 +160,7 @@
   <div :class="[ns.b()]">
     <EtfmaScrollbar :class="ns.e('scrollbar')" :style="getWrapper">
       <BasicMenu
+        v-if="!isSideMixed"
         :class="ns.b()"
         :style="getWrapper"
         :collapse="model.collapse"
@@ -165,6 +169,12 @@
         :unique-opened="model.uniqueOpened"
         @menu-click="handleClick"
       ></BasicMenu>
+      <MinSider
+        v-else
+        :collapse="model.collapse"
+        :menus="model.menus"
+        :default-active="model.defaultActive"
+      ></MinSider>
     </EtfmaScrollbar>
     <div :class="triggerClass">
       <Trigger :collapse="model.collapse" @toggle="toggleCollapsed" />

@@ -6,6 +6,10 @@ export function useGotLayoutConfig(model: IPublicLayout) {
     model.layout = arg;
   });
 
+  engineConfig.onGot('layout.isFullContent', (arg) => {
+    model.isFullContent = arg;
+  });
+
   engineConfig.onGot('layout.isMobile', (arg) => {
     model.isMobile = arg;
   });

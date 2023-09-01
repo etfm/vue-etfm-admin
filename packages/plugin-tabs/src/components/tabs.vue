@@ -160,10 +160,10 @@
     flex: 1;
     align-items: center;
     justify-items: center;
+    height: 100%;
 
     @include b(tabs-wrap) {
       position: relative;
-      display: inline-block;
       display: flex;
       flex: auto;
       flex: 1;
@@ -171,6 +171,7 @@
       overflow: hidden;
       white-space: nowrap;
       transform: translate(0);
+      align-items: center;
     }
 
     @include b(tabs-wrap-list) {

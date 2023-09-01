@@ -9,10 +9,14 @@ export interface IPublicTypeEngineOptions {
    * header-nav 顶部菜单布局
    * mixed-nav 侧边&顶部菜单布局
    * side-mixed-nav 侧边混合菜单布局
-   * full-content 全屏内容布局
    * @default side-nav
    */
   layout?: LayoutType;
+  /**
+   * 是否全屏显示content，不需要侧边、底部、顶部、tab区域
+   * @default false
+   */
+  'layout.isFullContent'?: boolean;
   /**
    * 是否移动端显示
    * @default false
@@ -180,12 +184,7 @@ export interface IPublicTypeEngineOptions {
 
 export type IPluginTypeConfig = keyof IPublicTypeEngineOptions;
 
-export type LayoutType =
-  | 'side-nav'
-  | 'header-nav'
-  | 'mixed-nav'
-  | 'side-mixed-nav'
-  | 'full-content';
+export type LayoutType = 'side-nav' | 'header-nav' | 'mixed-nav' | 'side-mixed-nav';
 
 export interface IPublicLayout {
   /**
@@ -194,10 +193,14 @@ export interface IPublicLayout {
    * header-nav 顶部菜单布局
    * mixed-nav 侧边&顶部菜单布局
    * side-mixed-nav 侧边混合菜单布局
-   * full-content 全屏内容布局
    * @default side-nav
    */
   layout?: LayoutType;
+  /**
+   * 是否全屏显示content，不需要侧边、底部、顶部、tab区域
+   * @default false
+   */
+  isFullContent?: boolean;
   /**
    * 是否移动端显示
    * @default false

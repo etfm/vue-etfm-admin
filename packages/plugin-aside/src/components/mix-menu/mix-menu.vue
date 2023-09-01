@@ -46,7 +46,14 @@
 </script>
 
 <template>
-  <div :class="b()">
+  <div
+    :class="[
+      b(),
+      {
+        mini: collapse,
+      },
+    ]"
+  >
     <ul :class="b('module')">
       <li
         :class="[
@@ -71,6 +78,20 @@
 
 <style lang="scss" scoped>
   @include b(mix-sider) {
+    &.mini &-module {
+      &__item {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      &__name {
+        display: none;
+      }
+
+      &__icon {
+        margin-bottom: 0;
+      }
+    }
   }
 
   @include b(mix-sider-module) {
@@ -81,7 +102,7 @@
 
     &__item {
       position: relative;
-      padding: 12px 0;
+      padding: 8px 0;
       transition: all 0.2s ease;
       text-align: center;
       cursor: pointer;

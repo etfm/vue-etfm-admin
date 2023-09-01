@@ -518,10 +518,11 @@
       & .#{$namespace}-menu-item,
       & .#{$namespace}-sub-menu__title,
       & .#{$namespace}-menu-item-group__title {
-        padding: 0;
         display: flex;
         justify-content: center;
         align-items: center;
+        padding: 8px 0;
+        height: auto;
       }
 
       > .#{$namespace}-menu-item,

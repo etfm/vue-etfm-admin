@@ -10,7 +10,6 @@ export interface IPublicTypeWidgetBaseConfig {
     [x: string]: any;
   };
   visible?: boolean;
-  disabled?: boolean;
   content?: any;
   contentProps?: Record<string, any>;
   [extra: string]: any;

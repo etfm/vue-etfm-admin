@@ -172,7 +172,7 @@
     transition: all 0.3s ease 0s;
     display: flex;
     background-color: getCssVar('header', 'bg-color');
-    border-bottom: 1px solid rgba(29, 35, 41, 0.1);
+    border-bottom: 1px solid getCssVar('border-color');
     box-sizing: border-box;
 
     @include e('hide') {

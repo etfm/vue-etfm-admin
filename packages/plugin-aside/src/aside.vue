@@ -1,17 +1,16 @@
 <script setup lang="ts">
   import { BasicMenu } from '@etfma/bs-ui';
   import { useNamespace } from '@etfma/hooks';
-  import Trigger from './components/trigger/index.vue';
   import { EtfmaScrollbar } from '@etfma/ui';
   import { computed, reactive, watch } from 'vue';
   import { event, material, type AppRouteRecordRaw, useRouter, config } from '@etfma/core';
   import { LayoutType, MenuRecordRaw } from '@etfma/types';
   import { useMenu } from './hooks/use-menu';
   import type { CSSProperties } from 'vue';
-  import MinSider from './mix-sider.vue';
+  import { Trigger } from './components';
 
   defineOptions({
-    name: 'LayoutASide',
+    name: 'LayoutAside',
     inheritAttrs: false,
   });
 
@@ -55,7 +54,7 @@
 
   const { currentRoute, push } = useRouter();
 
-  const ns = useNamespace('pa');
+  const ns = useNamespace('aside');
   const { getMenu, transformRouteToMenu } = useMenu();
 
   const model = reactive({
@@ -66,8 +65,6 @@
     type: props.type,
     width: 0,
   });
-
-  const isSideMixed = computed(() => model.type === 'side-mixed-nav');
 
   watch(
     currentRoute,
@@ -160,7 +157,6 @@
   <div :class="[ns.b()]">
     <EtfmaScrollbar :class="ns.e('scrollbar')" :style="getWrapper">
       <BasicMenu
-        v-if="!isSideMixed"
         :class="ns.b()"
         :style="getWrapper"
         :collapse="model.collapse"
@@ -169,12 +165,6 @@
         :unique-opened="model.uniqueOpened"
         @menu-click="handleClick"
       ></BasicMenu>
-      <MinSider
-        v-else
-        :collapse="model.collapse"
-        :menus="model.menus"
-        :default-active="model.defaultActive"
-      ></MinSider>
     </EtfmaScrollbar>
     <div :class="triggerClass">
       <Trigger :collapse="model.collapse" @toggle="toggleCollapsed" />
@@ -182,7 +172,7 @@
   </div>
 </template>
 <style lang="scss" module>
-  @include b('pa') {
+  @include b('aside') {
     position: relative;
     height: 100%;
 

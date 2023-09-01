@@ -1,8 +1,9 @@
-import { IPiniaContext, IPublicPlugin, IPublicPluginContext } from '@etfma/types';
+import { IPiniaContext, IPublicPlugin, IPublicPluginContext, LayoutType } from '@etfma/types';
 import { lodash } from '@etfma/shared';
 import { skeleton, config } from '@etfma/core';
 import { h } from 'vue';
-import Aside from './index.vue';
+import Aside from './aside.vue';
+import MixAside from './mix-aside.vue';
 
 const PluginAside: IPublicPlugin = (ctx: IPublicPluginContext, options) => {
   return {
@@ -17,13 +18,23 @@ const PluginAside: IPublicPlugin = (ctx: IPublicPluginContext, options) => {
         contentProps: opts,
       });
 
-      // config.onGot('layout', (l: string) => {
-      //   if (l === 'aside' || l === 'mix') {
-      //     skeleton.showArea('aside');
-      //   } else {
-      //     skeleton.hideArea('aside');
-      //   }
-      // });
+      skeleton.add({
+        name: 'PluginMixAside',
+        area: 'aside',
+        content: h(MixAside),
+        contentProps: opts,
+        visible: false,
+      });
+
+      config.onGot('layout', (l: LayoutType) => {
+        if (l === 'side-mixed-nav') {
+          skeleton.showWidget('PluginMixAside');
+          skeleton.hideWidget('PluginAside');
+        } else {
+          skeleton.showWidget('PluginAside');
+          skeleton.hideWidget('PluginMixAside');
+        }
+      });
     },
   };
 };

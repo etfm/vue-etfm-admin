@@ -137,6 +137,7 @@
           left: `${width}px`,
           width: extraVisible.value ? `${sideExtraWidth}px` : 0,
           backgroundColor,
+          borderLeftWidth: extraVisible.value ? '1px' : 'inherit',
         };
       });
 
@@ -256,11 +257,9 @@
 </script>
 
 <style scoped module lang="scss">
-  :root {
-    @include set-component-css-var('aside', $aside-area);
-  }
-
   @include b('aside') {
+    @include set-component-css-var('aside', $aside-area);
+
     position: fixed;
     top: 0;
     left: 0;
@@ -285,7 +284,8 @@
       height: 100%;
       overflow: hidden;
       transition: all 0.2s ease 0s;
-      background-color: #fff;
+      background-color: getCssVar('aside', 'bg-color');
+      border-left: 0px solid getCssVar('border-color');
     }
   }
 </style>

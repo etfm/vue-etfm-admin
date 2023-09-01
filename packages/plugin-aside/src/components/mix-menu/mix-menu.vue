@@ -39,6 +39,10 @@
     config.set('layout.mixedExtraVisible', true);
     event.emit('extra:routes', item.children ?? []);
   }
+
+  function getIocn(item: MenuRecordRaw) {
+    return (item.icon || (item.meta && item.meta.icon)) as string;
+  }
 </script>
 
 <template>
@@ -56,11 +60,7 @@
         @click="handleActive(item)"
       >
         <!-- <SimpleMenuTag :item="item" collapseParent dot /> -->
-        <Icon
-          :class="be('module', 'icon')"
-          :size="collapse ? 16 : 20"
-          :icon="item.icon || (item.meta && item.meta.icon)"
-        />
+        <Icon :class="be('module', 'icon')" :size="collapse ? 16 : 20" :icon="getIocn(item)" />
         <p :class="be('module', 'name')">
           {{ item.title }}
         </p>

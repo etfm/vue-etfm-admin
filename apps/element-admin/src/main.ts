@@ -9,19 +9,14 @@ import { Recordable } from '@etfma/types';
 import { getToken } from './cache/auth';
 import PluginPinia from '@etfma/plugin-pinia';
 import PluginDesigner from '@etfma/plugin-designer';
-import PluginAside from '@etfma/plugin-aside';
 import { staticRoutes } from './router';
 import PluginAppLogo from './plugin/plugin-logo';
-import PluginTabs from '@etfma/plugin-tabs';
-// import PluginBreadcrumb from '@etfma/plugin-breadcrumb';
-import PluginBreadcrumbFullscreen from '@etfma/plugin-breadcrumb-fullscreen';
-import PluginFullscreen from '@etfma/plugin-fullscreen';
-import PluginHeaderMenu from '@etfma/plugin-header-menu';
 import PluginUser from './plugin/plugin-user';
 import PluginInit from './plugin/plugin-init';
 // import PluginSetting from '@etfma/plugin-setting';
 import { getAppEnvConfig } from './utils/env';
 import { transformObjToRoute } from './router/helper/routerHelper';
+import { PluginLayoutPreset } from '@etfm/plugin-layout-preset';
 
 async function boostrap() {
   const AppConfig = getAppEnvConfig();
@@ -51,21 +46,11 @@ async function boostrap() {
 
   await plugins.register(PluginPinia);
 
-  await plugins.register(PluginAside);
-
-  await plugins.register(PluginHeaderMenu, { visible: true });
+  await plugins.register(PluginLayoutPreset, {}, { autoInit: true });
 
   await plugins.register(PluginAppLogo);
 
-  await plugins.register(PluginTabs);
-
   await plugins.register(PluginDesigner);
-
-  // await plugins.register(PluginBreadcrumb);
-
-  await plugins.register(PluginBreadcrumbFullscreen);
-
-  await plugins.register(PluginFullscreen);
 
   await plugins.register(PluginUser);
 

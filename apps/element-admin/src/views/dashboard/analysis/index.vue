@@ -19,6 +19,7 @@
     sideMixedExtraVisible: false,
     fixedMixedExtra: false,
     isMobile: false,
+    uniqueOpened: false,
   });
 
   function handleSiderCollapse(c) {
@@ -30,8 +31,6 @@
   }
 
   function handleMixedExtraVisible(f) {
-    console.log('====================', f);
-
     config.set('layout.mixedExtraVisible', f);
   }
 </script>
@@ -53,6 +52,7 @@
         >
         <ElCheckbox v-model="model.fixedMixedExtra" class="mx-5">固定扩展菜单</ElCheckbox>
         <ElCheckbox v-model="model.isMobile" class="mx-5">isMobile</ElCheckbox>
+
         <hr />
         <div>切换布局</div>
         <ElRadioGroup v-model="model.layout" @change="handleLayout">

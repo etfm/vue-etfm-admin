@@ -143,6 +143,9 @@ importers:
 
   apps/element-admin:
     dependencies:
+      '@etfm/plugin-layout-preset':
+        specifier: workspace:*
+        version: link:../../packages/plugin-layout-preset
       '@etfma/bs-ui':
         specifier: workspace:*
         version: link:../../packages/bs-ui
@@ -161,24 +164,9 @@ importers:
       '@etfma/icon':
         specifier: workspace:^0.0.0
         version: link:../../packages/icons
-      '@etfma/plugin-aside':
-        specifier: workspace:^
-        version: link:../../packages/plugin-aside
-      '@etfma/plugin-breadcrumb':
-        specifier: workspace:^
-        version: link:../../packages/plugin-breadcrumb
-      '@etfma/plugin-breadcrumb-fullscreen':
-        specifier: workspace:^
-        version: link:../../packages/plugin-breadcrumb-fullscreen
       '@etfma/plugin-designer':
         specifier: workspace:^
         version: link:../../packages/plugin-designer
-      '@etfma/plugin-fullscreen':
-        specifier: workspace:^
-        version: link:../../packages/plugin-fullscreen
-      '@etfma/plugin-header-menu':
-        specifier: workspace:^0.0.0
-        version: link:../../packages/plugin-header-menu
       '@etfma/plugin-http':
         specifier: workspace:^0.0.0
         version: link:../../packages/plugin-http
@@ -188,9 +176,6 @@ importers:
       '@etfma/plugin-setting':
         specifier: workspace:^0.0.0
         version: link:../../packages/plugin-setting
-      '@etfma/plugin-tabs':
-        specifier: workspace:^0.0.0
-        version: link:../../packages/plugin-tabs
       '@etfma/shared':
         specifier: workspace:*
         version: link:../../packages/shared
@@ -558,7 +543,38 @@ importers:
         specifier: ^4.1.6
         version: 4.2.1(vue@3.3.4)
 
-  packages/plugin-aside:
+  packages/plugin-aside-mixed-nav:
+    dependencies:
+      '@etfma/bs-ui':
+        specifier: workspace:^0.0.0
+        version: link:../bs-ui
+      '@etfma/core':
+        specifier: workspace:*
+        version: link:../core
+      '@etfma/hooks':
+        specifier: workspace:*
+        version: link:../hooks
+      '@etfma/icon':
+        specifier: workspace:^
+        version: link:../icons
+      '@etfma/shared':
+        specifier: workspace:^
+        version: link:../shared
+      '@etfma/ui':
+        specifier: workspace:^
+        version: link:../ui
+      vue:
+        specifier: ^3.3.4
+        version: 3.3.4
+      vue-router:
+        specifier: ^4.1.6
+        version: 4.2.1(vue@3.3.4)
+    devDependencies:
+      '@etfma/types':
+        specifier: workspace:^0.0.0
+        version: link:../types
+
+  packages/plugin-aside-nav:
     dependencies:
       '@etfma/bs-ui':
         specifier: workspace:^0.0.0
@@ -623,7 +639,7 @@ importers:
         specifier: workspace:^0.0.0
         version: link:../types
 
-  packages/plugin-breadcrumb-fullscreen:
+  packages/plugin-content-fullscreen:
     dependencies:
       '@etfma/core':
         specifier: workspace:^
@@ -713,7 +729,7 @@ importers:
         specifier: workspace:^0.0.0
         version: link:../types
 
-  packages/plugin-header-menu:
+  packages/plugin-header-nav:
     dependencies:
       '@etfma/bs-ui':
         specifier: workspace:^0.0.0
@@ -762,6 +778,74 @@ importers:
       '@types/qs':
         specifier: ^6.9.7
         version: 6.9.7
+
+  packages/plugin-layout-preset:
+    dependencies:
+      '@etfm/plugin-aside-mixed-nav':
+        specifier: workspace:^
+        version: link:../plugin-aside-mixed-nav
+      '@etfm/plugin-aside-nav':
+        specifier: workspace:^
+        version: link:../plugin-aside-nav
+      '@etfm/plugin-content-fullscreen':
+        specifier: workspace:^
+        version: link:../plugin-content-fullscreen
+      '@etfm/plugin-fullscreen':
+        specifier: workspace:^
+        version: link:../plugin-fullscreen
+      '@etfm/plugin-header-nav':
+        specifier: workspace:^
+        version: link:../plugin-header-nav
+      '@etfm/plugin-mixed-nav':
+        specifier: workspace:^
+        version: link:../plugin-mixed-nav
+      '@etfm/plugin-tabs':
+        specifier: workspace:^
+        version: link:../plugin-tabs
+      '@etfma/core':
+        specifier: workspace:*
+        version: link:../core
+      '@etfma/hooks':
+        specifier: workspace:*
+        version: link:../hooks
+      '@etfma/shared':
+        specifier: workspace:^
+        version: link:../shared
+    devDependencies:
+      '@etfma/types':
+        specifier: workspace:^0.0.0
+        version: link:../types
+
+  packages/plugin-mixed-nav:
+    dependencies:
+      '@etfma/bs-ui':
+        specifier: workspace:^0.0.0
+        version: link:../bs-ui
+      '@etfma/core':
+        specifier: workspace:*
+        version: link:../core
+      '@etfma/hooks':
+        specifier: workspace:*
+        version: link:../hooks
+      '@etfma/icon':
+        specifier: workspace:^
+        version: link:../icons
+      '@etfma/shared':
+        specifier: workspace:^
+        version: link:../shared
+      '@etfma/ui':
+        specifier: workspace:^
+        version: link:../ui
+      vue:
+        specifier: ^3.3.4
+        version: 3.3.4
+      vue-router:
+        specifier: ^4.1.6
+        version: 4.2.1(vue@3.3.4)
+    devDependencies:
+      '@etfma/types':
+        specifier: workspace:^0.0.0
+        version: link:../types
 
   packages/plugin-pinia:
     dependencies:
@@ -1194,15 +1278,7 @@ packages:
     engines: {node: '>=6.0.0'}
     hasBin: true
     dependencies:
-      '@babel/types': 7.22.5
-    dev: true
-
-  /@babel/parser@7.22.7:
-    resolution: {integrity: sha512-7NF8pOkHP5o2vpmGgNGcfAeCvOYhGLyA3Z4eBQkT1RJlWu47n63bCs93QfJ2hIAFCil7L5P2IWhs1oToVgrL0Q==}
-    engines: {node: '>=6.0.0'}
-    hasBin: true
-    dependencies:
-      '@babel/types': 7.22.5
+      '@babel/types': 7.22.11
 
   /@babel/plugin-syntax-jsx@7.21.4(@babel/core@7.21.8):
     resolution: {integrity: sha512-5hewiLct5OKyh6PLKEYaFclcqtIgCb6bmELouxjF6up5q3Sov7rOayW4RwhbaBL0dit8rA80GNfY+UuDp2mBbQ==}
@@ -1282,15 +1358,6 @@ packages:
 
   /@babel/types@7.22.11:
     resolution: {integrity: sha512-siazHiGuZRz9aB9NpHy9GOs9xiQPKnMzgdr493iI1M67vRXpnEq8ZOOKzezC5q7zwuQ6sDhdSp4SD9ixKSqKZg==}
-    engines: {node: '>=6.9.0'}
-    dependencies:
-      '@babel/helper-string-parser': 7.22.5
-      '@babel/helper-validator-identifier': 7.22.5
-      to-fast-properties: 2.0.0
-    dev: true
-
-  /@babel/types@7.22.5:
-    resolution: {integrity: sha512-zo3MIHGOkPOfoRXitsgHLjEXmlDaD/5KU1Uzuc9GNiZPhSqVxVRtxuPaSBZDsYZ9qV88AjtMtWW7ww98loJ9KA==}
     engines: {node: '>=6.9.0'}
     dependencies:
       '@babel/helper-string-parser': 7.22.5
@@ -2857,7 +2924,7 @@ packages:
   /@vue/compiler-core@3.3.4:
     resolution: {integrity: sha512-cquyDNvZ6jTbf/+x+AgM2Arrp6G4Dzbb0R64jiG804HRMfRiFXWI6kqUVqZ6ZR0bQhIoQjB4+2bhNtVwndW15g==}
     dependencies:
-      '@babel/parser': 7.22.7
+      '@babel/parser': 7.22.14
       '@vue/shared': 3.3.4
       estree-walker: 2.0.2
       source-map-js: 1.0.2
@@ -2871,14 +2938,14 @@ packages:
   /@vue/compiler-sfc@3.3.4:
     resolution: {integrity: sha512-6y/d8uw+5TkCuzBkgLS0v3lSM3hJDntFEiUORM11pQ/hKvkhSKZrXW6i69UyXlJQisJxuUEJKAWEqWbWsLeNKQ==}
     dependencies:
-      '@babel/parser': 7.22.7
+      '@babel/parser': 7.22.14
       '@vue/compiler-core': 3.3.4
       '@vue/compiler-dom': 3.3.4
       '@vue/compiler-ssr': 3.3.4
       '@vue/reactivity-transform': 3.3.4
       '@vue/shared': 3.3.4
       estree-walker: 2.0.2
-      magic-string: 0.30.1
+      magic-string: 0.30.3
       postcss: 8.4.23
       source-map-js: 1.0.2
 
@@ -2914,11 +2981,11 @@ packages:
   /@vue/reactivity-transform@3.3.4:
     resolution: {integrity: sha512-MXgwjako4nu5WFLAjpBnCj/ieqcjE2aJBINUNQzkZQfzIZA4xn+0fV1tIYBJvvva3N3OvKGofRLvQIwEQPpaXw==}
     dependencies:
-      '@babel/parser': 7.22.7
+      '@babel/parser': 7.22.14
       '@vue/compiler-core': 3.3.4
       '@vue/shared': 3.3.4
       estree-walker: 2.0.2
-      magic-string: 0.30.1
+      magic-string: 0.30.3
 
   /@vue/reactivity@3.3.4:
     resolution: {integrity: sha512-kLTDLwd0B1jG08NBF3R5rqULtv/f8x3rOFByTDz4J53ttIQEDmALqKqXY0J+XQeN0aV2FBxY8nJDf88yvOPAqQ==}
@@ -6497,7 +6564,7 @@ packages:
     resolution: {integrity: sha512-P53AZrzq7hclCU6HWj88xNZHmP15DKjMmK/vBytO1qnpYP3ul4IEZlyCE0aU3JRnmgWmZPmoTKj4Bls7v0pMyA==}
     engines: {node: '>=14.19.0'}
     dependencies:
-      magic-string: 0.30.1
+      magic-string: 0.30.3
     dev: true
 
   /magic-string-ast@0.3.0:
@@ -6526,13 +6593,13 @@ packages:
     engines: {node: '>=12'}
     dependencies:
       '@jridgewell/sourcemap-codec': 1.4.15
+    dev: true
 
   /magic-string@0.30.3:
     resolution: {integrity: sha512-B7xGbll2fG/VjP+SWg4sX3JynwIU0mjoTc6MPpKNuIvftk6u6vqhDnk1R80b8C2GBR6ywqy+1DcKBrevBg+bmw==}
     engines: {node: '>=12'}
     dependencies:
       '@jridgewell/sourcemap-codec': 1.4.15
-    dev: true
 
   /make-dir@2.1.0:
     resolution: {integrity: sha512-LS9X+dc8KLxXCb8dni79fLIIUA5VyZoyjSMCwTluaXA0o27cCK0bhXkpgw+sTXVpPy/lSO57ilRixqk0vDmtRA==}

@@ -1,5 +1,5 @@
 {
-  "name": "@etfm/plugin-tabs",
+  "name": "@etfm/plugin-header-nav",
   "version": "0.0.0",
   "description": "> TODO: description",
   "homepage": "https://github.com/etfm/vue-etfm-admin#readme",
@@ -34,13 +34,10 @@
     "lint": "pnpm eslint ."
   },
   "dependencies": {
+    "@etfma/bs-ui": "workspace:^0.0.0",
     "@etfma/core": "workspace:^",
-    "@etfma/design": "workspace:^",
     "@etfma/hooks": "workspace:*",
-    "@etfma/icon": "workspace:^",
     "@etfma/shared": "workspace:^",
-    "@etfma/ui": "workspace:^0.0.0",
-    "@vueuse/core": "^9.13.0",
     "vue": "^3.3.4",
     "vue-i18n": "^9.2.2",
     "vue-router": "^4.1.6"

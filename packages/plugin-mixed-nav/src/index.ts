@@ -1,0 +1,45 @@
+import { IPiniaContext, IPublicPlugin, IPublicPluginContext, LayoutType } from '@etfma/types';
+import { lodash } from '@etfma/shared';
+import { skeleton, config } from '@etfma/core';
+import { h } from 'vue';
+import MixedNavAside from './aside.vue';
+import MixedNavHeader from './header.vue';
+
+const PluginMixedNav: IPublicPlugin = (ctx: IPublicPluginContext, options) => {
+  return {
+    init: () => {
+      const context = ctx.preference.getPreference() as unknown as IPiniaContext;
+      const opts = lodash.merge(context, options);
+
+      skeleton.add({
+        name: 'PluginMixedNavAside',
+        area: 'aside',
+        content: h(MixedNavAside),
+        contentProps: opts,
+      });
+
+      skeleton.add({
+        name: 'PluginMixedNavHeader',
+        area: 'header',
+        content: h(MixedNavHeader),
+        contentProps: opts,
+      });
+
+      config.onGot('layout', (l: LayoutType) => {
+        if (l === 'mixed-nav') {
+          skeleton.showWidget('PluginMixedNavAside');
+          skeleton.showWidget('PluginMixedNavHeader');
+        } else {
+          skeleton.hideWidget('PluginMixedNavAside');
+          skeleton.hideWidget('PluginMixedNavHeader');
+        }
+      });
+    },
+  };
+};
+
+PluginMixedNav.pluginName = 'PluginMixedNav';
+
+export default PluginMixedNav;
+
+export { MixedNavHeader, MixedNavAside, PluginMixedNav };

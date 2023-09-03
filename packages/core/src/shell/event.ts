@@ -34,7 +34,9 @@ export class Event implements IPublicApiEvent {
       logger.warn(
         `fail to monitor on event ${event}, event should have a prefix like 'somePrefix:eventName'`,
       );
-      return () => {};
+      return () => {
+        this.off(event, listener);
+      };
     }
   }
 

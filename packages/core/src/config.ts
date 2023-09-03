@@ -19,7 +19,8 @@ const VALID_ENGINE_OPTIONS = {
     type: 'string',
     storage: true,
     defaultValue: 'side-nav',
-    description: '布局方式',
+    description:
+      '布局方式：side-nav 侧边菜单布局 header-nav 顶部菜单布局 mixed-nav 侧边&顶部菜单布局 side-mixed-nav 侧边混合菜单布局',
   },
   'layout.isFullContent': {
     type: 'boolean',

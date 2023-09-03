@@ -23,3 +23,5 @@ const PluginTabs: IPublicPlugin = (ctx: IPublicPluginContext, options) => {
 PluginTabs.pluginName = 'PluginTabs';
 
 export default PluginTabs;
+
+export { PluginTabs, Tabs };

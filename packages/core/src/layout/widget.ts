@@ -19,7 +19,7 @@ export class Widget implements IWidget {
 
   readonly align?: string;
 
-  _visible = true;
+  private _visible = true;
 
   get visible(): boolean {
     return this._visible;

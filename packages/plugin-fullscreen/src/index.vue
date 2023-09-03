@@ -5,7 +5,7 @@
   import { Icon } from '@etfma/icon';
 
   defineOptions({
-    name: 'PluginBreadcrumbFullscreen',
+    name: 'PluginFullscreen',
     inheritAttrs: false,
   });
 
@@ -21,7 +21,7 @@
     defaultFullscreen: false,
   });
 
-  const ns = useNamespace('pf');
+  const ns = useNamespace('fullscreen');
   const { isFullscreen, enter, toggle } = useFullscreen();
 
   const getIcon = computed(() => {
@@ -41,7 +41,7 @@
   </div>
 </template>
 <style lang="scss" module>
-  @include b(pf) {
+  @include b(fullscreen) {
     display: flex;
     align-items: center;
     justify-items: center;

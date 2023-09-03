@@ -37,10 +37,6 @@ export default class PluginContext implements IPublicModelPluginContext {
     const { pluginName = 'anonymous', meta = {} } = options;
     contextApiAssembler.assembleApis(this, pluginName, meta);
     this.pluginEvent = createModuleEventBus(pluginName, 200);
-    const enhancePluginContextHook = engineConfig.get('enhancePluginContextHook');
-    if (enhancePluginContextHook) {
-      enhancePluginContextHook(this);
-    }
   }
 
   setPreference(pluginName: string): void {

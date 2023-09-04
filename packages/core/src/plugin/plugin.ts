@@ -4,6 +4,7 @@ import {
   IPluginRuntime,
   IPublicTypePluginConfig,
   IPublicTypePluginMeta,
+  IPublicTypePluginRegisterOptions,
 } from '@etfma/types';
 
 export class PluginRuntime implements IPluginRuntime {
@@ -24,11 +25,14 @@ export class PluginRuntime implements IPluginRuntime {
    */
   private _disabled: boolean;
 
+  preset: boolean;
+
   constructor(
     pluginName: string,
     manager: IPluginManager,
     config: IPublicTypePluginConfig,
     meta: IPublicTypePluginMeta,
+    options?: IPublicTypePluginRegisterOptions,
   ) {
     this.manager = manager;
     this.config = config;
@@ -37,6 +41,7 @@ export class PluginRuntime implements IPluginRuntime {
     this.logger = new Logger({ bizName: `plugin:${pluginName}` });
     this._inited = false;
     this._disabled = false;
+    this.preset = options?.preset ?? false;
   }
 
   get name() {

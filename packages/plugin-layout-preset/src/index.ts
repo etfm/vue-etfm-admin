@@ -18,18 +18,26 @@ const PluginLayoutPreset: IPublicPlugin = (ctx: IPublicPluginContext, options) =
 
       await plugins.register(PluginAsideMixedNav, {
         'unique-opened': opts?.uniqueOpened,
+        title: opts?.title,
+        image: opts?.image,
       });
 
       await plugins.register(PluginAsideNav, {
         'unique-opened': opts?.uniqueOpened,
+        title: opts?.title,
+        image: opts?.image,
       });
 
       await plugins.register(PluginHeaderNav, {
         'menu-trigger': opts?.menuTrigger,
+        title: opts?.title,
+        image: opts?.image,
       });
 
       await plugins.register(PluginMixedNav, {
         'unique-opened': opts?.uniqueOpened,
+        title: opts?.title,
+        image: opts?.image,
       });
 
       await plugins.register(PluginFullscreen);
@@ -48,8 +56,24 @@ const PluginLayoutPreset: IPublicPlugin = (ctx: IPublicPluginContext, options) =
         event.emit('header-nav:menu-trigger', arg);
       });
 
+      const disposeLayoutPresetTitle = event.on('layout-preset:title', (arg) => {
+        event.emit('aside-nav:title', arg);
+        event.emit('header-nav:title', arg);
+        event.emit('mixed-nav:title', arg);
+        event.emit('side-mixed-nav:title', arg);
+      });
+
+      const disposeLayoutPresetImage = event.on('layout-preset:image', (arg) => {
+        event.emit('aside-nav:image', arg);
+        event.emit('header-nav:image', arg);
+        event.emit('mixed-nav:image', arg);
+        event.emit('side-mixed-nav:image', arg);
+      });
+
       fn.push(disposeLayoutPresetUniqueOpened);
       fn.push(disposeLayoutPresetMenuTrigger);
+      fn.push(disposeLayoutPresetTitle);
+      fn.push(disposeLayoutPresetImage);
     },
     destroy() {
       fn.forEach((dispose) => dispose());

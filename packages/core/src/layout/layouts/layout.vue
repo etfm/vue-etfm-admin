@@ -1,4 +1,4 @@
-s<script setup lang="ts">
+<script setup lang="ts">
   import { CSSProperties } from 'vue';
   import { computed, watchEffect } from 'vue';
   import LayoutContent from './layout-content.vue';
@@ -61,6 +61,7 @@ s<script setup lang="ts">
    */
   const getSiderWidth = computed(() => {
     const { layout, sideWidth, isMobile, sideCollapseWidth, sideMixedWidth } = props;
+
     let width = 0;
     if (sideCollapseState.value) {
       width = isMobile ? 0 : sideCollapseWidth!;
@@ -71,6 +72,7 @@ s<script setup lang="ts">
         width = sideWidth!;
       }
     }
+
     return width;
   });
 
@@ -78,11 +80,13 @@ s<script setup lang="ts">
    * header 宽度
    */
   const getHeaderWidth = computed(() => {
-    const { layout } = props;
-    if (layout === 'header-nav' || layout === 'mixed-nav') {
-      return `calc(100%)`;
+    const { layout, fixedMixedExtra, sideWidth, sideVisible } = props;
+    if (layout === 'header-nav' || layout === 'mixed-nav' || !sideVisible || fullContent.value) {
+      return 'calc(100%)';
     } else {
-      return `calc(100% - ${getSiderWidth.value}px)`;
+      return `calc(100% - ${
+        fixedMixedExtra ? sideWidth! + getSiderWidth.value : getSiderWidth.value
+      }px)`;
     }
   });
 
@@ -90,11 +94,13 @@ s<script setup lang="ts">
    * footer tab 宽度
    */
   const getFooterAndTabWidth = computed(() => {
-    const { layout, sideVisible } = props;
+    const { layout, sideVisible, fixedMixedExtra, sideWidth } = props;
     if (layout === 'header-nav' || fullContent.value || !sideVisible) {
-      return `calc(100%)`;
+      return 'calc(100%)';
     } else {
-      return `calc(100% - ${getSiderWidth.value}px)`;
+      return `calc(100% - ${
+        fixedMixedExtra ? sideWidth! + getSiderWidth.value : getSiderWidth.value
+      }px)`;
     }
   });
 

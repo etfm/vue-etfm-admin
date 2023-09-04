@@ -1,4 +1,4 @@
-import { EngineConfig, engineConfig } from '../config';
+import { EngineConfig } from '../config';
 import { Logger } from '@etfma/shared';
 import { createModuleEventBus } from '../event-bus';
 import type {

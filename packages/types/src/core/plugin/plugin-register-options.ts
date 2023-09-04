@@ -1,4 +1,3 @@
-
 export interface IPublicTypePluginRegisterOptions {
   /**
    * Will enable plugin registered with auto-initialization immediately
@@ -10,4 +9,6 @@ export interface IPublicTypePluginRegisterOptions {
    * allow overriding existing plugin with same name when override === true
    */
   override?: boolean;
+
+  preset?: boolean;
 }

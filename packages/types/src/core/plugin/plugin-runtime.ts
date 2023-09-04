@@ -10,6 +10,7 @@ export interface IPluginRuntimeCore {
   logger: IPublicApiLogger;
   meta: IPublicTypePluginMeta;
   inited: boolean;
+  preset: boolean;
   init(forceInit?: boolean): void;
   destroy(): void;
   dispose(): void;

@@ -120,9 +120,16 @@
       });
 
       const style = computed((): CSSProperties => {
-        const { paddingTop, zIndex } = props;
+        const { paddingTop, zIndex, width, backgroundColor, show } = props;
+        const widthValue = `${width}px`;
+
         return {
-          ...hiddenSideStyle.value,
+          marginLeft: show ? 0 : `-${widthValue}`,
+          flex: `0 0 ${widthValue}`,
+          width: widthValue,
+          minWidth: widthValue,
+          maxWidth: widthValue,
+          backgroundColor,
           paddingTop: `${paddingTop}px`,
           height: `calc(100% - ${paddingTop}px)`,
           zIndex,

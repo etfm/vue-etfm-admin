@@ -110,7 +110,7 @@ export class PluginManager implements IPluginManager {
       );
     }
 
-    const plugin = new PluginRuntime(pluginName, this, config, meta);
+    const plugin = new PluginRuntime(pluginName, this, config, meta, registerOptions);
     // support initialization of those plugins which registered after normal initialization by plugin-manager
     if (registerOptions?.autoInit) {
       await plugin.init();
@@ -147,7 +147,13 @@ export class PluginManager implements IPluginManager {
     const pluginNames: string[] = [];
     const pluginObj: { [name: string]: IPluginRuntime } = {};
     this.pluginPreference = pluginPreference;
+
+    const presets = this.plugins.filter((preset) => preset.preset);
+
+    await Promise.all(presets.map(async (preset) => preset.init()));
+
     this.plugins.forEach((plugin) => {
+      if (plugin.preset) return;
       pluginNames.push(plugin.name);
       pluginObj[plugin.name] = plugin;
     });

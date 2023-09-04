@@ -1,10 +1,9 @@
 <script setup lang="ts">
   import { useNamespace } from '@etfma/hooks';
   import { Icon } from '@etfma/icon';
-  import { computed, ref, watchEffect } from 'vue';
+  import { computed } from 'vue';
   import { config } from '@etfma/core';
   import { MenuRecordRaw } from '@etfma/types';
-  import { findPath } from '@etfma/shared';
 
   interface Props {
     menus: MenuRecordRaw[];
@@ -21,23 +20,12 @@
 
   const emit = defineEmits<{
     click: [mens: MenuRecordRaw[]];
+    'update:default-active': [e: string];
   }>();
   const menuModules = computed(() => props.menus);
 
-  const activePath = ref();
-
-  watchEffect(() => {
-    const paths = findPath(props.menus, (item) => {
-      return item.path == props.defaultActive;
-    });
-
-    const path = paths && paths.length > 0 ? paths[0].path : '';
-
-    activePath.value = path;
-  });
-
   function handleActive(item: MenuRecordRaw) {
-    activePath.value = item.path;
+    emit('update:default-active', item.path);
 
     config.set('layout.mixedExtraVisible', true);
 
@@ -63,14 +51,13 @@
         :class="[
           be('module', 'item'),
           {
-            [bem('module', 'item', 'active')]: item.path == activePath,
+            [bem('module', 'item', 'active')]: item.path == defaultActive,
           },
         ]"
         v-for="item in menuModules"
         :key="item.path"
         @click="handleActive(item)"
       >
-        <!-- <SimpleMenuTag :item="item" collapseParent dot /> -->
         <Icon :class="be('module', 'icon')" :size="collapse ? 16 : 20" :icon="getIocn(item)" />
         <p :class="be('module', 'name')">
           {{ item.title }}
@@ -100,42 +87,53 @@
 
   @include b(mix-sider-module) {
     position: relative;
+    margin: 0;
     padding: 0;
     list-style: none;
     color: getCssVar('menu-text-color');
 
     &__item {
       position: relative;
-      padding: 8px 0;
+      padding: 16px 0;
       transition: all 0.2s ease;
       text-align: center;
       cursor: pointer;
 
       &:hover {
         color: getCssVar('menu-hover-text-color');
+        background-color: getCssVar('menu-bg-sub-menu-item-hover-color') !important;
 
-        &::before {
-          background-color: getCssVar('menu-bg-sub-menu-item-hover-color') !important;
-          border-radius: 3px;
-          clear: both;
-          content: '';
-          inset: 0 8px;
-          margin: 2px 0;
-          position: absolute;
-        }
+        // &::before {
+        //   background-color: getCssVar('menu-bg-sub-menu-item-hover-color') !important;
+        //   border-radius: 3px;
+        //   clear: both;
+        //   content: '';
+        //   inset: 0 8px;
+        //   margin: 2px 0;
+        //   position: absolute;
+        // }
       }
 
       &--active {
         color: getCssVar('menu-active-color');
+        background-color: getCssVar('menu-bg-sub-menu-item-active-color') !important;
 
         &::before {
-          background-color: getCssVar('menu-bg-sub-menu-item-active-color') !important;
-          border-radius: 3px;
-          clear: both;
+          // background-color: getCssVar('menu-bg-sub-menu-item-active-color') !important;
+          // border-radius: 3px;
+          // clear: both;
+          // content: '';
+          // inset: 0 8px;
+          // margin: 2px 0;
+          // position: absolute;
+
           content: '';
-          inset: 0 8px;
-          margin: 2px 0;
           position: absolute;
+          top: 0;
+          left: 0;
+          width: 3px;
+          height: 100%;
+          background-color: getCssVar('menu-active-color');
         }
       }
     }

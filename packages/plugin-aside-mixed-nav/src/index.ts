@@ -4,6 +4,8 @@ import { skeleton, config } from '@etfma/core';
 import { h } from 'vue';
 import AsideMixedNavAside from './aside.vue';
 import AsideMixedNavExtra from './extra.vue';
+import AsideMixedNavExtraHeader from './extra-header.vue';
+import AsideMixedNavLogo from './logo.vue';
 
 const PluginAsideMixedNav: IPublicPlugin = (ctx: IPublicPluginContext, options) => {
   return {
@@ -25,13 +27,39 @@ const PluginAsideMixedNav: IPublicPlugin = (ctx: IPublicPluginContext, options) 
         contentProps: opts,
       });
 
+      skeleton.add({
+        name: 'PluginAsideMixedNavExtraHeader',
+        area: 'extra',
+        props: {
+          align: 'left',
+        },
+        content: h(AsideMixedNavExtraHeader),
+        contentProps: {
+          title: opts.title,
+        },
+      });
+
+      skeleton.add({
+        name: 'PluginAsideMixedNavLogo',
+        area: 'aside',
+        props: {
+          align: 'left',
+        },
+        content: h(AsideMixedNavLogo),
+        contentProps: opts,
+      });
+
       config.onGot('layout', (l: LayoutType) => {
         if (l === 'side-mixed-nav') {
           skeleton.showWidget('PlugiAsideMixedNavAside');
           skeleton.showWidget('PlugiAsideMixedNavExtra');
+          skeleton.showWidget('PluginAsideMixedNavExtraHeader');
+          skeleton.showWidget('PluginAsideMixedNavLogo');
         } else {
           skeleton.hideWidget('PlugiAsideMixedNavAside');
           skeleton.hideWidget('PlugiAsideMixedNavExtra');
+          skeleton.hideWidget('PluginAsideMixedNavExtraHeader');
+          skeleton.hideWidget('PluginAsideMixedNavLogo');
         }
       });
     },
@@ -42,4 +70,10 @@ PluginAsideMixedNav.pluginName = 'PluginAsideMixedNav';
 
 export default PluginAsideMixedNav;
 
-export { AsideMixedNavAside, AsideMixedNavExtra, PluginAsideMixedNav };
+export {
+  AsideMixedNavAside,
+  AsideMixedNavExtra,
+  AsideMixedNavExtraHeader,
+  AsideMixedNavLogo,
+  PluginAsideMixedNav,
+};

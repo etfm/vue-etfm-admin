@@ -3,6 +3,7 @@ import { lodash } from '@etfma/shared';
 import { skeleton, config } from '@etfma/core';
 import { h } from 'vue';
 import AsideNav from './aside.vue';
+import AsideNavLogo from './logo.vue';
 
 const PluginAsideNav: IPublicPlugin = (ctx: IPublicPluginContext, options) => {
   return {
@@ -17,11 +18,26 @@ const PluginAsideNav: IPublicPlugin = (ctx: IPublicPluginContext, options) => {
         contentProps: opts,
       });
 
+      skeleton.add({
+        name: 'PluginAsideNavLogo',
+        area: 'aside',
+        props: {
+          align: 'left',
+        },
+        content: h(AsideNavLogo),
+        contentProps: {
+          title: opts.title,
+          image: opts.image,
+        },
+      });
+
       config.onGot('layout', (l: LayoutType) => {
         if (l === 'side-nav') {
           skeleton.showWidget('PluginAsideNav');
+          skeleton.showWidget('PluginAsideNavLogo');
         } else {
           skeleton.hideWidget('PluginAsideNav');
+          skeleton.hideWidget('PluginAsideNavLogo');
         }
       });
     },

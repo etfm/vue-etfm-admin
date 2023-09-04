@@ -7,6 +7,7 @@
   import { useMenu } from './hooks/use-menu';
   import type { CSSProperties } from 'vue';
   import { MixMenu, Trigger } from './components';
+  import { lodash } from '@etfma/shared';
 
   defineOptions({
     name: 'AsideMixedNavAside',
@@ -40,7 +41,7 @@
     menus: () => [],
   });
 
-  const { currentRoute } = useRouter();
+  const { currentRoute, push } = useRouter();
 
   const ns = useNamespace('aside-mixed-nav-aside');
   const { getMenu, transformRouteToMenu } = useMenu();
@@ -57,9 +58,11 @@
   });
 
   watch(
-    currentRoute,
-    (router) => {
-      model.defaultActive = router.fullPath;
+    [() => currentRoute.value, () => model.menus],
+    ([router]) => {
+      const parent = router.matched && !lodash.isEmpty(router.matched) && router.matched[0];
+      model.defaultActive = parent ? parent.path : '';
+      setSplitMenu(model.menus, model.defaultActive);
     },
     {
       immediate: true,
@@ -99,6 +102,21 @@
    */
   function handleClick(menus: MenuRecordRaw[]) {
     event.emit('side-mixed-nav:routes', menus);
+  }
+
+  /**
+   * 设置菜单
+   * @param menus
+   * @param path
+   */
+  function setSplitMenu(menus: MenuRecordRaw[], path: string) {
+    const m = menus.find((menu) => menu.path === path);
+
+    if (m && m.children && !lodash.isEmpty(m.children) && lodash.isArray(m.children)) {
+      event.emit('side-mixed-nav:routes', m.children);
+      return;
+    }
+    path && push(path);
   }
 </script>
 <template>

@@ -1,5 +1,5 @@
 import { computed, getCurrentInstance, inject, unref } from 'vue';
-import { loggerDebug, isClient } from '@etfma/shared';
+import { loggerDebug, isClient } from '@etfm/shared';
 
 import type { InjectionKey, Ref } from 'vue';
 import type { MaybeRef } from '@vueuse/core';

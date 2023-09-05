@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { MenuRecordRaw } from '@etfma/types';
+  import { MenuRecordRaw } from '@etfm/types';
   import PageHeader from './page-header.vue';
   import PageContent from './page-content.vue';
   import { computed } from 'vue';

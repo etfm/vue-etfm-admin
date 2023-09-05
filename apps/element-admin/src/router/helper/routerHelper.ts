@@ -1,6 +1,6 @@
-import { skeleton } from '@etfma/core';
-import { eachTree, loggerWarning } from '@etfma/shared';
-import { AppRouteModule, Recordable } from '@etfma/types';
+import { skeleton } from 'etfm-engine';
+import { eachTree, loggerWarning } from '@etfm/shared';
+import { AppRouteModule, Recordable } from '@etfm/types';
 
 let dynamicViewsModules: Record<string, () => Promise<Recordable<any>>>;
 

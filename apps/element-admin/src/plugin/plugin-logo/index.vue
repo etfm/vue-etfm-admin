@@ -1,8 +1,8 @@
 <script setup lang="ts">
   import { CSSProperties, computed, ref } from 'vue';
-  import { useNamespace } from '@etfma/hooks';
-  import { config } from '@etfma/core';
-  import { LayoutType } from '@etfma/types';
+  import { useNamespace } from '@etfm/hooks';
+  import { config } from 'etfm-engine';
+  import { LayoutType } from '@etfm/types';
 
   defineOptions({
     name: 'AppLogo',

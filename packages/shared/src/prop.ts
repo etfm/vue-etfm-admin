@@ -12,7 +12,7 @@ import type {
   IfEpProp,
   IfNativePropType,
   NativePropType,
-} from '@etfma/types';
+} from '@etfm/types';
 
 export const epPropKey = '__epPropKey';
 

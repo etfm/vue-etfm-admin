@@ -10,7 +10,7 @@
 
 <script lang="ts" setup>
   import { inject, onBeforeUnmount, watch } from 'vue';
-  import { useNamespace } from '@etfma/hooks';
+  import { useNamespace } from '@etfm/hooks';
   import { POPPER_CONTENT_INJECTION_KEY } from './constants';
   import { popperArrowProps } from './arrow';
 

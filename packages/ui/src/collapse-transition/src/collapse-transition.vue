@@ -4,7 +4,7 @@
   </transition>
 </template>
 <script lang="ts" setup>
-  import { useNamespace } from '@etfma/hooks';
+  import { useNamespace } from '@etfm/hooks';
   import type { RendererElement } from '@vue/runtime-core';
 
   defineOptions({

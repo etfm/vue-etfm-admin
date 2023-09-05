@@ -1,4 +1,4 @@
-import { useGo, useRedo } from '@etfma/core';
+import { useGo, useRedo } from 'etfm-engine';
 import { ComputedRef, Ref, computed, ref, toRaw, unref } from 'vue';
 import {
   RouteLocationNormalized,

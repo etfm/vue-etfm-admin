@@ -30,8 +30,8 @@
     dropdownMenuProps,
   } from './dropdown';
   import { useDropdown } from './useDropdown';
-  import { useNamespace } from '@etfma/hooks';
-  import { composeEventHandlers, composeRefs } from '@etfma/shared';
+  import { useNamespace } from '@etfm/hooks';
+  import { composeEventHandlers, composeRefs } from '@etfm/shared';
 
   export default defineComponent({
     name: 'EtfmDropdownMenu',

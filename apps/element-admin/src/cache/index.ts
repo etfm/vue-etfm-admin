@@ -1,5 +1,5 @@
 import { getStorageShortName } from '@/utils/env';
-import { createStorage as create, CreateStorageParams } from '@etfma/shared';
+import { createStorage as create, CreateStorageParams } from '@etfm/shared';
 
 export type Options = Partial<CreateStorageParams>;
 export const DEFAULT_CACHE_TIME = 60 * 60 * 24 * 7;

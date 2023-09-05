@@ -1,9 +1,9 @@
 <script lang="tsx">
-  import { useNamespace } from '@etfma/hooks';
+  import { useNamespace } from '@etfm/hooks';
   import { onClickOutside } from '@vueuse/core';
   import type { CSSProperties, PropType } from 'vue';
   import { computed, defineComponent, ref, shallowRef, unref, watchEffect } from 'vue';
-  import { ISkeleton, IWidget } from '@etfma/types';
+  import { ISkeleton, IWidget } from '@etfm/types';
 
   export default defineComponent({
     name: 'LayoutAside',

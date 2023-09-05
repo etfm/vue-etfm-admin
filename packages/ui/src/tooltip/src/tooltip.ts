@@ -1,5 +1,5 @@
-import { buildProps } from '@etfma/shared';
-import { createModelToggleComposable } from '@etfma/hooks';
+import { buildProps } from '@etfm/shared';
+import { createModelToggleComposable } from '@etfm/hooks';
 import { popperArrowProps, popperProps } from '../../popper';
 import { useTooltipContentProps } from './content';
 import { useTooltipTriggerProps } from './trigger';

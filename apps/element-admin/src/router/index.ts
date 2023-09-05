@@ -1,8 +1,8 @@
 import { mainOutRoutes } from './mainOut';
 import { PAGE_NOT_FOUND_ROUTE } from './basic';
 import { BASE_HOME } from './constant';
-import { loggerWarning, traverseTree } from '@etfma/shared';
-import { AppRouteModule, AppRouteRecordRaw, router as etfmRouter } from '@etfma/core';
+import { loggerWarning, traverseTree } from '@etfm/shared';
+import { AppRouteModule, AppRouteRecordRaw, router as etfmRouter } from 'etfm-engine';
 
 import { RouteRecordName, RouteRecordRaw } from 'vue-router';
 

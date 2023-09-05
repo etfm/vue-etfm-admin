@@ -29,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-  import { useAsyncState } from '@etfma/hooks';
+  import { useAsyncState } from '@etfm/hooks';
   import {
     ElButton,
     ElCheckbox,

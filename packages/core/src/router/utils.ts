@@ -1,5 +1,5 @@
-import { lodash } from '@etfma/shared';
-import type { AppRouteModule, AppRouteRecordRaw } from '@etfma/types';
+import { lodash } from '@etfm/shared';
+import type { AppRouteModule, AppRouteRecordRaw } from '@etfm/types';
 import {
   createWebHashHistory,
   type RouteRecordNormalized,

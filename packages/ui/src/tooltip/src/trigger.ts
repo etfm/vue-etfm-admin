@@ -1,7 +1,7 @@
-import { buildProps, definePropType } from '@etfma/shared';
+import { buildProps, definePropType } from '@etfm/shared';
 import { popperTriggerProps } from '../../popper';
 import { EVENT_CODE } from '../../focus-trap';
-import type { Arrayable } from '@etfma/types';
+import type { Arrayable } from '@etfm/types';
 import type { ExtractPropTypes } from 'vue';
 
 export type TooltipTriggerType = 'hover' | 'focus' | 'click' | 'contextmenu';

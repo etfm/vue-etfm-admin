@@ -34,19 +34,17 @@
     "lint": "pnpm eslint ."
   },
   "dependencies": {
-    "@etfma/core": "workspace:^",
-    "@etfma/design": "workspace:^",
-    "@etfma/element-ui": "workspace:*",
-    "@etfma/hooks": "workspace:*",
-    "@etfma/icon": "workspace:^",
-    "@etfma/shared": "workspace:^",
-    "@etfma/ui": "workspace:^0.0.0",
+    "@etfm/element-ui": "workspace:*",
+    "@etfm/hooks": "workspace:*",
+    "@etfm/icon": "workspace:^",
+    "@etfm/shared": "workspace:^",
     "@vueuse/core": "^9.13.0",
     "element-plus": "^2.3.2",
+    "etfm-engine": "workspace:^",
     "vue": "^3.3.4"
   },
   "devDependencies": {
-    "@etfma/types": "workspace:^0.0.0",
+    "@etfm/types": "workspace:^0.0.0",
     "unplugin-element-plus": "^0.7.0"
   },
   "publishConfig": {

@@ -1,4 +1,4 @@
-import { I18n, IPublicApiI18n } from '@etfma/types';
+import { I18n, IPublicApiI18n } from '@etfm/types';
 import { GlobalI18n } from '../intl/i18n';
 import { editorSymbol, intlSymbol } from './symbols';
 import { Editor } from '../editor';

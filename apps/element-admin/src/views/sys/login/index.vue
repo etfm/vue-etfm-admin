@@ -27,10 +27,10 @@
 <script setup lang="ts">
   import { loginBgSvg, loginSloganSvg, logoImage } from '@/assets';
   import { useUserStore } from '@/store/user';
-  import { useNamespace } from '@etfma/hooks';
+  import { useNamespace } from '@etfm/hooks';
   import { computed } from 'vue';
   import LoginForm from './LoginForm.vue';
-  import { useMessage } from '@etfma/element-ui';
+  import { useMessage } from '@etfm/element-ui';
 
   defineOptions({
     name: 'LoginPage',

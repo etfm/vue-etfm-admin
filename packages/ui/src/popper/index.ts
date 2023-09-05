@@ -1,4 +1,4 @@
-import { withInstall } from '@etfma/shared';
+import { withInstall } from '@etfm/shared';
 import Popper from './src/popper.vue';
 
 import EtfmaPopperArrow from './src/arrow.vue';

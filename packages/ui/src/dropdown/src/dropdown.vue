@@ -77,9 +77,9 @@
   import { DROPDOWN_INJECTION_KEY } from './tokens';
 
   import type { CSSProperties } from 'vue';
-  import { useId, useNamespace } from '@etfma/hooks';
+  import { useId, useNamespace } from '@etfm/hooks';
   import { EVENT_CODE } from '../../focus-trap';
-  import { addUnit, lodash } from '@etfma/shared';
+  import { addUnit, lodash } from '@etfm/shared';
 
   export default defineComponent({
     name: 'EtfmDropdown',

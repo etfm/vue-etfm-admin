@@ -1,5 +1,5 @@
 import { placements } from '@popperjs/core';
-import { buildProps, definePropType } from '@etfma/shared';
+import { buildProps, definePropType } from '@etfm/shared';
 
 import type { ExtractPropTypes, StyleValue } from 'vue';
 import type { Options, Placement } from '@popperjs/core';

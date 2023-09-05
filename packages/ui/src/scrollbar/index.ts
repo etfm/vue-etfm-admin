@@ -1,5 +1,5 @@
 import Scrollbar from './src/scrollbar.vue';
-import { withInstall } from '@etfma/shared';
+import { withInstall } from '@etfm/shared';
 
 export const EtfmaScrollbar = withInstall(Scrollbar);
 export default EtfmaScrollbar;

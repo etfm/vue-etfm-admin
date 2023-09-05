@@ -1,5 +1,5 @@
 import { engineConfig } from '../config';
-import { Logger } from '@etfma/shared';
+import { Logger } from '@etfm/shared';
 import { PluginRuntime } from './plugin';
 import PluginContext from './plugin-context';
 import sequencify from './sequencify';
@@ -13,7 +13,7 @@ import {
   IPublicPlugin,
   IPublicTypePluginRegisterOptions,
   IPublicTypePreferenceValueType,
-} from '@etfma/types';
+} from '@etfm/types';
 
 const logger = new Logger({ bizName: 'pluginManager' });
 

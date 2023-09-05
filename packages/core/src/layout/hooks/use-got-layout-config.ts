@@ -1,4 +1,4 @@
-import { IPublicLayout } from '@etfma/types';
+import { IPublicLayout } from '@etfm/types';
 import { engineConfig } from '../../config';
 
 export function useGotLayoutConfig(model: IPublicLayout) {

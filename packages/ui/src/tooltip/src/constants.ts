@@ -1,4 +1,4 @@
-import type { Arrayable } from '@etfma/types';
+import type { Arrayable } from '@etfm/types';
 import type { InjectionKey, Ref } from 'vue';
 import type { TooltipTriggerType } from './trigger';
 

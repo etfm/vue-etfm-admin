@@ -15,10 +15,10 @@
   import { useResizeObserver } from '@vueuse/core';
   import { EtfmaIcon } from '../../icon';
   import { More } from './svg';
-  import { flattedChildren, lodash } from '@etfma/shared';
-  import { useNamespace } from '@etfma/hooks';
+  import { flattedChildren, lodash } from '@etfm/shared';
+  import { useNamespace } from '@etfm/hooks';
   import Menubar from './utils/menu-bar';
-  // import ElMenuCollapseTransition from './menu-collapse-transition.vue';
+  import ElMenuCollapseTransition from './menu-collapse-transition.vue';
   import ElSubMenu from './sub-menu';
   import { useMenuCssVar } from './use-menu-css-var';
 
@@ -331,8 +331,7 @@
         );
 
         if (props.collapseTransition && props.mode === 'vertical') {
-          // return h(ElMenuCollapseTransition, () => vMenu);
-          return h(vMenu);
+          return h(ElMenuCollapseTransition, () => vMenu);
         }
 
         return vMenu;

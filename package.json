@@ -12,6 +12,7 @@
     "lint:lint-staged": "lint-staged -c ./.lintstagedrc",
     "commit": "czg",
     "build": "turbo build --filter=./apps/element-admin",
+    "build:packages": "turbo build --filter=./packages/*",
     "dev": "turbo dev --filter=./apps/element-admin --no-daemon --include-dependencies"
   },
   "dependencies": {
@@ -20,7 +21,7 @@
     "@iconify/iconify": "^3.1.0",
     "@vueuse/core": "^9.13.0",
     "classnames": "^2.3.2",
-    "element-plus": "^2.3.2",
+    "element-plus": "^2.3.5",
     "events": "^3.3.0",
     "intl-messageformat": "^10.3.5",
     "nprogress": "^0.2.0",

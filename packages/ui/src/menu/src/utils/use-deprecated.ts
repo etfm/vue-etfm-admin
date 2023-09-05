@@ -1,5 +1,5 @@
 import { unref, watch } from 'vue';
-import { loggerWarning } from '@etfma/shared';
+import { loggerWarning } from '@etfm/shared';
 
 import type { MaybeRef } from '@vueuse/core';
 

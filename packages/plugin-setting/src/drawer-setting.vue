@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { ElDivider } from 'element-plus';
-  import { BasicDrawer, useDrawerInner } from '@etfma/element-ui';
+  import { BasicDrawer, useDrawerInner } from '@etfm/element-ui';
   import DarkMode from './components/dark-mode/index.vue';
   import ColorPicker from './components/color-mode/index.vue';
   import TypePicker from './components/type-picker/index.vue';

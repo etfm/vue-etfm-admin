@@ -1,4 +1,4 @@
-import { withInstall } from '@etfma/shared';
+import { withInstall } from '@etfm/shared';
 import Tooltip from './src/tooltip.vue';
 
 export const EtfmaTooltip = withInstall(Tooltip);

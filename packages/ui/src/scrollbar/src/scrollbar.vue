@@ -26,8 +26,8 @@
   import { scrollbarEmits, scrollbarProps } from './scrollbar';
   import type { BarInstance } from './bar';
   import type { CSSProperties, StyleValue } from 'vue';
-  import { useNamespace } from '@etfma/hooks';
-  import { addUnit, lodash, loggerWarning } from '@etfma/shared';
+  import { useNamespace } from '@etfm/hooks';
+  import { addUnit, lodash, loggerWarning } from '@etfm/shared';
 
   const COMPONENT_NAME = 'EtfmScrollbar';
 

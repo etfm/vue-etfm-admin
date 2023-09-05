@@ -6,8 +6,8 @@
   import LayoutHeader from './layout-header.vue';
   import LayoutAside from './layout-aside.vue';
   import LayoutToolbar from './layout-toolbar.vue';
-  import { useNamespace } from '@etfma/hooks';
-  import type { IPublicLayout, ISkeleton } from '@etfma/types';
+  import { useNamespace } from '@etfm/hooks';
+  import type { IPublicLayout, ISkeleton } from '@etfm/types';
   import { engineConfig } from '../../config';
 
   defineOptions({
@@ -83,6 +83,8 @@
     const { layout, fixedMixedExtra, sideWidth, sideVisible } = props;
     if (layout === 'header-nav' || layout === 'mixed-nav' || !sideVisible || fullContent.value) {
       return 'calc(100%)';
+    } else if (layout === 'side-nav') {
+      return `calc(100% - ${getSiderWidth.value}px)`;
     } else {
       return `calc(100% - ${
         fixedMixedExtra ? sideWidth! + getSiderWidth.value : getSiderWidth.value
@@ -97,6 +99,8 @@
     const { layout, sideVisible, fixedMixedExtra, sideWidth } = props;
     if (layout === 'header-nav' || fullContent.value || !sideVisible) {
       return 'calc(100%)';
+    } else if (layout === 'side-nav' || layout === 'mixed-nav') {
+      return `calc(100% - ${getSiderWidth.value}px)`;
     } else {
       return `calc(100% - ${
         fixedMixedExtra ? sideWidth! + getSiderWidth.value : getSiderWidth.value
@@ -133,13 +137,6 @@
    * tab top 值
    */
   const tabTop = computed(() => (fullContent.value ? 0 : props.headerHeight));
-
-  /**
-   * 计算contentPaddingTop的高度
-   */
-  const getContentPaddingTop = computed(() => {
-    return props.breadcrumbVisible ? 0 : props.contentPaddingTop;
-  });
 
   /**
    * 阴影
@@ -228,7 +225,7 @@
       <LayoutContent
         :skeleton="skeleton"
         :padding="contentPadding"
-        :padding-top="getContentPaddingTop"
+        :padding-top="contentPaddingTop"
         :padding-right="contentPaddingRight"
         :padding-bottom="contentPaddingBottom"
         :padding-left="contentPaddingLeft"

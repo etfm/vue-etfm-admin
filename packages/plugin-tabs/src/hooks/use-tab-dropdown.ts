@@ -1,6 +1,6 @@
 import { computed, unref, reactive } from 'vue';
 import { RouteLocationNormalized, useRouter } from 'vue-router';
-import { Nullable } from '@etfma/types';
+import { Nullable } from '@etfm/types';
 import { PublicMultipleTab } from './use-multiple-tab';
 import { OP_TYPE } from '../constants';
 

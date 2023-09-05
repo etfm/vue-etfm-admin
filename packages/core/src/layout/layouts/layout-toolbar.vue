@@ -1,6 +1,6 @@
 <script lang="tsx">
-  import { useNamespace } from '@etfma/hooks';
-  import { ISkeleton } from '@etfma/types';
+  import { useNamespace } from '@etfm/hooks';
+  import { ISkeleton } from '@etfm/types';
   import type { CSSProperties, PropType } from 'vue';
   import { computed, defineComponent, ref, unref } from 'vue';
 

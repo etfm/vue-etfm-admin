@@ -1,7 +1,7 @@
-import { lodash } from '@etfma/shared';
+import { lodash } from '@etfm/shared';
 import { initPinia } from './pinia';
 import type { Pinia } from 'pinia';
-import type { IPiniaContext } from '@etfma/types';
+import type { IPiniaContext } from '@etfm/types';
 
 export const DEFAULT_CACHE_KEY = 'pinia';
 

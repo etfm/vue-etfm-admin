@@ -8,7 +8,7 @@ import {
   IPublicModelPluginContext,
   IPublicModelPluginInstance,
   IPublicPluginContext,
-} from '@etfma/types';
+} from '@etfm/types';
 import { engineConfig } from '../../../src/config';
 
 const editor = new Editor();

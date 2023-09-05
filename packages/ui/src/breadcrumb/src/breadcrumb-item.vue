@@ -15,11 +15,11 @@
 <script lang="ts" setup>
   import { getCurrentInstance, inject, ref, toRefs } from 'vue';
   import EtfmaIcon from '../../icon';
-  import { useNamespace } from '@etfma/hooks';
+  import { useNamespace } from '@etfm/hooks';
   import { breadcrumbKey } from './constants';
   import { breadcrumbItemProps } from './breadcrumb-item';
 
-  import type { Router } from '@etfma/types';
+  import type { Router } from '@etfm/types';
 
   defineOptions({
     name: 'EtfmBreadcrumbItem',

@@ -1,10 +1,10 @@
 <script setup lang="ts">
-  import { BasicMenu, MenuModeEnum } from '@etfma/bs-ui';
-  import { useNamespace } from '@etfma/hooks';
+  import { BasicMenu, MenuModeEnum } from '@etfm/element-ui';
+  import { useNamespace } from '@etfm/hooks';
   import { computed, reactive, ref, watch, onUnmounted } from 'vue';
-  import { event, material, type AppRouteRecordRaw } from '@etfma/core';
+  import { event, material, type AppRouteRecordRaw } from 'etfm-engine';
   import { useRouter } from 'vue-router';
-  import { MenuRecordRaw } from '@etfma/types';
+  import { MenuRecordRaw } from '@etfm/types';
   import { useMenu } from './hooks/use-menu';
   import { TriggerEnum } from './enum';
 

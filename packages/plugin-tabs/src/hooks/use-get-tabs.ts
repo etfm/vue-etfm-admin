@@ -1,6 +1,6 @@
 import { ref, unref } from 'vue';
 import { createTabsProviderContext } from '../constants';
-import { Fn } from '@etfma/types';
+import { Fn } from '@etfm/types';
 
 export interface Tabs {
   key: string;

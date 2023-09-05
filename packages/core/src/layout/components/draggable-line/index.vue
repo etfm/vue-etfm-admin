@@ -1,7 +1,7 @@
 <script lang="tsx">
   import classNames from 'classnames';
   import { defineComponent, PropType, onMounted, onUnmounted, ref, unref } from 'vue';
-  import { useNamespace } from '@etfma/hooks';
+  import { useNamespace } from '@etfm/hooks';
 
   export interface DraggableLineProps {
     onDrag: (l: number, e: any) => any;

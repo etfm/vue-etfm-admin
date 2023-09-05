@@ -37,16 +37,15 @@
   "dependencies": {
     "@ctrl/tinycolor": "^3.6.0",
     "@element-plus/icons-vue": "^2.1.0",
-    "@etfma/design": "workspace:*",
-    "@etfma/hooks": "workspace:*",
-    "@etfma/shared": "workspace:*",
+    "@etfm/hooks": "workspace:*",
+    "@etfm/shared": "workspace:*",
     "@popperjs/core": "^2.11.8",
     "@vueuse/core": "^9.13.0",
     "vue": "^3.3.4",
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
-    "@etfma/types": "workspace:*",
+    "@etfm/types": "workspace:*",
     "@vue/runtime-core": "^3.3.4"
   },
   "peerDependencies": {

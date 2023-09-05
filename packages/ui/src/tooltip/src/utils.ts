@@ -1,6 +1,6 @@
 import { unref } from 'vue';
-import { lodash } from '@etfma/shared';
-import type { Arrayable } from '@etfma/types';
+import { lodash } from '@etfm/shared';
+import type { Arrayable } from '@etfm/types';
 import type { Ref } from 'vue';
 import type { TooltipTriggerType } from './trigger';
 

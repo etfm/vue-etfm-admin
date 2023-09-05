@@ -1,5 +1,5 @@
 {
-  "name": "@etfma/hooks",
+  "name": "@etfm/hooks",
   "version": "0.0.0",
   "description": "> TODO: description",
   "homepage": "https://github.com/etfm/vue-etfm-admin#readme",
@@ -24,14 +24,14 @@
     "build": "pnpm vite build",
     "clean": "pnpm rimraf .turbo node_modules dist",
     "lint": "pnpm eslint .",
-    "test": "node ./__tests__/@etfma/hooks.test.js"
+    "test": "node ./__tests__/@etfm/hooks.test.js"
   },
   "dependencies": {
-    "@etfma/shared": "workspace:^0.0.0",
+    "@etfm/shared": "workspace:^0.0.0",
     "@vueuse/core": "^9.13.0",
     "vue": "^3.3.4"
   },
   "devDependencies": {
-    "@etfma/types": "workspace:^0.0.0"
+    "@etfm/types": "workspace:^0.0.0"
   }
 }

@@ -1,10 +1,8 @@
 <script setup lang="ts">
-  import { MenuRecordRaw } from '@etfma/types';
-  import { useNamespace, ElIcon } from 'element-plus';
-  import { Icon } from '@etfma/icon';
+  import { MenuRecordRaw } from '@etfm/types';
+  import { Icon } from '@etfm/icon';
   import { computed } from 'vue';
-
-  useNamespace('basic-menu-item-content');
+  import { ElIcon } from 'element-plus';
 
   defineOptions({
     name: 'BasicMenuItemContent',
@@ -29,20 +27,19 @@
   }
 
   const props = withDefaults(defineProps<Props>(), {
-    isHorizontal: true,
     showIcon: true,
     showTitle: true,
   });
 
-  const icon = computed(() => props.menu.icon ?? '');
+  const isShowIcon = computed(() => props.menu.icon && props.showIcon);
 </script>
 
 <template>
   <ElIcon>
-    <Icon v-if="props.showIcon" :icon="icon"></Icon>
+    <Icon v-if="isShowIcon" :icon="menu.icon!"></Icon>
   </ElIcon>
 
   <span v-if="showTitle">{{ menu.name }}</span>
 </template>
 
-<style lang="scss" module></style>
+<style lang="scss" scoped></style>

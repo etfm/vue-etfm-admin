@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { useNamespace } from '@etfma/hooks';
+  import { useNamespace } from '@etfm/hooks';
   import { computed, type CSSProperties } from 'vue';
 
   const { b } = useNamespace('page-content');

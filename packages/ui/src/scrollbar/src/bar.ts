@@ -1,6 +1,6 @@
 import type { ExtractPropTypes } from 'vue';
 import type Bar from './bar.vue';
-import { buildProps } from '@etfma/shared';
+import { buildProps } from '@etfm/shared';
 
 export const barProps = buildProps({
   always: {

@@ -28,7 +28,7 @@
   import { computed } from 'vue';
   import EtfmaIcon from '../../icon';
   import Close from './close.vue';
-  import { useNamespace } from '@etfma/hooks';
+  import { useNamespace } from '@etfm/hooks';
 
   import { tagEmits, tagProps } from './tag';
 

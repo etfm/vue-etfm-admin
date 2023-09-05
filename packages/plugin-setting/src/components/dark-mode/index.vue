@@ -1,10 +1,10 @@
 <script setup lang="ts">
-  import { useNamespace } from '@etfma/hooks';
+  import { useNamespace } from '@etfm/hooks';
   import Moon from '../../icon/moon.vue';
   import Sun from '../../icon/sun.vue';
   import { EtfmaIcon } from '@etfma/ui';
   import { computed, ref, unref } from 'vue';
-  import { theme } from '@etfma/core';
+  import { theme } from 'etfm-engine';
 
   defineOptions({
     name: 'DarkMode',

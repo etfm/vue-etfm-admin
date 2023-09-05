@@ -1,9 +1,9 @@
 <script setup lang="ts">
   import { ElInputNumber, ElCheckbox, ElRadioGroup, ElRadioButton } from 'element-plus';
   import { reactive } from 'vue';
-  import { useNamespace } from '@etfma/hooks';
+  import { useNamespace } from '@etfm/hooks';
   import { PageContainer } from '@etfma/bs-ui';
-  import { config } from '@etfma/core';
+  import { config } from 'etfm-engine';
 
   defineOptions({
     name: 'analysis',

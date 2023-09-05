@@ -1,4 +1,4 @@
-import { IEditor, IPublicTheme, IPublicThemeOptins } from '@etfma/types';
+import { IEditor, IPublicTheme, IPublicThemeOptins } from '@etfm/types';
 import {
   DEFAULT_PRIMARY_VAR,
   DEFAULT_LIGHT,
@@ -6,9 +6,9 @@ import {
   DEFAULT_PRIMARY_COLOR,
 } from './constants';
 
-import { vueUse } from '@etfma/hooks';
+import { vueUse } from '@etfm/hooks';
 import { engineConfig } from '../config';
-import { lodash } from '@etfma/shared';
+import { lodash } from '@etfm/shared';
 import { editor } from '../editor';
 
 export enum ThemeEvent {

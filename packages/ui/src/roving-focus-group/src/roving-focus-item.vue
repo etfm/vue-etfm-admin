@@ -15,8 +15,8 @@
     ROVING_FOCUS_GROUP_ITEM_INJECTION_KEY,
   } from './tokens';
   import { focusFirst, getFocusIntent, reorderArray } from './utils';
-  import { useId } from '@etfma/hooks';
-  import { composeEventHandlers } from '@etfma/shared';
+  import { useId } from '@etfm/hooks';
+  import { composeEventHandlers } from '@etfm/shared';
   import { EVENT_CODE } from '../../focus-trap';
 
   export default defineComponent({

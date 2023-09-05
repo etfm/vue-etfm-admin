@@ -1,6 +1,6 @@
-import { REDIRECT_NAME } from '@etfma/core';
-import { filter, findPath } from '@etfma/shared';
-import { MenuRecordRaw } from '@etfma/types';
+import { REDIRECT_NAME } from 'etfm-engine';
+import { filter, findPath } from '@etfm/shared';
+import { MenuRecordRaw } from '@etfm/types';
 import { Ref, ref, watchEffect } from 'vue';
 import { useRouter } from 'vue-router';
 

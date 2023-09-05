@@ -1,4 +1,4 @@
-import { useGetNamespace } from '@etfma/hooks';
+import { useGetNamespace } from '@etfm/hooks';
 
 const namespace = useGetNamespace();
 

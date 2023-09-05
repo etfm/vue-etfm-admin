@@ -1,8 +1,8 @@
-import type { IPublicPlugin, IPublicPluginContext } from '@etfma/core';
-import { skeleton, config } from '@etfma/core';
+import type { IPublicPlugin, IPublicPluginContext } from 'etfm-engine';
+import { skeleton, config } from 'etfm-engine';
 import { h } from 'vue';
 import AppLogo from './index.vue';
-import { LayoutType } from '@etfma/types';
+import { LayoutType } from '@etfm/types';
 
 /**
  * 设置logo

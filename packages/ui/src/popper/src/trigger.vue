@@ -15,8 +15,8 @@
   import { computed, inject, onBeforeUnmount, onMounted, watch } from 'vue';
   import { EtfmaOnlyChild } from '../../slot';
   import { POPPER_INJECTION_KEY } from './constants';
-  import { lodash } from '@etfma/shared';
-  import { useForwardRef } from '@etfma/hooks';
+  import { lodash } from '@etfm/shared';
+  import { useForwardRef } from '@etfm/hooks';
   import type { WatchStopHandle } from 'vue';
   import { popperTriggerProps } from './trigger';
   import { unrefElement } from '@vueuse/core';

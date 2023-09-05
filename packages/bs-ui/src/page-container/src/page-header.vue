@@ -1,7 +1,7 @@
 <script setup lang="ts">
-  import { useNamespace } from '@etfma/hooks';
+  import { useNamespace } from '@etfm/hooks';
   import HeaderBreadcrumb from './breadcrumb.vue';
-  import { MenuRecordRaw } from '@etfma/types';
+  import { MenuRecordRaw } from '@etfm/types';
 
   interface Props {
     showBreadcrumb?: boolean;

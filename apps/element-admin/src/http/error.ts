@@ -5,7 +5,7 @@
  */
 
 import { useUserStoreWithOut } from '@/store/user';
-import { useMessage } from '@etfma/element-ui';
+import { useMessage } from '@etfm/element-ui';
 
 const { createMessage } = useMessage();
 

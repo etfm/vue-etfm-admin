@@ -1,5 +1,5 @@
 import { ComponentInternalInstance, InjectionKey } from 'vue';
-import { createContext, useContext } from '@etfma/hooks';
+import { createContext, useContext } from '@etfm/hooks';
 
 export interface TabsProviderContextProps {
   registerPane: (instance: ComponentInternalInstance) => void;

@@ -4,7 +4,7 @@ import {
   IPublicKeyType,
   IPublicModelPreference,
   IPublicTypeDisposable,
-} from '@etfma/types';
+} from '@etfm/types';
 import { IEngineConfig } from '../config';
 import { configSymbol } from './symbols';
 

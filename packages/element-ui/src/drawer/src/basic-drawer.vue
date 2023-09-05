@@ -1,8 +1,8 @@
 <script setup lang="ts">
   import { computed, getCurrentInstance, nextTick, ref, toRaw, unref, useAttrs, watch } from 'vue';
   import type { DrawerInstance, IDrawer } from './typing';
-  import { useNamespace } from '@etfma/hooks';
-  import { deepMerge, lodash } from '@etfma/shared';
+  import { useNamespace } from '@etfm/hooks';
+  import { deepMerge, lodash } from '@etfm/shared';
   import DrawerFooter from './components/drawer-footer.vue';
   import DrawerHeader from './components/drawer-header.vue';
   import { ElDrawer } from 'element-plus';

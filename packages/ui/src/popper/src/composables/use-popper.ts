@@ -1,6 +1,6 @@
 import { computed, onBeforeUnmount, ref, shallowRef, unref, watch } from 'vue';
 import { createPopper } from '@popperjs/core';
-import { lodash } from '@etfma/shared';
+import { lodash } from '@etfm/shared';
 
 import type { Ref } from 'vue';
 import type { Instance, Modifier, Options, State, VirtualElement } from '@popperjs/core';

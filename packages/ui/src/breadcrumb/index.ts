@@ -1,4 +1,4 @@
-import { withInstall, withNoopInstall } from '@etfma/shared';
+import { withInstall, withNoopInstall } from '@etfm/shared';
 
 import Breadcrumb from './src/breadcrumb.vue';
 import BreadcrumbItem from './src/breadcrumb-item.vue';

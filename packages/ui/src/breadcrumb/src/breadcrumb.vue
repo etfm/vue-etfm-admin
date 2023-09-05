@@ -6,7 +6,7 @@
 
 <script lang="ts" setup>
   import { onMounted, provide, ref } from 'vue';
-  import { useNamespace } from '@etfma/hooks';
+  import { useNamespace } from '@etfm/hooks';
   import { breadcrumbKey } from './constants';
   import { breadcrumbProps } from './breadcrumb';
 

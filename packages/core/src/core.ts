@@ -2,7 +2,7 @@ import { createApp } from 'vue';
 import { editor, commonEvent } from './editor';
 import { Skeleton as InnerSkeleton } from './layout';
 import { Skeleton, Material, Event, Global, Plugins, Config, Theme, Intl, Route } from './shell';
-import { lodash, Logger } from '@etfma/shared';
+import { lodash, Logger } from '@etfm/shared';
 
 import jsonPkg from '../../../package.json';
 import { engineConfig } from './config';
@@ -16,7 +16,7 @@ import {
   IPublicApiPlugins,
   IPublicTypeEngineOptions,
   IPublicTypePluginMeta,
-} from '@etfma/types';
+} from '@etfm/types';
 import { PluginManager } from './plugin';
 
 import { globalI18n } from './intl/i18n';

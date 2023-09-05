@@ -1,8 +1,8 @@
 <script setup lang="ts">
-  import { useNamespace } from '@etfma/hooks';
+  import { useNamespace } from '@etfm/hooks';
   import { EtfmaTooltip } from '@etfma/ui';
   import { ref } from 'vue';
-  import { config, skeleton } from '@etfma/core';
+  import { config, skeleton } from 'etfm-engine';
 
   const ns = useNamespace('type-picker');
   const def = ref('aside');

@@ -1,4 +1,4 @@
-export type { RouterContext, AppRouteRecordRaw, AppRouteModule } from '@etfma/types';
+export type { RouterContext, AppRouteRecordRaw, AppRouteModule } from '@etfm/types';
 
 export * from './use-page';
 export * from './constants';

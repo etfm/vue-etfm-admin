@@ -3,8 +3,8 @@ import { useTooltipContentProps, useTooltipTriggerProps } from '../../tooltip';
 import type { Options } from '@popperjs/core';
 import type { Placement } from '../../popper';
 import type { Component, ComponentInternalInstance, ComputedRef } from 'vue';
-import { Nullable } from '@etfma/types';
-import { definePropType, buildProps } from '@etfma/shared';
+import { Nullable } from '@etfm/types';
+import { definePropType, buildProps } from '@etfm/shared';
 import { EVENT_CODE } from '../../focus-trap';
 import { createCollectionWithScope } from '../../collection';
 

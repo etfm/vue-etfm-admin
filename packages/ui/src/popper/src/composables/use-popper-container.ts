@@ -1,6 +1,6 @@
 import { computed, onBeforeMount } from 'vue';
-import { isClient } from '@etfma/shared';
-import { useIdInjection } from '@etfma/hooks';
+import { isClient } from '@etfm/shared';
+import { useIdInjection } from '@etfm/hooks';
 
 let cachedContainer: HTMLElement;
 

@@ -1,4 +1,4 @@
-import { triggerEvent } from '@etfma/shared';
+import { triggerEvent } from '@etfm/shared';
 import { EVENT_CODE } from '../../../focus-trap';
 import type MenuItem from './menu-item';
 

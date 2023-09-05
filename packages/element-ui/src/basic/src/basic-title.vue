@@ -1,7 +1,7 @@
 <script lang="ts" setup>
   import { useSlots, computed } from 'vue';
   import BasicHelp from './basic-help.vue';
-  import { useNamespace } from '@etfma/hooks';
+  import { useNamespace } from '@etfm/hooks';
   import { basicTitleProps } from './props';
 
   const props = defineProps(basicTitleProps);

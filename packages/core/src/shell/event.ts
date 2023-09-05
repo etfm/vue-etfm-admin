@@ -1,6 +1,6 @@
-import { Logger } from '@etfma/shared';
+import { Logger } from '@etfm/shared';
 import { isPluginEventName } from '../utils/is/is-plugin-event-name';
-import { IEditor, IEventBus, IPublicApiEvent, IPublicTypeDisposable } from '@etfma/types';
+import { IEditor, IEventBus, IPublicApiEvent, IPublicTypeDisposable } from '@etfm/types';
 
 const logger = new Logger({ bizName: 'shell:event' });
 

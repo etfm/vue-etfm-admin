@@ -1,13 +1,13 @@
 <script setup lang="ts">
-  import { useNamespace } from '@etfma/hooks';
-  import { EtfmaScrollbar } from '@etfma/ui';
+  import { useNamespace } from '@etfm/hooks';
+  import { ElScrollbar } from 'element-plus';
   import { computed, reactive, watch } from 'vue';
-  import { material, type AppRouteRecordRaw, useRouter, config, event } from '@etfma/core';
-  import { MenuRecordRaw } from '@etfma/types';
+  import { material, type AppRouteRecordRaw, useRouter, config, event } from 'etfm-engine';
+  import { MenuRecordRaw } from '@etfm/types';
   import { useMenu } from './hooks/use-menu';
   import type { CSSProperties } from 'vue';
   import { MixMenu, Trigger } from './components';
-  import { lodash } from '@etfma/shared';
+  import { lodash } from '@etfm/shared';
 
   defineOptions({
     name: 'AsideMixedNavAside',
@@ -121,14 +121,14 @@
 </script>
 <template>
   <div :class="[ns.b()]">
-    <EtfmaScrollbar :class="ns.e('scrollbar')" :style="getWrapper">
+    <ElScrollbar :class="ns.e('scrollbar')" :style="getWrapper">
       <MixMenu
         :collapse="model.collapse"
         :menus="model.menus"
         :default-active="model.defaultActive"
         @click="handleClick"
       ></MixMenu>
-    </EtfmaScrollbar>
+    </ElScrollbar>
     <div :class="ns.e('trigger')">
       <Trigger :collapse="model.collapse" @toggle="toggleCollapsed" />
     </div>

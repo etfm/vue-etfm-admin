@@ -1,7 +1,7 @@
-import { lodash } from '@etfma/shared';
+import { lodash } from '@etfm/shared';
 import { VAxios } from './Axios';
 import { ContentTypeEnum } from './enum';
-import type { IHttpContext } from '@etfma/types';
+import type { IHttpContext } from '@etfm/types';
 
 export let context: IHttpContext = {
   // 自定义后端返回的字段

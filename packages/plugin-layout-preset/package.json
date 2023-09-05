@@ -34,6 +34,7 @@
     "lint": "pnpm eslint ."
   },
   "dependencies": {
+    "@etfm/hooks": "workspace:*",
     "@etfm/plugin-aside-mixed-nav": "workspace:^",
     "@etfm/plugin-aside-nav": "workspace:^",
     "@etfm/plugin-content-fullscreen": "workspace:^",
@@ -41,12 +42,11 @@
     "@etfm/plugin-header-nav": "workspace:^",
     "@etfm/plugin-mixed-nav": "workspace:^",
     "@etfm/plugin-tabs": "workspace:^",
-    "@etfma/core": "workspace:*",
-    "@etfma/hooks": "workspace:*",
-    "@etfma/shared": "workspace:^"
+    "@etfm/shared": "workspace:^",
+    "etfm-engine": "workspace:*"
   },
   "devDependencies": {
-    "@etfma/types": "workspace:^0.0.0"
+    "@etfm/types": "workspace:^0.0.0"
   },
   "publishConfig": {
     "access": "public",

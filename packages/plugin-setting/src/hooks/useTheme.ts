@@ -1,6 +1,6 @@
-import { useNamespace } from '@etfma/hooks';
-import { theme } from '@etfma/core';
-import { config } from '@etfma/core';
+import { useNamespace } from '@etfm/hooks';
+import { theme } from 'etfm-engine';
+import { config } from 'etfm-engine';
 
 const ns = useNamespace('');
 

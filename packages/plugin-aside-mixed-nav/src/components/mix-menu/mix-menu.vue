@@ -1,9 +1,9 @@
 <script setup lang="ts">
-  import { useNamespace } from '@etfma/hooks';
-  import { Icon } from '@etfma/icon';
+  import { useNamespace } from '@etfm/hooks';
+  import { Icon } from '@etfm/icon';
   import { computed } from 'vue';
-  import { config } from '@etfma/core';
-  import { MenuRecordRaw } from '@etfma/types';
+  import { config } from 'etfm-engine';
+  import { MenuRecordRaw } from '@etfm/types';
 
   interface Props {
     menus: MenuRecordRaw[];

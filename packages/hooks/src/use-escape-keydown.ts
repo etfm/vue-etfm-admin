@@ -1,5 +1,5 @@
 import { onBeforeUnmount, onMounted } from 'vue';
-import { isClient } from '@etfma/shared';
+import { isClient } from '@etfm/shared';
 
 let registeredEscapeHandlers: ((e: KeyboardEvent) => void)[] = [];
 

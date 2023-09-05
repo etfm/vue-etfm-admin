@@ -1,4 +1,4 @@
-import { buildProps, definePropType } from '@etfma/shared';
+import { buildProps, definePropType } from '@etfm/shared';
 
 import type { Measurable } from './constants';
 import type Trigger from './trigger.vue';

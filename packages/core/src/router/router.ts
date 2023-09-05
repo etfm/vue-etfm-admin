@@ -1,7 +1,7 @@
 import { createRouter, type Router, type RouteRecordRaw } from 'vue-router';
 import { createHistory } from './history';
-import { AppRouteRecordRaw, IEditor, IGlobalRouter, RouterContext } from '@etfma/types';
-import { filter, lodash } from '@etfma/shared';
+import { AppRouteRecordRaw, IEditor, IGlobalRouter, RouterContext } from '@etfm/types';
+import { filter, lodash } from '@etfm/shared';
 import { flatMultiLevelRoutes, routeRemoveFilter } from './utils';
 import { DEFAULT_REDIRECT, ROUTER_OPTIONS } from './constants';
 import { editor } from '../editor';

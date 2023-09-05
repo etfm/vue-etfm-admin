@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { EtfmaMenuItem } from '@etfma/ui';
   import BasicMenuItemContent from './BasicMenuItemContent.vue';
-  import { MenuRecordRaw } from '@etfma/types';
+  import { MenuRecordRaw } from '@etfm/types';
 
   interface Props {
     /**

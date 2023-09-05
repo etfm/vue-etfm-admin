@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-  import { useNamespace } from '@etfma/hooks';
+  import { useNamespace } from '@etfm/hooks';
   import { computed, ref } from 'vue';
   import { ElColorPicker } from 'element-plus';
-  import { Icon } from '@etfma/icon';
+  import { Icon } from '@etfm/icon';
 
   defineOptions({
     name: 'setting-color',

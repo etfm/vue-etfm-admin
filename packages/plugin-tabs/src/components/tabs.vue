@@ -1,17 +1,17 @@
 <script lang="ts" setup>
-  import { useNamespace } from '@etfma/hooks';
+  import { useNamespace } from '@etfm/hooks';
   import { computed, onBeforeUnmount, ref, unref } from 'vue';
   import useOffsets from '../hooks/use-offsets';
   import useTouchMove from '../hooks/use-touch-move';
   import { useGetTabPane } from '../hooks/use-get-tabs';
-  import { EtfmaIcon, EtfmaDropdown, EtfmaDropdownItem, EtfmaDropdownMenu } from '@etfma/ui';
+  import { ElIcon, ElDropdown, ElDropdownItem, ElDropdownMenu } from 'element-plus';
   import More from '../icon/more.vue';
   import { useHiddenTabs } from '../hooks/use-hidden-tabs';
   import { useResize } from '../hooks/use-resize';
   import { useScroll } from '../hooks/use-scroll';
   import { useTransformVlaue } from '../hooks/use-transform-value';
   import Close from '../icon/close.vue';
-  import { lodash } from '@etfma/shared';
+  import { lodash } from '@etfm/shared';
 
   defineOptions({
     name: 'Tabs',
@@ -128,29 +128,29 @@
         <slot />
       </div>
     </div>
-    <EtfmaDropdown ref="dropdownRef" v-if="isVisible" :max-height="140" @command="handleClick">
+    <ElDropdown ref="dropdownRef" v-if="isVisible" :max-height="140" @command="handleClick">
       <div :class="[ns.b('icon')]">
-        <EtfmaIcon>
+        <ElIcon>
           <More />
-        </EtfmaIcon>
+        </ElIcon>
       </div>
       <template #dropdown>
-        <EtfmaDropdownMenu>
-          <EtfmaDropdownItem v-for="item in hiddenTabs" :command="item.key">
+        <ElDropdownMenu>
+          <ElDropdownItem v-for="item in hiddenTabs" :command="item.key">
             <div :class="[ns.b('dropdown-oper')]">
               {{ item.title }}
-              <EtfmaIcon
+              <ElIcon
                 v-if="!affixs.includes(item.key)"
                 :class="ns.b('dropdown-icon')"
                 @click.stop="handleDropdownRemove(item.key)"
               >
                 <Close />
-              </EtfmaIcon>
+              </ElIcon>
             </div>
-          </EtfmaDropdownItem>
-        </EtfmaDropdownMenu>
+          </ElDropdownItem>
+        </ElDropdownMenu>
       </template>
-    </EtfmaDropdown>
+    </ElDropdown>
     <slot name="right" />
   </div>
 </template>

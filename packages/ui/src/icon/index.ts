@@ -1,4 +1,4 @@
-import { withInstall } from '@etfma/shared';
+import { withInstall } from '@etfm/shared';
 
 import Icon from './src/icon.vue';
 

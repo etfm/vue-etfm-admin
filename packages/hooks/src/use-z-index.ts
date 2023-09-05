@@ -1,5 +1,5 @@
 import { computed, inject, ref, unref } from 'vue';
-import { lodash } from '@etfma/shared';
+import { lodash } from '@etfm/shared';
 
 import type { InjectionKey, Ref } from 'vue';
 

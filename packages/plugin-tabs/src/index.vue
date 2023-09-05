@@ -1,14 +1,14 @@
 <script setup lang="ts">
   import { computed, ref, unref, watch } from 'vue';
-  import { RouteLocationNormalized, RouteMeta, useRouter } from '@etfma/core';
+  import { RouteLocationNormalized, RouteMeta, useRouter } from 'etfm-engine';
   import { useMultipleTab } from './hooks/use-multiple-tab';
-  import { EtfmaTag } from '@etfma/ui';
+  import { ElTag } from 'element-plus';
   import Tabs from './components/tabs.vue';
   import TabPane from './components/tab-pane.vue';
   import TabOperate from './components/tab-operate.vue';
   import TabRedo from './components/tab-redo.vue';
-  import { Icon } from '@etfma/icon';
-  import { useNamespace } from '@etfma/hooks';
+  import { Icon } from '@etfm/icon';
+  import { useNamespace } from '@etfm/hooks';
 
   defineOptions({
     name: 'Tabs',
@@ -100,14 +100,14 @@
     >
       <TabPane v-for="item in getTabList" :key="item.path" :name="item.path" :title="item.title">
         <TabOperate :store="store" trigger="contextmenu" :tabItem="item">
-          <EtfmaTag
+          <ElTag
             :closable="hasClose(item)"
             :type="item.path === activeKey ? '' : 'info'"
             @close="handleClose(item.path)"
             @mouseenter="handleMouseenter(item)"
             @mouseleave="handleMouseleave"
             >{{ item.title }}
-          </EtfmaTag>
+          </ElTag>
         </TabOperate>
       </TabPane>
       <template #right>

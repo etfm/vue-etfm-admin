@@ -1,4 +1,4 @@
-import { buildProps, definePropType } from '@etfma/shared';
+import { buildProps, definePropType } from '@etfm/shared';
 import { popperContentProps } from '../../popper';
 import { useDelayedToggleProps } from '../src/use-delayed-toggle';
 import type TooltipContent from './content.vue';

@@ -23,7 +23,7 @@
   import { focusFirst } from './utils';
 
   import type { StyleValue } from 'vue';
-  import { composeEventHandlers } from '@etfma/shared';
+  import { composeEventHandlers } from '@etfm/shared';
 
   const CURRENT_TAB_ID_CHANGE_EVT = 'currentTabIdChange';
 

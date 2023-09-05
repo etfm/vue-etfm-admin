@@ -1,4 +1,4 @@
-import { AppRouteRecordRaw, material } from '@etfma/core';
+import { AppRouteRecordRaw, material } from 'etfm-engine';
 
 import { defineStore, store } from '@etfma/plugin-pinia';
 

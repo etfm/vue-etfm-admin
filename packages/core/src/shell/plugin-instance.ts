@@ -1,4 +1,4 @@
-import { IPluginRuntime, IPublicModelPluginInstance } from '@etfma/types';
+import { IPluginRuntime, IPublicModelPluginInstance } from '@etfm/types';
 import { pluginInstanceSymbol } from './symbols';
 
 export class PluginInstance implements IPublicModelPluginInstance {

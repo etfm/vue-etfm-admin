@@ -4,8 +4,8 @@ import type {
   IRequestInterceptorTuple,
   IResponseInterceptorTuple,
   RequestConfig,
-} from '@etfma/types';
-import { lodash } from '@etfma/shared';
+} from '@etfm/types';
+import { lodash } from '@etfm/shared';
 import { appendUrlParams, formatRequestDate, joinTimestamp } from './helper';
 import { RequestEnum } from './enum';
 import { ErrorThrow } from './ErrorThrow';

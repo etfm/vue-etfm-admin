@@ -1,7 +1,7 @@
 <script lang="ts" setup>
   import { BasicTitle } from '../../../basic';
-  import { Icon } from '@etfma/icon';
-  import { useNamespace } from '@etfma/hooks';
+  import { Icon } from '@etfm/icon';
+  import { useNamespace } from '@etfm/hooks';
   import { headerProps } from '../props';
 
   const emit = defineEmits<{

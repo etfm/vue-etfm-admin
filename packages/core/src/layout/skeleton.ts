@@ -1,6 +1,6 @@
 import { Widget } from './widget';
 import { isVNode } from 'vue';
-import { Logger, lodash } from '@etfma/shared';
+import { Logger, lodash } from '@etfm/shared';
 import { Editor } from '../editor';
 
 import {
@@ -11,7 +11,7 @@ import {
   IWidget,
   SkeletonEvents,
   WidgetConfig,
-} from '@etfma/types';
+} from '@etfm/types';
 
 const logger = new Logger({ bizName: 'skeleton' });
 

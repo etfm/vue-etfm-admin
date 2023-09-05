@@ -1,11 +1,11 @@
-import { Logger } from '@etfma/shared';
+import { Logger } from '@etfm/shared';
 import {
   IPluginManager,
   IPluginRuntime,
   IPublicTypePluginConfig,
   IPublicTypePluginMeta,
   IPublicTypePluginRegisterOptions,
-} from '@etfma/types';
+} from '@etfm/types';
 
 export class PluginRuntime implements IPluginRuntime {
   config: IPublicTypePluginConfig;

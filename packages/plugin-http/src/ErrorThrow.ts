@@ -1,4 +1,4 @@
-import { IErrorThrow } from '@etfma/types';
+import { IErrorThrow } from '@etfm/types';
 
 export class ErrorThrow {
   public message: string;

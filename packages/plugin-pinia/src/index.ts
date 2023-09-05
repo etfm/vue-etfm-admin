@@ -1,5 +1,5 @@
 import { register } from './register';
-import { IPiniaContext, IPublicPlugin, IPublicPluginContext } from '@etfma/types';
+import { IPiniaContext, IPublicPlugin, IPublicPluginContext } from '@etfm/types';
 import type { App } from 'vue';
 
 const PluginPinia: IPublicPlugin = (ctx: IPublicPluginContext, options) => {
@@ -22,4 +22,4 @@ export * from 'pinia';
 
 export { register, store } from './register';
 
-export type { IPiniaContext } from '@etfma/types';
+export type { IPiniaContext } from '@etfm/types';

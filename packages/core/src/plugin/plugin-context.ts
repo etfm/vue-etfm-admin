@@ -1,5 +1,5 @@
 import { EngineConfig } from '../config';
-import { Logger } from '@etfma/shared';
+import { Logger } from '@etfm/shared';
 import { createModuleEventBus } from '../event-bus';
 import type {
   IPluginContextApiAssembler,
@@ -16,7 +16,7 @@ import type {
   IPublicApiTheme,
   IPublicModelPluginContext,
   IPublicTypePreferenceValueType,
-} from '@etfma/types';
+} from '@etfm/types';
 
 export default class PluginContext implements IPublicModelPluginContext {
   skeleton: IPublicApiSkeleton;

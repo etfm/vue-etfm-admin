@@ -1,4 +1,4 @@
-import { withInstall } from '@etfma/shared';
+import { withInstall } from '@etfm/shared';
 
 import basicArrow from './src/basic-arrow.vue';
 import basicHelp from './src/basic-help.vue';

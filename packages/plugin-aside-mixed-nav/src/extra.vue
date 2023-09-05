@@ -1,10 +1,10 @@
 <script setup lang="ts">
-  import { BasicMenu } from '@etfma/bs-ui';
-  import { useNamespace } from '@etfma/hooks';
-  import { EtfmaScrollbar } from '@etfma/ui';
+  import { BasicMenu } from '@etfm/element-ui';
+  import { useNamespace } from '@etfm/hooks';
+  import { ElScrollbar } from 'element-plus';
   import { onUnmounted, reactive, watch } from 'vue';
-  import { event, useRouter } from '@etfma/core';
-  import { MenuRecordRaw } from '@etfma/types';
+  import { event, useRouter } from 'etfm-engine';
+  import { MenuRecordRaw } from '@etfm/types';
 
   defineOptions({
     name: 'AsideMixedNavExtra',
@@ -83,7 +83,7 @@
 </script>
 <template>
   <div :class="[ns.b()]">
-    <EtfmaScrollbar :class="ns.e('scrollbar')">
+    <ElScrollbar :class="ns.e('scrollbar')">
       <BasicMenu
         :class="ns.b()"
         :menus="model.menus!"
@@ -91,7 +91,7 @@
         :unique-opened="model.uniqueOpened"
         @menu-click="handleClick"
       ></BasicMenu>
-    </EtfmaScrollbar>
+    </ElScrollbar>
   </div>
 </template>
 <style lang="scss" module>

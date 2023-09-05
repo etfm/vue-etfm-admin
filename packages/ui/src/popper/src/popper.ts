@@ -1,4 +1,4 @@
-import { buildProps } from '@etfma/shared';
+import { buildProps } from '@etfm/shared';
 
 import type { ExtractPropTypes } from 'vue';
 import type Popper from './popper.vue';

@@ -1,12 +1,12 @@
 <script setup lang="ts">
-  import { useNamespace } from '@etfma/hooks';
-  import { MenuRecordRaw } from '@etfma/types';
+  import { useNamespace } from '@etfm/hooks';
+  import { MenuRecordRaw } from '@etfm/types';
   import { EtfmaBreadcrumb, EtfmaBreadcrumbItem } from '@etfma/ui';
   import { watchEffect, unref, ref, computed } from 'vue';
   import { useRouter } from 'vue-router';
-  import { Icon } from '@etfma/icon';
-  import { lodash } from '@etfma/shared';
-  import { useGo } from '@etfma/core';
+  import { Icon } from '@etfm/icon';
+  import { lodash } from '@etfm/shared';
+  import { useGo } from 'etfm-engine';
 
   const { b, e } = useNamespace('header-breadcrumb');
 

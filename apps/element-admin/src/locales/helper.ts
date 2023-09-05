@@ -1,5 +1,5 @@
-import { lodash } from '@etfma/shared';
-import type { Recordable } from '@etfma/types';
+import { lodash } from '@etfm/shared';
+import type { Recordable } from '@etfm/types';
 
 export function genMessage(langs: Record<string, Record<string, any>>, prefix = 'en') {
   const obj: Recordable<any> = {};

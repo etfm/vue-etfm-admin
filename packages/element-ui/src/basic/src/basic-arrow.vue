@@ -3,9 +3,9 @@
 </template>
 
 <script setup lang="ts">
-  import { useNamespace } from '@etfma/hooks';
+  import { useNamespace } from '@etfm/hooks';
   import { computed, useAttrs } from 'vue';
-  import { Icon } from '@etfma/icon';
+  import { Icon } from '@etfm/icon';
   import { basicArrowProps } from './props';
 
   const ns = useNamespace('basic-arrow');

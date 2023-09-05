@@ -1,4 +1,4 @@
-import { IPublicApiTheme, IPublicThemeOptins, IPublicTypeDisposable } from '@etfma/types';
+import { IPublicApiTheme, IPublicThemeOptins, IPublicTypeDisposable } from '@etfm/types';
 import { Theme as InnerTheme, ThemeEvent } from '../theme';
 import { editorSymbol, themeSymbol } from './symbols';
 import { Editor } from '../editor';

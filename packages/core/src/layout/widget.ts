@@ -8,7 +8,7 @@ import {
   IWidget,
   SkeletonEvents,
   WidgetConfig,
-} from '@etfma/types';
+} from '@etfm/types';
 
 export class Widget implements IWidget {
   readonly id = uniqueId('widget');

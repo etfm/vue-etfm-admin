@@ -1,7 +1,7 @@
-import { IPiniaContext, IPublicPlugin, IPublicPluginContext } from '@etfma/types';
-import { skeleton } from '@etfma/core';
+import { IPiniaContext, IPublicPlugin, IPublicPluginContext } from '@etfm/types';
+import { skeleton } from 'etfm-engine';
 import { h } from 'vue';
-import { lodash } from '@etfma/shared';
+import { lodash } from '@etfm/shared';
 import ContentFullscreen from './index.vue';
 
 const PluginContentFullscreen: IPublicPlugin = (ctx: IPublicPluginContext, options) => {

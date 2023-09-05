@@ -21,11 +21,11 @@
       "path": "configs/vite"
     },
     {
-      "name": "@etfma/hooks",
+      "name": "@etfm/hooks",
       "path": "packages/hooks"
     },
     {
-      "name": "@etfma/shared",
+      "name": "@etfm/shared",
       "path": "packages/shared"
     },
     {

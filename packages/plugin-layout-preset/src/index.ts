@@ -1,6 +1,6 @@
-import { IPiniaContext, IPublicPlugin, IPublicPluginContext } from '@etfma/types';
-import { lodash } from '@etfma/shared';
-import { event, plugins } from '@etfma/core';
+import { IPiniaContext, IPublicPlugin, IPublicPluginContext } from '@etfm/types';
+import { lodash } from '@etfm/shared';
+import { event, plugins } from 'etfm-engine';
 import { PluginAsideMixedNav } from '@etfm/plugin-aside-mixed-nav';
 import { PluginAsideNav } from '@etfm/plugin-aside-nav';
 import { PluginHeaderNav } from '@etfm/plugin-header-nav';

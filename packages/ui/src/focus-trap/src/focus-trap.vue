@@ -4,8 +4,8 @@
 <script lang="ts" setup>
   import { nextTick, onBeforeUnmount, onMounted, provide, ref, unref, watch } from 'vue';
 
-  import { lodash } from '@etfma/shared';
-  import { useEscapeKeydown } from '@etfma/hooks';
+  import { lodash } from '@etfm/shared';
+  import { useEscapeKeydown } from '@etfm/hooks';
   import {
     createFocusOutPreventedEvent,
     focusFirstDescendant,

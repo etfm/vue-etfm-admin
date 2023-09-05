@@ -1,11 +1,11 @@
 <script setup lang="ts">
   import BasicSubMenu from './BasicSubMenu.vue';
-  import type { MenuRecordRaw } from '@etfma/types';
+  import type { MenuRecordRaw } from '@etfm/types';
   import { MenuModeEnum, Mode } from './enum';
   import { reactive, watch } from 'vue';
-  import { lodash } from '@etfma/shared';
+  import { lodash } from '@etfm/shared';
   import { EtfmaMenu } from '@etfma/ui';
-  import { useNamespace } from '@etfma/hooks';
+  import { useNamespace } from '@etfm/hooks';
 
   defineOptions({
     name: 'BasicMenu',

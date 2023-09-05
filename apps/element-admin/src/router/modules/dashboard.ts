@@ -1,4 +1,4 @@
-import { AppRouteModule } from '@etfma/core';
+import { AppRouteModule } from 'etfm-engine';
 import { LAYOUT } from '../constant';
 
 const dashboard: AppRouteModule = {

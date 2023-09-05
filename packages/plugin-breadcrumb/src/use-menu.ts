@@ -1,6 +1,6 @@
-import { material } from '@etfma/core';
-import { isHttpUrl, lodash, treeMap } from '@etfma/shared';
-import { MenuRecordRaw, AppRouteModule } from '@etfma/types';
+import { material } from 'etfm-engine';
+import { isHttpUrl, lodash, treeMap } from '@etfm/shared';
+import { MenuRecordRaw, AppRouteModule } from '@etfm/types';
 import { ref } from 'vue';
 
 export function useMenu() {

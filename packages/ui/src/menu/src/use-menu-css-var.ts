@@ -1,5 +1,5 @@
 import { computed } from 'vue';
-import { useNamespace } from '@etfma/hooks';
+import { useNamespace } from '@etfm/hooks';
 import useMenuColor from './use-menu-color';
 import { MenuProps } from './types';
 

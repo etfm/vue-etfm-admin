@@ -5,7 +5,7 @@ import {
   IPublicPlugin,
   IPublicTypePluginRegisterOptions,
   IPublicTypePreferenceValueType,
-} from '@etfma/types';
+} from '@etfm/types';
 import { PluginInstance as ShellPluginInstance } from './plugin-instance';
 import { pluginsSymbol } from './symbols';
 

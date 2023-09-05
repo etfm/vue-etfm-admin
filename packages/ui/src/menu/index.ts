@@ -1,4 +1,4 @@
-import { withInstall, withNoopInstall } from '@etfma/shared';
+import { withInstall, withNoopInstall } from '@etfm/shared';
 
 import Menu from './src/menu.vue';
 import MenuItem from './src/menu-item.vue';

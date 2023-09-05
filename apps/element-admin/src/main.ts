@@ -2,10 +2,10 @@ import 'uno.css';
 import './styles/common.scss';
 import 'element-plus/theme-chalk/dark/css-vars.css';
 
-import { plugins, init } from '@etfma/core';
+import { plugins, init } from 'etfm-engine';
 import PluginHttp from '@etfma/plugin-http';
 import { handleHttpError } from './http/error';
-import { Recordable } from '@etfma/types';
+import { Recordable } from '@etfm/types';
 import { getToken } from './cache/auth';
 import PluginPinia from '@etfma/plugin-pinia';
 import PluginDesigner from '@etfma/plugin-designer';

@@ -7,7 +7,7 @@ import {
   IPublicTypeWidgetConfigAreaVisible,
   ISkeleton,
   SkeletonEvents,
-} from '@etfma/types';
+} from '@etfm/types';
 import { SkeletonItem } from './skeleton-item';
 import { configSymbol, skeletonSymbol } from './symbols';
 import { VNode, h } from 'vue';

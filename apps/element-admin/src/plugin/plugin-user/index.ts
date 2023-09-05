@@ -1,5 +1,5 @@
-import type { IPublicPlugin, IPublicPluginContext } from '@etfma/core';
-import { skeleton } from '@etfma/core';
+import type { IPublicPlugin, IPublicPluginContext } from 'etfm-engine';
+import { skeleton } from 'etfm-engine';
 import { h } from 'vue';
 import User from './index.vue';
 

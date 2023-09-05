@@ -1,5 +1,5 @@
-import { definePropType, lodash, buildProps } from '@etfma/shared';
-import { NavigationFailure, mutable } from '@etfma/types';
+import { definePropType, lodash, buildProps } from '@etfm/shared';
+import { NavigationFailure, mutable } from '@etfm/types';
 import { MenuItemClicked } from './types';
 
 export const menuProps = buildProps({

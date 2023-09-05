@@ -26,7 +26,7 @@
 
 <script lang="ts" setup>
   import { computed, onBeforeUnmount, onMounted, provide, ref, unref, watch } from 'vue';
-  import { lodash } from '@etfma/shared';
+  import { lodash } from '@etfm/shared';
   import EtfmaFocusTrap from '../../focus-trap';
   import { POPPER_CONTENT_INJECTION_KEY } from './constants';
   import { usePopperContent, usePopperContentDOM, usePopperContentFocusTrap } from './composables';

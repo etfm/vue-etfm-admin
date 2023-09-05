@@ -1,6 +1,6 @@
 import { Comment, Fragment, Text, cloneVNode, defineComponent, inject, withDirectives } from 'vue';
-import { lodash, NOOP, loggerDebug } from '@etfma/shared';
-import { FORWARD_REF_INJECTION_KEY, useForwardRefDirective, useNamespace } from '@etfma/hooks';
+import { lodash, NOOP, loggerDebug } from '@etfm/shared';
+import { FORWARD_REF_INJECTION_KEY, useForwardRefDirective, useNamespace } from '@etfm/hooks';
 
 import type { Ref, VNode } from 'vue';
 

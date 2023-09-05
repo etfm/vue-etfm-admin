@@ -4,7 +4,7 @@ import type {
   IPublicApiEvent,
   IPublicPluginContext,
   IPublicPlugin,
-} from '@etfma/types';
+} from '@etfm/types';
 
 export {
   IPublicApiSkeleton,

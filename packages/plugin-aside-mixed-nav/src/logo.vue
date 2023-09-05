@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { CSSProperties, computed, onUnmounted, reactive } from 'vue';
-  import { useNamespace } from '@etfma/hooks';
-  import { config, event } from '@etfma/core';
+  import { useNamespace } from '@etfm/hooks';
+  import { config, event } from 'etfm-engine';
 
   defineOptions({
     name: 'AsideMixedNavLogo',

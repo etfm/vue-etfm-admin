@@ -1,4 +1,4 @@
-import { buildProps } from '@etfma/shared';
+import { buildProps } from '@etfm/shared';
 import { componentSizes } from '../../constants';
 import type Tag from './tag.vue';
 

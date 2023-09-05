@@ -1,8 +1,8 @@
 import { computed, inject, ref, unref } from 'vue';
 import type { IElDropdownInstance } from './dropdown';
-import { addClass, generateId } from '@etfma/shared';
-import { Nullable } from '@etfma/types';
-import { useNamespace } from '@etfma/hooks';
+import { addClass, generateId } from '@etfm/shared';
+import { Nullable } from '@etfm/types';
+import { useNamespace } from '@etfm/hooks';
 import { EVENT_CODE } from '../../focus-trap';
 
 export const useDropdown = () => {

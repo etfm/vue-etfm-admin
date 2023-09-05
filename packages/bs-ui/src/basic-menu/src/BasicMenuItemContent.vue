@@ -1,6 +1,6 @@
 <script setup lang="ts">
-  import { MenuRecordRaw } from '@etfma/types';
-  import { Icon } from '@etfma/icon';
+  import { MenuRecordRaw } from '@etfm/types';
+  import { Icon } from '@etfm/icon';
   import { computed } from 'vue';
   import { EtfmaIcon } from '@etfma/ui';
 

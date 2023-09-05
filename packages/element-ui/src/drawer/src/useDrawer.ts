@@ -15,9 +15,9 @@ import {
   toRaw,
   computed,
 } from 'vue';
-import { Fn, Nullable } from '@etfma/types';
-import { loggerError, lodash } from '@etfma/shared';
-import { vueUse } from '@etfma/hooks';
+import { Fn, Nullable } from '@etfm/types';
+import { loggerError, lodash } from '@etfm/shared';
+import { vueUse } from '@etfm/hooks';
 
 const dataTransferRef = reactive<any>({});
 

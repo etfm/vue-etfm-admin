@@ -1,7 +1,7 @@
 <script setup lang="ts">
-  import { Icon } from '@etfma/icon';
+  import { Icon } from '@etfm/icon';
   import { computed } from 'vue';
-  import { useNamespace } from '@etfma/hooks';
+  import { useNamespace } from '@etfm/hooks';
 
   defineOptions({
     name: 'LayoutTrigger',

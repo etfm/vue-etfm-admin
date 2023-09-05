@@ -31,8 +31,8 @@
   import { EtfmaIcon } from '../../icon';
   import { DROPDOWN_COLLECTION_ITEM_INJECTION_KEY, dropdownItemProps } from './dropdown';
   import { DROPDOWN_INJECTION_KEY } from './tokens';
-  import { useNamespace } from '@etfma/hooks';
-  import { composeEventHandlers, composeRefs } from '@etfma/shared';
+  import { useNamespace } from '@etfm/hooks';
+  import { composeEventHandlers, composeRefs } from '@etfm/shared';
   import { EVENT_CODE } from '../../focus-trap';
 
   export default defineComponent({

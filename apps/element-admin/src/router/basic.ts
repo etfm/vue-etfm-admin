@@ -1,4 +1,4 @@
-import { AppRouteRecordRaw } from '@etfma/types';
+import { AppRouteRecordRaw } from '@etfm/types';
 import { EXCEPTION_COMPONENT, LAYOUT, PAGE_NOT_FOUND_NAME } from './constant';
 
 // 404 on a page

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-  import { useNamespace } from '@etfma/hooks';
-  import { Icon } from '@etfma/icon';
+  import { useNamespace } from '@etfm/hooks';
+  import { Icon } from '@etfm/icon';
   import { ref } from 'vue';
   import { type PublicMultipleTab } from '../hooks/use-multiple-tab';
   import { useRouter } from 'vue-router';

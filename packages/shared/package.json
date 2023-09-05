@@ -1,5 +1,5 @@
 {
-  "name": "@etfma/shared",
+  "name": "@etfm/shared",
   "version": "0.0.0",
   "description": "> TODO: description",
   "homepage": "https://github.com/etfm/vue-etfm-admin#readme",
@@ -24,7 +24,7 @@
     "build": "pnpm vite build",
     "clean": "pnpm rimraf .turbo node_modules dist",
     "lint": "pnpm eslint .",
-    "test": "node ./__tests__/@etfma/shared.test.js"
+    "test": "node ./__tests__/@etfm/shared.test.js"
   },
   "dependencies": {
     "@vue/shared": "^3.3.4",
@@ -36,7 +36,7 @@
     "vue": "^3.3.4"
   },
   "devDependencies": {
-    "@etfma/types": "workspace:^0.0.0",
+    "@etfm/types": "workspace:^0.0.0",
     "@types/lodash-es": "^4.17.7"
   }
 }

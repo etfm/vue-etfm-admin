@@ -11,19 +11,19 @@
     "type-check": "vue-tsc --noEmit"
   },
   "dependencies": {
+    "@etfm/element-ui": "workspace:^0.0.0",
+    "@etfm/hooks": "workspace:*",
+    "@etfm/icon": "workspace:^0.0.0",
     "@etfm/plugin-layout-preset": "workspace:*",
+    "@etfm/shared": "workspace:*",
     "@etfma/bs-ui": "workspace:*",
-    "@etfma/core": "workspace:*",
     "@etfma/design": "workspace:*",
-    "@etfma/element-ui": "workspace:^0.0.0",
-    "@etfma/hooks": "workspace:*",
-    "@etfma/icon": "workspace:^0.0.0",
     "@etfma/plugin-designer": "workspace:^",
     "@etfma/plugin-http": "workspace:^0.0.0",
     "@etfma/plugin-pinia": "workspace:^0.0.0",
     "@etfma/plugin-setting": "workspace:^0.0.0",
-    "@etfma/shared": "workspace:*",
     "@etfma/ui": "workspace:*",
+    "etfm-engine": "workspace:*",
     "nprogress": "^0.2.0",
     "path-to-regexp": "^6.2.1",
     "vue": "^3.3.4",
@@ -31,7 +31,7 @@
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
-    "@etfma/types": "workspace:*",
+    "@etfm/types": "workspace:*",
     "@types/nprogress": "^0.2.0",
     "vite-plugin-mock": "^2.9.6"
   }

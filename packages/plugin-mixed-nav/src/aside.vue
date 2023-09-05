@@ -1,10 +1,10 @@
 <script setup lang="ts">
-  import { BasicMenu } from '@etfma/bs-ui';
-  import { useNamespace } from '@etfma/hooks';
-  import { EtfmaScrollbar } from '@etfma/ui';
+  import { BasicMenu } from '@etfm/element-ui';
+  import { useNamespace } from '@etfm/hooks';
+  import { ElScrollbar } from 'element-plus';
   import { computed, onUnmounted, reactive, watch } from 'vue';
-  import { event, useRouter, config } from '@etfma/core';
-  import { MenuRecordRaw } from '@etfma/types';
+  import { event, useRouter, config } from 'etfm-engine';
+  import { MenuRecordRaw } from '@etfm/types';
   import type { CSSProperties } from 'vue';
 
   defineOptions({
@@ -105,7 +105,7 @@
 </script>
 <template>
   <div :class="[ns.b()]">
-    <EtfmaScrollbar :class="ns.e('scrollbar')" :style="getWrapper">
+    <ElScrollbar :class="ns.e('scrollbar')" :style="getWrapper">
       <BasicMenu
         :class="ns.b()"
         :style="getWrapper"
@@ -115,7 +115,7 @@
         :unique-opened="model.uniqueOpened"
         @menu-click="handleClick"
       ></BasicMenu>
-    </EtfmaScrollbar>
+    </ElScrollbar>
   </div>
 </template>
 <style lang="scss" module>

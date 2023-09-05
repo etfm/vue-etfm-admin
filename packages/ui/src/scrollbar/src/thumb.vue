@@ -17,8 +17,8 @@
   import { scrollbarContextKey } from './constants';
   import { BAR_MAP, renderThumbStyle } from './util';
   import { thumbProps } from './thumb';
-  import { useNamespace } from '@etfma/hooks';
-  import { isClient, loggerError } from '@etfma/shared';
+  import { useNamespace } from '@etfm/hooks';
+  import { isClient, loggerError } from '@etfm/shared';
 
   const COMPONENT_NAME = 'Thumb';
   const props = defineProps(thumbProps);

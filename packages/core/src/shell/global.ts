@@ -2,7 +2,7 @@ import {
   IPublicApiGlobal,
   IPublicTypeEditorGetResult,
   IPublicTypeEditorValueKey,
-} from '@etfma/types';
+} from '@etfm/types';
 import { globalSymbol } from './symbols';
 import { Editor } from '../editor';
 

@@ -1,10 +1,10 @@
 <script setup lang="ts">
-  import { BasicMenu } from '@etfma/bs-ui';
-  import { useNamespace } from '@etfma/hooks';
-  import { EtfmaScrollbar } from '@etfma/ui';
+  import { BasicMenu } from '@etfm/element-ui';
+  import { useNamespace } from '@etfm/hooks';
+  import { ElScrollbar } from 'element-plus';
   import { computed, reactive, watch, onUnmounted } from 'vue';
-  import { event, material, type AppRouteRecordRaw, useRouter, config } from '@etfma/core';
-  import { MenuRecordRaw } from '@etfma/types';
+  import { event, material, type AppRouteRecordRaw, useRouter, config } from 'etfm-engine';
+  import { MenuRecordRaw } from '@etfm/types';
   import { useMenu } from './hooks/use-menu';
   import type { CSSProperties } from 'vue';
   import { Trigger } from './components';
@@ -121,7 +121,7 @@
 </script>
 <template>
   <div :class="[ns.b()]">
-    <EtfmaScrollbar :class="ns.e('scrollbar')" :style="getWrapper">
+    <ElScrollbar :class="ns.e('scrollbar')" :style="getWrapper">
       <BasicMenu
         :class="ns.b()"
         :style="getWrapper"
@@ -131,7 +131,7 @@
         :unique-opened="model.uniqueOpened"
         @menu-click="handleClick"
       ></BasicMenu>
-    </EtfmaScrollbar>
+    </ElScrollbar>
     <div :class="triggerClass">
       <Trigger :collapse="model.collapse" @toggle="toggleCollapsed" />
     </div>

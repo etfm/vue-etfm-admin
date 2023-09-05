@@ -1,6 +1,6 @@
 import type { ExtractPropTypes, StyleValue } from 'vue';
 import type Scrollbar from './scrollbar.vue';
-import { definePropType, buildProps, lodash } from '@etfma/shared';
+import { definePropType, buildProps, lodash } from '@etfm/shared';
 
 export const scrollbarProps = buildProps({
   /**

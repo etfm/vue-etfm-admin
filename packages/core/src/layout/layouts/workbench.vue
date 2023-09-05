@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import Layout from './layout.vue';
   import { reactive } from 'vue';
-  import type { IPublicLayout, ISkeleton } from '@etfma/types';
+  import type { IPublicLayout, ISkeleton } from '@etfm/types';
   import { useGotLayoutConfig } from '../hooks';
 
   defineOptions({

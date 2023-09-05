@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-  import type { MenuRecordRaw } from '@etfma/types';
+  import type { MenuRecordRaw } from '@etfm/types';
   import BasicMenuItem from './BasicMenuItem.vue';
   import { computed } from 'vue';
   import { EtfmaSubMenu } from '@etfma/ui';

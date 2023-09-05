@@ -19,7 +19,7 @@
   import { useDropdown } from './useDropdown';
   import { ElCollectionItem as ElDropdownCollectionItem, dropdownItemProps } from './dropdown';
   import { DROPDOWN_INJECTION_KEY } from './tokens';
-  import { composeEventHandlers, whenMouse } from '@etfma/shared';
+  import { composeEventHandlers, whenMouse } from '@etfm/shared';
 
   export default defineComponent({
     name: 'EtfmDropdownItem',

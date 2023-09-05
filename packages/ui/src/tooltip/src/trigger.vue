@@ -19,8 +19,8 @@
 <script lang="ts" setup>
   import { inject, ref, toRef, unref } from 'vue';
   import { EtfmaPopperTrigger } from '../../popper';
-  import { composeEventHandlers } from '@etfma/shared';
-  import { useNamespace } from '@etfma/hooks';
+  import { composeEventHandlers } from '@etfm/shared';
+  import { useNamespace } from '@etfm/hooks';
   import { TOOLTIP_INJECTION_KEY } from './constants';
   import { useTooltipTriggerProps } from './trigger';
   import { whenTrigger } from './utils';

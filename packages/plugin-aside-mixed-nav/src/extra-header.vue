@@ -1,8 +1,8 @@
 <script setup lang="ts">
-  import { useNamespace } from '@etfma/hooks';
+  import { useNamespace } from '@etfm/hooks';
   import { CSSProperties, computed, onUnmounted, reactive } from 'vue';
-  import { config, event } from '@etfma/core';
-  import { Icon } from '@etfma/icon';
+  import { config, event } from 'etfm-engine';
+  import { Icon } from '@etfm/icon';
 
   defineOptions({
     name: 'side-mixed-nav-extra-header',

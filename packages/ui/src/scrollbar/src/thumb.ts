@@ -1,6 +1,6 @@
 import type { ExtractPropTypes } from 'vue';
 import Thumb from './thumb.vue';
-import { buildProps } from '@etfma/shared';
+import { buildProps } from '@etfm/shared';
 
 export const thumbProps = buildProps({
   vertical: Boolean,

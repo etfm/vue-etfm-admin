@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { EtfmaDropdown, EtfmaDropdownItem, EtfmaDropdownMenu } from '@etfma/ui';
-  import { useNamespace } from '@etfma/hooks';
+  import { useNamespace } from '@etfm/hooks';
 
   defineOptions({
     name: 'PluginUser',

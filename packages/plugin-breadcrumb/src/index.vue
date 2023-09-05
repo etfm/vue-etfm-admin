@@ -1,11 +1,11 @@
 <script setup lang="ts">
   import { useMenu } from './use-menu';
   import { useBreadcrumb } from './use-breadcrumb';
-  import { useNamespace } from '@etfma/hooks';
-  import { Icon } from '@etfma/icon';
-  import { MenuRecordRaw } from '@etfma/types';
-  import { lodash } from '@etfma/shared';
-  import { useGo } from '@etfma/core';
+  import { useNamespace } from '@etfm/hooks';
+  import { Icon } from '@etfm/icon';
+  import { MenuRecordRaw } from '@etfm/types';
+  import { lodash } from '@etfm/shared';
+  import { useGo } from 'etfm-engine';
   import {
     EtfmaDropdownItem,
     EtfmaDropdownMenu,

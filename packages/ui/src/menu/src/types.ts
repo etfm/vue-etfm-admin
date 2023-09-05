@@ -1,5 +1,5 @@
 import type { ExtractPropTypes, Ref } from 'vue';
-import { type RouteLocationRaw } from '@etfma/types';
+import { type RouteLocationRaw } from '@etfm/types';
 import { menuEmits, menuProps } from './props';
 
 export interface MenuItemRegistered {

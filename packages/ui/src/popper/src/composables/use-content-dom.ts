@@ -1,5 +1,5 @@
 import { computed, ref, unref } from 'vue';
-import { useNamespace, useZIndex } from '@etfma/hooks';
+import { useNamespace, useZIndex } from '@etfm/hooks';
 
 import type { CSSProperties, StyleValue } from 'vue';
 import type { UsePopperReturn } from './index';

@@ -1,7 +1,7 @@
 import Dropdown from './src/dropdown.vue';
 import DropdownItem from './src/dropdown-item.vue';
 import DropdownMenu from './src/dropdown-menu.vue';
-import { withInstall, withNoopInstall } from '@etfma/shared';
+import { withInstall, withNoopInstall } from '@etfm/shared';
 
 export const EtfmaDropdown = withInstall(Dropdown, {
   DropdownItem,

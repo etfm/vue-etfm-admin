@@ -1,4 +1,4 @@
-import type { IPublicApiRouter, Router } from '@etfma/types';
+import type { IPublicApiRouter, Router } from '@etfm/types';
 import { GlobalRouter as InnerRouter } from '../router/router';
 import { editorSymbol, routerSymbol } from './symbols';
 import { Editor } from '../editor';

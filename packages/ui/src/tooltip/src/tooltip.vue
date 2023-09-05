@@ -51,8 +51,8 @@
   import { computed, onDeactivated, provide, readonly, ref, toRef, unref, watch } from 'vue';
   import { EtfmaPopper, EtfmaPopperArrow, usePopperContainer } from '../../popper';
 
-  import { lodash } from '@etfma/shared';
-  import { useId } from '@etfma/hooks';
+  import { lodash } from '@etfm/shared';
+  import { useId } from '@etfm/hooks';
   import { useDelayedToggle } from './use-delayed-toggle';
   import { TOOLTIP_INJECTION_KEY } from './constants';
   import { tooltipEmits, useTooltipModelToggle, useTooltipProps } from './tooltip';

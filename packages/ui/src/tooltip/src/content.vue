@@ -47,10 +47,10 @@
 <script lang="ts" setup>
   import { computed, inject, onBeforeUnmount, ref, unref, watch } from 'vue';
   import { onClickOutside } from '@vueuse/core';
-  import { composeEventHandlers } from '@etfma/shared';
+  import { composeEventHandlers } from '@etfm/shared';
   import { EtfmaPopperContent, usePopperContainerId } from '../../popper';
   import { TOOLTIP_INJECTION_KEY } from './constants';
-  import { useNamespace } from '@etfma/hooks';
+  import { useNamespace } from '@etfm/hooks';
   import { useTooltipContentProps } from './content';
 
   defineOptions({

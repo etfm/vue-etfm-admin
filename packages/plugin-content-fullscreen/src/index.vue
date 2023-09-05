@@ -1,8 +1,8 @@
 <script setup lang="ts">
-  import { Icon } from '@etfma/icon';
+  import { Icon } from '@etfm/icon';
   import { computed, ref, watchEffect } from 'vue';
-  import { config } from '@etfma/core';
-  import { useNamespace } from '@etfma/hooks';
+  import { config } from 'etfm-engine';
+  import { useNamespace } from '@etfm/hooks';
 
   defineOptions({
     name: 'ContentFullscreen',

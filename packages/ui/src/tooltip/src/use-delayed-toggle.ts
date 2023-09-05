@@ -1,6 +1,6 @@
 import { unref } from 'vue';
-import { buildProps, lodash } from '@etfma/shared';
-import { useTimeout } from '@etfma/hooks';
+import { buildProps, lodash } from '@etfm/shared';
+import { useTimeout } from '@etfm/hooks';
 
 import type { ExtractPropTypes, ToRefs } from 'vue';
 

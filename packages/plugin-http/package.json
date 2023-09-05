@@ -35,13 +35,13 @@
     "test": "node ./__tests__/@etfma/http.test.js"
   },
   "dependencies": {
-    "@etfma/core": "workspace:^0.0.0",
-    "@etfma/shared": "workspace:*",
+    "@etfm/shared": "workspace:*",
     "axios": "^1.3.5",
+    "etfm-engine": "workspace:^0.0.0",
     "qs": "^6.11.1"
   },
   "devDependencies": {
-    "@etfma/types": "workspace:^0.0.0",
+    "@etfm/types": "workspace:^0.0.0",
     "@types/qs": "^6.9.7"
   },
   "publishConfig": {

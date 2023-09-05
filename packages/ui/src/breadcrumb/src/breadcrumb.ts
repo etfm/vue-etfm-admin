@@ -1,4 +1,4 @@
-import { buildProps, definePropType } from '@etfma/shared';
+import { buildProps, definePropType } from '@etfm/shared';
 import type { Component, ExtractPropTypes } from 'vue';
 
 const iconPropType = definePropType<string | Component>([String, Object, Function]);

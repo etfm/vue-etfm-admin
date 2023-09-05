@@ -40,8 +40,8 @@
     toRef,
   } from 'vue';
   import EtfmaTooltip from '../../tooltip';
-  import { loggerError } from '@etfma/shared';
-  import { useNamespace } from '@etfma/hooks';
+  import { loggerError } from '@etfm/shared';
+  import { useNamespace } from '@etfm/hooks';
   import useMenu from './use-menu';
   import { menuItemEmits, menuItemProps } from './menu-item';
 

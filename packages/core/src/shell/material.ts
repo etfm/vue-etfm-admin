@@ -3,7 +3,7 @@ import type {
   IPublicApiMaterial,
   IPublicModelEditor,
   IPublicTypeDisposable,
-} from '@etfma/types';
+} from '@etfm/types';
 import { editorSymbol } from './symbols';
 
 export class Material implements IPublicApiMaterial {

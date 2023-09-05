@@ -1,9 +1,9 @@
 import { createI18n } from 'vue-i18n';
 import { setHtmlPageLang } from './helper';
 import { unref } from 'vue';
-import { I18n, IEditor, IGlobalI18n, I18nContext } from '@etfma/types';
+import { I18n, IEditor, IGlobalI18n, I18nContext } from '@etfm/types';
 import { engineConfig } from '../config';
-import { lodash } from '@etfma/shared';
+import { lodash } from '@etfm/shared';
 import { editor } from '../editor';
 
 const loadLocalePool: string[] = [];

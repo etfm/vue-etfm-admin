@@ -1,7 +1,7 @@
 import { computed, getCurrentInstance, onMounted, watch } from 'vue';
-import { lodash, buildProp, definePropType, isClient } from '@etfma/shared';
-import type { ExtractPropType } from '@etfma/types';
-import type { RouteLocationNormalizedLoaded } from '@etfma/types';
+import { lodash, buildProp, definePropType, isClient } from '@etfm/shared';
+import type { ExtractPropType } from '@etfm/types';
+import type { RouteLocationNormalizedLoaded } from '@etfm/types';
 
 import type { ComponentPublicInstance, ExtractPropTypes, Ref } from 'vue';
 

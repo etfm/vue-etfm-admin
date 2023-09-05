@@ -1,4 +1,4 @@
-import { buildProps, definePropType } from '@etfma/shared';
+import { buildProps, definePropType } from '@etfm/shared';
 import { ButtonType } from 'element-plus';
 import { CSSProperties, ExtractPropTypes } from 'vue';
 

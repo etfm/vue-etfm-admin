@@ -1,6 +1,6 @@
-import { buildProps, definePropType } from '@etfma/shared';
+import { buildProps, definePropType } from '@etfm/shared';
 import type { ExtractPropTypes } from 'vue';
-import type { RouteLocationRaw } from '@etfma/types';
+import type { RouteLocationRaw } from '@etfm/types';
 
 export const breadcrumbItemProps = buildProps({
   /**

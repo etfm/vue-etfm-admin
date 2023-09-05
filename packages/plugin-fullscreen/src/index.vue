@@ -1,8 +1,7 @@
 <script setup lang="ts">
-  import {} from '@etfma/shared';
-  import { useFullscreen, useNamespace } from '@etfma/hooks';
+  import { useFullscreen, useNamespace } from '@etfm/hooks';
   import { computed, watchEffect } from 'vue';
-  import { Icon } from '@etfma/icon';
+  import { Icon } from '@etfm/icon';
 
   defineOptions({
     name: 'PluginFullscreen',

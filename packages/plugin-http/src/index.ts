@@ -1,4 +1,4 @@
-import { IHttpContext, IPublicPlugin, IPublicPluginContext } from '@etfma/types';
+import { IHttpContext, IPublicPlugin, IPublicPluginContext } from '@etfm/types';
 import { register } from './register';
 
 const PluginHttp: IPublicPlugin = (ctx: IPublicPluginContext, options) => {
@@ -32,4 +32,4 @@ export type {
   IResponseInterceptorTuple,
   IResultField,
   RequestConfig,
-} from '@etfma/types';
+} from '@etfm/types';

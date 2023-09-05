@@ -2,9 +2,9 @@
   import { defineComponent, PropType, ref, unref } from 'vue';
   import { Widget } from '../../widget';
   import DraggableLine from '../draggable-line/index.vue';
-  import { useNamespace } from '@etfma/hooks';
+  import { useNamespace } from '@etfm/hooks';
   import classNames from 'classnames';
-  import { SkeletonEvents } from '@etfma/types';
+  import { SkeletonEvents } from '@etfm/types';
 
   export default defineComponent({
     name: 'DraggableLineView',

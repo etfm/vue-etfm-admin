@@ -20,7 +20,7 @@ importers:
         specifier: ^2.3.2
         version: 2.3.2
       element-plus:
-        specifier: ^2.3.2
+        specifier: ^2.3.5
         version: 2.3.5(vue@3.3.4)
       events:
         specifier: ^3.3.0
@@ -143,27 +143,27 @@ importers:
 
   apps/element-admin:
     dependencies:
+      '@etfm/element-ui':
+        specifier: workspace:^0.0.0
+        version: link:../../packages/element-ui
+      '@etfm/hooks':
+        specifier: workspace:*
+        version: link:../../packages/hooks
+      '@etfm/icon':
+        specifier: workspace:^0.0.0
+        version: link:../../packages/icons
       '@etfm/plugin-layout-preset':
         specifier: workspace:*
         version: link:../../packages/plugin-layout-preset
+      '@etfm/shared':
+        specifier: workspace:*
+        version: link:../../packages/shared
       '@etfma/bs-ui':
         specifier: workspace:*
         version: link:../../packages/bs-ui
-      '@etfma/core':
-        specifier: workspace:*
-        version: link:../../packages/core
       '@etfma/design':
         specifier: workspace:*
         version: link:../../packages/design
-      '@etfma/element-ui':
-        specifier: workspace:^0.0.0
-        version: link:../../packages/element-ui
-      '@etfma/hooks':
-        specifier: workspace:*
-        version: link:../../packages/hooks
-      '@etfma/icon':
-        specifier: workspace:^0.0.0
-        version: link:../../packages/icons
       '@etfma/plugin-designer':
         specifier: workspace:^
         version: link:../../packages/plugin-designer
@@ -176,12 +176,12 @@ importers:
       '@etfma/plugin-setting':
         specifier: workspace:^0.0.0
         version: link:../../packages/plugin-setting
-      '@etfma/shared':
-        specifier: workspace:*
-        version: link:../../packages/shared
       '@etfma/ui':
         specifier: workspace:*
         version: link:../../packages/ui
+      etfm-engine:
+        specifier: workspace:*
+        version: link:../../packages/core
       nprogress:
         specifier: ^0.2.0
         version: 0.2.0
@@ -198,7 +198,7 @@ importers:
         specifier: ^4.1.6
         version: 4.2.1(vue@3.3.4)
     devDependencies:
-      '@etfma/types':
+      '@etfm/types':
         specifier: workspace:*
         version: link:../../packages/types
       '@types/nprogress':
@@ -391,24 +391,24 @@ importers:
 
   packages/bs-ui:
     dependencies:
-      '@etfma/core':
+      '@etfm/hooks':
+        specifier: workspace:*
+        version: link:../hooks
+      '@etfm/icon':
         specifier: workspace:^
-        version: link:../core
+        version: link:../icons
+      '@etfm/shared':
+        specifier: workspace:*
+        version: link:../shared
       '@etfma/design':
         specifier: workspace:*
         version: link:../design
-      '@etfma/hooks':
-        specifier: workspace:*
-        version: link:../hooks
-      '@etfma/icon':
-        specifier: workspace:^
-        version: link:../icons
-      '@etfma/shared':
-        specifier: workspace:*
-        version: link:../shared
       '@etfma/ui':
         specifier: workspace:^
         version: link:../ui
+      etfm-engine:
+        specifier: workspace:^
+        version: link:../core
       vue:
         specifier: ^3.3.4
         version: 3.3.4
@@ -416,21 +416,21 @@ importers:
         specifier: ^4.1.6
         version: 4.2.1(vue@3.3.4)
     devDependencies:
-      '@etfma/types':
+      '@etfm/types':
         specifier: workspace:*
         version: link:../types
 
   packages/core:
     dependencies:
+      '@etfm/hooks':
+        specifier: workspace:^0.0.0
+        version: link:../hooks
+      '@etfm/shared':
+        specifier: workspace:*
+        version: link:../shared
       '@etfma/design':
         specifier: workspace:^0.0.0
         version: link:../design
-      '@etfma/hooks':
-        specifier: workspace:^0.0.0
-        version: link:../hooks
-      '@etfma/shared':
-        specifier: workspace:*
-        version: link:../shared
       '@etfma/ui':
         specifier: workspace:^
         version: link:../ui
@@ -447,7 +447,7 @@ importers:
         specifier: ^2.0.12
         version: 2.0.12
     devDependencies:
-      '@etfma/types':
+      '@etfm/types':
         specifier: workspace:^0.0.0
         version: link:../types
       '@types/events':
@@ -471,18 +471,18 @@ importers:
       '@ctrl/tinycolor':
         specifier: ^3.6.0
         version: 3.6.0
+      '@etfm/hooks':
+        specifier: workspace:*
+        version: link:../hooks
+      '@etfm/icon':
+        specifier: workspace:^0.0.0
+        version: link:../icons
+      '@etfm/shared':
+        specifier: workspace:*
+        version: link:../shared
       '@etfma/design':
         specifier: workspace:*
         version: link:../design
-      '@etfma/hooks':
-        specifier: workspace:*
-        version: link:../hooks
-      '@etfma/icon':
-        specifier: workspace:^0.0.0
-        version: link:../icons
-      '@etfma/shared':
-        specifier: workspace:*
-        version: link:../shared
       '@etfma/ui':
         specifier: workspace:^0.0.0
         version: link:../ui
@@ -493,7 +493,7 @@ importers:
         specifier: ^3.3.4
         version: 3.3.4
     devDependencies:
-      '@etfma/types':
+      '@etfm/types':
         specifier: workspace:*
         version: link:../types
       unplugin-element-plus:
@@ -502,7 +502,7 @@ importers:
 
   packages/hooks:
     dependencies:
-      '@etfma/shared':
+      '@etfm/shared':
         specifier: workspace:^0.0.0
         version: link:../shared
       '@vueuse/core':
@@ -512,7 +512,7 @@ importers:
         specifier: ^3.3.4
         version: 3.3.4
     devDependencies:
-      '@etfma/types':
+      '@etfm/types':
         specifier: workspace:^0.0.0
         version: link:../types
 
@@ -533,24 +533,24 @@ importers:
 
   packages/plugin-aside-mixed-nav:
     dependencies:
-      '@etfma/bs-ui':
-        specifier: workspace:^0.0.0
-        version: link:../bs-ui
-      '@etfma/core':
+      '@etfm/element-ui':
         specifier: workspace:*
-        version: link:../core
-      '@etfma/hooks':
+        version: link:../element-ui
+      '@etfm/hooks':
         specifier: workspace:*
         version: link:../hooks
-      '@etfma/icon':
-        specifier: workspace:^
+      '@etfm/icon':
+        specifier: workspace:*
         version: link:../icons
-      '@etfma/shared':
-        specifier: workspace:^
+      '@etfm/shared':
+        specifier: workspace:*
         version: link:../shared
-      '@etfma/ui':
-        specifier: workspace:^
-        version: link:../ui
+      element-plus:
+        specifier: ^2.3.5
+        version: 2.3.5(vue@3.3.4)
+      etfm-engine:
+        specifier: workspace:*
+        version: link:../core
       vue:
         specifier: ^3.3.4
         version: 3.3.4
@@ -558,30 +558,27 @@ importers:
         specifier: ^4.1.6
         version: 4.2.1(vue@3.3.4)
     devDependencies:
-      '@etfma/types':
+      '@etfm/types':
         specifier: workspace:^0.0.0
         version: link:../types
 
   packages/plugin-aside-nav:
     dependencies:
-      '@etfma/bs-ui':
-        specifier: workspace:^0.0.0
-        version: link:../bs-ui
-      '@etfma/core':
+      '@etfm/element-ui':
         specifier: workspace:*
-        version: link:../core
-      '@etfma/hooks':
+        version: link:../element-ui
+      '@etfm/hooks':
         specifier: workspace:*
         version: link:../hooks
-      '@etfma/icon':
-        specifier: workspace:^
+      '@etfm/icon':
+        specifier: workspace:*
         version: link:../icons
-      '@etfma/shared':
-        specifier: workspace:^
+      '@etfm/shared':
+        specifier: workspace:*
         version: link:../shared
-      '@etfma/ui':
-        specifier: workspace:^
-        version: link:../ui
+      etfm-engine:
+        specifier: workspace:*
+        version: link:../core
       vue:
         specifier: ^3.3.4
         version: 3.3.4
@@ -589,30 +586,30 @@ importers:
         specifier: ^4.1.6
         version: 4.2.1(vue@3.3.4)
     devDependencies:
-      '@etfma/types':
+      '@etfm/types':
         specifier: workspace:^0.0.0
         version: link:../types
 
   packages/plugin-breadcrumb:
     dependencies:
-      '@etfma/core':
+      '@etfm/hooks':
+        specifier: workspace:*
+        version: link:../hooks
+      '@etfm/icon':
         specifier: workspace:^
-        version: link:../core
+        version: link:../icons
+      '@etfm/shared':
+        specifier: workspace:^
+        version: link:../shared
       '@etfma/design':
         specifier: workspace:^
         version: link:../design
-      '@etfma/hooks':
-        specifier: workspace:*
-        version: link:../hooks
-      '@etfma/icon':
-        specifier: workspace:^
-        version: link:../icons
-      '@etfma/shared':
-        specifier: workspace:^
-        version: link:../shared
       '@etfma/ui':
         specifier: workspace:^0.0.0
         version: link:../ui
+      etfm-engine:
+        specifier: workspace:^
+        version: link:../core
       vue:
         specifier: ^3.3.4
         version: 3.3.4
@@ -623,55 +620,46 @@ importers:
         specifier: ^4.1.6
         version: 4.2.1(vue@3.3.4)
     devDependencies:
-      '@etfma/types':
+      '@etfm/types':
         specifier: workspace:^0.0.0
         version: link:../types
 
   packages/plugin-content-fullscreen:
     dependencies:
-      '@etfma/core':
-        specifier: workspace:^
-        version: link:../core
-      '@etfma/design':
-        specifier: workspace:^
-        version: link:../design
-      '@etfma/hooks':
+      '@etfm/hooks':
         specifier: workspace:*
         version: link:../hooks
-      '@etfma/icon':
+      '@etfm/icon':
         specifier: workspace:^
         version: link:../icons
-      '@etfma/shared':
+      '@etfm/shared':
         specifier: workspace:^
         version: link:../shared
-      '@etfma/ui':
-        specifier: workspace:^0.0.0
-        version: link:../ui
       '@vueuse/core':
         specifier: ^9.13.0
         version: 9.13.0(vue@3.3.4)
+      etfm-engine:
+        specifier: workspace:^
+        version: link:../core
       vue:
         specifier: ^3.3.4
         version: 3.3.4
     devDependencies:
-      '@etfma/types':
+      '@etfm/types':
         specifier: workspace:^0.0.0
         version: link:../types
 
   packages/plugin-designer:
     dependencies:
-      '@etfma/core':
-        specifier: workspace:^
-        version: link:../core
-      '@etfma/design':
-        specifier: workspace:^
-        version: link:../design
-      '@etfma/hooks':
+      '@etfm/hooks':
         specifier: workspace:*
         version: link:../hooks
-      '@etfma/shared':
+      '@etfm/shared':
         specifier: workspace:^
         version: link:../shared
+      etfm-engine:
+        specifier: workspace:^
+        version: link:../core
       vue:
         specifier: ^3.3.4
         version: 3.3.4
@@ -682,55 +670,49 @@ importers:
         specifier: ^4.1.6
         version: 4.2.1(vue@3.3.4)
     devDependencies:
-      '@etfma/types':
+      '@etfm/types':
         specifier: workspace:^0.0.0
         version: link:../types
 
   packages/plugin-fullscreen:
     dependencies:
-      '@etfma/core':
-        specifier: workspace:^
-        version: link:../core
-      '@etfma/design':
-        specifier: workspace:^
-        version: link:../design
-      '@etfma/hooks':
+      '@etfm/hooks':
         specifier: workspace:*
         version: link:../hooks
-      '@etfma/icon':
+      '@etfm/icon':
         specifier: workspace:^
         version: link:../icons
-      '@etfma/shared':
+      '@etfm/shared':
         specifier: workspace:^
         version: link:../shared
-      '@etfma/ui':
-        specifier: workspace:^0.0.0
-        version: link:../ui
       '@vueuse/core':
         specifier: ^9.13.0
         version: 9.13.0(vue@3.3.4)
+      etfm-engine:
+        specifier: workspace:^
+        version: link:../core
       vue:
         specifier: ^3.3.4
         version: 3.3.4
     devDependencies:
-      '@etfma/types':
+      '@etfm/types':
         specifier: workspace:^0.0.0
         version: link:../types
 
   packages/plugin-header-nav:
     dependencies:
-      '@etfma/bs-ui':
-        specifier: workspace:^0.0.0
-        version: link:../bs-ui
-      '@etfma/core':
-        specifier: workspace:^
-        version: link:../core
-      '@etfma/hooks':
+      '@etfm/element-ui':
+        specifier: workspace:*
+        version: link:../element-ui
+      '@etfm/hooks':
         specifier: workspace:*
         version: link:../hooks
-      '@etfma/shared':
+      '@etfm/shared':
         specifier: workspace:^
         version: link:../shared
+      etfm-engine:
+        specifier: workspace:^
+        version: link:../core
       vue:
         specifier: ^3.3.4
         version: 3.3.4
@@ -741,26 +723,26 @@ importers:
         specifier: ^4.1.6
         version: 4.2.1(vue@3.3.4)
     devDependencies:
-      '@etfma/types':
+      '@etfm/types':
         specifier: workspace:^0.0.0
         version: link:../types
 
   packages/plugin-http:
     dependencies:
-      '@etfma/core':
-        specifier: workspace:^0.0.0
-        version: link:../core
-      '@etfma/shared':
+      '@etfm/shared':
         specifier: workspace:*
         version: link:../shared
       axios:
         specifier: ^1.3.5
         version: 1.4.0
+      etfm-engine:
+        specifier: workspace:^0.0.0
+        version: link:../core
       qs:
         specifier: ^6.11.1
         version: 6.11.2
     devDependencies:
-      '@etfma/types':
+      '@etfm/types':
         specifier: workspace:^0.0.0
         version: link:../types
       '@types/qs':
@@ -769,6 +751,9 @@ importers:
 
   packages/plugin-layout-preset:
     dependencies:
+      '@etfm/hooks':
+        specifier: workspace:*
+        version: link:../hooks
       '@etfm/plugin-aside-mixed-nav':
         specifier: workspace:^
         version: link:../plugin-aside-mixed-nav
@@ -790,40 +775,37 @@ importers:
       '@etfm/plugin-tabs':
         specifier: workspace:^
         version: link:../plugin-tabs
-      '@etfma/core':
-        specifier: workspace:*
-        version: link:../core
-      '@etfma/hooks':
-        specifier: workspace:*
-        version: link:../hooks
-      '@etfma/shared':
+      '@etfm/shared':
         specifier: workspace:^
         version: link:../shared
+      etfm-engine:
+        specifier: workspace:*
+        version: link:../core
     devDependencies:
-      '@etfma/types':
+      '@etfm/types':
         specifier: workspace:^0.0.0
         version: link:../types
 
   packages/plugin-mixed-nav:
     dependencies:
-      '@etfma/bs-ui':
-        specifier: workspace:^0.0.0
-        version: link:../bs-ui
-      '@etfma/core':
+      '@etfm/element-ui':
         specifier: workspace:*
-        version: link:../core
-      '@etfma/hooks':
+        version: link:../element-ui
+      '@etfm/hooks':
         specifier: workspace:*
         version: link:../hooks
-      '@etfma/icon':
+      '@etfm/icon':
         specifier: workspace:^
         version: link:../icons
-      '@etfma/shared':
+      '@etfm/shared':
         specifier: workspace:^
         version: link:../shared
-      '@etfma/ui':
-        specifier: workspace:^
-        version: link:../ui
+      element-plus:
+        specifier: ^2.3.5
+        version: 2.3.5(vue@3.3.4)
+      etfm-engine:
+        specifier: workspace:*
+        version: link:../core
       vue:
         specifier: ^3.3.4
         version: 3.3.4
@@ -831,13 +813,13 @@ importers:
         specifier: ^4.1.6
         version: 4.2.1(vue@3.3.4)
     devDependencies:
-      '@etfma/types':
+      '@etfm/types':
         specifier: workspace:^0.0.0
         version: link:../types
 
   packages/plugin-pinia:
     dependencies:
-      '@etfma/shared':
+      '@etfm/shared':
         specifier: workspace:*
         version: link:../shared
       pinia:
@@ -847,44 +829,38 @@ importers:
         specifier: ^3.1.0
         version: 3.1.0(pinia@2.1.3)
     devDependencies:
-      '@etfma/types':
+      '@etfm/types':
         specifier: workspace:^0.0.0
         version: link:../types
 
   packages/plugin-setting:
     dependencies:
-      '@etfma/core':
-        specifier: workspace:^
-        version: link:../core
-      '@etfma/design':
-        specifier: workspace:^
-        version: link:../design
-      '@etfma/element-ui':
+      '@etfm/element-ui':
         specifier: workspace:*
         version: link:../element-ui
-      '@etfma/hooks':
+      '@etfm/hooks':
         specifier: workspace:*
         version: link:../hooks
-      '@etfma/icon':
+      '@etfm/icon':
         specifier: workspace:^
         version: link:../icons
-      '@etfma/shared':
+      '@etfm/shared':
         specifier: workspace:^
         version: link:../shared
-      '@etfma/ui':
-        specifier: workspace:^0.0.0
-        version: link:../ui
       '@vueuse/core':
         specifier: ^9.13.0
         version: 9.13.0(vue@3.3.4)
       element-plus:
         specifier: ^2.3.2
         version: 2.3.5(vue@3.3.4)
+      etfm-engine:
+        specifier: workspace:^
+        version: link:../core
       vue:
         specifier: ^3.3.4
         version: 3.3.4
     devDependencies:
-      '@etfma/types':
+      '@etfm/types':
         specifier: workspace:^0.0.0
         version: link:../types
       unplugin-element-plus:
@@ -893,27 +869,24 @@ importers:
 
   packages/plugin-tabs:
     dependencies:
-      '@etfma/core':
-        specifier: workspace:^
-        version: link:../core
-      '@etfma/design':
-        specifier: workspace:^
-        version: link:../design
-      '@etfma/hooks':
+      '@etfm/hooks':
         specifier: workspace:*
         version: link:../hooks
-      '@etfma/icon':
+      '@etfm/icon':
         specifier: workspace:^
         version: link:../icons
-      '@etfma/shared':
+      '@etfm/shared':
         specifier: workspace:^
         version: link:../shared
-      '@etfma/ui':
-        specifier: workspace:^0.0.0
-        version: link:../ui
       '@vueuse/core':
         specifier: ^9.13.0
         version: 9.13.0(vue@3.3.4)
+      element-plus:
+        specifier: ^2.3.5
+        version: 2.3.5(vue@3.3.4)
+      etfm-engine:
+        specifier: workspace:^
+        version: link:../core
       vue:
         specifier: ^3.3.4
         version: 3.3.4
@@ -924,7 +897,7 @@ importers:
         specifier: ^4.1.6
         version: 4.2.1(vue@3.3.4)
     devDependencies:
-      '@etfma/types':
+      '@etfm/types':
         specifier: workspace:^0.0.0
         version: link:../types
 
@@ -952,7 +925,7 @@ importers:
         specifier: ^3.3.4
         version: 3.3.4
     devDependencies:
-      '@etfma/types':
+      '@etfm/types':
         specifier: workspace:^0.0.0
         version: link:../types
       '@types/lodash-es':
@@ -976,13 +949,10 @@ importers:
       '@element-plus/icons-vue':
         specifier: ^2.1.0
         version: 2.1.0(vue@3.3.4)
-      '@etfma/design':
-        specifier: workspace:*
-        version: link:../design
-      '@etfma/hooks':
+      '@etfm/hooks':
         specifier: workspace:*
         version: link:../hooks
-      '@etfma/shared':
+      '@etfm/shared':
         specifier: workspace:*
         version: link:../shared
       '@popperjs/core':
@@ -998,7 +968,7 @@ importers:
         specifier: ^4.1.6
         version: 4.2.1(vue@3.3.4)
     devDependencies:
-      '@etfma/types':
+      '@etfm/types':
         specifier: workspace:*
         version: link:../types
       '@vue/runtime-core':

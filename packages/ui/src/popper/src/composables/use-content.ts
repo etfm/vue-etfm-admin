@@ -1,5 +1,5 @@
 import { computed, inject, onMounted, ref, unref, watch } from 'vue';
-import { lodash } from '@etfma/shared';
+import { lodash } from '@etfm/shared';
 import { PartialOptions, usePopper } from './index';
 import { POPPER_INJECTION_KEY } from '../constants';
 import { buildPopperOptions, unwrapMeasurableEl } from '../utils';

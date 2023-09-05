@@ -4,11 +4,11 @@ import { getAuthCache, setAuthCache } from '@/cache/auth';
 import type { GetUserInfoModel, LoginParams } from '@/api/sys/model/userModel';
 import { doLogout, getUserInfo, loginApi } from '@/api/sys/user';
 // import { useI18n } from '@/hooks/web/useI18n';
-import { router as etfmRouter } from '@etfma/core';
+import { router as etfmRouter } from 'etfm-engine';
 import { usePermissionStore } from '@/store/permission';
-import type { Nullable, Recordable } from '@etfma/types';
+import type { Nullable, Recordable } from '@etfm/types';
 import { PageEnum } from '@/enums/pageEnum';
-import { lodash } from '@etfma/shared';
+import { lodash } from '@etfm/shared';
 
 interface UserState {
   userInfo: Nullable<any>;

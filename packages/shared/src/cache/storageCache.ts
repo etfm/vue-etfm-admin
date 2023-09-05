@@ -1,5 +1,5 @@
 import { isNil } from 'lodash-es';
-import type { Nullable } from '@etfma/types';
+import type { Nullable } from '@etfm/types';
 
 export interface CreateStorageParams {
   prefixKey: string;

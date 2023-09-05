@@ -1,7 +1,7 @@
-import { buildProps, definePropType, lodash } from '@etfma/shared';
+import { buildProps, definePropType, lodash } from '@etfm/shared';
 
 import type { ExtractPropTypes } from 'vue';
-import type { RouteLocationRaw } from '@etfma/types';
+import type { RouteLocationRaw } from '@etfm/types';
 import type { MenuItemRegistered } from './types';
 
 export const menuItemProps = buildProps({

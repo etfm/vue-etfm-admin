@@ -5,7 +5,7 @@ the contents of the file still need to log in to access
  */
 // test
 
-import { AppRouteModule } from '@etfma/types';
+import { AppRouteModule } from '@etfm/types';
 
 // http:ip:port/main-out
 export const mainOutRoutes: AppRouteModule[] = [

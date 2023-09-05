@@ -1,6 +1,6 @@
-import { lodash, treeMap, isHttpUrl } from '@etfma/shared';
-import type { AppRouteRecordRaw, AppRouteModule } from '@etfma/core';
-import type { MenuRecordRaw } from '@etfma/types';
+import { lodash, treeMap, isHttpUrl } from '@etfm/shared';
+import type { AppRouteRecordRaw, AppRouteModule } from 'etfm-engine';
+import type { MenuRecordRaw } from '@etfm/types';
 
 export function useMenu() {
   // 路径处理

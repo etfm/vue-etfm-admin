@@ -6,8 +6,8 @@
 
 <script lang="ts" setup>
   import { computed } from 'vue';
-  import { addUnit, lodash } from '@etfma/shared';
-  import { useNamespace } from '@etfma/hooks';
+  import { addUnit, lodash } from '@etfm/shared';
+  import { useNamespace } from '@etfm/hooks';
   import { iconProps } from './icon';
   import type { CSSProperties } from 'vue';
 

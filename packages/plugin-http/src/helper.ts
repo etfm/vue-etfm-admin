@@ -1,21 +1,21 @@
-import { lodash } from '@etfma/shared'
+import { lodash } from '@etfm/shared';
 
-const DATE_TIME_FORMAT = 'YYYY-MM-DD HH:mm:ss'
+const DATE_TIME_FORMAT = 'YYYY-MM-DD HH:mm:ss';
 
 export function joinTimestamp<T extends boolean>(
   join: boolean,
-  restful: T
-): T extends true ? string : object
+  restful: T,
+): T extends true ? string : object;
 
 export function joinTimestamp(join: boolean, restful = false): string | object {
   if (!join) {
-    return restful ? '' : {}
+    return restful ? '' : {};
   }
-  const now = new Date().getTime()
+  const now = new Date().getTime();
   if (restful) {
-    return `?_t=${now}`
+    return `?_t=${now}`;
   }
-  return { _t: now }
+  return { _t: now };
 }
 
 /**
@@ -23,26 +23,26 @@ export function joinTimestamp(join: boolean, restful = false): string | object {
  */
 export function formatRequestDate(params: Recordable) {
   if (Object.prototype.toString.call(params) !== '[object Object]') {
-    return
+    return;
   }
 
   for (const key in params) {
-    const format = params[key]?.format ?? null
+    const format = params[key]?.format ?? null;
     if (format && typeof format === 'function') {
-      params[key] = params[key].format(DATE_TIME_FORMAT)
+      params[key] = params[key].format(DATE_TIME_FORMAT);
     }
     if (lodash.isString(key)) {
-      const value = params[key]
+      const value = params[key];
       if (value) {
         try {
-          params[key] = lodash.isString(value) ? value.trim() : value
+          params[key] = lodash.isString(value) ? value.trim() : value;
         } catch (error: any) {
-          throw new Error(error)
+          throw new Error(error);
         }
       }
     }
     if (lodash.isObject(params[key])) {
-      formatRequestDate(params[key])
+      formatRequestDate(params[key]);
     }
   }
 }
@@ -58,10 +58,10 @@ export function formatRequestDate(params: Recordable) {
  *  ==>www.google.com?a=3&b=4
  */
 export function appendUrlParams(baseUrl: string, obj: any): string {
-  let parameters = ''
+  let parameters = '';
   for (const key in obj) {
-    parameters += key + '=' + encodeURIComponent(obj[key]) + '&'
+    parameters += key + '=' + encodeURIComponent(obj[key]) + '&';
   }
-  parameters = parameters.replace(/&$/, '')
-  return /\?$/.test(baseUrl) ? baseUrl + parameters : baseUrl.replace(/\/?$/, '?') + parameters
+  parameters = parameters.replace(/&$/, '');
+  return /\?$/.test(baseUrl) ? baseUrl + parameters : baseUrl.replace(/\/?$/, '?') + parameters;
 }

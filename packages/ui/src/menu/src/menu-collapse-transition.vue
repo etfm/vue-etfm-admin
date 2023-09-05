@@ -4,8 +4,8 @@
   </transition>
 </template>
 <script lang="ts">
-  import { useNamespace } from '@etfma/hooks';
-  import { addClass, hasClass, removeClass } from '@etfma/shared';
+  import { useNamespace } from '@etfm/hooks';
+  import { addClass, hasClass, removeClass } from '@etfm/shared';
   import { defineComponent } from 'vue';
 
   import type { BaseTransitionProps, TransitionProps } from 'vue';

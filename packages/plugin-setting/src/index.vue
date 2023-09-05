@@ -1,7 +1,7 @@
 <script setup lang="ts">
-  import { Icon } from '@etfma/icon';
-  import { useNamespace } from '@etfma/hooks';
-  import { useDrawer } from '@etfma/element-ui';
+  import { Icon } from '@etfm/icon';
+  import { useNamespace } from '@etfm/hooks';
+  import { useDrawer } from '@etfm/element-ui';
 
   import DrawerSetting from './drawer-setting.vue';
 

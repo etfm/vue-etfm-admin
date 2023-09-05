@@ -1,4 +1,4 @@
-import { buildProps, definePropType } from '@etfma/shared';
+import { buildProps, definePropType } from '@etfm/shared';
 import { Placement } from 'element-plus';
 import { ExtractPropTypes } from 'vue';
 

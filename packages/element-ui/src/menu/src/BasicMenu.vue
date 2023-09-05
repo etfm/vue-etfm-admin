@@ -1,12 +1,11 @@
 <script setup lang="ts">
-  import { useNamespace } from 'element-plus';
   import BasicSubMenu from './BasicSubMenu.vue';
-  import type { MenuRecordRaw } from '@etfma/types';
-  import { MenuModeEnum, MenuTypeEnum, Mode } from './enum';
-  import { computed, reactive, watch } from 'vue';
-  import { lodash } from '@etfma/shared';
-
-  import { EtfmaMenu } from '@etfma/ui';
+  import type { MenuRecordRaw } from '@etfm/types';
+  import { MenuModeEnum, Mode } from './enum';
+  import { reactive, watch } from 'vue';
+  import { lodash } from '@etfm/shared';
+  import { ElMenu } from 'element-plus';
+  import { useNamespace } from '@etfm/hooks';
 
   defineOptions({
     name: 'BasicMenu',
@@ -29,20 +28,10 @@
      */
     menus: MenuRecordRaw[];
     /**
-     * 是否横向菜单
-     * @default false
-     */
-    isHorizontal?: boolean;
-    /**
      * 菜单组件mode属性
      * @default MenuModeEnum.VERTICAL
      */
     mode?: Mode;
-    /**
-     * 菜单组件的类型
-     * @default MenuTypeEnum.MIX
-     */
-    type?: MenuTypeEnum;
     /**
      * 是否只保持一个子菜单的展开
      * @default false
@@ -58,15 +47,19 @@
      * @default true
      */
     ellipsis?: boolean;
+    /**
+     * 当菜单为横向时，触发方式
+     * @default hover
+     */
+    menuTrigger?: 'hover' | 'click';
   }
 
   const props = withDefaults(defineProps<Props>(), {
-    isHorizontal: false,
     mode: MenuModeEnum.VERTICAL,
-    type: MenuTypeEnum.MIX,
     uniqueOpened: false,
     collapse: false,
     ellipsis: true,
+    menuTrigger: 'hover',
   });
 
   const emit = defineEmits<{ (event: 'menuClick', arg: string): void }>();
@@ -80,8 +73,6 @@
     defaultActive: '',
     defaultOpeneds: [],
   });
-
-  const hasShowTitle = computed(() => !props.collapse);
 
   watch(
     () => props.defaultActive,
@@ -135,26 +126,26 @@
 </script>
 
 <template>
-  <EtfmaMenu
-    :class="[ns.b()]"
+  <ElMenu
+    :class="ns.b()"
     :mode="props.mode"
     :default-active="menuState.defaultActive"
     :default-openeds="menuState.defaultOpeneds"
     :unique-opened="props.uniqueOpened"
     :collapse="collapse"
+    :collapse-transition="false"
+    :menu-trigger="menuTrigger"
     @open="handleOpen"
     @close="handleClose"
     @select="handleSelect"
   >
     <template v-for="item in menus" :key="item.path">
-      <BasicSubMenu :menu="item" :isHorizontal="isHorizontal" :collapse="hasShowTitle" />
+      <BasicSubMenu :menu="item" />
     </template>
-  </EtfmaMenu>
+  </ElMenu>
 </template>
-
-<style module lang="scss">
-  @include b('basic-menu') {
-    width: 100%;
-    border-right: none;
+<style lang="scss" module>
+  @include b(basic-menu) {
+    height: 100%;
   }
 </style>

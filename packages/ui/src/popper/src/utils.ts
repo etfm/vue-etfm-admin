@@ -1,5 +1,5 @@
 import { unrefElement } from '@vueuse/core';
-import { isClient } from '@etfma/shared';
+import { isClient } from '@etfm/shared';
 
 import type { ComponentPublicInstance } from 'vue';
 import type { MaybeRef } from '@vueuse/core';

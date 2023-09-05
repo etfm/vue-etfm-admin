@@ -3,7 +3,7 @@ import { PageEnum } from '../enum';
 import { useUserStoreWithOut } from '@/store/user';
 import { PAGE_NOT_FOUND_ROUTE } from '@/router/basic';
 import { RootRoute } from '../';
-import { Recordable, Router } from '@etfma/types';
+import { Recordable, Router } from '@etfm/types';
 
 const LOGIN_PATH = PageEnum.BASE_LOGIN;
 

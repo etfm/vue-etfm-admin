@@ -1,4 +1,4 @@
-import { lodash, Memory } from '@etfma/shared';
+import { lodash, Memory } from '@etfm/shared';
 import { toRaw } from 'vue';
 
 import {
@@ -12,7 +12,7 @@ import {
   USER_INFO_KEY,
 } from '@/enums/cacheEnum';
 import { createLocalStorage, createSessionStorage } from './';
-import type { Nullable, Recordable, RouteLocationNormalized } from '@etfma/types';
+import type { Nullable, Recordable, RouteLocationNormalized } from '@etfm/types';
 
 export const DEFAULT_CACHE_TIME = 60 * 60 * 24 * 7;
 

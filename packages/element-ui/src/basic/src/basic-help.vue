@@ -9,9 +9,9 @@
 </template>
 <script setup lang="ts">
   import { ElTooltip } from 'element-plus';
-  import { useNamespace } from '@etfma/hooks';
+  import { useNamespace } from '@etfm/hooks';
   import { useSlots, computed } from 'vue';
-  import { lodash } from '@etfma/shared';
+  import { lodash } from '@etfm/shared';
   import { Warning } from '@element-plus/icons-vue';
   import { basicHelpProps } from './props';
 

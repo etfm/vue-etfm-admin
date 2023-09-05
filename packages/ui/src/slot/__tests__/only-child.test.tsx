@@ -1,8 +1,8 @@
 import { Comment, Fragment, h, nextTick, ref } from 'vue';
 import { shallowMount } from '@vue/test-utils';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { loggerDebug } from '@etfma/shared';
-import { FORWARD_REF_INJECTION_KEY } from '@etfma/hooks';
+import { loggerDebug } from '@etfm/shared';
+import { FORWARD_REF_INJECTION_KEY } from '@etfm/hooks';
 import { OnlyChild } from '../src/only-child';
 import type { MountingOptions } from '@vue/test-utils';
 

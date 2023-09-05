@@ -17,9 +17,9 @@ import {
 import { useTimeoutFn } from '@vueuse/core';
 import EtfmaCollapseTransition from '../../collapse-transition';
 import EtfmaTooltip from '../../tooltip';
-import { buildProps, loggerError, lodash, definePropType } from '@etfma/shared';
+import { buildProps, loggerError, lodash, definePropType } from '@etfm/shared';
 import { useDeprecated } from './utils/use-deprecated';
-import { useNamespace } from '@etfma/hooks';
+import { useNamespace } from '@etfm/hooks';
 import { ArrowDown, ArrowRight } from './svg';
 import { EtfmaIcon } from '../../icon';
 import useMenu from './use-menu';

@@ -1,8 +1,8 @@
 import { EventEmitter } from 'events';
 import { EventBus } from './event-bus';
-import type { IEditor, IPublicTypeEditorGetResult, IPublicTypeEditorValueKey } from '@etfma/types';
+import type { IEditor, IPublicTypeEditorGetResult, IPublicTypeEditorValueKey } from '@etfm/types';
 import { EngineConfig, engineConfig } from './config';
-import { Logger } from '@etfma/shared';
+import { Logger } from '@etfm/shared';
 
 // inner instance keys which should not be stored in config
 const keyBlacklist = [

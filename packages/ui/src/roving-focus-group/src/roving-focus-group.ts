@@ -1,4 +1,4 @@
-import { buildProps, definePropType } from '@etfma/shared';
+import { buildProps, definePropType } from '@etfm/shared';
 import { createCollectionWithScope } from '../../collection';
 import type { ExtractPropTypes, HTMLAttributes, StyleValue } from 'vue';
 

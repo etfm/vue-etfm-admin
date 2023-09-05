@@ -1,10 +1,10 @@
-import { IPiniaContext, IPublicPlugin, IPublicPluginContext, LayoutType } from '@etfma/types';
-import { lodash } from '@etfma/shared';
+import { IPiniaContext, IPublicPlugin, IPublicPluginContext, LayoutType } from '@etfm/types';
+import { lodash } from '@etfm/shared';
 import HeaderNav from './index.vue';
-import { skeleton, config } from '@etfma/core';
+import { skeleton, config } from 'etfm-engine';
 import { h } from 'vue';
-import { MenuModeEnum } from '@etfma/bs-ui';
 import HeaderNavLogo from './logo.vue';
+import { MenuModeEnum } from '@etfm/element-ui';
 
 const PluginHeaderNav: IPublicPlugin = (ctx: IPublicPluginContext, options) => {
   return {

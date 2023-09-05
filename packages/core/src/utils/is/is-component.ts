@@ -1,6 +1,6 @@
 import { h } from 'vue';
 import { hasOwnProperty } from '../has-own-property';
-import { lodash } from '@etfma/shared';
+import { lodash } from '@etfm/shared';
 
 export function isComponent(comp: any): boolean {
   const vnode = h(comp);

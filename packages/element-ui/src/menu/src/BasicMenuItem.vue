@@ -1,7 +1,7 @@
 <script setup lang="ts">
-  import { EtfmaMenuItem } from '@etfma/ui';
+  import { ElMenuItem } from 'element-plus';
   import BasicMenuItemContent from './BasicMenuItemContent.vue';
-  import { MenuRecordRaw } from '@etfma/types';
+  import { MenuRecordRaw } from '@etfm/types';
 
   interface Props {
     /**
@@ -22,11 +22,11 @@
 </script>
 
 <template>
-  <EtfmaMenuItem :index="menu.path">
+  <ElMenuItem :index="menu.path">
     <template #title>
       <BasicMenuItemContent :show-title="showTitle" :menu="menu" />
     </template>
-  </EtfmaMenuItem>
+  </ElMenuItem>
 </template>
 
-<style lang="scss" module></style>
+<style lang="scss" scoped></style>

@@ -1,5 +1,5 @@
 {
-  "name": "@etfma/element-ui",
+  "name": "@etfm/element-ui",
   "version": "0.0.0",
   "description": "> TODO: description",
   "homepage": "https://github.com/etfm/vue-etfm-admin#readme",
@@ -36,16 +36,16 @@
   },
   "dependencies": {
     "@ctrl/tinycolor": "^3.6.0",
+    "@etfm/hooks": "workspace:*",
+    "@etfm/icon": "workspace:^0.0.0",
+    "@etfm/shared": "workspace:*",
     "@etfma/design": "workspace:*",
-    "@etfma/hooks": "workspace:*",
-    "@etfma/icon": "workspace:^0.0.0",
-    "@etfma/shared": "workspace:*",
     "@etfma/ui": "workspace:^0.0.0",
     "element-plus": "^2.3.2",
     "vue": "^3.3.4"
   },
   "devDependencies": {
-    "@etfma/types": "workspace:*",
+    "@etfm/types": "workspace:*",
     "unplugin-element-plus": "^0.7.0"
   },
   "publishConfig": {

@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { ref } from 'vue';
   import { getTransitionName } from './transition';
-  import { RouterView } from '@etfma/core';
+  import { RouterView } from 'etfm-engine';
 
   defineOptions({
     name: 'LayoutContent',

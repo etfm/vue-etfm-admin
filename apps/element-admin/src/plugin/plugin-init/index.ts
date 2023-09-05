@@ -1,4 +1,4 @@
-import { IPublicPlugin, IPublicPluginContext, material, router } from '@etfma/core';
+import { IPublicPlugin, IPublicPluginContext, material, router } from 'etfm-engine';
 import zhCN from '@/locales/lang/zh_CN';
 import { setupRouterGuard } from '@/router/guard';
 

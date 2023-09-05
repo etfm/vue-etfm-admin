@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-  import { useNamespace } from '@etfma/hooks';
+  import { useNamespace } from '@etfm/hooks';
   import { getCurrentInstance, onMounted, onUnmounted } from 'vue';
   import { useTabsProviderContext } from '../constants';
 

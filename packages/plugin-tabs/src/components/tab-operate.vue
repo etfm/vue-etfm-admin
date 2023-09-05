@@ -1,7 +1,7 @@
 <script setup lang="ts">
-  import { useNamespace } from '@etfma/hooks';
-  import { EtfmaDropdown, EtfmaDropdownItem, EtfmaDropdownMenu } from '@etfma/ui';
-  import { Icon } from '@etfma/icon';
+  import { useNamespace } from '@etfm/hooks';
+  import { ElDropdown, ElDropdownItem, ElDropdownMenu } from 'element-plus';
+  import { Icon } from '@etfm/icon';
   import { PublicMultipleTab } from '../hooks/use-multiple-tab';
   import { RouteLocationNormalized } from 'vue-router';
   import { useTabDropdown } from '../hooks/use-tab-dropdown';
@@ -32,11 +32,11 @@
 </script>
 <template>
   <div :class="ns.b()">
-    <EtfmaDropdown :trigger="trigger" @command="handleMenuEvent" @visible-change="handleContext">
+    <ElDropdown :trigger="trigger" @command="handleMenuEvent" @visible-change="handleContext">
       <slot />
       <template #dropdown>
-        <EtfmaDropdownMenu>
-          <EtfmaDropdownItem
+        <ElDropdownMenu>
+          <ElDropdownItem
             :command="item.key"
             :disabled="item.disabled"
             :divided="item.divider"
@@ -44,10 +44,10 @@
           >
             <Icon :class="ns.b('item-icon')" :size="18" :icon="item.icon" />
             <span>{{ item.title }}</span>
-          </EtfmaDropdownItem>
-        </EtfmaDropdownMenu>
+          </ElDropdownItem>
+        </ElDropdownMenu>
       </template>
-    </EtfmaDropdown>
+    </ElDropdown>
   </div>
 </template>
 

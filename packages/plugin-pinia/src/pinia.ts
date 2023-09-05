@@ -2,7 +2,7 @@ import { createPinia } from 'pinia';
 import { createPersistedState } from 'pinia-plugin-persistedstate';
 import { persistGlobalConfig } from './persist';
 import { DEFAULT_CACHE_KEY, context } from './register';
-import { lodash } from '@etfma/shared';
+import { lodash } from '@etfm/shared';
 
 export function initPinia() {
   const pinia = createPinia();

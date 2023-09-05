@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events';
-import { Logger } from '@etfma/shared';
-import { IEventBus } from '@etfma/types';
+import { Logger } from '@etfm/shared';
+import { IEventBus } from '@etfm/types';
 
 const logger = new Logger({ bizName: 'event-bus' });
 const moduleLogger = new Logger({ bizName: 'module-event-bus' });

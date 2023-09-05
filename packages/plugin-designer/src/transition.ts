@@ -1,5 +1,5 @@
 import type { FunctionalComponent } from 'vue';
-import type { Recordable, RouteLocation } from '@etfma/types';
+import type { Recordable, RouteLocation } from '@etfm/types';
 
 export interface DefaultContext {
   Component: FunctionalComponent & { type: Recordable<any> };

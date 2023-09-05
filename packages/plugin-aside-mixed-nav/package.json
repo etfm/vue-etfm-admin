@@ -34,17 +34,17 @@
     "lint": "pnpm eslint ."
   },
   "dependencies": {
-    "@etfma/bs-ui": "workspace:^0.0.0",
-    "@etfma/core": "workspace:*",
-    "@etfma/hooks": "workspace:*",
-    "@etfma/icon": "workspace:^",
-    "@etfma/shared": "workspace:^",
-    "@etfma/ui": "workspace:^",
+    "@etfm/element-ui": "workspace:*",
+    "@etfm/hooks": "workspace:*",
+    "@etfm/icon": "workspace:*",
+    "@etfm/shared": "workspace:*",
+    "element-plus": "^2.3.5",
+    "etfm-engine": "workspace:*",
     "vue": "^3.3.4",
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
-    "@etfma/types": "workspace:^0.0.0"
+    "@etfm/types": "workspace:^0.0.0"
   },
   "publishConfig": {
     "access": "public",

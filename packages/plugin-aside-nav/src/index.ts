@@ -1,6 +1,6 @@
-import { IPiniaContext, IPublicPlugin, IPublicPluginContext, LayoutType } from '@etfma/types';
-import { lodash } from '@etfma/shared';
-import { skeleton, config } from '@etfma/core';
+import { IPiniaContext, IPublicPlugin, IPublicPluginContext, LayoutType } from '@etfm/types';
+import { lodash } from '@etfm/shared';
+import { skeleton, config } from 'etfm-engine';
 import { h } from 'vue';
 import AsideNav from './aside.vue';
 import AsideNavLogo from './logo.vue';

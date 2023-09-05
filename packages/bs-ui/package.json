@@ -35,17 +35,17 @@
     "test": "node ./__tests__/@etfma/http.test.js"
   },
   "dependencies": {
-    "@etfma/core": "workspace:^",
+    "@etfm/hooks": "workspace:*",
+    "@etfm/icon": "workspace:^",
+    "@etfm/shared": "workspace:*",
     "@etfma/design": "workspace:*",
-    "@etfma/hooks": "workspace:*",
-    "@etfma/icon": "workspace:^",
-    "@etfma/shared": "workspace:*",
     "@etfma/ui": "workspace:^",
+    "etfm-engine": "workspace:^",
     "vue": "^3.3.4",
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
-    "@etfma/types": "workspace:*"
+    "@etfm/types": "workspace:*"
   },
   "publishConfig": {
     "access": "public",

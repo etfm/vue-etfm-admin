@@ -1,4 +1,4 @@
-import { IPublicModelSkeletonItem, IWidget } from '@etfma/types';
+import { IPublicModelSkeletonItem, IWidget } from '@etfm/types';
 import { Widget } from '../layout/widget';
 import { skeletonItemSymbol } from './symbols';
 

@@ -14,7 +14,7 @@ import { store, defineStore } from '@etfma/plugin-pinia';
 // import { Persistent } from '@/cache/persistent';
 // import { darkMode } from '/@/settings/designSetting'
 import { resetRoutes } from '@/router';
-// import { TimeoutHandle } from '@etfma/types';
+// import { TimeoutHandle } from '@etfm/types';
 // import { deepMerge } from '/@/utils'
 
 interface AppState {

@@ -101,32 +101,14 @@
 
       &:hover {
         color: getCssVar('menu-hover-text-color');
-        background-color: getCssVar('menu-bg-sub-menu-item-hover-color') !important;
-
-        // &::before {
-        //   background-color: getCssVar('menu-bg-sub-menu-item-hover-color') !important;
-        //   border-radius: 3px;
-        //   clear: both;
-        //   content: '';
-        //   inset: 0 8px;
-        //   margin: 2px 0;
-        //   position: absolute;
-        // }
+        background-color: var(--el-menu-hover-bg-color);
       }
 
       &--active {
         color: getCssVar('menu-active-color');
-        background-color: getCssVar('menu-bg-sub-menu-item-active-color') !important;
+        // background-color: var(--el-menu-hover-bg-color);
 
         &::before {
-          // background-color: getCssVar('menu-bg-sub-menu-item-active-color') !important;
-          // border-radius: 3px;
-          // clear: both;
-          // content: '';
-          // inset: 0 8px;
-          // margin: 2px 0;
-          // position: absolute;
-
           content: '';
           position: absolute;
           top: 0;

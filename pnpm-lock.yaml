@@ -480,15 +480,12 @@ importers:
       '@etfm/shared':
         specifier: workspace:*
         version: link:../shared
-      '@etfma/design':
-        specifier: workspace:*
-        version: link:../design
-      '@etfma/ui':
-        specifier: workspace:^0.0.0
-        version: link:../ui
       element-plus:
         specifier: ^2.3.2
         version: 2.3.5(vue@3.3.4)
+      etfm-engine:
+        specifier: workspace:*
+        version: link:../core
       vue:
         specifier: ^3.3.4
         version: 3.3.4

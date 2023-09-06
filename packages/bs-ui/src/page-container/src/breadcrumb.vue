@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { useNamespace } from '@etfm/hooks';
   import { MenuRecordRaw } from '@etfm/types';
-  import { EtfmaBreadcrumb, EtfmaBreadcrumbItem } from '@etfma/ui';
+  import { EtfmaBreadcrumb, EtfmaBreadcrumbItem } from '@etfm/ui';
   import { watchEffect, unref, ref, computed } from 'vue';
   import { useRouter } from 'vue-router';
   import { Icon } from '@etfm/icon';

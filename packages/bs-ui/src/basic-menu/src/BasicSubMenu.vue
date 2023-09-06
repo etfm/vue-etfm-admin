@@ -2,7 +2,7 @@
   import type { MenuRecordRaw } from '@etfm/types';
   import BasicMenuItem from './BasicMenuItem.vue';
   import { computed } from 'vue';
-  import { EtfmaSubMenu } from '@etfma/ui';
+  import { EtfmaSubMenu } from '@etfm/ui';
   import BasicMenuItemContent from './BasicMenuItemContent.vue';
 
   defineOptions({

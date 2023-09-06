@@ -2,7 +2,7 @@
   import { ElInputNumber, ElCheckbox, ElRadioGroup, ElRadioButton } from 'element-plus';
   import { reactive } from 'vue';
   import { useNamespace } from '@etfm/hooks';
-  import { PageContainer } from '@etfma/bs-ui';
+  import { PageContainer } from '@etfm/bs-ui';
   import { config } from 'etfm-engine';
 
   defineOptions({

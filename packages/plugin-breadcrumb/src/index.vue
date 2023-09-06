@@ -12,7 +12,7 @@
     EtfmaDropdown,
     EtfmaBreadcrumb,
     EtfmaBreadcrumbItem,
-  } from '@etfma/ui';
+  } from '@etfm/ui';
 
   defineOptions({
     name: 'plugin-breadcrumb',

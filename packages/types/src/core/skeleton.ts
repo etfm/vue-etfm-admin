@@ -10,8 +10,6 @@ export enum SkeletonEvents {
   REMOVE_WIDGET = 'skeleton.remove.widget',
   WIDGET_SHOW = 'skeleton.widget.show',
   WIDGET_HIDE = 'skeleton.widget.hide',
-  WIDGET_DRAG_CHANGE = 'skeleton.widget.dragchange',
-  WIDGET_DRAG = 'skeleton.widget.drag',
   AREA_SHOW = 'skeleton.area.show',
   AREA_HIDE = 'skeleton.area.hide',
 }

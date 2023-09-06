@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { useNamespace } from '@etfm/hooks';
-  import { EtfmaTooltip } from '@etfma/ui';
+  import { ElTooltip } from 'element-plus';
   import { ref } from 'vue';
   import { config, skeleton } from 'etfm-engine';
 
@@ -47,7 +47,7 @@
 <template>
   <div :class="ns.b()">
     <template v-for="item in menuTypeList || []" :key="item.title">
-      <EtfmaTooltip :content="item.title" placement="bottom">
+      <ElTooltip :content="item.title" placement="bottom">
         <div
           @click="handler(item)"
           :class="[
@@ -59,7 +59,7 @@
           ]"
         >
         </div>
-      </EtfmaTooltip>
+      </ElTooltip>
     </template>
   </div>
 </template>

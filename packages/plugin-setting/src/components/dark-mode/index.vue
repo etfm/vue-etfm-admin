@@ -2,7 +2,7 @@
   import { useNamespace } from '@etfm/hooks';
   import Moon from '../../icon/moon.vue';
   import Sun from '../../icon/sun.vue';
-  import { EtfmaIcon } from '@etfma/ui';
+  import { ElIcon } from 'element-plus';
   import { computed, ref, unref } from 'vue';
   import { theme } from 'etfm-engine';
 
@@ -42,12 +42,12 @@
   <div :class="ns.b()">
     <div :class="getClass" @click="toggleDarkMode">
       <div :class="ns.b('switch-inner')"></div>
-      <EtfmaIcon size="16" color="#ffd04b">
+      <ElIcon size="16" color="#ffd04b">
         <Sun />
-      </EtfmaIcon>
-      <EtfmaIcon size="16" color="#ffd04b">
+      </ElIcon>
+      <ElIcon size="16" color="#ffd04b">
         <Moon />
-      </EtfmaIcon>
+      </ElIcon>
     </div>
   </div>
 </template>

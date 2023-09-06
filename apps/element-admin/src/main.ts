@@ -12,7 +12,7 @@ import PluginDesigner from '@etfma/plugin-designer';
 import { staticRoutes } from './router';
 import PluginUser from './plugin/plugin-user';
 import PluginInit from './plugin/plugin-init';
-// import PluginSetting from '@etfma/plugin-setting';
+import PluginSetting from '@etfma/plugin-setting';
 import { getAppEnvConfig } from './utils/env';
 import { transformObjToRoute } from './router/helper/routerHelper';
 import { PluginLayoutPreset } from '@etfm/plugin-layout-preset';
@@ -49,7 +49,7 @@ async function boostrap() {
 
   await plugins.register(PluginUser);
 
-  // await plugins.register(PluginSetting);
+  await plugins.register(PluginSetting);
 
   const routes = transformObjToRoute(staticRoutes);
 

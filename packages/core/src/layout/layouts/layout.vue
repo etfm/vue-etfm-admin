@@ -1,6 +1,6 @@
 <script setup lang="ts">
-  import { CSSProperties } from 'vue';
-  import { computed, watchEffect } from 'vue';
+  import { CSSProperties, watch } from 'vue';
+  import { computed, watchEffect, Teleport } from 'vue';
   import LayoutContent from './layout-content.vue';
   import LayoutFooter from './layout-footer.vue';
   import LayoutHeader from './layout-header.vue';
@@ -80,8 +80,14 @@
    * header 宽度
    */
   const getHeaderWidth = computed(() => {
-    const { layout, fixedMixedExtra, sideWidth, sideVisible } = props;
-    if (layout === 'header-nav' || layout === 'mixed-nav' || !sideVisible || fullContent.value) {
+    const { layout, fixedMixedExtra, sideWidth, sideVisible, isMobile } = props;
+    if (
+      layout === 'header-nav' ||
+      layout === 'mixed-nav' ||
+      !sideVisible ||
+      fullContent.value ||
+      isMobile
+    ) {
       return 'calc(100%)';
     } else if (layout === 'side-nav') {
       return `calc(100% - ${getSiderWidth.value}px)`;
@@ -96,8 +102,8 @@
    * footer tab 宽度
    */
   const getFooterAndTabWidth = computed(() => {
-    const { layout, sideVisible, fixedMixedExtra, sideWidth } = props;
-    if (layout === 'header-nav' || fullContent.value || !sideVisible) {
+    const { layout, sideVisible, fixedMixedExtra, sideWidth, isMobile } = props;
+    if (layout === 'header-nav' || fullContent.value || !sideVisible || isMobile) {
       return 'calc(100%)';
     } else if (layout === 'side-nav' || layout === 'mixed-nav') {
       return `calc(100% - ${getSiderWidth.value}px)`;
@@ -139,33 +145,48 @@
   const tabTop = computed(() => (fullContent.value ? 0 : props.headerHeight));
 
   /**
-   * 阴影
+   * header z-index
    */
-  // const getHeaderShadow = computed<CSSProperties>(() => {
-  //   return {
-  //     boxShadow: '5px 0 8px 0 rgb(29 35 41 / 5%)',
-  //     zIndex: props.zIndex,
-  //   };
-  // });
+  const headerZIndex = computed(() => {
+    const { zIndex } = props;
+    return zIndex! + 1;
+  });
 
   /**
    * 侧边栏z-index
    */
   const sideZIndex = computed(() => {
-    const { zIndex, isMobile } = props;
-    const offset = isMobile || isSideMode.value ? 1 : -1;
-    return zIndex! + offset;
+    const { isMobile } = props;
+    return isMobile ? headerZIndex.value + 1 : headerZIndex.value;
   });
 
   const maskStyle = computed((): CSSProperties => {
     return {
-      zIndex: props.zIndex,
+      zIndex: headerZIndex.value,
     };
   });
 
   watchEffect(() => {
     sideCollapseState.value = props.isMobile;
   });
+
+  watchEffect(() => {
+    if (props.isMobile && props.layout !== 'side-nav') {
+      engineConfig.set('layout', 'side-nav');
+    }
+  });
+
+  watch(
+    () => props.layout,
+    () => {
+      if (props.isMobile) {
+        engineConfig.set('layout', 'side-nav');
+      }
+    },
+    {
+      immediate: true,
+    },
+  );
 
   function handleExtraVisible(visible: boolean) {
     emit('update:mixed-extra-visible', visible);
@@ -202,7 +223,7 @@
         v-if="headerVisible"
         :skeleton="skeleton"
         :show="!fullContent"
-        :z-index="zIndex"
+        :z-index="headerZIndex"
         :height="headerHeight"
         :width="getHeaderWidth"
         :fixed="getHeaderFixed"
@@ -244,7 +265,9 @@
       >
       </LayoutFooter>
     </div>
-    <div v-if="maskVisible" :class="e('mask')" :style="maskStyle" @click="handleClickMask"></div>
+    <Teleport to="body">
+      <div v-if="maskVisible" :class="e('mask')" :style="maskStyle" @click="handleClickMask"></div>
+    </Teleport>
   </div>
 </template>
 
@@ -257,7 +280,6 @@
       display: flex;
       flex: auto;
       flex-direction: column;
-      position: relative;
     }
 
     @include e('mask') {

@@ -126,7 +126,6 @@ export const drawerProps = buildProps({
   },
   zIndex: {
     type: Number,
-    default: 1000,
   },
   direction: {
     type: definePropType<'ltr' | 'rtl' | 'ttb' | 'btt'>(String),

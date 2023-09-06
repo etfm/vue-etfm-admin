@@ -1,6 +1,5 @@
 <script lang="tsx">
   import { defineComponent, PropType, ref } from 'vue';
-  import DraggableLineView from './draggable-line-view.vue';
   import { Widget } from '../../widget';
 
   export default defineComponent({
@@ -34,12 +33,7 @@
       if (!this.visible) {
         return null;
       }
-      return (
-        <>
-          {this.widget.body}
-          {this.widget.config.props?.enableDrag && <DraggableLineView widget={this.widget} />}
-        </>
-      );
+      return <>{this.widget.body}</>;
     },
   });
 </script>

@@ -22,6 +22,7 @@ const PluginSetting: IPublicPlugin = (ctx: IPublicPluginContext, options) => {
         },
         content: h(Setting),
         contentProps: opts,
+        index: opts.index || 999,
       });
     },
   };

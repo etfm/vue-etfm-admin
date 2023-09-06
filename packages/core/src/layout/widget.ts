@@ -1,6 +1,5 @@
 import { WidgetView } from './components/widget';
 import { createElement, uniqueId } from '../utils';
-import { getEvent } from '../shell';
 import {
   IPublicTypeDisposable,
   IPublicTypeWidgetConfigArea,
@@ -32,7 +31,6 @@ export class Widget implements IWidget {
     this._body = createElement(content, {
       ...contentProps,
       config: this.config,
-      editor: getEvent(this.skeleton.editor),
     });
 
     return this._body;

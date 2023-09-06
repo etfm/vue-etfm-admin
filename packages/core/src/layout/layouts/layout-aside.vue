@@ -2,7 +2,7 @@
   import { useNamespace } from '@etfm/hooks';
   import { onClickOutside } from '@vueuse/core';
   import type { CSSProperties, PropType } from 'vue';
-  import { computed, defineComponent, ref, shallowRef, unref, watchEffect } from 'vue';
+  import { computed, defineComponent, ref, shallowRef, unref, watchEffect, Teleport } from 'vue';
   import { ISkeleton, IWidget } from '@etfm/types';
 
   export default defineComponent({
@@ -140,7 +140,7 @@
         const { backgroundColor, zIndex, sideExtraWidth, width } = props;
 
         return {
-          zIndex,
+          zIndex: extraVisible.value! ? zIndex : zIndex - 1,
           left: `${width}px`,
           width: extraVisible.value ? `${sideExtraWidth}px` : 0,
           backgroundColor,
@@ -240,8 +240,18 @@
       };
     },
     render() {
-      const { domVisible, hiddenSideStyle, e, b, style, isSideMixed, extraStyle, aside, extra } =
-        this;
+      const {
+        domVisible,
+        hiddenSideStyle,
+        e,
+        b,
+        style,
+        isSideMixed,
+        extraStyle,
+        aside,
+        extra,
+        fixedMixedExtra,
+      } = this;
       return (
         <>
           {domVisible && <div style={hiddenSideStyle} class={e('hide')}></div>}
@@ -250,11 +260,13 @@
             {aside.center}
             {aside.right}
             {isSideMixed && (
-              <div ref="asideRef" style={extraStyle} class={e('extra')}>
-                {extra.left}
-                {extra.center}
-                {extra.right}
-              </div>
+              <Teleport to={'body'} disabled={fixedMixedExtra}>
+                <div ref="asideRef" style={extraStyle} class={e('extra')}>
+                  {extra.left}
+                  {extra.center}
+                  {extra.right}
+                </div>
+              </Teleport>
             )}
           </aside>
         </>
@@ -262,11 +274,11 @@
     },
   });
 </script>
-
-<style scoped module lang="scss">
-  @include b('aside') {
+<style module lang="scss">
+  :root {
     @include set-component-css-var('aside', $aside-area);
-
+  }
+  @include b('aside') {
     position: fixed;
     top: 0;
     left: 0;
@@ -274,7 +286,6 @@
     overflow: hidden;
     flex-shrink: 0;
     box-shadow: 2px 0 8px 0 rgb(29 35 41 / 5%);
-    // box-shadow: 0 0 1px #888;
     transition: all 0.2s ease 0s;
     background-color: getCssVar('aside', 'bg-color');
     display: flex;

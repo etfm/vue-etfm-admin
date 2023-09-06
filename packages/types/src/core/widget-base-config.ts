@@ -12,6 +12,7 @@ export interface IPublicTypeWidgetBaseConfig {
   visible?: boolean;
   content?: any;
   contentProps?: Record<string, any>;
+  index?: number;
   [extra: string]: any;
 }
 

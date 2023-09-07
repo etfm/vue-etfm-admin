@@ -1,0 +1,61 @@
+{
+  "name": "@etfm/plugin-element-preset",
+  "version": "0.0.0",
+  "description": "> TODO: description",
+  "homepage": "https://github.com/etfm/vue-etfm-admin#readme",
+  "bugs": {
+    "url": "https://github.com/etfm/vue-etfm-admin/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/etfm/vue-etfm-admin.git"
+  },
+  "license": "ISC",
+  "author": "lzdjack <1956252575@qq.com>",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "development": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.mjs"
+    }
+  },
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "bootstrap": "pnpm install",
+    "build": "pnpm vite build",
+    "clean": "pnpm rimraf .turbo node_modules dist",
+    "lint": "pnpm eslint ."
+  },
+  "dependencies": {
+    "@etfm/hooks": "workspace:*",
+    "@etfm/plugin-aside-mixed-nav": "workspace:^",
+    "@etfm/plugin-aside-nav": "workspace:^",
+    "@etfm/plugin-content-fullscreen": "workspace:^",
+    "@etfm/plugin-element-ui": "workspace:^",
+    "@etfm/plugin-fullscreen": "workspace:^",
+    "@etfm/plugin-header-nav": "workspace:^",
+    "@etfm/plugin-mixed-nav": "workspace:^",
+    "@etfm/plugin-tabs": "workspace:^",
+    "@etfm/shared": "workspace:^",
+    "etfm-engine": "workspace:*"
+  },
+  "devDependencies": {
+    "@etfm/types": "workspace:^0.0.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.mjs"
+      }
+    }
+  }
+}

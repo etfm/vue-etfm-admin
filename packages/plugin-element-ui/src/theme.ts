@@ -13,12 +13,14 @@ const DEFAULT_PRIMARY_COLOR = '#409eff';
 export function setCssVar(options: Partial<IPublicThemeOptins>) {
   const color = options.color || DEFAULT_PRIMARY_COLOR;
 
+  const isDark = options.isDark || theme.isDark;
+
   const defaujltPrimaryColors = {
     LIGHT: DEFAULT_LIGHT,
     DARK: DEFAULT_DARK,
   };
 
-  if (theme.isDark) {
+  if (isDark) {
     defaujltPrimaryColors.LIGHT = DEFAULT_DARK;
     defaujltPrimaryColors.DARK = DEFAULT_LIGHT;
   }
@@ -35,5 +37,6 @@ export function setCssVar(options: Partial<IPublicThemeOptins>) {
       i * 0.1,
     );
   }
+
   theme.setCssVar(cssVar);
 }

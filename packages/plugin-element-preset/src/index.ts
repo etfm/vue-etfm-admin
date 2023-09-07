@@ -8,13 +8,16 @@ import { PluginMixedNav } from '@etfm/plugin-mixed-nav';
 import { PluginFullscreen } from '@etfm/plugin-fullscreen';
 import { PluginTabs } from '@etfm/plugin-tabs';
 import { PluginContentFullscreen } from '@etfm/plugin-content-fullscreen';
+import { PluginElementUI } from '@etfm/plugin-element-ui';
 
-const PluginLayoutPreset: IPublicPlugin = (ctx: IPublicPluginContext, options) => {
+const PluginElementPreset: IPublicPlugin = (ctx: IPublicPluginContext, options) => {
   const fn: any[] = [];
   return {
     init: async () => {
       const context = ctx.preference.getPreference() as unknown as IPiniaContext;
       const opts = lodash.merge(context, options);
+
+      await plugins.register(PluginElementUI, { theme: opts.theme, i18n: opts.i18n });
 
       await plugins.register(PluginAsideMixedNav, {
         'unique-opened': opts?.uniqueOpened,
@@ -81,11 +84,11 @@ const PluginLayoutPreset: IPublicPlugin = (ctx: IPublicPluginContext, options) =
   };
 };
 
-PluginLayoutPreset.pluginName = 'PluginLayoutPreset';
+PluginElementPreset.pluginName = 'PluginElementPreset';
 
-export default PluginLayoutPreset;
+export default PluginElementPreset;
 
-export { PluginLayoutPreset };
+export { PluginElementPreset };
 
 export * from '@etfm/plugin-aside-mixed-nav';
 export * from '@etfm/plugin-header-nav';

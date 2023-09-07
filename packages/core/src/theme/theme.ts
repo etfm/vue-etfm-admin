@@ -4,23 +4,19 @@ import {
   DEFAULT_LIGHT,
   DEFAULT_DARK,
   DEFAULT_PRIMARY_COLOR,
+  DEFAULT_THEME,
 } from './constants';
 
 import { vueUse } from '@etfm/hooks';
 import { engineConfig } from '../config';
-import { lodash } from '@etfm/shared';
 import { editor } from '../editor';
 
-export enum ThemeEvent {
-  THEME_DAKE = 'theme.dark',
-}
-
 export class Theme implements IPublicTheme {
+  private _theme: string = DEFAULT_THEME;
   private _isDark: boolean = false;
   private _color: string;
   private mixLightColor;
   private mixDarkColor;
-  private readonly editor: IEditor;
 
   private _overrides: Record<string, any>;
 
@@ -30,6 +26,10 @@ export class Theme implements IPublicTheme {
 
   get isDark() {
     return this._isDark;
+  }
+
+  get theme() {
+    return this._theme;
   }
 
   get color() {
@@ -45,11 +45,11 @@ export class Theme implements IPublicTheme {
     };
   }
 
-  constructor(editor: IEditor) {
-    this.editor = editor;
+  constructor(readonly editor: IEditor) {
     const isDark = vueUse.useDark();
 
     this.setConfig({
+      theme: DEFAULT_THEME,
       color: DEFAULT_PRIMARY_COLOR,
       mixDarkColor: DEFAULT_DARK,
       mixLightColor: DEFAULT_LIGHT,
@@ -57,52 +57,83 @@ export class Theme implements IPublicTheme {
       isDark: isDark.value,
     });
 
-    engineConfig.onGot('theme', (options: IPublicThemeOptins) => {
+    engineConfig.onGot('theme', (e: string) => {
       this.setConfig({
-        color: options?.color ?? this.color,
-        mixDarkColor: options?.mixDarkColor ?? this.mixDarkColor,
-        mixLightColor: options?.mixDarkColor ?? this.mixLightColor,
-        overrides: options?.overrides ?? this.overrides,
-        isDark: options?.isDark ?? this.isDark,
+        color: e ?? this.theme,
       });
 
-      this.setCssVar();
+      this.reload();
+    });
+
+    engineConfig.onGot('theme.color', (e: string) => {
+      this.setConfig({
+        color: e ?? this.color,
+      });
+
+      this.reload();
+    });
+
+    engineConfig.onGot('theme.isDark', (e) => {
+      this.setConfig({
+        isDark: e ?? this.isDark,
+      });
+      this.reload();
+    });
+
+    engineConfig.onGot('theme.mixDarkColor', (e) => {
+      this.setConfig({
+        mixDarkColor: e ?? this.mixDarkColor,
+      });
+      this.reload();
+    });
+
+    engineConfig.onGot('theme.mixLightColor', (e) => {
+      this.setConfig({
+        mixLightColor: e ?? this.mixLightColor,
+      });
+      this.reload();
+    });
+
+    engineConfig.onGot('theme.overrides', (e) => {
+      this.setConfig({
+        overrides: e ?? this.overrides,
+      });
+      this.reload();
     });
   }
 
-  setConfig(options: IPublicThemeOptins) {
-    this._color = options.color;
-    this._overrides = options.overrides;
-    this._isDark = options.isDark;
-    this.mixDarkColor = options.mixDarkColor;
-    this.mixLightColor = options.mixLightColor;
+  setConfig(options: Partial<IPublicThemeOptins>) {
+    this._theme = options?.theme ?? this.theme;
+    this._color = options?.color ?? this.color;
+    this._overrides = options?.overrides ?? this.overrides;
+    this._isDark = options?.isDark ?? this.isDark;
+    this.mixDarkColor = options?.mixDarkColor ?? this.mixDarkColor;
+    this.mixLightColor = options?.mixLightColor ?? this.mixLightColor;
   }
 
   /**
    * 初始化主题
    */
   init() {
+    this.reload();
+  }
+
+  reload() {
     this.setCssVar();
   }
 
   /**
-   * 主题切换
+   * 暗黑主题切换
    */
   toggle() {
-    this._isDark = !this.isDark;
-
-    engineConfig.set('theme', { isDark: this._isDark });
-
-    this.editor.emit(ThemeEvent.THEME_DAKE, this._isDark);
+    engineConfig.set('theme.isDark', !this._isDark);
   }
 
   /**
-   * 切换主图颜色
+   * 切换主题颜色
    */
-  changeTheme(color?: string, opts?: Partial<IPublicThemeOptins>) {
-    const args = engineConfig.get('theme');
-
-    engineConfig.set('theme', lodash.merge(args, { ...opts, color }));
+  change(color?: string) {
+    engineConfig.set('theme.color', color);
   }
 
   /**
@@ -110,7 +141,7 @@ export class Theme implements IPublicTheme {
    */
   setCssVar(overrides?: Record<string, any>) {
     overrides && (this._overrides = overrides);
-    document.documentElement.className = this.isDark ? 'dark' : '';
+    document.documentElement.className = this.isDark ? 'dark' : 'light';
 
     for (const key in this.cssVar) {
       if (Object.prototype.hasOwnProperty.call(this.cssVar, key)) {
@@ -123,7 +154,6 @@ export class Theme implements IPublicTheme {
    * 默认的主题颜色
    */
   defaultCssVar() {
-    const aa = '--el-color-primary';
     const defaujltPrimaryColors = {
       LIGHT: this.mixLightColor,
       DARK: this.mixDarkColor,
@@ -135,9 +165,7 @@ export class Theme implements IPublicTheme {
     }
     const cssVar: Record<string, any> = {
       [DEFAULT_PRIMARY_VAR]: this.color,
-      [aa]: this.color,
       [`${DEFAULT_PRIMARY_VAR}-dark-2`]: this.mix(this.color, defaujltPrimaryColors.DARK, 0.2),
-      [`${aa}-dark-2`]: this.mix(this.color, defaujltPrimaryColors.DARK, 0.2),
     };
     for (let i = 1; i < 10; i += 1) {
       cssVar[`${DEFAULT_PRIMARY_VAR}-light-${i}`] = this.mix(
@@ -145,7 +173,6 @@ export class Theme implements IPublicTheme {
         defaujltPrimaryColors.LIGHT,
         i * 0.1,
       );
-      cssVar[`${aa}-light-${i}`] = this.mix(this.color, defaujltPrimaryColors.LIGHT, i * 0.1);
     }
 
     return cssVar;

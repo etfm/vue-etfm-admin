@@ -21,20 +21,8 @@
     },
   ]);
 
-  theme.onChange((flag) => {
-    isDarkRef.value = flag;
-
-    if (flag) {
-      theme.setCssVar({
-        ...theme.cssVar,
-        ...ns.cssVar({
-          'header-area-bg-color': `var(${ns.cssVarName('bg-color')})`,
-        }),
-      });
-    }
-  });
-
   function toggleDarkMode() {
+    isDarkRef.value = !isDarkRef.value;
     theme.toggle();
   }
 </script>

@@ -1,15 +1,18 @@
-import { IPublicApiTheme, IPublicThemeOptins, IPublicTypeDisposable } from '@etfm/types';
-import { Theme as InnerTheme, ThemeEvent } from '../theme';
+import { IPublicApiTheme } from '@etfm/types';
+import { Theme as InnerTheme } from '../theme';
 import { editorSymbol, themeSymbol } from './symbols';
 import { Editor } from '../editor';
 
 export class Theme implements IPublicApiTheme {
   private readonly [themeSymbol]: InnerTheme;
-  private readonly [editorSymbol]: Editor;
 
   constructor(editor: Editor, theme: InnerTheme) {
     this[themeSymbol] = theme;
     this[editorSymbol] = editor;
+  }
+
+  get theme(): string {
+    return this[themeSymbol].theme;
   }
 
   get isDark(): boolean {
@@ -28,8 +31,8 @@ export class Theme implements IPublicApiTheme {
     return this[themeSymbol].cssVar;
   }
 
-  changeTheme(color?: string, opts?: Partial<IPublicThemeOptins>) {
-    this[themeSymbol].changeTheme(color, opts);
+  change(color?: string) {
+    this[themeSymbol].change(color);
   }
 
   setCssVar(overrides: Record<string, any>) {
@@ -42,10 +45,5 @@ export class Theme implements IPublicApiTheme {
 
   toggle() {
     this[themeSymbol].toggle();
-  }
-
-  onChange(fn: (data: any) => void): IPublicTypeDisposable {
-    this[editorSymbol].eventBus.on(ThemeEvent.THEME_DAKE, fn);
-    return () => this[editorSymbol].eventBus.off(ThemeEvent.THEME_DAKE, fn);
   }
 }

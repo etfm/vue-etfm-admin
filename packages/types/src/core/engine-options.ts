@@ -1,6 +1,5 @@
 import { I18nContext } from '../locale';
 import { RouterContext } from '../router';
-import { IPublicThemeOptins } from './theme';
 
 export interface IPublicTypeEngineOptions {
   /**
@@ -153,23 +152,40 @@ export interface IPublicTypeEngineOptions {
    */
   'layout.fixedMixedExtra'?: boolean;
   /**
-   * 主题配置
-   * @default
+   * 主题
+   * @default light
    */
-  theme?: IPublicThemeOptins;
+  theme?: string;
+  /**
+   * 主题颜色
+   * @default #409eff
+   */
+  'theme.color'?: string;
+  /**
+   * 是否暗黑主题
+   * @default false
+   */
+  'theme.isDark'?: boolean;
+  /**
+   * 混入亮色基本颜色
+   * @default #ffffff
+   */
+  'theme.mixLightColor'?: string;
+  /**
+   * 混入暗色基本颜色
+   * @default #141414
+   */
+  'theme.mixDarkColor'?: string;
+  /**
+   * 颜色变量
+   * @default {}
+   */
+  'theme.overrides'?: Record<string, any>;
   /**
    * 多语言配置
    * @default
    */
   i18n?: I18nContext;
-
-  /**
-   * 开启严格插件模式，默认值：STRICT_PLUGIN_MODE_DEFAULT , 严格模式下，插件将无法通过 engineOptions 传递自定义配置项
-   * enable strict plugin mode, default value: false
-   * under strict mode, customed engineOption is not accepted.
-   */
-  // enableStrictPluginMode?: boolean;
-
   /**
    * 路由配置
    * @default

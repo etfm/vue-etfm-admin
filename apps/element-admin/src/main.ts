@@ -15,7 +15,7 @@ import PluginInit from './plugin/plugin-init';
 import PluginSetting from '@etfma/plugin-setting';
 import { getAppEnvConfig } from './utils/env';
 import { transformObjToRoute } from './router/helper/routerHelper';
-import { PluginLayoutPreset } from '@etfm/plugin-layout-preset';
+import { PluginElementPreset } from '@etfm/plugin-element-preset';
 
 import logo from '@/assets/images/logo.png';
 
@@ -43,7 +43,7 @@ async function boostrap() {
 
   await plugins.register(PluginPinia);
 
-  await plugins.register(PluginLayoutPreset, {}, { preset: true });
+  await plugins.register(PluginElementPreset, {}, { preset: true });
 
   await plugins.register(PluginDesigner);
 
@@ -55,7 +55,7 @@ async function boostrap() {
 
   const preference = new Map();
 
-  preference.set('PluginLayoutPreset', {
+  preference.set('PluginElementPreset', {
     uniqueOpened: true,
     title: 'Etfm Admin',
     image: logo,

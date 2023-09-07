@@ -52,7 +52,7 @@ const cssLightMap = ns.cssVar({
 
 export function useColor(props: { theme: 'light' | 'dark' }) {
   function changLight(color: string) {
-    theme.changeTheme(color, { overrides: cssLightMap });
+    theme.change(color, { overrides: cssLightMap });
   }
   // #0f0303
   function changeDark(color: string) {
@@ -84,7 +84,7 @@ export function useColor(props: { theme: 'light' | 'dark' }) {
       }),
     };
 
-    theme.changeTheme(color, { overrides });
+    theme.change(color, { overrides });
   }
 
   config.onGot('layout', (layout: string) => {

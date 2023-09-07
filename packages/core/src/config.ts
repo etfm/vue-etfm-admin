@@ -190,15 +190,45 @@ const VALID_ENGINE_OPTIONS = {
     defaultValue: false,
     description: '固定混合侧边菜单',
   },
+  theme: {
+    type: 'string',
+    storage: true,
+    defaultValue: 'light',
+    description: '主题',
+  },
+  'theme.color': {
+    type: 'string',
+    storage: true,
+    defaultValue: '#409eff',
+    description: '主题颜色',
+  },
+  'theme.isDark': {
+    type: 'boolean',
+    storage: true,
+    defaultValue: false,
+    description: '是否暗黑主题',
+  },
+  'theme.mixLightColor': {
+    type: 'string',
+    storage: true,
+    defaultValue: '#ffffff',
+    description: '混入亮色基本颜色',
+  },
+  'theme.mixDarkColor': {
+    type: 'string',
+    storage: true,
+    defaultValue: '#141414',
+    description: '混入暗色基本颜色',
+  },
+  'theme.overrides': {
+    type: 'object',
+    storage: true,
+    description: '颜色变量',
+  },
   i18n: {
     type: 'object',
     storage: true,
-    description: '语言',
-  },
-  theme: {
-    type: 'object',
-    storage: true,
-    description: '主题',
+    description: '多语言',
   },
   router: {
     type: 'object',

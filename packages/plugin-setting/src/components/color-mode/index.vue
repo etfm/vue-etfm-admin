@@ -3,6 +3,7 @@
   import { computed, ref } from 'vue';
   import { ElColorPicker } from 'element-plus';
   import { Icon } from '@etfm/icon';
+  import { config } from 'etfm-engine';
 
   defineOptions({
     name: 'setting-color',
@@ -17,7 +18,7 @@
   });
 
   const emit = defineEmits<{
-    change: [color: string];
+    change: [color: string, theme: string];
   }>();
 
   const ns = useNamespace('setting-color');
@@ -39,7 +40,9 @@
   function handleColorChange(color: string | null) {
     def.value = color!;
 
-    emit('change', color!);
+    emit('change', color!, props.theme);
+
+    config.set('theme.color', color!);
   }
 </script>
 

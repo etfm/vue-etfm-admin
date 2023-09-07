@@ -15,7 +15,7 @@
     "@etfm/element-ui": "workspace:^0.0.0",
     "@etfm/hooks": "workspace:*",
     "@etfm/icon": "workspace:^0.0.0",
-    "@etfm/plugin-layout-preset": "workspace:*",
+    "@etfm/plugin-element-preset": "workspace:*",
     "@etfm/shared": "workspace:*",
     "@etfm/ui": "workspace:*",
     "@etfma/design": "workspace:*",

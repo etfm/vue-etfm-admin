@@ -1,7 +1,7 @@
 import { IPiniaContext, IPublicPlugin, IPublicPluginContext } from '@etfm/types';
 import { lodash } from '@etfm/shared';
-import { config, theme } from 'etfm-engine';
-import { setCssVar } from './theme';
+import { config } from 'etfm-engine';
+import { setCssVar, setCssVarDark } from './theme';
 
 const PluginElementUI: IPublicPlugin = (ctx: IPublicPluginContext, options) => {
   return {
@@ -19,8 +19,14 @@ const PluginElementUI: IPublicPlugin = (ctx: IPublicPluginContext, options) => {
       });
 
       config.onGot('theme.isDark', (e) => {
-        opts.theme && setCssVar({ color: theme.color, isDark: e });
+        opts.theme && setCssVar({ isDark: e });
       });
+
+      config.onGot('theme', (e) => {
+        opts.theme && setCssVarDark({ theme: e });
+      });
+
+      config.onGot('layout', () => {});
     },
   };
 };

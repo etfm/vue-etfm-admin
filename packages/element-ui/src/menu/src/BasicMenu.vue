@@ -2,7 +2,7 @@
   import BasicSubMenu from './BasicSubMenu.vue';
   import type { MenuRecordRaw } from '@etfm/types';
   import { MenuModeEnum, Mode } from './enum';
-  import { reactive, watch } from 'vue';
+  import { CSSProperties, computed, reactive, watch } from 'vue';
   import { lodash } from '@etfm/shared';
   import { ElMenu } from 'element-plus';
   import { useNamespace } from '@etfm/hooks';
@@ -74,6 +74,12 @@
     defaultOpeneds: [],
   });
 
+  const style = computed<CSSProperties>(() => {
+    return {
+      backgroundColor: 'inherit',
+    };
+  });
+
   watch(
     () => props.defaultActive,
     (newVal) => {
@@ -128,6 +134,7 @@
 <template>
   <ElMenu
     :class="ns.b()"
+    :style="style"
     :mode="props.mode"
     :default-active="menuState.defaultActive"
     :default-openeds="menuState.defaultOpeneds"

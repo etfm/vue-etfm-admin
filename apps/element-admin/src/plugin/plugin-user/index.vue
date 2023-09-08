@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { EtfmaDropdown, EtfmaDropdownItem, EtfmaDropdownMenu } from '@etfm/ui';
+  import { ElDropdown, ElDropdownItem, ElDropdownMenu } from 'element-plus';
   import { useNamespace } from '@etfm/hooks';
 
   defineOptions({
@@ -10,14 +10,14 @@
   const ns = useNamespace('plugin-user');
 </script>
 <template>
-  <EtfmaDropdown>
+  <ElDropdown>
     <div :class="ns.b()">lzdjack</div>
     <template #dropdown>
-      <EtfmaDropdownMenu>
-        <EtfmaDropdownItem> 退出登录 </EtfmaDropdownItem>
-      </EtfmaDropdownMenu>
+      <ElDropdownMenu>
+        <ElDropdownItem> 退出登录 </ElDropdownItem>
+      </ElDropdownMenu>
     </template>
-  </EtfmaDropdown>
+  </ElDropdown>
 </template>
 <style lang="scss" module>
   @include b(plugin-user) {

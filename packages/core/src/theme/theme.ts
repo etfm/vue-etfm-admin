@@ -59,7 +59,7 @@ export class Theme implements IPublicTheme {
 
     engineConfig.onGot('theme', (e: string) => {
       this.setConfig({
-        color: e ?? this.theme,
+        theme: e ?? this.theme,
       });
 
       this.reload();

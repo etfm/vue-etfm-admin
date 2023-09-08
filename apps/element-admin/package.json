@@ -17,7 +17,6 @@
     "@etfm/icon": "workspace:^0.0.0",
     "@etfm/plugin-element-preset": "workspace:*",
     "@etfm/shared": "workspace:*",
-    "@etfm/ui": "workspace:*",
     "@etfma/design": "workspace:*",
     "@etfma/plugin-designer": "workspace:^",
     "@etfma/plugin-http": "workspace:^0.0.0",

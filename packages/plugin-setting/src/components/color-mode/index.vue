@@ -1,54 +1,64 @@
 <script lang="ts" setup>
   import { useNamespace } from '@etfm/hooks';
-  import { computed, ref } from 'vue';
-  import { ElColorPicker } from 'element-plus';
+  import { ref } from 'vue';
   import { Icon } from '@etfm/icon';
   import { config } from 'etfm-engine';
+  import { SwitchItem } from '../switch-item';
 
   defineOptions({
     name: 'setting-color',
   });
 
-  interface Props {
-    theme: 'light' | 'dark';
-  }
-
-  const props = withDefaults(defineProps<Props>(), {
-    theme: 'light',
-  });
-
-  const emit = defineEmits<{
-    change: [color: string, theme: string];
-  }>();
-
   const ns = useNamespace('setting-color');
 
-  const def = ref('#409eff');
+  const def = ref('#0960bd');
   const colors = ref([
-    '#409eff',
-    '#f5222d',
-    '#fa541c',
-    '#fadb14',
-    '#13c2c2',
-    '#52c41a',
-    '#eb2f96',
+    '#0960bd',
     '#722ed1',
+    '#13c2c2',
+    '#fa541c',
+    '#f5222d',
+    '#eb2f96',
+    '#fadb14',
+    '#52c41a',
   ]);
 
-  const hasColorPicker = computed(() => props.theme === 'light');
+  const themeColor = ref(true);
 
+  /**
+   * 更改主题颜色
+   * @param color
+   */
   function handleColorChange(color: string | null) {
     def.value = color!;
 
-    emit('change', color!, props.theme);
-
     config.set('theme.color', color!);
+  }
+
+  /**
+   * 更改系统主题
+   * @param e
+   */
+  function handleChange(e: any) {
+    if (e) {
+      config.set('theme', 'light');
+    } else {
+      config.set('theme', 'dark');
+    }
   }
 </script>
 
 <template>
-  <div :class="ns.em('content', 'inline')">
-    <div :class="ns.b()">
+  <div :class="ns.b()">
+    <SwitchItem
+      v-model="themeColor"
+      title="主题类型"
+      active-text="亮色"
+      inactive-text="深色"
+      inactive-color="#000000"
+      @change="handleChange"
+    ></SwitchItem>
+    <div :class="ns.e('content')">
       <template v-for="color in colors" :key="color">
         <span
           @click="handleColorChange(color)"
@@ -64,22 +74,16 @@
         </span>
       </template>
     </div>
-    <ElColorPicker v-if="hasColorPicker" v-model="def" @change="handleColorChange"> </ElColorPicker>
   </div>
 </template>
 <style lang="scss" module>
   @include b(setting-color) {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    margin: 16px 0;
-    flex: 1;
-
     @include e(content) {
-      @include m(inline) {
-        display: flex;
-        align-items: center;
-      }
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin: 16px 0;
+      flex: 1;
     }
 
     @include e(item) {

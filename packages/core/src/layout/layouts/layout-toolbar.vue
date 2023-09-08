@@ -150,7 +150,7 @@
 
 <style scoped module lang="scss">
   @include b('toolbar') {
-    @include set-component-css-var('toolbar', $toolbar-area);
+    @include set-component-css-var('toolbar', $toolbar);
 
     width: 100%;
     transition: all 0.3s ease 0s;

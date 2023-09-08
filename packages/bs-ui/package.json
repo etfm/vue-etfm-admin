@@ -38,7 +38,6 @@
     "@etfm/hooks": "workspace:*",
     "@etfm/icon": "workspace:^",
     "@etfm/shared": "workspace:*",
-    "@etfm/ui": "workspace:^",
     "@etfma/design": "workspace:*",
     "etfm-engine": "workspace:^",
     "vue": "^3.3.4",

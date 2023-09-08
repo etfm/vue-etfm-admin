@@ -80,7 +80,6 @@
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
-    border-bottom: 1px solid getCssVar(border-color);
     width: 100%;
 
     @include e(title) {

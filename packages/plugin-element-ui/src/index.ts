@@ -1,6 +1,6 @@
-import { IPiniaContext, IPublicPlugin, IPublicPluginContext } from '@etfm/types';
+import { IPiniaContext, IPublicPlugin, IPublicPluginContext, LayoutType } from '@etfm/types';
 import { lodash } from '@etfm/shared';
-import { config } from 'etfm-engine';
+import { config, theme } from 'etfm-engine';
 import { setCssVar, setCssVarDark } from './theme';
 
 const PluginElementUI: IPublicPlugin = (ctx: IPublicPluginContext, options) => {
@@ -15,7 +15,9 @@ const PluginElementUI: IPublicPlugin = (ctx: IPublicPluginContext, options) => {
       const opts = lodash.merge(defaultOptios, context, options);
 
       config.onGot('theme.color', (color: string) => {
-        opts.theme && setCssVar({ color });
+        if (opts.theme) {
+          theme.theme === 'light' ? setCssVar({ color }) : setCssVarDark({ color: color });
+        }
       });
 
       config.onGot('theme.isDark', (e) => {
@@ -26,7 +28,9 @@ const PluginElementUI: IPublicPlugin = (ctx: IPublicPluginContext, options) => {
         opts.theme && setCssVarDark({ theme: e });
       });
 
-      config.onGot('layout', () => {});
+      config.onGot('layout', (e: LayoutType) => {
+        opts.layout && setCssVarDark({}, e);
+      });
     },
   };
 };

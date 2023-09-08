@@ -7,12 +7,12 @@
   import { lodash } from '@etfm/shared';
   import { useGo } from 'etfm-engine';
   import {
-    EtfmaDropdownItem,
-    EtfmaDropdownMenu,
-    EtfmaDropdown,
-    EtfmaBreadcrumb,
-    EtfmaBreadcrumbItem,
-  } from '@etfm/ui';
+    ElDropdownItem,
+    ElDropdownMenu,
+    ElDropdown,
+    ElBreadcrumb,
+    ElBreadcrumbItem,
+  } from 'element-plus';
 
   defineOptions({
     name: 'plugin-breadcrumb',
@@ -73,9 +73,9 @@
 </script>
 <template>
   <div :class="ns.b()">
-    <EtfmaBreadcrumb :separator="separator">
-      <EtfmaBreadcrumbItem v-for="item in breadcrumbList" :key="item.path">
-        <EtfmaDropdown v-if="hasRedirect(breadcrumbList, item)" @command="handleMenuEvent">
+    <ElBreadcrumb :separator="separator">
+      <ElBreadcrumbItem v-for="item in breadcrumbList" :key="item.path">
+        <ElDropdown v-if="hasRedirect(breadcrumbList, item)" @command="handleMenuEvent">
           <div :class="ns.b('dropdown')">
             <Icon :icon="getIcon(item)" v-if="getIcon(item)" />
             <router-link to="" @click="handleClick(item, $event)">
@@ -83,19 +83,19 @@
             </router-link></div
           >
           <template #dropdown>
-            <EtfmaDropdownMenu>
-              <EtfmaDropdownItem :command="cItem.path" v-for="cItem in item.children">
+            <ElDropdownMenu>
+              <ElDropdownItem :command="cItem.path" v-for="cItem in item.children">
                 <Icon v-if="getIcon(cItem)" :icon="getIcon(cItem)" />
                 <span>{{ getTitle(cItem) }}</span>
-              </EtfmaDropdownItem>
-            </EtfmaDropdownMenu>
+              </ElDropdownItem>
+            </ElDropdownMenu>
           </template>
-        </EtfmaDropdown>
+        </ElDropdown>
         <span v-else>
           {{ getTitle(item) }}
         </span>
-      </EtfmaBreadcrumbItem>
-    </EtfmaBreadcrumb>
+      </ElBreadcrumbItem>
+    </ElBreadcrumb>
   </div>
 </template>
 <style lang="scss" module>

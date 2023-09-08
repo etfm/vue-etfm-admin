@@ -165,7 +165,7 @@
 
 <style module lang="scss">
   @include b('header') {
-    @include set-component-css-var('header', $header-area);
+    @include set-component-css-var('header', $header);
 
     top: 0;
     width: 100%;

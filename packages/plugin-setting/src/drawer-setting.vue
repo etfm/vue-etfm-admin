@@ -9,14 +9,12 @@
 </script>
 
 <template>
-  <BasicDrawer @register="register" title="项目设置">
+  <BasicDrawer @register="register" title="项目设置" append-to-body>
     <ElDivider> 主题 </ElDivider>
     <DarkMode />
 
-    <ElDivider> 亮色主题 </ElDivider>
-    <ColorPicker theme="light" />
-    <ElDivider> 暗色主题 </ElDivider>
-    <ColorPicker theme="dark" />
+    <ElDivider> 系统主题 </ElDivider>
+    <ColorPicker />
 
     <ElDivider> 导航栏模式 </ElDivider>
     <TypePicker />

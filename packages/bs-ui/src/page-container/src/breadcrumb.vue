@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { useNamespace } from '@etfm/hooks';
   import { MenuRecordRaw } from '@etfm/types';
-  import { EtfmaBreadcrumb, EtfmaBreadcrumbItem } from '@etfm/ui';
+  import { ElBreadcrumb, ElBreadcrumbItem } from 'element-plus';
   import { watchEffect, unref, ref, computed } from 'vue';
   import { useRouter } from 'vue-router';
   import { Icon } from '@etfm/icon';
@@ -73,8 +73,8 @@
 <template>
   <header>
     <div :class="b()">
-      <EtfmaBreadcrumb :separator="separator">
-        <EtfmaBreadcrumbItem v-for="item in getBreadcrumbList" :key="item.path">
+      <ElBreadcrumb :separator="separator">
+        <ElBreadcrumbItem v-for="item in getBreadcrumbList" :key="item.path">
           <router-link v-if="hasRedirect(item)" to="" @click="handleClick(item, $event)">
             <div :class="e('link')">
               <Icon :icon="getIcon(item)" v-if="getIcon(item)" />
@@ -85,8 +85,8 @@
           <span v-else>
             {{ getTitle(item) }}
           </span>
-        </EtfmaBreadcrumbItem>
-      </EtfmaBreadcrumb>
+        </ElBreadcrumbItem>
+      </ElBreadcrumb>
     </div>
   </header>
 </template>

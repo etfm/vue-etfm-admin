@@ -247,55 +247,31 @@ $disabled: map.merge(
   $disabled
 );
 
-// Components
-// -----------------------------
-
-// Float-Area
-$float-area: () !default;
-$float-area: map.merge(
-  (
-    'box-shadow': (
-      4px 6px 6px 0 rgb(31 50 88 / 8%),
-    ),
-  ),
-  $float-area
-);
-
-// Aside-Area
-$aside-area: () !default;
-$aside-area: map.merge(
+// Aside
+$aside: () !default;
+$aside: map.merge(
   (
     'bg-color': getCssVar('bg-color'),
   ),
-  $aside-area
+  $aside
 );
 
-// Header-Area
-$header-area: () !default;
-$header-area: map.merge(
+// Header
+$header: () !default;
+$header: map.merge(
   (
     'bg-color': getCssVar('bg-color'),
   ),
-  $header-area
+  $header
 );
 
-// Toolbar-Area
-$toolbar-area: () !default;
-$toolbar-area: map.merge(
+// Toolbar
+$toolbar: () !default;
+$toolbar: map.merge(
   (
     'bg-color': getCssVar('bg-color'),
   ),
-  $toolbar-area
-);
-
-// popper
-// Pay attention to the difference between 'popper' and 'popover'
-$popper: () !default;
-$popper: map.merge(
-  (
-    'border-radius': var(#{getCssVarName('popover-border-radius')}, 4px),
-  ),
-  $popper
+  $toolbar
 );
 
 // transition
@@ -333,143 +309,4 @@ $transition-function: map.merge(
     'fast-bezier': cubic-bezier(0.23, 1, 0.32, 1),
   ),
   $transition-function
-);
-
-// Menu
-$menu: () !default;
-$menu: map.merge(
-  (
-    'active-color': getCssVar('color-primary'),
-    'active-bg-color': getCssVar('color-primary'),
-    'text-color': getCssVar('text-color-primary'),
-    'hover-text-color': getCssVar('color-primary'),
-    'bg-color': getCssVar('fill-color', 'blank'),
-    'hover-bg-color': getCssVar('color-primary-light-9'),
-    'bg-sub-menu-item-color': inherit,
-    'bg-sub-menu-item-active-color': rgba(242, 243, 245),
-    'bg-sub-menu-item-hover-color': rgba(242, 243, 245),
-    'item-height': 40px,
-    'sub-item-height': calc(#{getCssVar('menu-item-height')}),
-    'horizontal-sub-item-height': 36px,
-    'item-font-size': getCssVar('font-size-base'),
-    'item-hover-fill': getCssVar('color-primary-light-9'),
-    'border-color': getCssVar('border-color'),
-    'base-level-padding': 20px,
-    'level-padding': 20px,
-    'icon-width': 24px,
-  ),
-  $menu
-);
-
-// Tag
-$tag: () !default;
-$tag: map.merge(
-  (
-    'font-size': 12px,
-    'border-radius': 4px,
-    'border-radius-rounded': 9999px,
-  ),
-  $tag
-);
-$tag-height: () !default;
-$tag-height: map.merge(
-  (
-    'large': 32px,
-    'default': 24px,
-    'small': 20px,
-  ),
-  $tag-height
-);
-$tag-padding: () !default;
-$tag-padding: map.merge(
-  (
-    'large': 12px,
-    'default': 10px,
-    'small': 8px,
-  ),
-  $tag-padding
-);
-$tag-icon-size: () !default;
-$tag-icon-size: map.merge(
-  (
-    'large': 16px,
-    'default': 14px,
-    'small': 12px,
-  ),
-  $tag-icon-size
-);
-
-// Scrollbar
-// css3 var in packages/theme-chalk/src/scrollbar.scss
-$scrollbar: () !default;
-$scrollbar: map.merge(
-  (
-    'opacity': 0.3,
-    'bg-color': getCssVar('text-color-secondary'),
-    'hover-opacity': 0.5,
-    'hover-bg-color': getCssVar('text-color-secondary'),
-  ),
-  $scrollbar
-);
-
-// Dropdown
-$dropdown: () !default;
-$dropdown: map.merge(
-  (
-    'menu-box-shadow': getCssVar('box-shadow-light'),
-    'menuItem-hover-fill': getCssVar('color-primary-light-9'),
-    'menuItem-hover-color': getCssVar('color-primary'),
-    'menu-index': 10,
-  ),
-  $dropdown
-);
-
-$dropdown-item-line-height: () !default;
-$dropdown-item-line-height: map.merge(
-  (
-    'large': 22px,
-    'default': 22px,
-    'small': 20px,
-  ),
-  $dropdown-item-line-height
-);
-$dropdown-item-padding: () !default;
-$dropdown-item-padding: map.merge(
-  (
-    'large': 7px 20px,
-    'default': 5px 16px,
-    'small': 2px 12px,
-  ),
-  $dropdown-item-padding
-);
-$dropdown-item-divided-margin: () !default;
-$dropdown-item-divided-margin: map.merge(
-  (
-    'large': 8px 0,
-    'default': 6px 0,
-    'small': 4px 0,
-  ),
-  $dropdown-item-divided-margin
-);
-$dropdown-caret-width: () !default;
-$dropdown-caret-width: map.merge($common-component-size, $dropdown-caret-width);
-$dropdown-divider-width: 1px !default;
-$dropdown-menu-padding-vertical: () !default;
-$dropdown-menu-padding-vertical: map.merge(
-  (
-    'large': 8px,
-    'default': 6px,
-    'small': 4px,
-  ),
-  $dropdown-menu-padding-vertical
-);
-
-$input-font-size: () !default;
-$input-font-size: map.merge(
-  (
-    'large': 14px,
-    'default': 14px,
-    'small': 12px,
-  ),
-  $input-font-size
 );

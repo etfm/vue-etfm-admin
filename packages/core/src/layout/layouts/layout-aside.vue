@@ -276,7 +276,7 @@
 </script>
 <style module lang="scss">
   :root {
-    @include set-component-css-var('aside', $aside-area);
+    @include set-component-css-var('aside', $aside);
   }
   @include b('aside') {
     position: fixed;

@@ -28,7 +28,6 @@
   "dependencies": {
     "@etfm/hooks": "workspace:^0.0.0",
     "@etfm/shared": "workspace:*",
-    "@etfm/ui": "workspace:^",
     "@etfma/design": "workspace:^0.0.0",
     "classnames": "^2.3.2",
     "events": "^3.3.0",

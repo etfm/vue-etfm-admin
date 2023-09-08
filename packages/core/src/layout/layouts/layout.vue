@@ -144,27 +144,39 @@
    */
   const tabTop = computed(() => (fullContent.value ? 0 : props.headerHeight));
 
-  /**
-   * header z-index
-   */
-  const headerZIndex = computed(() => {
-    const { zIndex } = props;
-    return zIndex! + 1;
-  });
-
-  /**
-   * 侧边栏z-index
-   */
   const sideZIndex = computed(() => {
-    const { isMobile } = props;
-    return isMobile ? headerZIndex.value + 1 : headerZIndex.value;
+    const { zIndex, isMobile } = props;
+    const offset = isMobile || isSideMode.value ? 1 : -1;
+    return zIndex! + offset;
   });
 
   const maskStyle = computed((): CSSProperties => {
     return {
-      zIndex: headerZIndex.value,
+      zIndex: props.zIndex,
     };
   });
+
+  /**
+   * header z-index
+   */
+  // const headerZIndex = computed(() => {
+  //   const { zIndex } = props;
+  //   return zIndex! + 1;
+  // });
+
+  // /**
+  //  * 侧边栏z-index
+  //  */
+  // const sideZIndex = computed(() => {
+  //   const { isMobile } = props;
+  //   return isMobile ? headerZIndex.value + 1 : headerZIndex.value;
+  // });
+
+  // const maskStyle = computed((): CSSProperties => {
+  //   return {
+  //     zIndex: headerZIndex.value,
+  //   };
+  // });
 
   watchEffect(() => {
     sideCollapseState.value = props.isMobile;
@@ -223,7 +235,7 @@
         v-if="headerVisible"
         :skeleton="skeleton"
         :show="!fullContent"
-        :z-index="headerZIndex"
+        :z-index="zIndex"
         :height="headerHeight"
         :width="getHeaderWidth"
         :fixed="getHeaderFixed"

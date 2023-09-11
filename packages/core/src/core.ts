@@ -73,6 +73,10 @@ const pluginContextApiAssembler: IPluginContextApiAssembler = {
   },
 };
 
+setTimeout(() => {
+  event.emit('aaa', '1222');
+}, 3000);
+
 const innerPlugins = new PluginManager(pluginContextApiAssembler);
 plugins = new Plugins(innerPlugins).toProxy();
 editor.set('innerPlugins', innerPlugins);

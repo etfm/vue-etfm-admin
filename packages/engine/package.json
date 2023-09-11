@@ -1,5 +1,5 @@
 {
-  "name": "@etfm/ui",
+  "name": "etfm-engine1",
   "version": "0.0.0",
   "description": "> TODO: description",
   "homepage": "https://github.com/etfm/vue-etfm-admin#readme",
@@ -13,16 +13,7 @@
   "license": "ISC",
   "author": "lzdjack <1956252575@qq.com>",
   "sideEffects": false,
-  "exports": {
-    ".": {
-      "development": "./src/index.ts",
-      "default": "./dist/index.mjs",
-      "types": "./dist/index.d.ts"
-    }
-  },
-  "main": "./dist/index.mjs",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
+  "main": "./src/index.ts",
   "files": [
     "dist",
     "src"
@@ -35,29 +26,28 @@
     "test": "node ./__tests__/@etfma/http.test.js"
   },
   "dependencies": {
-    "@etfm/hooks": "workspace:*",
+    "@etfm/hooks": "workspace:^0.0.0",
     "@etfm/shared": "workspace:*",
-    "@vueuse/core": "^9.13.0",
-    "vue": "^3.3.4",
-    "vue-router": "^4.1.6"
+    "store": "^2.0.12"
   },
   "devDependencies": {
-    "@etfm/types": "workspace:*",
-    "@vue/runtime-core": "^3.3.4"
+    "@etfm/types": "workspace:^0.0.0",
+    "@types/events": "^3.0.0",
+    "semver": "^7.5.1",
+    "strict-event-emitter-types": "^2.0.0"
   },
   "peerDependencies": {
-    "vue": "^3.3.4"
+    "vue": "^3.3.4",
+    "vue-i18n": "^9.2.2",
+    "vue-router": "^4.1.6"
   },
   "publishConfig": {
     "access": "public",
     "exports": {
       ".": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.mjs"
+        "default": "./dist/index.mjs",
+        "types": "./dist/index.d.ts"
       }
-    },
-    "main": "./dist/index.mjs",
-    "module": "./dist/index.mjs",
-    "types": "./dist/index.d.ts"
+    }
   }
 }

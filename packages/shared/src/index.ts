@@ -17,3 +17,6 @@ export { NOOP } from '@vue/shared';
 export * from './rand';
 export * from './refs';
 export * from './deepMerge';
+export * from './unique-id';
+export * from './is-plugin-event-name';
+export * from './has-own-property';
